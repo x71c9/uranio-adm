@@ -4,8 +4,8 @@
  * @packageDocumentation
  */
 
-import {FullClientConfiguration} from './types';
+// import {FullClientConfiguration} from './types';
 
-export const adm_client_config:FullClientConfiguration = {
+// export const adm_client_config:FullClientConfiguration = {
 
-};
+// };

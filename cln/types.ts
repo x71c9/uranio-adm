@@ -6,4 +6,4 @@
 
 export * from '../trx/cln/types';
 
-export * from '../typ/conf_cln';
+// export * from '../typ/conf_cln';
