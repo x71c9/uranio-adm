@@ -4,21 +4,15 @@
  * @packageDocumentation
  */
 
-import {RawName} from '../raw/types';
+// type RequiredClientConfigParams = {}
 
-type RequiredClientConfigParams = {
-	raw: RawName
-	base_url: string
-}
+// type OptionalClientConfigParam = {}
 
-type OptionalClientConfigParam = {
-}
+// export type ClientConfiguration =
+//   RequiredClientConfigParams &
+//   Partial<OptionalClientConfigParam>;
 
-export type ClientConfiguration =
-	RequiredClientConfigParams &
-	Partial<OptionalClientConfigParam>;
-
-export type FullClientConfiguration =
-	RequiredClientConfigParams &
-	OptionalClientConfigParam;
+// export type FullClientConfiguration =
+//   RequiredClientConfigParams &
+//   OptionalClientConfigParam;
 
