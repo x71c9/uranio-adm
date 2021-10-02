@@ -1,0 +1,5 @@
+[submodule "trx"]
+	path = trx
+	url = git+ssh://git@bitbucket.org/nbl7/urn-trx.git
+	branch = master
+	update = rebase
