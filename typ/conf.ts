@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import {FullConfiguration as ApiFullConfiguration} from 'uranio-api/types';
+import {FullConfiguration as ApiFullConfiguration} from 'uranio-trx/types';
 
 type RequiredConfigParams = {
 }
