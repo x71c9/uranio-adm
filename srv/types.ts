@@ -6,9 +6,9 @@
 
 export * from '../trx/srv/types';
 
-// Override Book from '../core/srv/types' by '../typ/book_cln'
-// import {FullConfiguration, Configuration} from '../typ/conf';
+// Override Book from '../trx/srv/types' by '../typ/book_cln'
+import {FullConfiguration, Configuration} from '../typ/conf';
 
-// export {FullConfiguration, Configuration};
+export {FullConfiguration, Configuration};
 
-// export * from '../typ/conf';
+export * from '../typ/conf';
