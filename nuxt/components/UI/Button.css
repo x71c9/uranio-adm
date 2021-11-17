@@ -1,0 +1,22 @@
+.button {
+  height: 52px;
+  width: 96px;
+}
+
+.button-1 {
+  background-color: #0084ff;
+  border-radius: 8px;
+  box-shadow: 0 1px 1px #00000014, 0 2px 1px #0000000f, 0 1px 3px #0000001a;
+  height: 52px;
+  position: relative;
+}
+
+.text {
+  left: 16px;
+  letter-spacing: 0;
+  line-height: 28px;
+  position: absolute;
+  text-align: center;
+  top: 12px;
+  white-space: nowrap;
+}
