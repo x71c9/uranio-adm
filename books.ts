@@ -10,6 +10,6 @@ export const atom = {
 export const bll = {
 } as const;
 
-export const api = {
+export const dock = {
 } as const;
 
