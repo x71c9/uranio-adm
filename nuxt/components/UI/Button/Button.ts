@@ -16,7 +16,7 @@ type Props = {
 
 export default Vue.extend<Data, Methods, Computed, Props>({
 	data():Data {
-		const label = 'Button.';
+		const label = 'Button';
 		return {
 			label
 		};
