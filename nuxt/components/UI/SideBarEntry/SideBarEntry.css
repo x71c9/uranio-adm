@@ -1,0 +1,18 @@
+.x1-one-line-2 {
+	background-color: var(--dodger-blue-2);
+	align-items: center;
+	border-radius: 8px;
+	display: flex;
+	height: 44px;
+	margin-top: 34px;
+	overflow: hidden;
+	padding: 0 15px;
+}
+.x1-one-line-3 {
+	align-items: center;
+	display: flex;
+	height: 44px;
+	margin-top: 8px;
+	padding: 0 15px;
+	width: 272px;
+}
