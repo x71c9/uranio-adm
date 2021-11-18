@@ -2,7 +2,7 @@
 	<div class="flex-col">
 		<UISideBarEntry :entry="home_entry"></UISideBarEntry>
 		<div class="side-bar-group">
-			<!-- <UISideBarLabel>Atoms</UISideBarLabel>-->
+			<UISideBarLabel label="Atoms"></UISideBarLabel>
 			<AtomNav />
 		</div>
 	</div>
@@ -13,8 +13,12 @@
 	margin-top: 24px;
 	width: 100%;
 }
+.side-bar-group ul{
+	margin-top: 8px;
+}
 .flex-col {
 	display: flex;
 	flex-direction: column;
+	padding-top: 34px;
 }
 </style>
