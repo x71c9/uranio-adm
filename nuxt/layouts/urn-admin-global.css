@@ -47,6 +47,10 @@
 
   --font-family-inter: "Inter";
   --font-family-pt_mono: "PT Mono";
+
+  --padx05: 6px;
+  --padx1: 12px;
+  --padx2: 24px;
 }
 
 /* Classes */

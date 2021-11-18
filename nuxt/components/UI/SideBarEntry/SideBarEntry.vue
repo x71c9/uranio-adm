@@ -1,10 +1,20 @@
 <template>
-	<NuxtLink :to="entry.to">
-		<div class="x1-one-line-3">
-			<img class="icon" src="img/icon-45@2x.png">
-			<div class="label inter-medium-white-16px">
-				<span class="inter-medium-white-16px">Home</span>
+	<NuxtLink class="ui-sidebar-entry" :to="entry.to">
+		<div class="x1-one-line">
+			<div class="x-base1-one-lin-left-label-icon">
+				<img v-if="entry.icon" class="icon" :src="entry.icon">
+				<div
+					class="label-3 inter-normal-white-16px"
+					:class="{'label-with-margin': entry.icon}"
+					>
+					<span class="inter-normal-white-16px">{{ entry.label }}</span>
+				</div>
 			</div>
+			<!-- <div class="counter">-->
+			<!--   <div class="x0 inter-normal-white-10px">-->
+			<!--     <span class="inter-normal-white-10px">453</span>-->
+			<!--   </div>-->
+			<!-- </div>-->
 		</div>
 	</NuxtLink>
 </template>

@@ -1,7 +1,7 @@
 <template>
 	<ul>
-		<li v-for="item in items" :key="item.id">
-			<!-- <UISideBarEntry :entry="item"></UISideBarEntry>-->
+		<li v-for="item in items" :key="item.to">
+			<UISideBarEntry :entry="item"></UISideBarEntry>
 		</li>
 	</ul>
 </template>

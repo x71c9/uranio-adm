@@ -14,5 +14,8 @@ body{
   flex: 1 1 auto;
 }
 .ui-section-sidebar{
+  width: 100%;
   max-width: 300px;
+  padding: var(--padx1);
+  box-sizing: border-box;
 }
