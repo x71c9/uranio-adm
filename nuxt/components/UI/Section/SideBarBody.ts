@@ -27,7 +27,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		const home_entry = {
 			to: '/urn-admin',
 			label: 'Home',
-			icon: `img/icons/png/dashboard.png`
+			icon: `/img/icons/png/dashboard.png`
 		};
 		return {
 			home_entry

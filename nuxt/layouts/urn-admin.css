@@ -1,4 +1,5 @@
 body{
+  height: 100%;
   background-color: var(--licorice);
   color: var(--white-3);
   font-family: var(--font-family-inter);
@@ -7,15 +8,114 @@ body{
 }
 .main-container{
   background-color: var(--licorice);
-  display: flex;
-  overflow: hidden;
+  padding-left: 300px;
 }
-.main-flex{
-  flex: 1 1 auto;
-}
+
+/* SIDEBAR */
+
 .ui-section-sidebar{
-  width: 100%;
-  max-width: 300px;
+  background-color: var(--licorice);
+  width: 300px;
   padding: var(--padx1);
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
 }
+
+/* SIDEBAR HEADER */
+
+.ui-sidebar-header {
+    align-items: center;
+    display: flex;
+    margin-top: 8px;
+    padding-bottom: 8px;
+}
+.logo {
+    align-items: flex-start;
+    background-color: var(--licorice);
+    border-radius: 8px;
+    display: flex;
+    height: 56px;
+    min-width: 56px;
+    padding: 15.3px 15.3px;
+}
+.group-1 {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+    min-height: 48px;
+}
+.text-icon {
+    align-items: center;
+    border-radius: 8px;
+    display: flex;
+    height: 28px;
+    overflow: hidden;
+}
+.text-2 {
+    letter-spacing: 0;
+    line-height: 28px;
+    min-height: 28px;
+    white-space: nowrap;
+}
+.right-icon {
+    height: 24px;
+    margin-left: 8px;
+    width: 24px;
+}
+.palo-alto-ca {
+    letter-spacing: 0;
+    line-height: 20px;
+    min-height: 20px;
+    white-space: nowrap;
+}
+
+/* SIDEBAR BODY */
+
+.ui-sidebar-body {
+	display: flex;
+	flex-direction: column;
+	padding-top: 34px;
+  overflow: auto;
+}
+.side-bar-group{
+	margin-top: 24px;
+	width: 100%;
+}
+.side-bar-group ul{
+	margin-top: 8px;
+}
+
+/* SIDEBAR FOOTER */
+
+.x1-one-line-7 {
+	align-items: center;
+	display: flex;
+	height: 44px;
+	padding: 0 15px;
+	background-color: transparent;
+	border: 0;
+  width: 100%;
+}
+.icon-11 {
+	height: 18px;
+	margin-bottom: 0.01px;
+	width: 18px;
+}
+.label-10 {
+	letter-spacing: 0;
+	line-height: 24px;
+	margin-left: 15px;
+	min-height: 24px;
+	min-width: 61px;
+	white-space: nowrap;
+}
+.side-bar-group-footer{
+	margin-top: auto;
+}
+

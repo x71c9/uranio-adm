@@ -1,7 +1,7 @@
 <template>
-	<div class="flex-row-1">
+	<div class="ui-sidebar-header">
 		<div class="logo border-1px-white-5">
-			<img class="icon-3" src="img/icons/@2x/icon-217@2x.png">
+			<img class="icon-3" src="/img/icons/@2x/icon-217@2x.png">
 		</div>
 		<div class="group-1">
 			<div class="text-icon">
@@ -16,4 +16,3 @@
 		</div>
 	</div>
 </template>
-<style type="text/css" src="./SideBarHeader.css"></style>

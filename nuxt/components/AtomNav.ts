@@ -31,7 +31,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 				label: label.charAt(0).toUpperCase() + label.slice(1),
 				to: `/urn-admin/${atom_name}`,
 				// icon: `img/icons/@2x/workspaces-filled-1@2x.png`
-				icon: `img/icons/svg/filter_none.svg`
+				icon: `/img/icons/svg/filter_none.svg`
 			});
 		}
 		return {
