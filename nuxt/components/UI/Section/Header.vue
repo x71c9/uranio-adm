@@ -4,6 +4,7 @@
 		<div class="ui-header-el ui-header-searchbar search-bar">
 			<div class="left">
 				<!-- <img class="icon-12" src="/img/icons/@2x/icon-58@2x.png">-->
+				<img class="icon-12" src="/img/icons/png/search.png">
 				<input
 					class="search-input inter-normal-white-16px-2"
 					type="text"

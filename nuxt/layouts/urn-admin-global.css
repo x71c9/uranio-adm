@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Inter:wght@300;400;500;700&display=swap');
 
 /* Variables */
 
@@ -37,6 +37,8 @@
   --white-3: rgba(255, 255, 255, 0.902);
   --white: rgba(255, 255, 255, 1);
 
+  --pink: #bd008c;
+
   --font-size-xxs: 10px;
   --font-size-xs: 12px;
   --font-size-s: 13px;
@@ -46,13 +48,16 @@
   --font-size-xxl: 36px;
 
   --font-family-inter: "Inter";
-  --font-family-pt_mono: "PT Mono";
+  --font-family-pt_mono: "IBM Plex Mono";
+  --monospace: "IBM Plex Mono", monospace;
 
   --padx05: 6px;
   --padx1: 12px;
   --padx2: 24px;
   --padx4: 48px;
   --padx8: 96px;
+
+  --border-2px: 2px solid var(--eerie-black);
 }
 
 input:-webkit-autofill,
@@ -65,10 +70,25 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   -webkit-text-fill-color: #fff;
-  -webkit-box-shadow: 0 0 0px 1000px #111 inset;
+  /* -webkit-box-shadow: 0 0 0px 1000px #111 inset; */
+  -webkit-box-shadow: 0 0 0px 1000px #1c1c1c inset;
   border-radius: 0;
   /* background-color: #000 !important; */
   /* color: #fff !important; */
+}
+
+.monospace{
+  font-family: var(--font-family-pt_mono);
+}
+a{
+  text-decoration: none;
+  color: var(--white);
+}
+a:hover{
+  color: var(--azure-radiance);
+}
+a:visited{
+  color: var(--pink);
 }
 
 /* Classes */

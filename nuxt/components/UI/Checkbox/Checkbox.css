@@ -1,0 +1,32 @@
+.checkbox input{
+  display: none;
+}
+.checkbox{
+  background-color: var(--black-5);
+  border: 2px solid var(--white-5);
+  border-radius: 4px;
+  box-shadow: 0px 1px 1px #0000000f;
+  height: 20px;
+  width: 20px;
+}
+.checkbox:hover{
+  background-color: var(--azure-radiance);
+}
+.checkbox:active{
+  background-color: var(--azure-radiance);
+  box-shadow: 0;
+}
+.checkbox img{
+  position: relative;
+  top: -4px;
+  left: -4px;
+  width: 24px;
+  opacity: 0;
+}
+.checkbox.checked img.state-checked{
+  opacity: 1;
+}
+.checkbox.disabled img.state-disabled{
+  opacity: 1;
+}
+
