@@ -1,22 +1,57 @@
-.button {
-  height: 52px;
-  width: 96px;
-}
-
-.button-1 {
-  background-color: #0084ff;
+.button{
+  align-items: center;
+  background-color: var(--azure-radiance);
+  border-width: 0;
   border-radius: 8px;
-  box-shadow: 0 1px 1px #00000014, 0 2px 1px #0000000f, 0 1px 3px #0000001a;
+  box-shadow: 0px 1px 1px #00000014, 0px 2px 1px #0000000f, 0px 1px 3px #0000001a;
+  display: flex;
   height: 52px;
+  padding: 0 16px;
+  cursor: pointer;
   position: relative;
+  color: var(--white);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-l);
+  font-weight: 500;
+  font-style: normal;
+}
+.button:hover{
+  background-color: var(--dodger-blue);
+}
+.button:active{
+  box-shadow: 0;
+  top: 1px;
+}
+.button.small{
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  min-height: 24px;
+  height: 40px;
+  padding: 0 12px;
+}
+.button.tiny{
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  min-height: 20px;
+  height: 28px;
+  padding: 0 8px;
+}
+.button.secondary{
+  background-color: var(--white);
+  box-shadow: 0px 1px 1px #0000000f;
+  display: flex;
+  color: var(--eerie-black);
+}
+.button.borderless{
+  background: transparent;
+  color: var(--azure-radiance);
+}
+.button.disabled{
+  background-color: var(--white-6);
+  color: var(--black);
 }
 
-.text {
-  left: 16px;
-  letter-spacing: 0;
-  line-height: 28px;
-  position: absolute;
-  text-align: center;
-  top: 12px;
-  white-space: nowrap;
-}
