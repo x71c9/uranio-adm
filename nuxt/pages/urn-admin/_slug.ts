@@ -40,9 +40,9 @@ export default {
 		let atoms: uranio.types.Molecule<A>[] = [];
 		
 		if(urn_util.object.has_key(atom_book, atom_name)){
-			const atom_def = atom_book[atom_name];
-			if(urn_util.object.has_key(atom_def, "plural")){
-				plural = (atom_def as any).plural;
+			const atom_def = atom_book[atom_name] as uranio.types.Book.BasicDefinition;
+			if(urn_util.object.has_key(atom_def, 'plural') && atom_def.plural){
+				plural = atom_def.plural;
 			}
 			const trx_base = uranio.trx.base.create<A>(atom_name);
 			const trx_hook = trx_base.hook('find');

@@ -1,6 +1,8 @@
 
 import Vue from 'vue';
 
+import { urn_util } from "urn-lib";
+
 import uranio from 'uranio';
 
 import { atom_book } from "uranio-books/atom";
@@ -26,9 +28,13 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		for (const atom_name in atom_book) {
 			const atom_def = atom_book[atom_name as keyof typeof atom_book] as
 				uranio.types.Book.BasicDefinition;
-			const label = atom_def.plural || atom_name;
+			let plural = `${atom_name}s`;
+			if(urn_util.object.has_key(atom_def, 'plural') && atom_def.plural){
+				plural = atom_def.plural;
+			}
 			items.push({
-				label: label.charAt(0).toUpperCase() + label.slice(1),
+				// label: label.charAt(0).toUpperCase() + label.slice(1),
+				label: plural,
 				to: `/urn-admin/${atom_name}`,
 				// icon: `img/icons/@2x/workspaces-filled-1@2x.png`
 				icon: `/img/icons/svg/filter_none.svg`

@@ -1,7 +1,16 @@
 <template>
 	<div>
 		<div v-if="success">
-			<h2>{{ plural }}</h2>
+			<div class="flex-row-3">
+				<h1 class="ui-flex-row-3-el today inter-medium-white-36px">
+					<span class="inter-medium-white-36px">{{ plural }}</span>
+				</h1>
+				<div class="ui-flex-row-3-el">
+					<UIButton>Add Product</UIButton>
+					<UIButton class="borderless">Export</UIButton>
+					<UIButton class="borderless">Import</UIButton>
+				</div>
+			</div>
 			<NuxtLink :to="`/urn-admin/${atom_name}/new`">
 				<span>New {{ _self.atom_name }}</span>
 			</NuxtLink>
