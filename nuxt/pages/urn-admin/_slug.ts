@@ -27,6 +27,12 @@ export default {
 	layout(): string {
 		return "urn-admin";
 	},
+	provide():any{
+		return {
+			atoms: (this as any).atoms,
+			atom_name: (this as any).atom_name
+		};
+	},
 	async asyncData<A extends uranio.types.AtomName>(context:Context)
 			:Promise<ReturnData<A>> {
 		
@@ -49,7 +55,7 @@ export default {
 			const trx_response = await trx_hook({
 				query:{
 					options: {
-						limit: 3,
+						limit: 30,
 						sort: {
 							_date: -1
 						}
