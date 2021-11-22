@@ -1,0 +1,228 @@
+.pagination {
+    align-items: center;
+    display: flex;
+    margin-top: 24px;
+    min-width: 389px;
+
+    .ui-page-label {
+        letter-spacing: 0;
+        line-height: 24px;
+        min-height: 24px;
+        min-width: 95px;
+        text-align: center;
+        white-space: nowrap;
+    }
+    .buttons {
+        align-items: flex-start;
+        display: flex;
+        margin-left: 12px;
+        min-width: 175px;
+    }
+    .default {
+        align-items: center;
+        display: flex;
+    }
+    .button-text-arrow{
+        align-items: center;
+        background-color: var(--licorice);
+        border-color: var(--black-3);
+        border-radius: 8px;
+        box-shadow: 0px 1px 1px #0000000f;
+        display: flex;
+        height: 40px;
+        overflow: hidden;
+        padding: 0 8px;
+        width: 83px;
+        margin-right: 8px;
+        color: var(--white);
+        font-family: var(--font-family-inter);
+        font-size: 16px;
+        font-size: var(--font-size-m);
+        font-weight: 500;
+        font-style: normal;
+        position: relative;
+        cursor: pointer;
+    }
+    .button-text-arrow.disabled{
+        opacity: .4;
+    }
+    .button-prev {
+        margin-left: 0;
+        margin-right: 8px;
+    }
+    .button-next {
+        margin-left: 8px;
+        margin-right: 0;
+    }
+    .icon {
+        height: 20px;
+        width: 20px;
+    }
+    .text-3 {
+        letter-spacing: 0;
+        line-height: 24px;
+        margin-left: 8px;
+        min-height: 24px;
+        min-width: 35px;
+        text-align: center;
+        white-space: nowrap;
+    }
+    .text-4 {
+        letter-spacing: 0;
+        line-height: 24px;
+        margin-left: 4px;
+        min-height: 24px;
+        min-width: 36px;
+        text-align: center;
+        white-space: nowrap;
+    }
+    .icon-1 {
+        height: 20px;
+        margin-left: 8px;
+        width: 20px;
+    }
+    .ui-page-label-1 {
+        letter-spacing: 0;
+        line-height: 24px;
+        margin-left: 12px;
+        min-height: 24px;
+        min-width: 95px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .pag-button.button-arrow-left{
+        margin-left: 0;
+    }
+    .pag-button {
+        align-items: center;
+        background-color: var(--licorice);
+        border-radius: 8px;
+        box-shadow: 0px 1px 1px #0000000f;
+        display: flex;
+        height: 40px;
+        margin-left: 8px;
+        overflow: hidden;
+        padding: 0 12px;
+        width: 45px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: var(--black-3);
+        color: rgba(28, 28, 28, 1);
+        color: var(--white-4);
+        font-family: var(--font-family-inter);
+        font-size: 16px;
+        font-size: var(--font-size-m);
+        font-weight: 500;
+        font-style: normal;
+        cursor: pointer;
+        position: relative;
+    }
+    .pag-button.disabled {
+        opacity: 0.4;
+        cursor: default;
+    }
+    .pag-button.active {
+        background-color: var(--dodger-blue-2);
+        box-shadow: 0px 1px 1px #00000014, 0px 2px 1px #0000000f, 0px 1px 3px #0000001a;
+        color: rgba(255, 255, 255, 0.902);
+        color: var(--white);
+        font-family: var(--font-family-inter);
+        font-size: 16px;
+        font-size: var(--font-size-m);
+        font-weight: 500;
+        font-style: normal;
+        cursor: default;
+    }
+    .default .pag-button:last-of-type{
+        margin-right: 8px;
+    }
+    .text-dots {
+        letter-spacing: 0;
+        line-height: 24px;
+        margin-left: 8px;
+        min-height: 24px;
+        min-width: 14px;
+        text-align: center;
+        white-space: nowrap;
+    }
+    .button-arrow-right {
+        align-items: center;
+        background-color: var(--licorice);
+        border-radius: 8px;
+        box-shadow: 0px 1px 1px #0000000f;
+        border-color: var(--black-3);
+        display: flex;
+        height: 40px;
+        margin-left: 8px;
+        overflow: hidden;
+        padding: 0 10px;
+        width: 40px;
+    }
+    .button-text-arrow:not(.active):not(.disabled):hover,
+    .button-arrow:not(.active):not(.disabled):hover,
+    .pag-button:not(.active):not(.disabled):hover{
+        //background-color: var(--white-6);
+        background-color: var(--dodger-blue-2);
+        color: var(--white);
+    }
+    .button-text-arrow:not(.active):not(.disabled):active,
+    .button-arrow:not(.active):not(.disabled):active,
+    .pag-button:not(.active):not(.disabled):active{
+        top: 1px;
+    }
+    .go-to {
+        align-items: center;
+        display: flex;
+        min-width: 168px;
+        margin-left: auto;
+    }
+    .go-to-1 {
+        letter-spacing: 0;
+        line-height: 24px;
+        min-height: 24px;
+        min-width: 42px;
+        white-space: nowrap;
+    }
+    .text-field {
+        align-items: flex-start;
+        border-radius: 8px;
+        background-color: var(--licorice);
+        color: var(--white);
+        border-color: var(--black-3);
+        display: flex;
+        overflow: hidden;
+        width: 64px;
+        margin-left: var(--padx1);
+    }
+    .go-to .left {
+        align-items: center;
+        display: flex;
+        height: 40px;
+        width: 100%;
+    }
+    .go-to .text-2 {
+        letter-spacing: 0;
+        line-height: 24px;
+        margin-left: 12px;
+        min-height: 24px;
+        white-space: nowrap;
+        width: 20px;
+    }
+    .place {
+        letter-spacing: 0;
+        line-height: 24px;
+        margin-left: 12px;
+        min-height: 24px;
+        min-width: 38px;
+        white-space: nowrap;
+    }
+    .pagination_input{
+        width: 100%;
+        outline: none;
+        border: 0;
+        padding-left: var(--padx1);
+        background-color: var(--licorice);
+        color: var(--white);
+    }
+}

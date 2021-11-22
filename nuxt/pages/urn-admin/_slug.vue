@@ -40,7 +40,7 @@
 				</div>
 			</UIGroup>
 			<div v-if="atoms.length > 2">
-				Pagination
+				<UIPagination />
 			</div>
 		</div>
 		<div v-else>

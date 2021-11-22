@@ -368,6 +368,7 @@ body{
   height: 40px;
   line-height: 40px;
   vertical-align: middle;
+  color: var(--white-4);
 }
 .ui-all-table th.secondary,
 .ui-all-table th.secondary a,
