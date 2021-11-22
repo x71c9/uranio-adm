@@ -87,9 +87,9 @@ a{
 a:hover{
   color: var(--azure-radiance);
 }
-a:visited{
-  color: var(--pink);
-}
+/* a:visited{ */
+/*   color: var(--pink); */
+/* } */
 
 /* Classes */
 
