@@ -6,14 +6,16 @@
 			</div>
 			<div class="text-field border-1px-mercury">
 				<div class="left">
+					<!-- :value="(_self.page.index + 1)" -->
 					<input
 						class="pagination_input inter-normal-chicago-16px"
 						type="number"
 						name="go_to_page"
-						:placeholder="(_self.page.index + 1)"
 						min="0"
 						:max="this.page.total_page_num"
-						:value="(_self.page.index + 1)"
+						:placeholder="(_self.page.index + 1)"
+						v-model="change_page_value"
+						@keyup.enter="change_page"
 						>
 				</div>
 			</div>

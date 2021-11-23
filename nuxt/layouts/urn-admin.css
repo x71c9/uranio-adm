@@ -375,6 +375,16 @@ body{
   height: 100%;
   width: 100%;
 }
+.ui-all-table tr:hover{
+  background-color: var(--malachite-4);
+}
+.ui-all-table tr:hover td{
+  /* border-color: var(--black); */
+}
+.ui-all-table tr:hover a{
+  color: var(--white);
+  /* color: var(--azure-radiance); */
+}
 .ui-all-table tr:last-child td{
   border-bottom: 0;
 }

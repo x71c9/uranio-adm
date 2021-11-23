@@ -4,9 +4,11 @@ import Vue from 'vue';
 import {Page} from '../../../pages/urn-admin/_slug';
 
 type Data = {
+	change_page_value: number
 };
 
 type Methods = {
+	change_page: () => void
 }
 
 type Computed = {
@@ -24,6 +26,20 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	],
 	data():Data {
 		return {
+			change_page_value: this.page.index + 1
 		};
 	},
+	methods: {
+		change_page():void {
+			this.$router.push({
+				name: 'urn-admin-slug',
+				params: {
+					slug: this.atom_name
+				},
+				query: {
+					page: this.change_page_value.toString()
+				}
+			});
+		}
+	}
 });

@@ -68,7 +68,9 @@ export default {
 		let total_atom_count = 0;
 		let total_page_num = 0;
 		let index = 0;
-		const query_limit = 3; // This must be updated with the value of uranio api config `request_auto_limit`
+		// This value must should be less than the value
+		// of uranio api config `request_auto_limit`
+		const query_limit = 10;
 		
 		if(context.query.page){
 			index = parseInt(context.query.page as any) - 1;

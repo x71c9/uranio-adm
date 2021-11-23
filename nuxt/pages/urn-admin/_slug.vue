@@ -32,7 +32,7 @@
 					<UIAllTable/>
 				</div>
 			</UIGroup>
-			<div v-if="this.page.total_atom_count > 3">
+			<div v-if="this.page.total_page_num > 1 && this.page.total_atom_count > 3">
 				<UIPagination />
 			</div>
 		</div>

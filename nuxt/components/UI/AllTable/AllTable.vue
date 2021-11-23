@@ -2,7 +2,10 @@
 	<table class="ui-all-table">
 		<thead>
 			<tr class="ui-all-table-row ui-all-table-row-head">
-				<th class="check">
+				<th
+					class="check"
+					@click.stop="toggle_all"
+					>
 					<UICheckbox />
 				</th>
 				<th>
@@ -14,12 +17,18 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="atom in atoms"
-					 :key="atom._id"
-					 class="ui-all-table-row"
-					 >
-				<td class="check">
-					<UICheckbox />
+			<tr
+				v-for="atom in atoms"
+				:key="atom._id"
+				class="ui-all-table-row"
+				>
+				<td
+					class="check"
+					>
+					<UICheckbox
+						@click.native="toggle_atom(atom._id)"
+						:checked="_self.checked[atom._id]"
+						/>
 				</td>
 				<td>
 					<NuxtLink
