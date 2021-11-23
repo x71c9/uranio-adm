@@ -6,9 +6,9 @@
 					<span class="inter-medium-white-36px">{{ plural }}</span>
 				</h1>
 				<div class="ui-flex-row-3-el">
-					<NuxtLink :to="`/urn-admin/${atom_name}/new`">
+					<nuxt-link :to="`/urn-admin/${atom_name}/new`">
 						<UIButton>Add Product</UIButton>
-					</NuxtLink>
+					</nuxt-link>
 					<UIButton class="borderless">Export</UIButton>
 					<UIButton class="borderless">Import</UIButton>
 				</div>
@@ -30,16 +30,9 @@
 				</div>
 				<div class="ui-all-body">
 					<UIAllTable/>
-					<!-- <div class="ui-all-table">-->
-					<!--   <div v-for="atom in atoms" :key="atom._id">-->
-					<!--     <NuxtLink :to="`/urn-admin/${atom_name}/${atom._id}`">-->
-					<!--       {{ atom._id }}-->
-					<!--     </NuxtLink>-->
-					<!--   </div>-->
-					<!-- </div>-->
 				</div>
 			</UIGroup>
-			<div v-if="atoms.length > 2">
+			<div v-if="this.page.total_atom_count > 3">
 				<UIPagination />
 			</div>
 		</div>

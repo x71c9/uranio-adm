@@ -364,11 +364,19 @@ body{
   text-align: left;
   padding: var(--padx05);
   white-space: nowrap;
-  border-top: .1rem solid var(--p-divider);
+  border-bottom: 1px solid var(--white-5);
   height: 40px;
   line-height: 40px;
   vertical-align: middle;
   color: var(--white-4);
+}
+.ui-all-table td a{
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.ui-all-table tr:last-child td{
+  border-bottom: 0;
 }
 .ui-all-table th.secondary,
 .ui-all-table th.secondary a,

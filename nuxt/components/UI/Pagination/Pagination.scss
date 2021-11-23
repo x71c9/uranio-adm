@@ -2,21 +2,19 @@
     align-items: center;
     display: flex;
     margin-top: 24px;
-    min-width: 389px;
 
     .ui-page-label {
         letter-spacing: 0;
         line-height: 24px;
         min-height: 24px;
-        min-width: 95px;
         text-align: center;
         white-space: nowrap;
+        margin-left: auto;
     }
     .buttons {
         align-items: flex-start;
         display: flex;
         margin-left: 12px;
-        min-width: 175px;
     }
     .default {
         align-items: center;
@@ -45,6 +43,7 @@
     }
     .button-text-arrow.disabled{
         opacity: .4;
+        cursor: default;
     }
     .button-prev {
         margin-left: 0;
@@ -118,6 +117,10 @@
         cursor: pointer;
         position: relative;
     }
+    .pag-button .text{
+        width: 100%;
+        text-align: center;
+    }
     .pag-button.disabled {
         opacity: 0.4;
         cursor: default;
@@ -175,7 +178,7 @@
         align-items: center;
         display: flex;
         min-width: 168px;
-        margin-left: auto;
+        /* margin-left: auto; */
     }
     .go-to-1 {
         letter-spacing: 0;
@@ -224,5 +227,6 @@
         padding-left: var(--padx1);
         background-color: var(--licorice);
         color: var(--white);
+        margin-right: 8px;
     }
 }
