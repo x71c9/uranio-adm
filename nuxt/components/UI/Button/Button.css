@@ -48,6 +48,12 @@
   background: transparent;
   color: var(--azure-radiance);
 }
+.button.borderless:hover{
+  background-color: var(--dodger-blue-3);
+}
+.button.borderless:active{
+  background-color: var(--dodger-blue-2);
+}
 .button.disabled{
   background-color: var(--white-6);
   color: var(--black);

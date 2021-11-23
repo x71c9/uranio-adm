@@ -1,5 +1,5 @@
 <template>
-	<NuxtLink class="ui-sidebar-entry" :to="entry.to">
+	<nuxt-link class="ui-sidebar-entry" :to="entry.to">
 		<div class="x1-one-line">
 			<div class="x-base1-one-lin-left-label-icon">
 				<img v-if="entry.icon" class="icon" :src="entry.icon">
@@ -16,7 +16,7 @@
 			<!--   </div>-->
 			<!-- </div>-->
 		</div>
-	</NuxtLink>
+	</nuxt-link>
 </template>
 <script lang="ts" src="./SideBarEntry.ts"></script>
 <style type="text/css" src="./SideBarEntry.css"></style>
