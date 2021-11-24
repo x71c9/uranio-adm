@@ -6,10 +6,26 @@
 					class="check"
 					@click.stop="toggle_all"
 					>
-					<UICheckbox />
+					<UICheckbox
+						:checked="is_all_checked"
+						:indeterminate="is_all_indeterminate"
+						/>
 				</th>
 				<th>
-					_id
+					<div
+						v-if="count_selected > 0"
+						>
+						<div class="ui-button-group">
+							<UIButton class="small secondary disabled">
+								{{ count_selected }} {{ count_label }} selected
+							</UIButton>
+							<UIButton class="small secondary">Bulk edit</UIButton>
+							<UIButton class="small secondary red">Delete</UIButton>
+						</div>
+					</div>
+					<div v-else>
+						_id
+					</div>
 				</th>
 				<th class="right">
 					_date
@@ -27,7 +43,7 @@
 					>
 					<UICheckbox
 						@click.native="toggle_atom(atom._id)"
-						:checked="_self.checked[atom._id]"
+						:checked="_self.checked_by_id[atom._id]"
 						/>
 				</td>
 				<td>
