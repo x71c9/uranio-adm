@@ -20,7 +20,7 @@
 .button:hover{
   background-color: var(--dodger-blue);
 }
-.button:active{
+.button:not(.disabled):active{
   box-shadow: 0;
   top: 1px;
 }
@@ -40,9 +40,23 @@
 }
 .button.secondary{
   background-color: var(--white);
+  background-color: var(--white-6);
   box-shadow: 0px 1px 1px #0000000f;
   display: flex;
   color: var(--eerie-black);
+  color: var(--white);
+}
+.button.secondary:not(.disabled):hover{
+  background-color: var(--dodger-blue-2);
+}
+.button.secondary:not(.disabled):active{
+  background-color: var(--azure-radiance);
+}
+.button.secondary.red:not(.disabled):hover{
+  background-color: var(--coral-red-2);
+}
+.button.secondary.red:not(.disabled):active{
+  background-color: var(--coral-red);
 }
 .button.borderless{
   background: transparent;
@@ -56,6 +70,7 @@
 }
 .button.disabled{
   background-color: var(--white-6);
-  color: var(--black);
+  color: var(--white-7);
+  cursor: default;
 }
 

@@ -3,22 +3,30 @@ import Vue from 'vue';
 
 import uranio from 'uranio';
 
+import {atom_book} from 'uranio-books/atom';
+
 type Checked = {
 	[id:string]: boolean
 }
 
 type Data = {
-	selected_atoms: string[]
-	checked: Checked
+	checked_by_id: Checked
+	is_all_checked: boolean
+	is_all_indeterminate: boolean
 };
 
 type Methods = {
 	toggle_all: () => void
 	toggle_atom: (id:string) => void
-	is_checked: (id:string) => boolean
+	check_all: () => void
+	check_none: () => void
+	is_indeterminate: () => boolean
 }
 
 type Computed = {
+	selected_atoms: string[]
+	count_selected: number
+	count_label: string
 }
 
 type Props = {
@@ -36,43 +44,75 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		atom_name: Object
 	},
 	data():Data {
-		// console.log(this.atoms);
-		// console.log(this.atom_name);
-		const checked = {} as Checked;
+		const checked_by_id = {} as Checked;
 		for(let i = 0; i < this.atoms.length; i++){
-			checked[this.atoms[i]._id] = false;
+			checked_by_id[this.atoms[i]._id] = false;
 		}
+		const is_all_checked = false;
+		const is_all_indeterminate = false;
 		return {
-			selected_atoms: [],
-			checked: checked
+			checked_by_id,
+			is_all_checked,
+			is_all_indeterminate,
 		};
+	},
+	computed: {
+		selected_atoms() {
+			const selected_atoms:string[] = [];
+			for(const id in this.checked_by_id){
+				if(this.checked_by_id[id] === true){
+					selected_atoms.push(id);
+				}
+			}
+			return selected_atoms;
+		},
+		count_selected(){
+			return this.selected_atoms.length;
+		},
+		count_label(){
+			const atom_def = atom_book[this.atom_name as keyof typeof atom_book] as
+				uranio.types.Book.BasicDefinition;
+			const plural = atom_def.plural || this.atom_name + 's';
+			return (this.count_selected > 1) ? plural : this.atom_name;
+		}
 	},
 	methods: {
 		toggle_all(){
-			// this.selected_atoms = [];
-			// for(let i = 0; i < this.atoms.length; i++){
-			//   this.selected_atoms.push(this.atoms[i]._id);
-			// }
-			for(let i = 0; i < this.atoms.length; i++){
-				this.$set(this.checked, this.atoms[i]._id, true);
+			if(this.is_all_checked === false){
+				this.check_all();
+			}else{
+				this.check_none();
 			}
-			console.log(this.checked);
-			return;
+		},
+		check_all(){
+			for(let i = 0; i < this.atoms.length; i++){
+				this.$set(this.checked_by_id, this.atoms[i]._id, true);
+			}
+			this.is_all_checked = true;
+			this.is_all_indeterminate = false;
+		},
+		check_none(){
+			for(let i = 0; i < this.atoms.length; i++){
+				this.$set(this.checked_by_id, this.atoms[i]._id, false);
+			}
+			this.is_all_checked = false;
+			this.is_all_indeterminate = false;
+		},
+		is_indeterminate(){
+			return this.atoms.length !== this.count_selected;
 		},
 		toggle_atom(id:string){
-			// const index = this.selected_atoms.indexOf(id);
-			// if(index !== -1){
-			//   this.selected_atoms.splice(index, 1);
-			// }else{
-			//   this.selected_atoms.push(id);
-			// }
-			// console.log(this.selected_atoms);
-			this.checked[id] = !this.checked[id];
-			console.log(this.checked);
-			return;
+			this.checked_by_id[id] = !this.checked_by_id[id];
+			if(this.is_indeterminate()){
+				this.is_all_indeterminate = true;
+			}else{
+				this.is_all_indeterminate = false;
+			}
+			if(this.checked_by_id[id] === true){
+				this.is_all_checked = true;
+			}else if(this.count_selected === 0){
+				this.is_all_checked = false;
+			}
 		},
-		is_checked(id:string){
-			return this.selected_atoms.includes(id);
-		}
 	}
 });
