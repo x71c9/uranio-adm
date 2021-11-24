@@ -5,10 +5,12 @@ import {Page} from '../../../pages/urn-admin/_slug';
 
 type Data = {
 	change_page_value: number
+	item_per_page_value: number
 };
 
 type Methods = {
 	change_page: () => void
+	change_item_per_page: () => void
 }
 
 type Computed = {
@@ -26,7 +28,8 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	],
 	data():Data {
 		return {
-			change_page_value: this.page.index + 1
+			change_page_value: this.page.index + 1,
+			item_per_page_value: this.page.query_limit
 		};
 	},
 	methods: {
@@ -37,7 +40,20 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 					slug: this.atom_name
 				},
 				query: {
-					page: this.change_page_value.toString()
+					page: this.change_page_value.toString(),
+					limit: this.page.query_limit.toString()
+				}
+			});
+		},
+		change_item_per_page():void {
+			this.$router.push({
+				name: 'urn-admin-slug',
+				params: {
+					slug: this.atom_name
+				},
+				query: {
+					page: this.change_page_value.toString(),
+					limit: this.item_per_page_value.toString()
 				}
 			});
 		}

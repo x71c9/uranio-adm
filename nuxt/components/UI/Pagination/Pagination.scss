@@ -9,12 +9,13 @@
         min-height: 24px;
         text-align: center;
         white-space: nowrap;
-        margin-left: auto;
+        /* margin-left: auto; */
     }
     .buttons {
         align-items: flex-start;
         display: flex;
         margin-left: 12px;
+        margin-left: var(--padx4);
     }
     .default {
         align-items: center;
@@ -180,6 +181,11 @@
         min-width: 168px;
         /* margin-left: auto; */
     }
+    .ui-right{
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+    }
     .go-to-1 {
         letter-spacing: 0;
         line-height: 24px;
@@ -228,5 +234,35 @@
         background-color: var(--licorice);
         color: var(--white);
         margin-right: 8px;
+    }
+    .ui-item-per-page{
+        display: flex;
+        align-items: center;
+    }
+    .ui-item-per-page input{
+        width: 64px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+    .ui-item-per-page .button{
+        padding: 0;
+    }
+    .ui-item-per-page .button a{
+        color: inherit;
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 8px 14px;
+    }
+    .ui-item-per-page .button.secondary{
+        background-color: var(--licorice);
+    }
+    .ui-item-per-page .button.secondary.active,
+    .ui-item-per-page .button.secondary:hover{
+        background-color: var(--dodger-blue-2);
+    }
+    .pagination-label{
+        width: 118px;
+        margin-right: var(--padx2);
     }
 }

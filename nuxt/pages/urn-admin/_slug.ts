@@ -16,6 +16,7 @@ type Context = {
 	}
 	query: {
 		page: number
+		limit: number
 	}
 	error: (p: ErrorParams) => void
 };
@@ -49,7 +50,8 @@ export default {
 		return route.fullPath;
 	},
 	watchQuery: [
-		'page'
+		'page',
+		'limit'
 	],
 	async asyncData<A extends uranio.types.AtomName>(context:Context)
 			:Promise<ReturnData<A>> {
@@ -70,10 +72,18 @@ export default {
 		let index = 0;
 		// This value must should be less than the value
 		// of uranio api config `request_auto_limit`
-		const query_limit = 10;
+		let query_limit = 10;
 		
 		if(context.query.page){
 			index = parseInt(context.query.page as any) - 1;
+		}
+		if(context.query.limit){
+			query_limit = parseInt(context.query.limit as any);
+			if(query_limit < 0){
+				query_limit = 1;
+			}else if(query_limit > 128){
+				query_limit = 128;
+			}
 		}
 		
 		if(urn_util.object.has_key(atom_book, atom_name)){
