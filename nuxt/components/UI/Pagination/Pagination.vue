@@ -13,6 +13,7 @@
 					</nuxt-link>
 				</UIButton>
 				<UIButton
+					v-if="this.page.total_atom_count > 25"
 					:class="{active: this.page.query_limit === 25}"
 					class="secondary"
 					>
@@ -23,6 +24,7 @@
 					</nuxt-link>
 				</UIButton>
 				<UIButton
+					v-if="this.page.total_atom_count > 50"
 					:class="{active: this.page.query_limit === 50}"
 					class="secondary"
 					>

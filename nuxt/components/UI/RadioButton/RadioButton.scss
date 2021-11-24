@@ -1,0 +1,26 @@
+.ui-radio-button{
+	.state-deselected{
+		background-color: var(--white);
+		border-radius: 100px;
+		box-shadow: 0px 1px 1px #0000000f;
+		height: 20px;
+		width: 20px;
+	}
+	.state-selected img{
+		height: 20px;
+		margin-top: 2px;
+		width: 20px;
+	}
+	.state-deselected-disabled {
+		background-color: var(--black-haze);
+		border-radius: 100px;
+		box-shadow: 0px 1px 1px #0000000f;
+		height: 20px;
+		width: 20px;
+	}
+	.state-selected-disabled{
+		height: 20px;
+		margin-top: 2px;
+		width: 20px;
+	}
+}

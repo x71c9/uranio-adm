@@ -17,6 +17,7 @@ type Context = {
 	query: {
 		page: number
 		limit: number
+		sort: any
 	}
 	error: (p: ErrorParams) => void
 };
@@ -25,6 +26,7 @@ export type Page = {
 	total_page_num: number
 	total_atom_count: number
 	query_limit: number
+	sort_by: any
 }
 type ReturnData<N extends uranio.types.AtomName> = {
 	page: Page
@@ -51,7 +53,8 @@ export default {
 	},
 	watchQuery: [
 		'page',
-		'limit'
+		'limit',
+		'sort'
 	],
 	async asyncData<A extends uranio.types.AtomName>(context:Context)
 			:Promise<ReturnData<A>> {
@@ -70,9 +73,8 @@ export default {
 		let total_atom_count = 0;
 		let total_page_num = 0;
 		let index = 0;
-		// This value must should be less than the value
-		// of uranio api config `request_auto_limit`
 		let query_limit = 10;
+		let sort_by = {_date: -1};
 		
 		if(context.query.page){
 			index = parseInt(context.query.page as any) - 1;
@@ -84,6 +86,9 @@ export default {
 			}else if(query_limit > 128){
 				query_limit = 128;
 			}
+		}
+		if(context.query.sort){
+			sort_by = context.query.sort;
 		}
 		
 		if(urn_util.object.has_key(atom_book, atom_name)){
@@ -105,9 +110,7 @@ export default {
 					query:{
 						options: {
 							limit: query_limit,
-							sort: {
-								_date: -1
-							},
+							sort: sort_by,
 							skip: index * query_limit
 						}
 					} as any
@@ -151,7 +154,8 @@ export default {
 			index,
 			total_page_num,
 			total_atom_count,
-			query_limit
+			query_limit,
+			sort_by
 		};
 		
 		return {
