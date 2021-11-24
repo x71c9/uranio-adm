@@ -27,6 +27,35 @@
 							placeholder="Search"
 							/>
 					</div>
+					<div class="ui-all-header-el ui-all-header-sort">
+						<UIButton class="secondary">
+							<img class="icon-sort" src="/img/icons/png/swap_vert.png" />
+							<span>Sort</span>
+						</UIButton>
+						<div class="ui-sort-list">
+							<span class="sort-label">Sort by</span>
+							<div class="ui-sort-list-wrapper">
+								<div class="sort-item">
+									<UIRadioButton /> _id (A - Z)
+								</div>
+								<div class="sort-item">
+									<UIRadioButton /> _id (Z - A)
+								</div>
+								<div class="sort-item">
+									<UIRadioButton /> _date (newest first)
+								</div>
+								<div class="sort-item">
+									<UIRadioButton /> _date (oldest first)
+								</div>
+								<div class="sort-item">
+									<UIRadioButton /> price (ascending)
+								</div>
+								<div class="sort-item">
+									<UIRadioButton /> price (descending)
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="ui-all-body">
 					<UIAllTable/>

@@ -315,7 +315,13 @@ body{
 }
 
 /* ALL */
-
+.ui-all-header{
+  display: flex;
+  align-items: center;
+}
+.ui-all-header-el{
+  position: relative;
+}
 .ui-all-header-el:first-child{
   display: flex;
   align-items: center;
@@ -324,6 +330,9 @@ body{
   border: 1px solid var(--white-5);
   border-radius: 8px;
   padding: 0 8px;
+}
+.ui-all-header-el:last-child{
+  margin-left: var(--padx1);
 }
 .ui-all-header-el:first-child:focus{
   border: 1px solid var(--white-2);
@@ -337,7 +346,35 @@ body{
 .ui-all-body{
   margin-top: var(--padx2);
 }
-
+.ui-all-header-sort .button.secondary{
+  display: flex;
+  align-items: center;
+  background-color: var(--white-5);
+}
+.icon-sort{
+  width: 20px;
+  margin-right: 4px;
+}
+.ui-sort-list{
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  font-size: var(--font-size-s);
+  padding: 14px;
+  background-color: rgb(41 41 41);
+  border-radius: 8px;
+  min-width: 180px;
+}
+.ui-sort-list .sort-item{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 20px;
+}
+.sort-label{
+  display: block;
+  margin-bottom: 14px;
+}
 /* ALL TABLE */
 
 .ui-all-table{

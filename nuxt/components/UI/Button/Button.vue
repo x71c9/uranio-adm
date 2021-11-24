@@ -1,6 +1,6 @@
 <template>
 	<button class="button">
-		<span><slot></slot></span>
+		<slot></slot>
 	</button>
 </template>
 <script lang="ts" src="./Button.ts"></script>
