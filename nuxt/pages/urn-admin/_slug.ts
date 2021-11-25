@@ -83,6 +83,10 @@ export default {
 		
 		const sort_items:RadioItems[] = [];
 		
+		for(const [atom_def, atom_name] of Object.entries(atom_book)){
+			console.log(atom_def, atom_name);
+		}
+		
 		if(context.query.page){
 			index = parseInt(context.query.page as any) - 1;
 		}
