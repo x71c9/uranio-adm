@@ -68,6 +68,9 @@ export default {
 		
 		const atom_name = context.params.slug as A;
 		
+		/** TODO **/
+		/* Validate atom_name */
+		
 		let plural = atom_name + "s";
 		let message = "";
 		let count_success = false;
@@ -82,9 +85,50 @@ export default {
 		let sort_by = {_date: -1};
 		
 		const sort_items:RadioItems[] = [];
-		
-		for(const [atom_def, atom_name] of Object.entries(atom_book)){
-			console.log(atom_def, atom_name);
+		const atom_def = atom_book[atom_name] as
+			uranio.types.Book.Definition<typeof atom_name>;
+		for(const [prop_name, prop_def] of Object.entries(atom_def.properties)){
+			if(prop_def.sortable === false){
+				continue;
+			}
+			const radio_item_asc = {} as RadioItems;
+			radio_item_asc.label = prop_name;
+			radio_item_asc.selected = false;
+			
+			const radio_item_des = {} as RadioItems;
+			radio_item_des.label = prop_name;
+			radio_item_des.selected = false;
+			
+			const real_type = uranio.types.BookPropertyStringType[prop_def.type];
+			switch(real_type){
+				case 'string':{
+					radio_item_asc.label += ` (A - Z)`;
+					radio_item_des.label += ` (Z - A)`;
+					break;
+				}
+				case 'number':{
+					radio_item_asc.label += ` (ascending)`;
+					radio_item_des.label += ` (descending)`;
+					break;
+				}
+				case 'datetime':{
+					radio_item_asc.label += ` (oldest first)`;
+					radio_item_des.label += ` (newest fiest)`;
+					break;
+				}
+				case 'set':{
+					radio_item_asc.label += ` (ascending)`;
+					radio_item_des.label += ` (descending)`;
+					break;
+				}
+				case 'object':{
+					radio_item_asc.label += ` (ascending)`;
+					radio_item_des.label += ` (descending)`;
+					break;
+				}
+			}
+			sort_items.push(radio_item_asc);
+			sort_items.push(radio_item_des);
 		}
 		
 		if(context.query.page){
