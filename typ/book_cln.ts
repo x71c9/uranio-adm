@@ -28,8 +28,24 @@ export namespace Book {
 	
 	export namespace Definition {
 		
+		/**
+		 * ** NOTE **
+		 * For some reason it is not possible to use the following syntax.
+		 * NuxtJS will fail in the browser.
+		 * All namespace and types must be re-defined.
+		 */
+		
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		export import Dock = urn_trx_client.types.Book.Definition.Dock;
+		// export import Dock = urn_trx_client.types.Book.Definition.Dock;
+		
+		export type Dock = urn_trx_client.types.Book.Definition.Dock;
+		
+		export namespace Dock {
+			export type Routes = urn_trx_client.types.Book.Definition.Dock.Routes;
+			export namespace Routes {
+				export type Route = urn_trx_client.types.Book.Definition.Dock.Routes.Route;
+			}
+		}
 		
 		export type Properties = {
 			[k:string]: Property
