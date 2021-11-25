@@ -34,26 +34,7 @@
 						</UIButton>
 						<div class="ui-sort-list">
 							<span class="sort-label">Sort by</span>
-							<div class="ui-sort-list-wrapper">
-								<div class="sort-item">
-									<UIRadioButton /> _id (A - Z)
-								</div>
-								<div class="sort-item">
-									<UIRadioButton /> _id (Z - A)
-								</div>
-								<div class="sort-item">
-									<UIRadioButton /> _date (newest first)
-								</div>
-								<div class="sort-item">
-									<UIRadioButton /> _date (oldest first)
-								</div>
-								<div class="sort-item">
-									<UIRadioButton /> price (ascending)
-								</div>
-								<div class="sort-item">
-									<UIRadioButton /> price (descending)
-								</div>
-							</div>
+							<UIRadioGroup :items="sort_items"></UIRadioGroup>
 						</div>
 					</div>
 				</div>

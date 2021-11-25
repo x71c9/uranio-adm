@@ -28,8 +28,13 @@ export type Page = {
 	query_limit: number
 	sort_by: any
 }
+export type RadioItems = {
+	label: string
+	selected: boolean
+}
 type ReturnData<N extends uranio.types.AtomName> = {
 	page: Page
+	sort_items: RadioItems[]
 	atom_name: N;
 	plural: string;
 	atoms: uranio.types.Atom<N>[];
@@ -75,6 +80,8 @@ export default {
 		let index = 0;
 		let query_limit = 10;
 		let sort_by = {_date: -1};
+		
+		const sort_items:RadioItems[] = [];
 		
 		if(context.query.page){
 			index = parseInt(context.query.page as any) - 1;
@@ -160,6 +167,7 @@ export default {
 		
 		return {
 			page,
+			sort_items,
 			atom_name,
 			plural,
 			atoms,

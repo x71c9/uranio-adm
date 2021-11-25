@@ -11,4 +11,4 @@
 	</div>
 </template>
 <script lang="ts" src="./RadioButton.ts"></script>
-<style type="text/css" src="./RadioButton.scss"></style>
+<style lang="scss" src="./RadioButton.scss"></style>
