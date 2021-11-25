@@ -1,4 +1,11 @@
 .ui-radio-button{
+	width: 20px;
+	height: 20px;
+	margin-right: 8px;
+	position: relative;
+	& > *{
+		position: absolute;
+	}
 	.state-deselected{
 		background-color: var(--white);
 		border-radius: 100px;
@@ -6,10 +13,14 @@
 		height: 20px;
 		width: 20px;
 	}
+	.state-selected{
+		opacity: 0;
+	}
 	.state-selected img{
-		height: 20px;
-		margin-top: 2px;
-		width: 20px;
+		height: 28px;
+		position: relative;
+		top: -2px;
+		left: -4px;
 	}
 	.state-deselected-disabled {
 		background-color: var(--black-haze);
@@ -17,10 +28,29 @@
 		box-shadow: 0px 1px 1px #0000000f;
 		height: 20px;
 		width: 20px;
+		opacity: 0;
 	}
 	.state-selected-disabled{
 		height: 20px;
 		margin-top: 2px;
-		width: 20px;
+		opacity: 0;
 	}
+}
+.ui-radio-button.selected > .state-selected{
+	opacity: 1;
+}
+.ui-radio-button.selected > div:not(.state-selected){
+	opacity: 0;
+}
+.ui-radio-button.disabled > .state-deselected-disabled{
+	opacity: 0;
+}
+.ui-radio-button.disabled > div:not(.state-deselected-disabled){
+	opacity: 0;
+}
+.ui-radio-button.selected.disabled > .state-selected-disabled{
+	opacity: 0;
+}
+.ui-radio-button.selected.disabled > div:not(.state-selected-disabled){
+	opacity: 0;
 }

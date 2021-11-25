@@ -370,6 +370,10 @@ body{
   display: flex;
   align-items: center;
   height: 20px;
+  margin-bottom: 8px;
+}
+.ui-sort-list .sort-item .ui-radio-button{
+  zoom: .8;
 }
 .sort-label{
   display: block;
