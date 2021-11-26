@@ -319,6 +319,14 @@ body{
   display: flex;
   align-items: center;
 }
+.ui-all-header-sort .button.secondary{
+  display: flex;
+  align-items: center;
+  background-color: var(--white-5);
+}
+.ui-all-header .button.secondary:not(.disabled):active{
+  background-color: var(--white-5);
+}
 .ui-all-header-el{
   position: relative;
 }
@@ -346,11 +354,6 @@ body{
 .ui-all-body{
   margin-top: var(--padx2);
 }
-.ui-all-header-sort .button.secondary{
-  display: flex;
-  align-items: center;
-  background-color: var(--white-5);
-}
 .icon-sort{
   width: 20px;
   margin-right: 4px;
@@ -364,6 +367,19 @@ body{
   background-color: rgb(41 41 41);
   border-radius: 8px;
   min-width: 180px;
+  white-space: nowrap;
+  opacity: 0;
+  /* visibility: hidden; */
+  z-index: -1;
+  text-align: left;
+}
+.ui-sort-list.visible{
+  opacity: 1;
+  z-index: 99;
+  visibility: visible;
+}
+.ui-sort-list:focus{
+  /* outline: 2px solid #fff; */
 }
 .ui-sort-list .sort-item{
   width: 100%;
@@ -420,7 +436,7 @@ body{
   border-bottom: 0;
 }
 .ui-all-table tbody tr:hover{
-  background-color: var(--malachite-4);
+  background-color: var(--azure-radiance-2);
 }
 .ui-all-table tbody tr:hover td{
   /* border-color: var(--black); */

@@ -1,5 +1,7 @@
 <template>
-	<div class="ui-radio-button">
+	<div
+		class="ui-radio-button"
+		:class="{selected, disabled}">
 		<div class="state-deselected"></div>
 		<div class="state-selected">
 			<img class="radio-button-3" src="/img/icons/@2x/radio-button-1@2x.png">

@@ -21,20 +21,18 @@ type Context = {
 	}
 	error: (p: ErrorParams) => void
 };
+type SortBy = {
+	[prop_name:string]: 1 | -1
+};
 export type Page = {
 	index: number
 	total_page_num: number
 	total_atom_count: number
 	query_limit: number
-	sort_by: any
-}
-export type RadioItems = {
-	label: string
-	selected: boolean
+	sort_by: SortBy
 }
 type ReturnData<N extends uranio.types.AtomName> = {
 	page: Page
-	sort_items: RadioItems[]
 	atom_name: N;
 	plural: string;
 	atoms: uranio.types.Atom<N>[];
@@ -56,11 +54,14 @@ export default {
 	key(route:Route):string {
 		return route.fullPath;
 	},
-	watchQuery: [
-		'page',
-		'limit',
-		'sort'
-	],
+	// watchQuery: [
+	//   'page',
+	//   'limit',
+	//   'sort'
+	// ],
+	watchQuery(_oldQuery:unknown, _newQuery:unknown):boolean{
+		return true;
+	},
 	async asyncData<A extends uranio.types.AtomName>(context:Context)
 			:Promise<ReturnData<A>> {
 		
@@ -82,54 +83,7 @@ export default {
 		let total_page_num = 0;
 		let index = 0;
 		let query_limit = 10;
-		let sort_by = {_date: -1};
-		
-		const sort_items:RadioItems[] = [];
-		const atom_def = atom_book[atom_name] as
-			uranio.types.Book.Definition<typeof atom_name>;
-		for(const [prop_name, prop_def] of Object.entries(atom_def.properties)){
-			if(prop_def.sortable === false){
-				continue;
-			}
-			const radio_item_asc = {} as RadioItems;
-			radio_item_asc.label = prop_name;
-			radio_item_asc.selected = false;
-			
-			const radio_item_des = {} as RadioItems;
-			radio_item_des.label = prop_name;
-			radio_item_des.selected = false;
-			
-			const real_type = uranio.types.BookPropertyStringType[prop_def.type];
-			switch(real_type){
-				case 'string':{
-					radio_item_asc.label += ` (A - Z)`;
-					radio_item_des.label += ` (Z - A)`;
-					break;
-				}
-				case 'number':{
-					radio_item_asc.label += ` (ascending)`;
-					radio_item_des.label += ` (descending)`;
-					break;
-				}
-				case 'datetime':{
-					radio_item_asc.label += ` (oldest first)`;
-					radio_item_des.label += ` (newest fiest)`;
-					break;
-				}
-				case 'set':{
-					radio_item_asc.label += ` (ascending)`;
-					radio_item_des.label += ` (descending)`;
-					break;
-				}
-				case 'object':{
-					radio_item_asc.label += ` (ascending)`;
-					radio_item_des.label += ` (descending)`;
-					break;
-				}
-			}
-			sort_items.push(radio_item_asc);
-			sort_items.push(radio_item_des);
-		}
+		let sort_by:SortBy = {_date: -1};
 		
 		if(context.query.page){
 			index = parseInt(context.query.page as any) - 1;
@@ -215,7 +169,6 @@ export default {
 		
 		return {
 			page,
-			sort_items,
 			atom_name,
 			plural,
 			atoms,
