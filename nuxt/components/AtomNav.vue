@@ -1,5 +1,5 @@
 <template>
-	<div class="ui-sidebar-body">
+	<div>
 		<div class="side-bar-group">
 			<UISideBarLabel label="Atoms"></UISideBarLabel>
 			<ul>

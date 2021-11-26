@@ -1,12 +1,16 @@
 
 import Vue from 'vue';
 
-import {RadioItems} from '../../../pages/urn-admin/_slug';
+type RadioItems = {
+	label: string
+	selected: boolean
+}
 
 type Data = {
 };
 
 type Methods = {
+	select_radio:(index:number) => void
 }
 
 type Computed = {
@@ -24,4 +28,12 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		return {
 		};
 	},
+	methods:{
+		select_radio(index:number){
+			for(let i = 0; i < this.items.length; i++){
+				this.items[i].selected = false;
+			}
+			this.items[index].selected = true;
+		}
+	}
 });

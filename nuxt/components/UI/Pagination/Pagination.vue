@@ -50,7 +50,7 @@
 			</div>
 		</div>
 		<div
-			v-if="this.page.total_page_num > 1 && this.page.total_atom_count > 3"
+			v-if="this.page.total_page_num > 1 && this.page.total_atom_count > this.page.query_limit"
 			class="ui-right"
 			>
 			<div class="go-to inter-normal-chicago-16px">

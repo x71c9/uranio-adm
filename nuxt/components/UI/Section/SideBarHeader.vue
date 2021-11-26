@@ -8,7 +8,7 @@
 				<div class="text-2 inter-medium-white-20px-2">
 					<span class="inter-medium-white-20px-2">URANIO Admin</span>
 				</div>
-				<img class="right-icon" src="img/icons/@2x/arrow-drop-down-18@2x.png">
+				<img class="right-icon" src="/img/icons/@2x/arrow-drop-down-18@2x.png">
 			</div>
 			<div class="palo-alto-ca inter-normal-white-13px">
 				<span class="inter-normal-white-13px">andrea@urn.sh</span>

@@ -27,6 +27,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		'atom_name'
 	],
 	data():Data {
+		console.log(this.page.total_page_num);
 		return {
 			change_page_value: this.page.index + 1,
 			item_per_page_value: this.page.query_limit
@@ -41,7 +42,8 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 				},
 				query: {
 					page: this.change_page_value.toString(),
-					limit: this.page.query_limit.toString()
+					limit: this.page.query_limit.toString(),
+					sort: this.page.sort_by as any
 				}
 			});
 		},
@@ -53,7 +55,8 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 				},
 				query: {
 					page: this.change_page_value.toString(),
-					limit: this.item_per_page_value.toString()
+					limit: this.item_per_page_value.toString(),
+					sort: this.page.sort_by as any
 				}
 			});
 		}
