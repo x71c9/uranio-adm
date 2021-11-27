@@ -27,7 +27,6 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		'atom_name'
 	],
 	data():Data {
-		console.log(this.page.total_page_num);
 		return {
 			change_page_value: this.page.index + 1,
 			item_per_page_value: this.page.query_limit

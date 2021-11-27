@@ -318,6 +318,7 @@ body{
 .ui-all-header{
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 .ui-all-header-sort .button.secondary{
   display: flex;
@@ -334,10 +335,11 @@ body{
   display: flex;
   align-items: center;
   height: 40px;
-  width: 100%;
   border: 1px solid var(--white-5);
   border-radius: 8px;
   padding: 0 8px;
+  flex: 1 0 auto;
+  margin-right: var(--padx1);
 }
 .ui-all-header-el:last-child{
   margin-left: var(--padx1);
@@ -351,8 +353,28 @@ body{
 .ui-all-header-el:first-child *{
   align-items: center;
 }
-.ui-all-body{
+.ui-all-header-info{
+  width: 100%;
   margin-top: var(--padx2);
+  color: var(--white-2);
+  font-size: var(--font-size-s);
+  display: flex;
+  align-items: center;
+}
+.ui-all-header-info .info-item{
+  display: flex;
+  align-items: center;
+  margin-right: var(--padx2);
+}
+.ui-all-header-info .info-item img{
+  height: 18px;
+  margin-right: 8px;
+}
+.ui-all-header-info .info-item .monospace{
+  margin-left: 8px;
+}
+.ui-all-body{
+  margin-top: var(--padx1);
 }
 .icon-sort{
   width: 20px;

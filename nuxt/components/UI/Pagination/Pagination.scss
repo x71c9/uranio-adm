@@ -178,7 +178,7 @@
     .go-to {
         align-items: center;
         display: flex;
-        min-width: 168px;
+        /* min-width: 168px; */
         /* margin-left: auto; */
     }
     .ui-right{
@@ -262,7 +262,6 @@
         background-color: var(--dodger-blue-2);
     }
     .pagination-label{
-        width: 118px;
         margin-right: var(--padx2);
     }
 }
