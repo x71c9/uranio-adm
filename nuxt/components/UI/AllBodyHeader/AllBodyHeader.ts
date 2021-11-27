@@ -26,6 +26,9 @@ type Data = {
 	total_label: string
 	connection: string
 	dock_url: string
+	search_input_focused: boolean
+	sorted_by: string
+	sorted_direction: 1 | -1
 };
 type Methods = {
 	update_sort: () => void
@@ -54,6 +57,12 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		atom_name: Object
 	},
 	data():Data {
+		
+		let sorted_by = `_date`;
+		let sorted_direction = -1;
+		
+		sorted_by = Object.keys(this.page.sort_by)[0];
+		sorted_direction = this.page.sort_by[sorted_by];
 		
 		let total_label = this.plural;
 		if(this.page.total_atom_count === 1){
@@ -156,9 +165,12 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			sort_items,
 			sort_list_visible: false,
 			from_blur: false,
-			total_label: total_label,
-			connection: connection,
-			dock_url: dock_url
+			search_input_focused: false,
+			total_label,
+			connection,
+			dock_url,
+			sorted_by,
+			sorted_direction,
 		};
 	},
 	methods:{

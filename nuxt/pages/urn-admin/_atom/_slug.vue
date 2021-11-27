@@ -2,8 +2,7 @@
 	<div>
 		<div v-if="success">
 			<button v-on:click="$router.back()">Back</button>
-			<UIButton></UIButton>
-			<!-- <h1>{{ _self.atom._id }}</h1>-->
+			<!-- <h1>{{ _self.atom._id }}</h1> -->
 			<br>
 			<br>
 			<form

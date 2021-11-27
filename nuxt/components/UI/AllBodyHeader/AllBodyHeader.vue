@@ -1,12 +1,18 @@
 <template>
 	<div class="ui-all-header">
-		<div class="ui-all-header-el ui-all-header-search">
+		<div
+			class="ui-all-header-el ui-all-header-search"
+			:class="{focus: search_input_focused}"
+			>
 			<img class="icon-12" src="/img/icons/png/search.png">
 			<input
 				class="search-input inter-normal-white-16px-2"
 				type="text"
 				name="search_all"
 				placeholder="Search"
+				@focus="search_input_focused = true"
+				@blur="search_input_focused = false"
+				
 				/>
 		</div>
 		<div class="ui-all-header-el ui-all-header-sort">
@@ -47,6 +53,13 @@
 				<img src="/img/icons/png/link.png"/>
 				Dock url:
 				<span class="monospace">{{ dock_url }}</span>
+			</div>
+			<div class="info-item right">
+				<img src="/img/icons/png/sort.png">
+				Sorted by:
+				<span class="monospace">{{ sorted_by }}</span>
+				<img v-if="sorted_direction == -1" src="/img/icons/png/arrow_upward.png">
+				<img v-if="sorted_direction == 1" src="/img/icons/png/arrow_downward.png">
 			</div>
 		</div>
 	</div>

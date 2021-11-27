@@ -344,10 +344,7 @@ body{
 .ui-all-header-el:last-child{
   margin-left: var(--padx1);
 }
-.ui-all-header-el:first-child:focus{
-  border: 1px solid var(--white-2);
-}
-.ui-all-header-el:first-child:active{
+.ui-all-header-search.focus{
   border: 1px solid var(--white-2);
 }
 .ui-all-header-el:first-child *{
@@ -365,6 +362,10 @@ body{
   display: flex;
   align-items: center;
   margin-right: var(--padx2);
+}
+.ui-all-header-info .info-item.right{
+  margin-left: auto;
+  margin-right: 0;
 }
 .ui-all-header-info .info-item img{
   height: 18px;
