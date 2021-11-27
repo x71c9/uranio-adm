@@ -15,6 +15,7 @@ type Data<A extends uranio.types.AtomName> = {
 	atom_props: string[]
 	message: string
 	success: boolean
+	title: string
 }
 
 type Methods = {
@@ -61,18 +62,21 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>
 		
 		let atom = {} as uranio.types.Atom<A>;
 		
+		let title = 'No title';
+		
 		const atom_props:string[] = [];
 		
 		if (urn_util.object.has_key(atom_book, atom_name)) {
 			
 			const atom_def = atom_book[atom_name];
+			const atom_def_props = atom_def.properties as uranio.types.Book.Definition.Properties;
 			
 			for(const [prop_name, prop_def] of Object.entries(uranio.core.stc.atom_hard_properties)){
 				if(!(prop_def as any).hidden){
 					atom_props.push(prop_name);
 				}
 			}
-			for(const [prop_name, prop_def] of Object.entries(atom_def.properties)){
+			for(const [prop_name, prop_def] of Object.entries(atom_def_props)){
 				if(!prop_def.hidden){
 					atom_props.push(prop_name);
 				}
@@ -101,6 +105,14 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>
 				
 				atom = trx_response.payload;
 				
+				title = atom._id;
+				
+				for(const [prop_name, prop_def] of Object.entries(atom_def_props)){
+					const prop_value = atom[prop_name as keyof uranio.types.Atom<A>];
+					if(prop_def.is_title === true && typeof prop_value === 'string' && prop_value !== ''){
+						title = prop_value;
+					}
+				}
 				
 			} else {
 				
@@ -121,6 +133,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>
 			plural,
 			message,
 			success,
+			title
 		};
 		
 	},
