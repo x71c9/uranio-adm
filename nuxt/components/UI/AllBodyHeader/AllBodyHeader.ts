@@ -59,7 +59,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	data():Data {
 		
 		let sorted_by = `_date`;
-		let sorted_direction = -1;
+		let sorted_direction = -1 as -1 | 1;
 		
 		sorted_by = Object.keys(this.page.sort_by)[0];
 		sorted_direction = this.page.sort_by[sorted_by];

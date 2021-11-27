@@ -1,8 +1,25 @@
 <template>
 	<div>
 		<div v-if="success">
-			<button v-on:click="$router.back()">Back</button>
-			<!-- <h1>{{ _self.atom._id }}</h1> -->
+			<div class="flex-row-3">
+				<h1 class="ui-flex-row-3-el today inter-medium-white-36px">
+					<span class="inter-medium-white-36px">{{ title }}</span>
+					<span class="ui-atom-name">({{ atom_name }})</span>
+				</h1>
+				<div class="ui-flex-row-3-el">
+					<UIButton>Save</UIButton>
+				</div>
+			</div>
+			<div class="flex-row-4">
+				<UIButton
+					class="borderless secondary back_button"
+					v-on:click.native="$router.back()"
+					>
+					<img src="/img/icons/png/arrow_back.png" />
+					<span> back to {{ plural }}</span>
+				</UIButton>
+				<h2 class="monospace">_id: {{ _self.atom._id }}</h2>
+			</div>
 			<br>
 			<br>
 			<form

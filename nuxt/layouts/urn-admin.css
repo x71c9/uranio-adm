@@ -501,3 +501,33 @@ body{
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
+
+/* atom/_slug */
+
+.button.back_button{
+  display: flex;
+  align-items: center;
+  color: var(--white-5);
+}
+.button.back_button img{
+  height: 18px;
+  margin-right: 8px;
+}
+.flex-row-4 {
+  margin-top: var(--padx2);
+  align-items: center;
+  display: flex;
+}
+.flex-row-4 h2{
+  margin-left: auto;
+  color: var(--white-2);
+}
+.flex-row-3 .ui-atom-name{
+  font-size: var(--font-size-m);
+  color: var(--white-2);
+  /* vertical-align: baseline; */
+  display: inline-block;
+  margin-left: 8px;
+  position: relative;
+  top: 5px;
+}

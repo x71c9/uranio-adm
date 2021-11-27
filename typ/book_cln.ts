@@ -71,8 +71,10 @@ export namespace Book {
 		
 		export namespace Property {
 			
-			export type ExtendedSharedFields =
-				{ sortable?: boolean }
+			export type ExtendedSharedFields = {
+				sortable?: boolean,
+				is_title?: boolean
+			}
 			
 			export type ID = ExtendedSharedFields & urn_trx_client.types.Book.Definition.Property.ID;
 			export type Text = ExtendedSharedFields & urn_trx_client.types.Book.Definition.Property.Text;

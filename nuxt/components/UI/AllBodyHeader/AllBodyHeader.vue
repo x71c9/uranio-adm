@@ -45,7 +45,7 @@
 				<span class="monospace">{{ page.total_atom_count }}</span>
 			</div>
 			<div class="info-item">
-				<img src="/img/icons/png/bolt.png"/>
+				<img src="/img/icons/png/power.png"/>
 				Connection:
 				<span class="monospace">{{ connection }}</span>
 			</div>

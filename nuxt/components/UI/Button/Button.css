@@ -68,6 +68,19 @@
 .button.borderless:active{
   background-color: var(--dodger-blue-2);
 }
+.button.borderless.secondary{
+  background: transparent;
+  color: var(--white-2);
+  padding: 4px 0;
+  height: auto;
+}
+.button.borderless.secondary:hover{
+  background-color: transparent;
+}
+.button.borderless.secondary:active{
+  background-color: transparent;
+  top: 1;
+}
 .button.disabled{
   background-color: var(--white-6);
   color: var(--white-7);
