@@ -47,6 +47,7 @@ export default {
 	provide():any{
 		return {
 			page: (this as any).page,
+			plural: (this as any).plural,
 			atoms: (this as any).atoms,
 			atom_name: (this as any).atom_name
 		};

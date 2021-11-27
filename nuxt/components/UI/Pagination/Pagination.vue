@@ -46,7 +46,7 @@
 					>
 			</div>
 			<div class="pagination-label">
-				<span class="inter-normal-chicago-16px">items per page</span>
+				<span class="inter-normal-chicago-16px">per page</span>
 			</div>
 		</div>
 		<div
@@ -55,7 +55,7 @@
 			>
 			<div class="go-to inter-normal-chicago-16px">
 				<div class="go-to-1">
-					<span class="inter-normal-chicago-16px">Go to page</span>
+					<span class="inter-normal-chicago-16px">Page</span>
 				</div>
 				<div class="text-field border-1px-mercury">
 					<div class="left">
@@ -71,10 +71,9 @@
 							>
 					</div>
 				</div>
-			</div>
-			<div class="text-2">
-				<!-- <span class="inter-normal-chicago-16px">Page {{ this.page.index + 1 }} of {{ this.page.total_page_num }}</span> -->
-				<span class="inter-normal-chicago-16px">of {{ this.page.total_page_num }}</span>
+				<div class="text-2">
+					<span class="inter-normal-chicago-16px">of {{ this.page.total_page_num }}</span>
+				</div>
 			</div>
 			<div class="buttons">
 				<!-- Prev text button -->

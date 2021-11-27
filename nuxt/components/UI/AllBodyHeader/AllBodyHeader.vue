@@ -17,10 +17,10 @@
 				<img class="icon-sort" src="/img/icons/png/swap_vert.png" />
 				<span>Sort</span>
 			</UIButton>
-				<!-- @blur="on_sort_list_blur" -->
-				<!-- ref="sort_list" -->
-				<!-- tabindex="0" -->
 			<div
+				ref="sort_list"
+				@blur="on_sort_list_blur"
+				tabindex="0"
 				class="ui-sort-list"
 				:class="{visible: sort_list_visible}"
 				>
@@ -30,6 +30,23 @@
 					@click.native="update_sort"
 					>
 				</UIRadioGroup>
+			</div>
+		</div>
+		<div class="ui-all-header-info">
+			<div class="info-item">
+				<img src="/img/icons/png/horizontal_split.png"/>
+				Total {{ total_label }}:
+				<span class="monospace">{{ page.total_atom_count }}</span>
+			</div>
+			<div class="info-item">
+				<img src="/img/icons/png/bolt.png"/>
+				Connection:
+				<span class="monospace">{{ connection }}</span>
+			</div>
+			<div class="info-item">
+				<img src="/img/icons/png/link.png"/>
+				Dock url:
+				<span class="monospace">{{ dock_url }}</span>
 			</div>
 		</div>
 	</div>

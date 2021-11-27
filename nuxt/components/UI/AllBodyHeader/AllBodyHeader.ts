@@ -6,6 +6,8 @@ import uranio from 'uranio';
 
 import { atom_book } from "uranio-books/atom";
 
+import { dock_book } from "uranio-books/dock";
+
 import {Page} from '../../../pages/urn-admin/_slug';
 
 type SortValue = {
@@ -21,31 +23,60 @@ type Data = {
 	sort_items: SortItem[]
 	sort_list_visible: boolean
 	from_blur: boolean
+	total_label: string
+	connection: string
+	dock_url: string
 };
 type Methods = {
 	update_sort: () => void
-	// on_sort_list_blur: () => void
+	on_sort_list_blur: () => void
 	toggle_sort_list: () => void
 };
 type Computed = {
 };
 type Props = {
 	page: Page
+	plural: string
 	atoms: uranio.types.Atom<uranio.types.AtomName>[]
 	atom_name: uranio.types.AtomName
 };
 export default Vue.extend<Data, Methods, Computed, Props>({
-	inject: ["atoms", "atom_name", "page"],
+	inject: [
+		"atoms",
+		"atom_name",
+		"page",
+		"plural"
+	],
 	props: {
 		page: Object,
+		plural: String,
 		atoms: Array,
 		atom_name: Object
 	},
 	data():Data {
-		const sort_items:SortItem[] = [];
+		
+		let total_label = this.plural;
+		if(this.page.total_atom_count === 1){
+			total_label = this.atom_name;
+		}
 		
 		const atom_def = atom_book[this.atom_name] as
 			uranio.types.Book.BasicDefinition;
+		
+		const dock_def = dock_book[this.atom_name] as
+			uranio.types.Book.BasicDefinition;
+		
+		let connection = 'main';
+		if(typeof atom_def.connection === 'string' && atom_def.connection !== 'main'){
+			connection = atom_def.connection;
+		}
+		
+		let dock_url = '/' + this.atom_name;
+		if(typeof dock_def.dock?.url === 'string'){
+			dock_url = dock_def.dock.url;
+		}
+		
+		const sort_items:SortItem[] = [];
 		
 		const atom_properties = {
 			...uranio.core.stc.atom_hard_properties,
@@ -65,13 +96,19 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			}
 			const radio_item_asc = {} as SortItem;
 			radio_item_asc.label = prop_name;
-			radio_item_asc.selected = (current_sort_prop_name == prop_name && current_sort_direction == 1);
+			radio_item_asc.selected = (
+				current_sort_prop_name == prop_name
+				&& current_sort_direction == 1
+			);
 			radio_item_asc.value = {};
 			radio_item_asc.value[prop_name] = 1;
 			
 			const radio_item_des = {} as SortItem;
 			radio_item_des.label = prop_name;
-			radio_item_des.selected = (current_sort_prop_name == prop_name && current_sort_direction == -1);
+			radio_item_des.selected = (
+				current_sort_prop_name == prop_name
+				&& current_sort_direction == -1
+			);
 			radio_item_des.value = {};
 			radio_item_des.value[prop_name] = -1;
 			
@@ -118,34 +155,23 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		return{
 			sort_items,
 			sort_list_visible: false,
-			from_blur: false
+			from_blur: false,
+			total_label: total_label,
+			connection: connection,
+			dock_url: dock_url
 		};
 	},
 	methods:{
 		toggle_sort_list():void{
 			this.sort_list_visible = !this.sort_list_visible;
+			if(this.sort_list_visible === true){
+				const $sort_list = this.$refs.sort_list;
+				($sort_list as HTMLElement).focus();
+			}
 		},
-		// toggle_sort_list():void{
-		//   console.log('toggle', 'blur: ' + this.from_blur);
-		//   if(this.from_blur === true && this.sort_list_visible === true){
-		//     this.sort_list_visible = false;
-		//   }else{
-		//     this.sort_list_visible = !this.sort_list_visible;
-		//   }
-		//   if(this.sort_list_visible === true){
-		//     const $sort_list = this.$refs.sort_list;
-		//     ($sort_list as HTMLElement).focus();
-		//   // }else{
-		//   //   const $sort_list_button = this.$refs.sort_list_button;
-		//   //   ($sort_list_button as HTMLElement).focus();
-		//   }
-		//   this.from_blur = false;
-		// },
-		// on_sort_list_blur():void{
-		//   console.log('blur', 'blur: ' + this.from_blur);
-		//   this.from_blur = true;
-		//   this.sort_list_visible = false;
-		// },
+		on_sort_list_blur():void{
+			setTimeout(() => {this.sort_list_visible = false;}, 200);
+		},
 		update_sort():void{
 			for(let i = 0; i < this.sort_items.length; i++){
 				if(this.sort_items[i].selected === true){
