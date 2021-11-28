@@ -3,11 +3,7 @@
 		<ul>
 			<li v-for="(el, i) in value" :key="`${el}${i}`">
 				<label>{{ el }}</label>
-				<button
-					@click.prevent="remove_element(el)"
-					>
-					X
-				</button>
+				<UIButton class="secondary small red" @click.native.prevent="remove_element(el)">X</UIButton>
 			</li>
 		</ul>
 		<div style="display: none;">
@@ -20,17 +16,15 @@
 				:value="el"
 				>
 		</div>
-		<input
-			:type="type"
-			:name="prop_name"
-			v-model="new_element"
-			@keyup.enter="add_element"
-			>
-		<button
-			@click.prevent="add_element"
-			>
-			Add
-		</button>
+		<div class="ui-set-add-wrapper">
+			<input
+				:type="type"
+				:name="prop_name"
+				v-model="new_element"
+				@keyup.enter="add_element"
+				>
+			<UIButton class="secondary" @click.native.prevent="add_element">Add</UIButton>
+		</div>
 	</div>
 </template>
 <script lang="ts" src="./SET.ts"></script>

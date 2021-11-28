@@ -7,6 +7,7 @@ type Data = {
 
 type Methods = {
 	on_input: (event:Event) => void
+	select: (value:boolean) => void
 }
 
 type Computed = {
@@ -44,7 +45,9 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	},
 	
 	methods:{
-		
+		select(value:boolean):void {
+			(this.atom as SimpleAtom)[this.prop_name] = value;
+		},
 		on_input(event:Event):void{
 			
 			const target = event.target as HTMLInputElement;

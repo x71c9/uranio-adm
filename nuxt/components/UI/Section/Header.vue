@@ -14,12 +14,12 @@
 			</div>
 		</div>
 		<div class="ui-header-el ui-header-right frame-71">
-			<div class="text-icon-1">
-				<img class="left-icon" src="/img/icons/@2x/left-icon-9@2x.png">
-				<div class="text-4 inter-normal-white-16px">
-					<span class="inter-normal-white-16px">Feedback?</span>
-				</div>
-			</div>
+			<!-- <div class="text-icon-1"> -->
+			<!--   <img class="left-icon" src="/img/icons/@2x/left-icon-9@2x.png"> -->
+			<!--   <div class="text-4 inter-normal-white-16px"> -->
+			<!--     <span class="inter-normal-white-16px">Feedback?</span> -->
+			<!--   </div> -->
+			<!-- </div> -->
 			<div class="overlap-group">
 				<img class="icon-13" src="/img/icons/@2x/icon-59@2x.png">
 				<div class="counter-1">
@@ -28,7 +28,7 @@
 					</div>
 				</div>
 			</div>
-			<img class="icon-14" src="/img/icons/@2x/icon-13@2x.png">
+			<!-- <img class="icon-14" src="/img/icons/@2x/icon-13@2x.png"> -->
 			<div class="frame-7-1">
 				<div class="avatar border-1px-white-5">
 					<div class="status border-2px-licorice"></div>

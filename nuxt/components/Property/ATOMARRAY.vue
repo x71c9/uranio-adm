@@ -5,7 +5,7 @@
 				<NuxtLink :to="`/urn-admin/${prop_atom_name}/${atom_id}`">
 					{{ atom_id }}
 				</NuxtLink>
-				<button @click.prevent="remove(atom_id)">X</button>
+				<UIButton class="small secondary red" @click.native.prevent="remove">X</UIButton>
 			</li>
 		</ul>
 		<div style="display: none;">
@@ -18,7 +18,7 @@
 				:value="atom_id"
 				>
 		</div>
-		<button @click.prevent="add">Add</button>
+		<UIButton class="secondary" @click.native.prevent="add">Add</UIButton>
 	</div>
 </template>
 <script lang="ts" src="./ATOMARRAY.ts"></script>

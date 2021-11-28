@@ -20,21 +20,23 @@
 				</UIButton>
 				<h2 class="monospace">_id: {{ _self.atom._id }}</h2>
 			</div>
-			<br>
-			<br>
 			<form
+					class="ui-property-wrapper"
 					@submit.prevent="submit"
 					@keydown.enter.prevent
 					@keyup.enter.prevent
 					autocomplete="off"
 				>
-				<div v-for="property in atom_props" :key="property">
+					<Property
+						v-for="property in atom_props" :key="property"
+						:prop_name="property"
+						></Property>
 					
-					<Property :prop_name="property"></Property>
+					<div class="ui-single-footer">
+						<UIButton class="secondary red" @click.prevent="delete_atom">Delete</UIButton>
+						<UIButton type="submit">Save</UIButton>
+					</div>
 					
-				</div>
-				<button type="submit">Update</button>
-				<button @click.prevent="delete_atom">Delete</button>
 			</form>
 			<!-- <ModalAtom @atom_selected="myMethod" />-->
 			<ModalAtom @atom_selected="modalAtomSelected"/>

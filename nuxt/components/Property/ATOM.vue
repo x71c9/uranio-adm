@@ -1,13 +1,15 @@
 <template>
 	<div>
 		<div v-if="atom[prop_name]">
-			<NuxtLink :to="`/urn-admin/${prop_atom_name}/${atom[prop_name]}`">
-				{{ atom[prop_name] }}
-			</NuxtLink>
-			<button @click.prevent="remove">X</button>
+			<div class="ui-property-atom-li">
+				<NuxtLink :to="`/urn-admin/${prop_atom_name}/${atom[prop_name]}`">
+					{{ atom[prop_name] }}
+				</NuxtLink>
+				<UIButton class="small secondary red" @click.native.prevent="remove">X</UIButton>
+			</div>
 		</div>
 		<div v-else>
-			<button @click.prevent="add">Add</button>
+			<UIButton class="secondary" @click.native.prevent="add">Add</UIButton>
 		</div>
 		<div style="display: none;">
 			<input

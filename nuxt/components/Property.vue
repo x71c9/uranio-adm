@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="ui-property" :class="`ui-${prop_type}`">
 		<label v-if="prop_type != 'Empty' && prop_type != 'PropertyHIDDEN'">
 			<strong>{{ prop_label }}</strong>
 		</label>
