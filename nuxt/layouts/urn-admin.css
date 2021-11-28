@@ -131,7 +131,7 @@ body{
   flex-direction: row;
   width: 100%;
   padding: 0 var(--padx4) 0 var(--padx2);
-  border-bottom: 1px solid var(--black);
+  /* border-bottom: 1px solid var(--black); */
 }
 .flex-row-2 {
   align-items: center;
@@ -272,7 +272,7 @@ body{
   align-items: center;
   display: flex;
   height: 48px;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 .ui-flex-row-3-el {
   align-items: center;
@@ -442,7 +442,7 @@ body{
 .ui-all-table td{
   z-index: 1;
   text-align: left;
-  padding: var(--padx05);
+  /* padding: var(--padx05); */
   white-space: nowrap;
   border-bottom: 1px solid var(--white-5);
   height: 40px;
@@ -451,6 +451,7 @@ body{
   color: var(--white-4);
 }
 .ui-all-table td a{
+  padding: 4px 0;
   display: block;
   height: 100%;
   width: 100%;
@@ -530,4 +531,114 @@ body{
   margin-left: 8px;
   position: relative;
   top: 5px;
+}
+
+/* Property */
+.ui-property-wrapper{
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin: 0 calc(-1 * var(--padx1));
+}
+.ui-property{
+  width: 45%;
+  flex: 1 1 auto;
+  /* background-color: var(--licorice); */
+  /* border-radius: 8px; */
+  /* box-shadow: 0px 1px 1px #00000029, 0px 2px 1px #0000001f, 0px 1px 3px #00000033; */
+  margin: 24px var(--padx1) 0;
+  /* padding: var(--padx1); */
+}
+.ui-property label{
+  margin-bottom: 14px;
+  display: block;
+}
+.ui-property input[type="text"],
+.ui-property input[type="email"],
+.ui-property input[type="password"],
+.ui-property input[type="number"],
+.ui-property textarea{
+  -webkit-appearance: none;
+}
+.ui-property input,
+.ui-property select,
+.ui-property textarea{
+  border-radius: 8px;
+  background-color: var(--licorice);
+  outline: 0;
+  color: var(--white);
+  display: block;
+  padding: 12px 14px;
+  width: 100%;
+  font: inherit;
+  border: 1px solid #2d2c2c;
+}
+.ui-property select{
+  padding-right: 28px;
+}
+.ui-property textarea{
+  height: 170px;
+  resize: vertical;
+}
+/* ::-webkit-datetime-edit { padding: 1em; } */
+/* ::-webkit-datetime-edit-fields-wrapper { background: silver; } */
+/* ::-webkit-datetime-edit-text { color: red; padding: 0 0.3em; } */
+/* ::-webkit-datetime-edit-month-field { color: blue; } */
+/* ::-webkit-datetime-edit-day-field { color: green; } */
+/* ::-webkit-datetime-edit-year-field { color: purple; } */
+/* ::-webkit-inner-spin-button { display: none; } */
+/* ::-webkit-calendar-picker-indicator { color: orange; } */
+
+.ui-property-binary{
+  display: flex;
+}
+.ui-property-binary .binary-el{
+  display: flex;
+  margin-right: 28px;
+  align-items: center;
+}
+.ui-property-binary label{
+  width: auto;
+  display: inline-block;
+  margin-bottom: 0;
+}
+.ui-property-binary input{
+  display: none;
+}
+
+.ui-PropertySET ul{
+  margin-top: 14px;
+}
+.ui-property-atom-li,
+.ui-PropertyATOM li,
+.ui-PropertyATOMARRAY li,
+.ui-PropertySET li{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  background-color: var(--licorice);
+  margin-bottom: 4px;
+  border-radius: 8px;
+  padding: 10px 8px;
+}
+.ui-PropertySET label{
+  display: inline-block;
+  margin-bottom: 0;
+}
+.ui-set-add-wrapper{
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-top: 8px;
+}
+.ui-set-add-wrapper input{
+  margin-right: 14px;
+}
+.ui-single-footer{
+  margin-top: 14px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

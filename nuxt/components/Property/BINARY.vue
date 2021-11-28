@@ -1,33 +1,47 @@
 <template>
-	<div>
-		<input
-			:id="`${prop_name}.false`"
-			class="urn_input"
-			type="radio"
-			:name="prop_name"
-			value="false"
-			v-on:input="on_input"
-			:checked="atom[prop_name] == false"
-			>
+	<div class="ui-property-binary">
+		<div class="binary-el">
+			<UIRadioButton
+				@click.native="select(false)"
+				:class="{selected: !this.atom[this.prop_name]}"
+				/>
+			<input
+				:id="`${prop_name}.false`"
+				ref="`${prop_name}.false`"
+				class="urn_input"
+				type="radio"
+				:name="prop_name"
+				value="false"
+				v-on:input="on_input"
+				:checked="atom[prop_name] == false"
+				>
 			<label
 				:for="`${prop_name}.false`"
 				>
 				False
 			</label>
-		<input
-			:id="`${prop_name}.true`"
-			class="urn_input"
-			type="radio"
-			:name="prop_name"
-			value="true"
-			v-on:input="on_input"
-			:checked="atom[prop_name] == true"
-			>
+		</div>
+		<div class="binary-el">
+			<UIRadioButton
+				@click.native="select(true)"
+				:class="{selected: this.atom[this.prop_name]}"
+				/>
+			<input
+				:id="`${prop_name}.true`"
+				ref="`${prop_name}.false`"
+				class="urn_input"
+				type="radio"
+				:name="prop_name"
+				value="true"
+				v-on:input="on_input"
+				:checked="atom[prop_name] == true"
+				>
 			<label
 				:for="`${prop_name}.true`"
 				>
 				True
 			</label>
+		</div>
 	</div>
 </template>
 <script lang="ts" src="./BINARY.ts"></script>

@@ -12,7 +12,6 @@
 				placeholder="Search"
 				@focus="search_input_focused = true"
 				@blur="search_input_focused = false"
-				
 				/>
 		</div>
 		<div class="ui-all-header-el ui-all-header-sort">
