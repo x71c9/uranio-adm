@@ -33,6 +33,8 @@ type Methods = {
 	modalAtomSelected: (id: string | string[]) => void
 	submit: (event:Event) => Promise<void>
 	delete_atom: () => Promise<void>
+	on_change: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => void
+	on_keyup: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => void
 }
 
 type Computed = {
@@ -68,6 +70,8 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>
 		console.log('AsyncData.context.params: ', context.params);
 		
 		const atom_name = context.params.atom as A;
+		
+		// TODO Validate atom_name
 		
 		const atom_id = context.params.slug;
 		
@@ -166,6 +170,22 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>
 	},
 	
 	methods: {
+		
+		on_change(prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>)
+				:void{
+			const atom_value = this.atom[prop_name];
+			const prop = this.atom_props[prop_name];
+			if(prop.error === true && atom_value){
+				prop.error = false;
+			}else if(prop.error === false && !atom_value){
+				prop.error = true;
+			}
+		},
+		
+		on_keyup(prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>)
+				:void{
+			this.on_change(prop_name);
+		},
 		
 		modalAtomSelected()
 				:void{

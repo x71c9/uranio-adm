@@ -31,6 +31,8 @@
 						v-for="(property, prop_name) in atom_props"
 						:key="prop_name"
 						:prop="property"
+						v-on:change.native="on_change(prop_name)"
+						v-on:keyup.native="on_keyup(prop_name)"
 						></Property>
 					
 					<div class="ui-single-footer">
