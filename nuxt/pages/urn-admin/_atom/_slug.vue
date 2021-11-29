@@ -7,7 +7,7 @@
 					<span class="ui-atom-name">({{ atom_name }})</span>
 				</h1>
 				<div class="ui-flex-row-3-el">
-					<UIButton>Save</UIButton>
+					<UIButton v-on:click.native="submit">Save</UIButton>
 				</div>
 			</div>
 			<div class="flex-row-4">
@@ -28,10 +28,9 @@
 					autocomplete="off"
 				>
 					<Property
-						v-for="property in atom_props" :key="property.name"
-						:prop_name="property.name"
-						:prop_style="property.style"
-						:optional="property.optional"
+						v-for="(property, prop_name) in atom_props"
+						:key="prop_name"
+						:prop="property"
 						></Property>
 					
 					<div class="ui-single-footer">
@@ -51,7 +50,9 @@
 			<ModalAtom @atom_selected="modalAtomSelected"/>
 		</div>
 		<div v-else>
-			<strong>{{ message }}</strong>
+			<div class="flex-row-3">
+				<strong>{{ message }}</strong>
+			</div>
 		</div>
 	</div>
 </template>

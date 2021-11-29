@@ -1,4 +1,4 @@
-import {Route} from 'vue-router';
+import { Route } from 'vue-router';
 
 import uranio from 'uranio';
 

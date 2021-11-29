@@ -726,3 +726,8 @@ body.urn-single-page .ui-main-nuxt{
   justify-content: space-between;
 }
 
+.ui-property.urn-property-error input,
+.ui-property.urn-property-error textarea{
+  background-color: var(--coral-red-2);
+  border-color: #990000;
+}

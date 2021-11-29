@@ -8,17 +8,22 @@ import { atom_book } from "uranio-books/atom";
 
 import {Context} from '@nuxt/types';
 
-type AtomProp = {
+export type AtomProp = {
 	name: string
 	optional: boolean
+	error: boolean
 	style: uranio.types.Book.Definition.Property.PropertyStyle
+}
+
+type AtomProps = {
+	[k:string]: AtomProp
 }
 
 type Data<A extends uranio.types.AtomName> = {
 	atom_name: A
 	plural: string
 	atom: uranio.types.Molecule<A>
-	atom_props: AtomProp[]
+	atom_props: AtomProps
 	message: string
 	success: boolean
 	title: string
@@ -76,7 +81,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>
 		
 		let title = 'No title';
 		
-		const atom_props:AtomProp[] = [];
+		const atom_props:AtomProps = {};
 		
 		if (urn_util.object.has_key(atom_book, atom_name)) {
 			
@@ -85,20 +90,22 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>
 			
 			for(const [prop_name, prop_def] of Object.entries(atom_def_props)){
 				if(!prop_def.hidden){
-					atom_props.push({
+					atom_props[prop_name] = {
 						name: prop_name,
 						style: fill_style(prop_def.style),
-						optional: prop_def.optional || false
-					});
+						optional: prop_def.optional || false,
+						error: false
+					};
 				}
 			}
 			for(const [prop_name, prop_def] of Object.entries(uranio.core.stc.atom_hard_properties)){
 				if(!(prop_def as any).hidden){
-					atom_props.push({
+					atom_props[prop_name] = {
 						name: prop_name,
 						style: fill_style(),
-						optional: false
-					});
+						optional: false,
+						error: false
+					};
 				}
 			}
 			
@@ -192,41 +199,60 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>
 			
 		},
 		
-		async submit<A extends uranio.types.AtomName>(event: Event):Promise<void> {
+		async submit<A extends uranio.types.AtomName>(_event: Event):Promise<void> {
 			
-			console.log('EVENT:', event);
+			// console.log('EVENT:', _event);
 			
-			console.log('Atom: ', this.atom);
+			// console.log('Atom: ', this.atom);
 			
 			const trx_base = uranio.trx.base.create(this.atom_name);
 			
-			// const cloned_atom = _clean_atom(this.atom_name, this.atom);
-			const cloned_atom = _clean_atom(this.atom);
+			const cloned_atom = _clean_atom(this.atom_name, this.atom);
+			// const cloned_atom = _clean_atom(this.atom);
 			
-			const trx_hook = trx_base.hook('update');
+			const empty_required_keys = _empty_required_properties(
+				this.atom_name,
+				this.atom
+			);
 			
-			const hook_params = {
-				params:{
-					id: cloned_atom._id
-				},
-				body: cloned_atom
-			} as uranio.types.Hook.Params<A, uranio.types.RouteName<A>>;
+			for(const [key, _value] of Object.entries(this.atom_props)){
+				Vue.set(this.atom_props[key], 'error', false);
+			}
 			
-			const trx_response = await trx_hook(hook_params);
-			
-			console.log('TRX Response: ', trx_response);
-			
-			if(trx_response.success){
+			if(empty_required_keys.length > 0){
 				
-				for(const [key, value] of Object.entries(trx_response.payload)){
-					this.$set(this.atom, key, value);
+				for(let i = 0; i < empty_required_keys.length; i++){
+					Vue.set(this.atom_props[empty_required_keys[i]], 'error', true);
 				}
 				
 			}else{
 				
-				this.message = trx_response.message || '';
+				const trx_hook = trx_base.hook('update');
 				
-				console.error('ERR MSG: ', trx_response.err_msg);
+				const hook_params = {
+					params:{
+						id: cloned_atom._id
+					},
+					body: cloned_atom
+				} as uranio.types.Hook.Params<A, uranio.types.RouteName<A>>;
+				
+				const trx_response = await trx_hook(hook_params);
+				
+				console.log('TRX Response: ', trx_response);
+				
+				if(trx_response.success){
+					
+					for(const [key, value] of Object.entries(trx_response.payload)){
+						this.$set(this.atom, key, value);
+					}
+					
+				}else{
+					
+					this.message = trx_response.message || '';
+					
+					console.error('ERR MSG: ', trx_response.err_msg);
+				}
+				
 			}
 		},
 		
@@ -268,19 +294,32 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>
 	},
 });
 
-// function _clean_atom<A extends uranio.types.AtomName>(atom_name:A, atom:uranio.types.Atom<A>)
-function _clean_atom<A extends uranio.types.AtomName>(atom:uranio.types.Atom<A>)
+function _empty_required_properties<A extends uranio.types.AtomName>(atom_name: A, atom:uranio.types.Atom<A>)
+		:(keyof uranio.types.Book.Definition<A>)[]{
+	const atom_prop_defs = atom_book[atom_name].properties;
+	const empty_required_keys:(keyof uranio.types.Book.Definition<A>)[] = [];
+	for(const [prop_key, prop_def] of Object.entries(atom_prop_defs)){
+		const k = prop_key as keyof typeof atom;
+		if((!prop_def.optional || prop_def.optional === false) && !atom[k]){
+			empty_required_keys.push(k as keyof uranio.types.Book.Definition<A>);
+		}
+	}
+	return empty_required_keys;
+}
+
+// function _clean_atom<A extends uranio.types.AtomName>(atom:uranio.types.Atom<A>)
+function _clean_atom<A extends uranio.types.AtomName>(atom_name:A, atom:uranio.types.Atom<A>)
 		:uranio.types.Atom<A>{
 	const cloned_atom = {...atom} as any;
 	if(cloned_atom._date){
 		delete cloned_atom._date;
 	}
-	// const atom_prop_defs = atom_book[atom_name].properties;
-	// for(const [prop_key, prop_def] of Object.entries(atom_prop_defs)){
-	//   if(prop_def.optional && cloned_atom[prop_key] === '' ){
-	//     delete cloned_atom[prop_key];
-	//   }
-	// }
+	const atom_prop_defs = atom_book[atom_name].properties;
+	for(const [prop_key, prop_def] of Object.entries(atom_prop_defs)){
+		if(prop_def.optional && cloned_atom[prop_key] === '' ){
+			delete cloned_atom[prop_key];
+		}
+	}
 	return cloned_atom;
 }
 
