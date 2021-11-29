@@ -6,6 +6,8 @@ import uranio from 'uranio';
 
 import { atom_book } from "uranio-books/atom";
 
+import { AtomProp } from '../pages/urn-admin/_atom/_slug';
+
 const atom_hard_properties = uranio.core.stc.atom_hard_properties;
 
 const SETProps = ['PropertySETNUMBER', 'PropertySETSTRING'];
@@ -15,21 +17,19 @@ const ENUMProps = ['PropertyENUMNUMBER', 'PropertyENUMSTRING'];
 type Data = {
 	prop_type: string
 	prop_label: string
-	prop_classes: string
 }
 
 type Methods = {
 }
 
 type Computed = {
+	prop_classes:string
 }
 
 type Props = {
 	atom: uranio.types.Atom<uranio.types.AtomName>
 	atom_name: string
-	prop_name: string
-	prop_style: uranio.types.Book.Definition.Property.PropertyStyle
-	optional: boolean
+	prop: AtomProp
 }
 
 type Provide = {
@@ -37,16 +37,10 @@ type Provide = {
 	prop_type: string
 }
 
-// type SimpleAtom = {
-//   [k:string]: any
-// }
-
 export default Vue.extend<Data, Methods, Computed, Props>({
 	
 	props: {
-		prop_name: String,
-		prop_style: Object,
-		optional: Boolean,
+		prop: Object,
 		atom: Object,
 		atom_name: String
 	},
@@ -58,9 +52,27 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	
 	provide():Provide {
 		return {
-			prop_name: this.prop_name,
+			prop_name: this.prop.name,
 			prop_type: this.prop_type,
 		};
+	},
+	
+	computed: {
+		prop_classes():string{
+			const classes = (this.prop.style.classes && this.prop.style.classes !== '') ?
+				' ' + this.prop.style.classes : '';
+			let prop_classes = `ui-${this.prop_type}${classes}`;
+			if(this.prop.style.full_width === true){
+				prop_classes += ` urn-full-width`;
+			}
+			if(this.prop.optional === true){
+				prop_classes += ` urn-property-optional`;
+			}
+			if(this.prop.error === true){
+				prop_classes += ` urn-property-error`;
+			}
+			return prop_classes;
+		}
 	},
 	
 	data():Data {
@@ -71,17 +83,17 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		const atom_def_props = atom_def["properties"];
 		
 		let prop_type = "Empty";
-		let prop_label = this.prop_name;
+		let prop_label = this.prop.name;
 		
-		if(urn_util.object.has_key(atom_hard_properties, this.prop_name)) {
+		if(urn_util.object.has_key(atom_hard_properties, this.prop.name)) {
 			
 			prop_type = "PropertyReadOnly";
-			prop_label = atom_hard_properties[this.prop_name].label;
+			prop_label = atom_hard_properties[this.prop.name].label;
 			
-		} else if (urn_util.object.has_key(atom_def_props, this.prop_name)) {
+		} else if (urn_util.object.has_key(atom_def_props, this.prop.name)) {
 			
-			prop_type = `Property${atom_def_props[this.prop_name].type.replace(/_/g, "")}`;
-			prop_label = atom_def_props[this.prop_name].label;
+			prop_type = `Property${atom_def_props[this.prop.name].type.replace(/_/g, "")}`;
+			prop_label = atom_def_props[this.prop.name].label;
 			
 		}
 		
@@ -93,20 +105,9 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			prop_type = `PropertyENUM`;
 		}
 		
-		const classes = (this.prop_style.classes && this.prop_style.classes !== '') ?
-			' ' + this.prop_style.classes : '';
-		let prop_classes = `ui-${prop_type}${classes}`;
-		if(this.prop_style.full_width === true){
-			prop_classes += ` urn-full-width`;
-		}
-		if(this.optional === true){
-			prop_classes += ` urn-property-optional`;
-		}
-		
 		return {
 			prop_type,
 			prop_label,
-			prop_classes
 		};
 		
 	},
