@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="monospace">
 		{{ atom[prop_name] }}
 	</div>
 </template>

@@ -135,11 +135,22 @@ body{
 }
 .flex-row-2 {
   align-items: center;
-  display: flex;
+  /* display: flex; */
   width: 100%;
+  position: relative;
+}
+.ui-header-right{
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
 }
 .ui-header-searchbar{
-  flex: 1 0 auto;
+  /* flex: 1 0 auto; */
+  width: 100%;
+  max-width: 1010px;
+  margin: 0 auto;
+  padding: 0 160px 0 0;
 }
 .search-bar {
   align-items: flex-start;
@@ -636,9 +647,82 @@ body{
   margin-right: 14px;
 }
 .ui-single-footer{
-  margin-top: 14px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 14px var(--padx1);
 }
+.ui-single-footer .left button{
+  margin-right: var(--padx1);
+}
+
+body.urn-single-page .ui-main-nuxt{
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.ui-PropertyReadOnly{
+	color: var(--white-2);
+}
+
+.urn-full-width{
+  width: 100%;
+}
+.urn-full-width.ui-property input[type=text],
+.urn-full-width.ui-property input[type="email"],
+.urn-full-width.ui-property input[type="password"],
+.urn-full-width.ui-property input[type="number"],
+.urn-full-width.ui-property textarea,
+.urn-full-width.ui-property select{
+  width: calc(50% - var(--padx1));
+}
+
+/* MODAL ATOM */
+
+.urn-modal-atom{
+  position: fixed;
+  background-color: var(--licorice);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 100;
+  box-shadow: 0px 1px 1px #00000029, 0px 2px 1px #0000001f, 0px 1px 3px #00000033;
+  padding: var(--padx2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.modal-atom-body h2{
+  margin-bottom: var(--padx2);
+}
+.modal-atom-list li{
+  width: 100%;
+  border-radius: 8px;
+  padding: var(--padx2);
+  background-color: var(--white-5);
+  margin-bottom: var(--padx1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 24px;
+}
+.modal-atom-list li:hover{
+  background-color: var(--azure-radiance-2);
+}
+.modal-atom-list li.selected{
+  background-color: var(--azure-radiance);
+}
+.modal-atom-list li .check_icon{
+  margin-right: var(--padx1);
+}
+.modal-atom-list li .check_icon img{
+  height: 24px;
+  display: inline-block;
+}
+.modal-atom-footer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+

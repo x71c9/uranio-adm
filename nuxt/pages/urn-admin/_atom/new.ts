@@ -1,9 +1,13 @@
 
 import Vue from 'vue';
 
+import { urn_util } from "urn-lib";
+
 import uranio from 'uranio';
 
 import { atom_book } from "uranio-books/atom";
+
+import { fill_style } from './_slug';
 
 type Provide = {
 	atom: uranio.types.Atom<uranio.types.AtomName>,
@@ -11,9 +15,12 @@ type Provide = {
 }
 
 type Data = {
-	atom: uranio.types.Atom<uranio.types.AtomName>,
-	atom_name: uranio.types.AtomName,
+	atom: uranio.types.Atom<uranio.types.AtomName>
+	atom_name: uranio.types.AtomName
+	plural: string
 	message: string
+	prop_styles: PropStyles<uranio.types.AtomName>
+	prop_optionals: PropOptional<uranio.types.AtomName>
 }
 
 type Methods = {
@@ -25,6 +32,14 @@ type Props = {
 	atom: uranio.types.Atom<uranio.types.AtomName>
 	atom_name: uranio.types.AtomName
 	message: string
+}
+
+type PropStyles<A extends uranio.types.AtomName> = {
+	[k in keyof typeof atom_book[A]['properties']]: uranio.types.Book.Definition.Property.PropertyStyle;
+}
+
+type PropOptional<A extends uranio.types.AtomName> = {
+	[k in keyof typeof atom_book[A]['properties']]: boolean;
 }
 
 function _process_atom<A extends uranio.types.AtomName>(
@@ -41,6 +56,12 @@ export default Vue.extend<Data, Methods, Props, Props>({
 	
 	layout: "urn-admin",
 	
+	head: {
+		bodyAttrs: {
+			class: 'urn-single-page'
+		}
+	},
+	
 	provide():Provide{
 		return {
 			atom: this.atom,
@@ -56,11 +77,25 @@ export default Vue.extend<Data, Methods, Props, Props>({
 		
 		const atom_def = atom_book[atom_name] as uranio.types.Book.BasicDefinition;
 		
+		let plural = atom_name + "s";
+		
+		if(urn_util.object.has_key(atom_def, "plural")){
+			plural = (atom_def as any).plural;
+		}
+			
 		const atom_props = atom_def.properties;
 		
 		let atom = {} as uranio.types.Atom<typeof atom_name>;
 		
+		const prop_styles:PropStyles<typeof atom_name> = {};
+		
+		const prop_optionals:PropOptional<typeof atom_name> = {};
+		
 		for(const key in atom_props){
+			
+			(prop_styles as any)[key] = fill_style(atom_props[key].style);
+			
+			(prop_optionals as any)[key] = atom_props[key].optional || false;
 			
 			const prop = atom_props[key];
 			switch(prop.type){
@@ -96,7 +131,10 @@ export default Vue.extend<Data, Methods, Props, Props>({
 		return {
 			atom,
 			atom_name,
-			message
+			message,
+			prop_styles,
+			prop_optionals,
+			plural
 		};
 	},
 	

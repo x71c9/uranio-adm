@@ -24,15 +24,27 @@
 			@keydown.enter.prevent @keyup.enter.prevent
 			class="ui-property-wrapper"
 			>
+			<!-- :prop_value="atom" -->
 			<Property
 				v-for="(val, property) in atom" :key="property"
 				:prop_name="property"
+				:prop_style="prop_styles[property]"
+				:optional="prop_optionals[property]"
 				:atom_name="atom_name"
-				:prop_value="atom"
 				v-on:input="atom[property] = $event"
 				>
 			</Property>
-			<UIButton type="submit">Insert</UIButton>
+			<div class="ui-single-footer">
+				<div class="left">
+					<UIButton
+						class="secondary"
+						v-on:click.native="$router.back()"
+						>Cancel</UIButton>
+				</div>
+				<div class="right">
+					<UIButton type="submit">Insert</UIButton>
+				</div>
+			</div>
 		</form>
 		<ModalAtom @atom_selected="modalAtomSelected"/>
 	</div>

@@ -28,17 +28,26 @@
 					autocomplete="off"
 				>
 					<Property
-						v-for="property in atom_props" :key="property"
-						:prop_name="property"
+						v-for="property in atom_props" :key="property.name"
+						:prop_name="property.name"
+						:prop_style="property.style"
+						:optional="property.optional"
 						></Property>
 					
 					<div class="ui-single-footer">
-						<UIButton class="secondary red" @click.prevent="delete_atom">Delete</UIButton>
-						<UIButton type="submit">Save</UIButton>
+						<div class="left">
+							<UIButton
+								class="secondary"
+								v-on:click.native="$router.back()"
+								>Cancel</UIButton>
+							<UIButton class="secondary red" @click.prevent="delete_atom">Delete</UIButton>
+						</div>
+						<div class="right">
+							<UIButton type="submit">Save</UIButton>
+						</div>
 					</div>
 					
 			</form>
-			<!-- <ModalAtom @atom_selected="myMethod" />-->
 			<ModalAtom @atom_selected="modalAtomSelected"/>
 		</div>
 		<div v-else>

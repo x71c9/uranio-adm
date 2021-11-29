@@ -1,18 +1,25 @@
 <template>
-	<div v-if="$store.state.modalAtom.is_open">
-		<ul>
-			<li
-				v-for="atom in $store.state.modalAtom.atoms"
-				:key="atom._id"
-				:class="{ 'selected' : $store.state.modalAtom.selected_atoms[atom._id] === true}"
-				@click.prevent="select(atom._id)"
-				>
-				<span v-if="$store.state.modalAtom.selected_atoms[atom._id]">SSS &nbsp;</span>
-				{{ atom._id }}
-			</li>
-		</ul>
-		<button @click.prevent="close">Close</button>
-		<button @click.prevent="submit">Sumbit</button>
+	<div class="urn-modal-atom" v-if="$store.state.modalAtom.is_open">
+		<div class="modal-atom-body">
+			<h2 class="inter-medium-white-36px">Select atom</h2>
+			<ul class="modal-atom-list">
+				<li
+					v-for="atom in $store.state.modalAtom.atoms"
+					:key="atom._id"
+					:class="{ 'selected' : $store.state.modalAtom.selected_atoms[atom._id] === true}"
+					@click.prevent="select(atom._id)"
+					>
+					<span class="check_icon" v-if="$store.state.modalAtom.selected_atoms[atom._id]">
+						<img src="/img/icons/png/check.png" />
+					</span>
+					{{ atom._id }}
+				</li>
+			</ul>
+		</div>
+		<div class="modal-atom-footer">
+			<UIButton class="secondary" @click.native.prevent="close">Close</UIButton>
+			<UIButton @click.native.prevent="submit">Sumbit</UIButton>
+		</div>
 	</div>
 </template>
 <script lang="ts" src="./Atom.ts"></script>

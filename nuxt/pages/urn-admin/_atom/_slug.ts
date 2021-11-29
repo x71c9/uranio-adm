@@ -8,11 +8,17 @@ import { atom_book } from "uranio-books/atom";
 
 import {Context} from '@nuxt/types';
 
+type AtomProp = {
+	name: string
+	optional: boolean
+	style: uranio.types.Book.Definition.Property.PropertyStyle
+}
+
 type Data<A extends uranio.types.AtomName> = {
 	atom_name: A
 	plural: string
 	atom: uranio.types.Molecule<A>
-	atom_props: string[]
+	atom_props: AtomProp[]
 	message: string
 	success: boolean
 	title: string
@@ -33,6 +39,12 @@ type Props = {
 }
 
 export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>({
+	
+	head: {
+		bodyAttrs: {
+			class: 'urn-single-page'
+		}
+	},
 	
 	layout(): string {
 		return "urn-admin";
@@ -64,7 +76,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>
 		
 		let title = 'No title';
 		
-		const atom_props:string[] = [];
+		const atom_props:AtomProp[] = [];
 		
 		if (urn_util.object.has_key(atom_book, atom_name)) {
 			
@@ -73,12 +85,20 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>
 			
 			for(const [prop_name, prop_def] of Object.entries(atom_def_props)){
 				if(!prop_def.hidden){
-					atom_props.push(prop_name);
+					atom_props.push({
+						name: prop_name,
+						style: fill_style(prop_def.style),
+						optional: prop_def.optional || false
+					});
 				}
 			}
 			for(const [prop_name, prop_def] of Object.entries(uranio.core.stc.atom_hard_properties)){
 				if(!(prop_def as any).hidden){
-					atom_props.push(prop_name);
+					atom_props.push({
+						name: prop_name,
+						style: fill_style(),
+						optional: false
+					});
 				}
 			}
 			
@@ -264,3 +284,24 @@ function _clean_atom<A extends uranio.types.AtomName>(atom:uranio.types.Atom<A>)
 	return cloned_atom;
 }
 
+export function fill_style(prop_def_style?:uranio.types.Book.Definition.Property.PropertyStyle)
+		:uranio.types.Book.Definition.Property.PropertyStyle{
+	
+	const default_style:uranio.types.Book.Definition.Property.PropertyStyle = {
+		full_width: false,
+		classes: ''
+	};
+	
+	if(typeof prop_def_style === 'undefined'){
+		prop_def_style = default_style;
+	}else{
+		for(const [key, value] of Object.entries(default_style)){
+			const k = key as keyof uranio.types.Book.Definition.Property.PropertyStyle;
+			if(typeof prop_def_style[k] === 'undefined'){
+				(prop_def_style as any)[k] = value;
+			}
+		}
+	}
+	
+	return prop_def_style;
+}

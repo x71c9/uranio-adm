@@ -15,6 +15,7 @@ const ENUMProps = ['PropertyENUMNUMBER', 'PropertyENUMSTRING'];
 type Data = {
 	prop_type: string
 	prop_label: string
+	prop_classes: string
 }
 
 type Methods = {
@@ -27,6 +28,8 @@ type Props = {
 	atom: uranio.types.Atom<uranio.types.AtomName>
 	atom_name: string
 	prop_name: string
+	prop_style: uranio.types.Book.Definition.Property.PropertyStyle
+	optional: boolean
 }
 
 type Provide = {
@@ -42,6 +45,8 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	
 	props: {
 		prop_name: String,
+		prop_style: Object,
+		optional: Boolean,
 		atom: Object,
 		atom_name: String
 	},
@@ -88,9 +93,20 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			prop_type = `PropertyENUM`;
 		}
 		
+		const classes = (this.prop_style.classes && this.prop_style.classes !== '') ?
+			' ' + this.prop_style.classes : '';
+		let prop_classes = `ui-${prop_type}${classes}`;
+		if(this.prop_style.full_width === true){
+			prop_classes += ` urn-full-width`;
+		}
+		if(this.optional === true){
+			prop_classes += ` urn-property-optional`;
+		}
+		
 		return {
 			prop_type,
-			prop_label
+			prop_label,
+			prop_classes
 		};
 		
 	},

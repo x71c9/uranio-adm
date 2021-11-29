@@ -7,7 +7,7 @@
 				</h1>
 				<div class="ui-flex-row-3-el">
 					<nuxt-link :to="`/urn-admin/${atom_name}/new`">
-						<UIButton>Add Product</UIButton>
+						<UIButton>Add {{ atom_name }}</UIButton>
 					</nuxt-link>
 					<UIButton class="borderless">Export</UIButton>
 					<UIButton class="borderless">Import</UIButton>
