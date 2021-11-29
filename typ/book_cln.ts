@@ -33,6 +33,7 @@ export namespace Book {
 		 * For some reason it is not possible to use the following syntax.
 		 * NuxtJS will fail in the browser.
 		 * All namespace and types must be re-defined.
+		 * Might work on Nuxt 3?
 		 */
 		
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -71,9 +72,15 @@ export namespace Book {
 		
 		export namespace Property {
 			
+			export type PropertyStyle = {
+				full_width?: boolean,
+				classes?: string
+			}
+			
 			export type ExtendedSharedFields = {
 				sortable?: boolean,
-				is_title?: boolean
+				is_title?: boolean,
+				style?: PropertyStyle
 			}
 			
 			export type ID = ExtendedSharedFields & urn_trx_client.types.Book.Definition.Property.ID;

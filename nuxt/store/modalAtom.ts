@@ -48,6 +48,13 @@ export const mutations: MutationTree<RootState> = {
 		}
 	},
 	SELECT_ATOM: (state, atom_id:string) => {
+		if(state.multiple === false){
+			for(const atom of state.atoms){
+				if(atom._id !== atom_id){
+					Vue.set(state.selected_atoms, atom._id, false);
+				}
+			}
+		}
 		Vue.set(state.selected_atoms, atom_id, !state.selected_atoms[atom_id]);
 	}
 };
