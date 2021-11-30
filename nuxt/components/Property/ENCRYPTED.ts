@@ -19,10 +19,6 @@ type Props = {
 	prop_type: string
 }
 
-// type SimpleAtom = {
-//   [k:string]: any
-// }
-
 export default Vue.extend<Data, Methods, Computed, Props>({
 	
 	inject: [

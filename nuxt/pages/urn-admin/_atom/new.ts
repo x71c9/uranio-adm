@@ -7,8 +7,6 @@ import uranio from 'uranio';
 
 import { atom_book } from "uranio-books/atom";
 
-import { fill_style } from './_slug';
-
 type Provide = {
 	atom: uranio.types.Atom<uranio.types.AtomName>,
 	atom_name: uranio.types.AtomName
@@ -19,27 +17,17 @@ type Data = {
 	atom_name: uranio.types.AtomName
 	plural: string
 	message: string
-	prop_styles: PropStyles<uranio.types.AtomName>
-	prop_optionals: PropOptional<uranio.types.AtomName>
 }
 
 type Methods = {
 	submit: (event:Event) => Promise<void>
+	external_submit: (event:Event) => void
 	modalAtomSelected: (id: string | string[]) => void
 }
 
 type Props = {
 	atom: uranio.types.Atom<uranio.types.AtomName>
 	atom_name: uranio.types.AtomName
-	message: string
-}
-
-type PropStyles<A extends uranio.types.AtomName> = {
-	[k in keyof typeof atom_book[A]['properties']]: uranio.types.Book.Definition.Property.PropertyStyle;
-}
-
-type PropOptional<A extends uranio.types.AtomName> = {
-	[k in keyof typeof atom_book[A]['properties']]: boolean;
 }
 
 function _process_atom<A extends uranio.types.AtomName>(
@@ -83,21 +71,11 @@ export default Vue.extend<Data, Methods, Props, Props>({
 			plural = (atom_def as any).plural;
 		}
 			
-		const atom_props = atom_def.properties;
-		
 		let atom = {} as uranio.types.Atom<typeof atom_name>;
 		
-		const prop_styles:PropStyles<typeof atom_name> = {};
-		
-		const prop_optionals:PropOptional<typeof atom_name> = {};
-		
-		for(const key in atom_props){
+		for(const key in atom_def.properties){
 			
-			(prop_styles as any)[key] = fill_style(atom_props[key].style);
-			
-			(prop_optionals as any)[key] = atom_props[key].optional || false;
-			
-			const prop = atom_props[key];
+			const prop = atom_def.properties[key];
 			switch(prop.type){
 				case uranio.types.BookPropertyType.ATOM:{
 					atom = {...atom, ...{[key] : null}};
@@ -132,19 +110,20 @@ export default Vue.extend<Data, Methods, Props, Props>({
 			atom,
 			atom_name,
 			message,
-			prop_styles,
-			prop_optionals,
 			plural
 		};
 	},
 	
 	methods: {
 		
-		async submit(event: Event)
+		external_submit(_event: Event):void{
+			if(this.$refs.atom_form && (this.$refs.atom_form as any).submit){
+				(this.$refs as any).atom_form.submit();
+			}
+		},
+		
+		async submit(_event: Event)
 				:Promise<void> {
-			
-			console.log('EVENT:', event);
-			console.log('ATOM: ', this.atom);
 			
 			const trx_base = uranio.trx.base.create(this.atom_name);
 			
@@ -168,7 +147,7 @@ export default Vue.extend<Data, Methods, Props, Props>({
 				
 			}else{
 				
-				this.$set(this, 'message', trx_response.message || '');
+				this.message = trx_response.message || '';
 				console.error('ERRMSG: ', trx_response.message);
 				
 			}
