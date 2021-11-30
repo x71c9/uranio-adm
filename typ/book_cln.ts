@@ -72,7 +72,7 @@ export namespace Book {
 		
 		export namespace Property {
 			
-			export type PropertyStyle = {
+			export type AdminStyle = {
 				full_width?: boolean,
 				classes?: string
 			}
@@ -80,7 +80,7 @@ export namespace Book {
 			export type ExtendedSharedFields = {
 				sortable?: boolean,
 				is_title?: boolean,
-				style?: PropertyStyle
+				style?: AdminStyle
 			}
 			
 			export type ID = ExtendedSharedFields & urn_trx_client.types.Book.Definition.Property.ID;

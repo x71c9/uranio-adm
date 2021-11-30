@@ -6,7 +6,7 @@ import uranio from 'uranio';
 
 import { atom_book } from "uranio-books/atom";
 
-import { AtomProp } from '../pages/urn-admin/_atom/_slug';
+import { UIAtomProp } from '../components/Form/Atom';
 
 const atom_hard_properties = uranio.core.stc.atom_hard_properties;
 
@@ -29,7 +29,7 @@ type Computed = {
 type Props = {
 	atom: uranio.types.Atom<uranio.types.AtomName>
 	atom_name: string
-	prop: AtomProp
+	prop: UIAtomProp
 }
 
 type Provide = {
@@ -68,9 +68,12 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			if(this.prop.optional === true){
 				prop_classes += ` urn-property-optional`;
 			}
-			if(this.prop.error === true){
+			if(this.prop.state === 'error'){
 				prop_classes += ` urn-property-error`;
 			}
+			// if(this.prop.error === true){
+			//   prop_classes += ` urn-property-error`;
+			// }
 			return prop_classes;
 		}
 	},
@@ -82,18 +85,20 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		
 		const atom_def_props = atom_def["properties"];
 		
-		let prop_type = "Empty";
-		let prop_label = this.prop.name;
+		const prop_name = this.prop.name;
 		
-		if(urn_util.object.has_key(atom_hard_properties, this.prop.name)) {
+		let prop_type = "Empty";
+		let prop_label = prop_name;
+		
+		if(urn_util.object.has_key(atom_hard_properties, prop_name)) {
 			
 			prop_type = "PropertyReadOnly";
-			prop_label = atom_hard_properties[this.prop.name].label;
+			prop_label = atom_hard_properties[prop_name].label;
 			
-		} else if (urn_util.object.has_key(atom_def_props, this.prop.name)) {
+		} else if (urn_util.object.has_key(atom_def_props, prop_name)) {
 			
-			prop_type = `Property${atom_def_props[this.prop.name].type.replace(/_/g, "")}`;
-			prop_label = atom_def_props[this.prop.name].label;
+			prop_type = `Property${atom_def_props[prop_name].type.replace(/_/g, "")}`;
+			prop_label = atom_def_props[prop_name].label;
 			
 		}
 		
