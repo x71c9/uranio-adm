@@ -6,7 +6,7 @@ import uranio from 'uranio';
 
 import { atom_book } from "uranio-books/atom";
 
-type UIAtomProp = {
+export type UIAtomProp = {
 	name: string
 	optional: boolean
 	state: 'valid' | 'warning' | 'error'
@@ -24,6 +24,9 @@ type Data = {
 
 type Methods = {
 	submit: (event:Event) => void
+	submit_exit: (event:Event) => void
+	delete_atom: (event:Event) => void
+	validate_form: () => boolean
 	on_change: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => void
 	on_keyup: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => void
 }
@@ -117,6 +120,31 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 		
 		submit(_event: Event):void {
 			
+			if(this.validate_form()){
+				
+				this.$emit('submit_atom_form');
+				
+			}
+			
+		},
+		
+		submit_exit(_event:Event):void{
+			
+			if(this.validate_form()){
+				
+				this.$emit('submit_exit_atom_form');
+				
+			}
+		},
+		
+		delete_atom(_event:Event):void{
+			
+			this.$emit('delete_atom');
+			
+		},
+		
+		validate_form():boolean{
+			
 			const empty_required_keys = _empty_required_properties(
 				this.atom_name,
 				this.atom
@@ -134,11 +162,12 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 					Vue.set(this.atom_props[empty_required_keys[i]], 'state', 'error');
 				}
 				
-			}else{
-				
-				this.$emit('submit_atom_form');
+				return false;
 				
 			}
+			
+			return true;
+			
 		}
 	},
 	
