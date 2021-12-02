@@ -1,7 +1,7 @@
 
 import Vue from 'vue';
 
-import { urn_util } from "urn-lib";
+import { urn_util, urn_log } from "urn-lib";
 
 import uranio from 'uranio';
 
@@ -129,10 +129,10 @@ export default Vue.extend<Data, Methods, Props, Props>({
 			
 			const cloned_atom = _process_atom(this.atom_name, this.atom);
 			
-			const trx_hook = trx_base.hook("insert");
+			const trx_hook = trx_base.hook('insert');
 			const trx_response = await trx_hook({ body: cloned_atom });
 			
-			console.log('TRX Response: ', trx_response);
+			urn_log.debug('[insert] TRX Response: ', trx_response);
 			
 			if(trx_response.success && !Array.isArray(trx_response.payload)){
 				
@@ -148,7 +148,7 @@ export default Vue.extend<Data, Methods, Props, Props>({
 			}else{
 				
 				this.message = trx_response.message || '';
-				console.error('ERRMSG: ', trx_response.message);
+				urn_log.error('ERRMSG: ', trx_response.message);
 				
 			}
 		},

@@ -429,6 +429,24 @@ body{
   display: block;
   margin-bottom: 14px;
 }
+
+.ui-property-atom-li a,
+.ui-PropertyATOM li a,
+.ui-PropertyATOMARRAY li a,
+.ui-PropertySET li{
+  display: block;
+  height: 42px;
+  line-height: 22px;
+  padding: 10px 8px;
+  width: 100%;
+}
+.ui-property-atom-li a:hover,
+.ui-PropertyATOM li a:hover,
+.ui-PropertyATOMARRAY li a:hover,
+.ui-PropertySET li a:hover{
+  color: var(--white-7);
+}
+
 /* ALL TABLE */
 
 .ui-all-table{
@@ -549,7 +567,9 @@ body{
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
-  margin: 0 calc(-1 * var(--padx1));
+  margin: 34px calc(-1 * var(--padx1));
+  background-color: var(--licorice);
+  border-radius: 8px;
 }
 .ui-property{
   width: 45%;
@@ -558,7 +578,7 @@ body{
   /* border-radius: 8px; */
   /* box-shadow: 0px 1px 1px #00000029, 0px 2px 1px #0000001f, 0px 1px 3px #00000033; */
   margin: 24px var(--padx1) 0;
-  /* padding: var(--padx1); */
+  padding: var(--padx1);
 }
 .ui-property label{
   margin-bottom: 14px;
@@ -628,10 +648,11 @@ body{
   align-items: center;
   width: 100%;
   justify-content: space-between;
-  background-color: var(--licorice);
+  /* background-color: var(--licorice); */
+  background-color: var(--white-6);
   margin-bottom: 4px;
   border-radius: 8px;
-  padding: 10px 8px;
+  padding: 0px 8px;
 }
 .ui-PropertySET label{
   display: inline-block;
@@ -648,20 +669,23 @@ body{
 }
 .ui-single-footer{
   width: 100%;
-  margin: 14px var(--padx1);
+  margin: 14px var(--padx1) 0;
   position: sticky;
   bottom: 0;
+  border-radius: 8px;
 }
 .ui-single-footer .full-bg{
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #1c1c1c;
-  padding: 22px 0;
+  /* background-color: #1c1c1c; */
+  background-color: var(--licorice);
+  padding: 22px 0 var(--padx1);
 }
 .ui-single-footer .gradient{
-  background-image: linear-gradient(to top, rgba(28, 28, 28, 1), rgba(28, 28, 28, 0));
+  /* background-image: linear-gradient(to top, rgba(28, 28, 28, 1), rgba(28, 28, 28, 0)); */
+  background-image: linear-gradient(to top, rgba(17, 17, 17, 1), rgba(17, 17, 17, 0));
   height: 54px;
 }
 .ui-single-footer .left button{

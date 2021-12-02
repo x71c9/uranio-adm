@@ -33,7 +33,12 @@
 		</div>
 		<div v-else>
 			<div class="flex-row-3">
-				<strong>{{ message }}</strong>
+				<h1 class="ui-flex-row-3-el today inter-medium-white-36px">
+					<span class="inter-medium-white-36px">{{ message }}</span>
+				</h1>
+				<div class="ui-flex-row-3-el">
+					<UIButton class="secondary" v-on:click.native="$router.go()">Reload</UIButton>
+				</div>
 			</div>
 		</div>
 	</div>

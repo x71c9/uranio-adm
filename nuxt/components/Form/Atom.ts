@@ -155,6 +155,9 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 				Vue.set(this.atom_props[key], 'state', 'valid');
 			}
 			
+			console.log(empty_required_keys);
+			console.log(this.atom_props);
+			
 			if(empty_required_keys.length > 0){
 				
 				for(let i = 0; i < empty_required_keys.length; i++){
@@ -179,7 +182,7 @@ function _empty_required_properties<A extends uranio.types.AtomName>(atom_name: 
 	const empty_required_keys:(keyof uranio.types.Book.Definition<A>)[] = [];
 	for(const [prop_key, prop_def] of Object.entries(atom_prop_defs)){
 		const k = prop_key as keyof typeof atom;
-		if(!prop_def.optional || prop_def.optional === false){
+		if(!prop_def.optional && !prop_def.hidden){
 			const atom_def = atom_book[atom_name] as uranio.types.Book.BasicDefinition;
 			const atom_properties = atom_def.properties as uranio.types.Book.Definition.Properties;
 			const prop_def = atom_properties[prop_key] as uranio.types.Book.Definition.Property;

@@ -1,10 +1,6 @@
 import Vue from 'vue';
 
-// import { Route } from 'vue-router';
-
 import { urn_util, urn_response, urn_log } from "urn-lib";
-
-urn_log.defaults.log_level = urn_log.LogLevel.FUNCTION_DEBUG;
 
 import uranio from 'uranio';
 
@@ -62,7 +58,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 	async asyncData<A extends uranio.types.AtomName>(context: Context)
 			:Promise<Data<A>> {
 		
-		console.log('AsyncData.context.params: ', context.params);
+		urn_log.debug('AsyncData.context.params: ', context.params);
 		
 		const atom_name = context.params.atom as A;
 		
@@ -106,7 +102,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			
 			const trx_response = await trx_hook(hook_params);
 			
-			console.log('TRX Response: ', trx_response);
+			urn_log.debug('[find_id] TRX Response: ', trx_response);
 			
 			success = trx_response.success;
 			
@@ -201,9 +197,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			} as uranio.types.Hook.Params<A, uranio.types.RouteName<A>>;
 			
 			const trx_response = await trx_hook(hook_params);
-			console.log('TRX Response: ', trx_response);
-			
-			urn_log.debug('TRX');
+			urn_log.debug('[update] TRX Response: ', trx_response);
 			
 			return trx_response;
 			
@@ -243,7 +237,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		fail(message:string, err_msg?:string):void{
 			this.success = false;
 			this.message = message;
-			console.error('ERR MSG: ', err_msg);
+			urn_log.error('ERR MSG: ', err_msg);
 		},
 		
 		exit():void{
@@ -267,7 +261,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			} as uranio.types.Hook.Params<A, uranio.types.RouteName<A>>;
 			const trx_response = await trx_hook(hook_params);
 			
-			console.log('TRX Response: ', trx_response);
+			urn_log.debug('TRX Response: ', trx_response);
 			
 			if(trx_response.success){
 				

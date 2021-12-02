@@ -1,6 +1,8 @@
 
 import Vue from 'vue';
 
+import { urn_log } from 'urn-lib';
+
 import { atom_book } from "uranio-books/atom";
 
 import uranio from "uranio";
@@ -61,9 +63,9 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	methods:{
 		
 		remove():void{
-			console.log(this.atom);
+			urn_log.debug(this.atom);
 			this.$set(this.atom, this.prop_name, '');
-			console.log(this.atom);
+			urn_log.debug(this.atom);
 		},
 		
 		add():void{
