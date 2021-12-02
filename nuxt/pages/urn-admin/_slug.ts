@@ -2,7 +2,7 @@ import { Route } from 'vue-router';
 
 import uranio from 'uranio';
 
-import { urn_util, urn_response } from "urn-lib";
+import { urn_util, urn_response, urn_log } from "urn-lib";
 
 import { atom_book } from "uranio-books/atom";
 
@@ -66,7 +66,7 @@ export default {
 	async asyncData<A extends uranio.types.AtomName>(context:Context)
 			:Promise<ReturnData<A>> {
 		
-		console.log('AsyncData.context.params', context.params);
+		urn_log.debug('AsyncData.context.params', context.params);
 		
 		const atom_name = context.params.slug as A;
 		
@@ -148,7 +148,7 @@ export default {
 					message = (trx_res_find as urn_response.Fail<any>).err_msg || "ERROR";
 				}
 				
-				console.log('TRX Response: ', trx_res_find);
+				urn_log.debug('TRX Response: ', trx_res_find);
 				
 			}else{
 				message = (trx_res_count as urn_response.Fail<any>).err_msg || "ERROR";

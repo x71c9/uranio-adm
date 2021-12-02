@@ -40,7 +40,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	methods: {
 		// async get_atoms<A extends uranio.types.AtomName>()
 		//       :Promise<uranio.types.Atom<any>[]>{
-		//   console.log('GET_ATOMS');
+		//   urn_log.debug('GET_ATOMS');
 		//   const atom_name = this.$store.state.modalAtom.atom_prop_atom;
 		//   const trx_base = uranio.base.create(atom_name);
 		//   const trx_response = await trx_base.hook(

@@ -10,3 +10,4 @@
 <style type="text/css" src="./urn-admin-reset.css"></style>
 <style type="text/css" src="./urn-admin-global.css"></style>
 <style type="text/css" src="./urn-admin.css"></style>
+<script lang="ts" src="./urn-admin.ts"></script>
