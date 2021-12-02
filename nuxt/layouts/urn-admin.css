@@ -648,13 +648,30 @@ body{
 }
 .ui-single-footer{
   width: 100%;
+  margin: 14px var(--padx1);
+  position: sticky;
+  bottom: 0;
+}
+.ui-single-footer .full-bg{
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 14px var(--padx1);
+  background-color: #1c1c1c;
+  padding: 22px 0;
+}
+.ui-single-footer .gradient{
+  background-image: linear-gradient(to top, rgba(28, 28, 28, 1), rgba(28, 28, 28, 0));
+  height: 54px;
 }
 .ui-single-footer .left button{
   margin-right: var(--padx1);
+}
+.ui-single-footer .right{
+  display: flex;
+}
+.ui-single-footer .right button{
+  margin-left: var(--padx1);
 }
 
 body.urn-single-page .ui-main-nuxt{

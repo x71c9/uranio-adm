@@ -2,13 +2,15 @@ import Vue from 'vue';
 
 // import { Route } from 'vue-router';
 
-import { urn_util, urn_response } from "urn-lib";
+import { urn_util, urn_response, urn_log } from "urn-lib";
+
+urn_log.defaults.log_level = urn_log.LogLevel.FUNCTION_DEBUG;
 
 import uranio from 'uranio';
 
 import { atom_book } from "uranio-books/atom";
 
-import {Context} from '@nuxt/types';
+import { Context } from '@nuxt/types';
 
 type Data<A extends uranio.types.AtomName> = {
 	atom_name: A
@@ -20,9 +22,14 @@ type Data<A extends uranio.types.AtomName> = {
 	title: string
 }
 
-type Methods = {
+type Methods<A extends uranio.types.AtomName> = {
 	modalAtomSelected: (id: string | string[]) => void
 	submit: (event:Event) => Promise<void>
+	submit_exit: (event:Event) => Promise<void>
+	fail: (message:string, err_msg:string) => void
+	exit: () => void
+	assign_atom: (atom:uranio.types.Atom<A>) => void
+	update: () => Promise<urn_response.General<uranio.types.Atom<A>, any>>
 	external_submit: (event:Event) => void
 	delete_atom: () => Promise<void>
 }
@@ -33,7 +40,7 @@ type Computed = {
 type Props = {
 }
 
-export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>({
+export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.AtomName>, Computed, Props>({
 	
 	head: {
 		bodyAttrs: {
@@ -180,14 +187,12 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>
 			}
 		},
 		
-		async submit<A extends uranio.types.AtomName>(_event: Event):Promise<void> {
+		async update<A extends uranio.types.AtomName>()
+				:Promise<urn_response.General<uranio.types.Atom<A>, any>> {
 			
 			const cloned_atom = _clean_atom(this.atom_name, this.atom);
-			
-			const trx_base = uranio.trx.base.create(this.atom_name);
-			
+			const trx_base = uranio.trx.base.create<A>(this.atom_name as A);
 			const trx_hook = trx_base.hook('update');
-			
 			const hook_params = {
 				params:{
 					id: cloned_atom._id
@@ -196,57 +201,81 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods, Computed, Props>
 			} as uranio.types.Hook.Params<A, uranio.types.RouteName<A>>;
 			
 			const trx_response = await trx_hook(hook_params);
-			
 			console.log('TRX Response: ', trx_response);
 			
+			urn_log.debug('TRX');
+			
+			return trx_response;
+			
+		},
+		
+		async submit(_event: Event)
+				:Promise<void> {
+			const trx_response = await this.update();
+			
 			if(trx_response.success){
-				
-				for(const [key, value] of Object.entries(trx_response.payload)){
-					this.$set(this.atom, key, value);
-				}
-				
+				this.assign_atom(trx_response.payload);
 			}else{
-				
-				this.success = false;
-				this.message = trx_response.message || '';
-				
-				console.error('ERR MSG: ', trx_response.err_msg);
+				this.fail(trx_response.message || '', trx_response.err_msg);
 			}
 			
+		},
+		
+		async submit_exit(_event: Event):Promise<void> {
+			
+			const trx_response = await this.update();
+			
+			if(trx_response.success){
+				this.assign_atom(trx_response.payload);
+				this.exit();
+			}else{
+				this.fail(trx_response.message || '', trx_response.err_msg);
+			}
+			
+		},
+		
+		assign_atom<A extends uranio.types.AtomName>(atom:uranio.types.Atom<A>):void{
+			for(const [key, value] of Object.entries(atom)){
+				this.$set(this.atom, key, value);
+			}
+		},
+		
+		fail(message:string, err_msg?:string):void{
+			this.success = false;
+			this.message = message;
+			console.error('ERR MSG: ', err_msg);
+		},
+		
+		exit():void{
+			this.$router.push({
+				name: 'urn-admin-slug',
+				params: {
+					slug: this.atom_name
+				}
+			});
 		},
 		
 		async delete_atom<A extends uranio.types.AtomName>()
 				:Promise<void>{
 			
-			const that = this as any;
-			
-			const trx_base = uranio.trx.base.create(this.atom_name);
-			
+			const trx_base = uranio.trx.base.create<A>(this.atom_name as A);
 			const trx_hook = trx_base.hook('delete');
-			
 			const hook_params = {
 				params:{
 					id: this.atom._id
 				}
 			} as uranio.types.Hook.Params<A, uranio.types.RouteName<A>>;
-			
 			const trx_response = await trx_hook(hook_params);
 			
 			console.log('TRX Response: ', trx_response);
 			
 			if(trx_response.success){
 				
-				this.$router.push({
-					name: 'urn-admin-slug',
-					params: {
-						slug: this.atom_name
-					}
-				});
+				this.exit();
 				
 			}else{
 				
-				that.message = trx_response.message;
-				console.error('ERR MSG: ', trx_response.err_msg);
+				this.fail(trx_response.message || '', trx_response.err_msg);
 				
 			}
 		}

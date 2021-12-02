@@ -14,19 +14,26 @@
 			v-on:keyup.native="on_keyup(prop_name)"
 			></Property>
 			<div class="ui-single-footer">
-				<div class="left">
-					<UIButton
-						class="secondary"
-						v-on:click.native="$router.back()"
-						>Cancel</UIButton>
-					<UIButton
-						v-if="call === 'update'"
-						class="secondary red"
-						@click.prevent="delete_atom"
-						>Delete</UIButton>
-				</div>
-				<div class="right">
-					<UIButton type="submit">Save</UIButton>
+				<div class="gradient"></div>
+				<div class="full-bg">
+					<div class="left">
+						<UIButton
+							class="secondary"
+							v-on:click.native="$router.back()"
+							>Cancel</UIButton>
+						<UIButton
+							v-if="call === 'update'"
+							class="secondary red"
+							@click.native.prevent="delete_atom"
+							>Delete</UIButton>
+					</div>
+					<div class="right">
+						<UIButton type="submit">Save</UIButton>
+						<UIButton
+							v-if="call === 'update'"
+							@click.native.prevent="submit_exit"
+							>Save / Exit</UIButton>
+					</div>
 				</div>
 			</div>
 	</form>
