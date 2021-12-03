@@ -572,16 +572,21 @@ body{
   border-radius: 8px;
 }
 .ui-property{
-  width: 45%;
+  /* width: 45%; */
+  width: 100%;
   flex: 1 1 auto;
-  /* background-color: var(--licorice); */
-  /* border-radius: 8px; */
+  /* background-color: var(--eerie-black); */
+  border-radius: 4px;
   /* box-shadow: 0px 1px 1px #00000029, 0px 2px 1px #0000001f, 0px 1px 3px #00000033; */
+  /* box-shadow: 0px 1px 1px #000000, 0px 2px 1px #000000, 0px 1px 3px #000000; */
   margin: 24px var(--padx1) 0;
   padding: var(--padx1);
+  /* border: 1px solid var(--white-5); */
+}
+.ui-property.ui-PropertyReadOnly{
+  width: 45%;
 }
 .ui-property label{
-  margin-bottom: 14px;
   display: block;
 }
 .ui-property input[type="text"],
@@ -595,7 +600,8 @@ body{
 .ui-property select,
 .ui-property textarea{
   border-radius: 8px;
-  background-color: var(--licorice);
+  /* background-color: var(--licorice); */
+  background-color: var(--white-5);
   outline: 0;
   color: var(--white);
   display: block;
@@ -603,6 +609,8 @@ body{
   width: 100%;
   font: inherit;
   border: 1px solid #2d2c2c;
+  /* box-shadow: inset 8px 5px 5px -3px #111; */
+  box-shadow: inset 2px 2px 8px 0px #171717;
 }
 .ui-property select{
   padding-right: 28px;
@@ -653,10 +661,36 @@ body{
   margin-bottom: 4px;
   border-radius: 8px;
   padding: 0px 8px;
+  box-shadow: 4px 4px 10px 2px #000;
 }
 .ui-PropertySET label{
   display: inline-block;
   margin-bottom: 0;
+}
+.ui-property-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.ui-property-header .ui-property-data{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-s);
+  color: var(--white-2);
+}
+.ui-property-header .ui-property-data .prop_data{
+  display: flex;
+  align-items: center;
+  margin-right: 14px;
+}
+.ui-property-header .ui-property-data .prop_data:last-child{
+  margin-right: 14px;
+}
+.ui-property-header .ui-property-data img{
+  height: 14px;
+  margin-right: 6px;
 }
 .ui-set-add-wrapper{
   display: flex;
@@ -715,7 +749,7 @@ body.urn-single-page .ui-main-nuxt{
 .urn-full-width.ui-property input[type="number"],
 .urn-full-width.ui-property textarea,
 .urn-full-width.ui-property select{
-  width: calc(50% - var(--padx1));
+  /* width: calc(50% - var(--padx1)); */
 }
 
 /* MODAL ATOM */
@@ -771,4 +805,5 @@ body.urn-single-page .ui-main-nuxt{
 .ui-property.urn-property-error textarea{
   background-color: var(--coral-red-2);
   border-color: #990000;
+  box-shadow: inset 8px 5px 5px -3px #4e0000;
 }

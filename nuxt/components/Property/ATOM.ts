@@ -1,5 +1,5 @@
 
-import Vue from 'vue';
+import mixins from 'vue-typed-mixins';
 
 import { urn_log } from 'urn-lib';
 
@@ -7,9 +7,9 @@ import { atom_book } from "uranio-books/atom";
 
 import uranio from "uranio";
 
+import shared from './Shared';
+
 type Data = {
-	// atom: uranio.types.Atom<uranio.types.AtomName>
-	// prop_name: string,
 	prop_atom_name: uranio.types.AtomName
 }
 
@@ -22,24 +22,11 @@ type Computed = {
 }
 
 type Props = {
-	atom: uranio.types.Atom<uranio.types.AtomName>
-	atom_name: uranio.types.AtomName
-	prop_name: string,
-	prop_type: string
 }
 
-// type SimpleAtom = {
-//   [k:string]: any
-// }
-
-export default Vue.extend<Data, Methods, Computed, Props>({
+export default mixins(shared).extend<Data, Methods, Computed, Props>({
 	
-	inject: [
-		'atom',
-		'atom_name',
-		'prop_name',
-		'prop_type'
-	],
+	mixins: [shared],
 	
 	data():Data{
 		

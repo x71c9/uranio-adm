@@ -1,9 +1,11 @@
 
-import Vue from 'vue';
+import mixins from 'vue-typed-mixins';
 
 import { atom_book } from "uranio-books/atom";
 
 import uranio from "uranio";
+
+import shared from './Shared';
 
 type EnumNS =
 	uranio.types.BookPropertyType.ENUM_NUMBER |
@@ -14,8 +16,6 @@ type EnumNSValues<T extends EnumNS> =
 	number[] : string[];
 
 type Data<T extends EnumNS> = {
-	// atom: uranio.types.Atom<uranio.types.AtomName>
-	// prop_name: string,
 	enum_values: EnumNSValues<T>,
 	enum_type: T
 }
@@ -25,28 +25,18 @@ type Methods = {
 }
 
 type Computed = {
-
 }
 
 type Props = {
-	atom: uranio.types.Atom<uranio.types.AtomName>
-	atom_name: uranio.types.AtomName
-	prop_name: string,
-	prop_type: string
 }
 
 type SimpleAtom = {
 	[k:string]: any
 }
 
-export default Vue.extend<Data<EnumNS>, Methods, Computed, Props>({
+export default mixins(shared).extend<Data<EnumNS>, Methods, Computed, Props>({
 	
-	inject: [
-		'atom',
-		'atom_name',
-		'prop_name',
-		'prop_type'
-	],
+	mixins: [shared],
 	
 	data<T extends EnumNS>():Data<T> {
 		

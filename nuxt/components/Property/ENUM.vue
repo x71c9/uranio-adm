@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<select
+			ref="input"
 			class="urn_input"
 			:name="prop_name"
 			v-on:change="on_change"
