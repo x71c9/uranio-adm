@@ -40,10 +40,15 @@
 					<UIButton class="secondary" v-on:click.native="$router.go()">Reload</UIButton>
 				</div>
 			</div>
+			<br>
 			<div class="ui-error-body">
-				<UIObjectInspector :obj="error_object" />
+				<UIObjectInspector :data="error_object" />
 			</div>
 		</div>
+		<br>
+		<h2>TRX Response</h2>
+		<br>
+		<UIObjectInspector :data="data_object" />
 	</div>
 </template>
 <script lang="ts" src="./_slug.ts"></script>

@@ -18,7 +18,10 @@
 				:value="atom_id"
 				>
 		</div>
-		<UIButton class="secondary" @click.native.prevent="add">Add</UIButton>
+		<UIButton
+			class="secondary add_button"
+			@click.native.prevent="add"
+			>Add</UIButton>
 	</div>
 </template>
 <script lang="ts" src="./ATOMARRAY.ts"></script>

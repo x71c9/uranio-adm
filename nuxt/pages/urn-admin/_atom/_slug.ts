@@ -17,6 +17,7 @@ type Data<A extends uranio.types.AtomName> = {
 	success: boolean
 	title: string
 	error_object:urn_response.Fail<any>
+	data_object:urn_response.General<any, any>
 }
 
 type Methods<A extends uranio.types.AtomName> = {
@@ -77,6 +78,8 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		
 		let atom = {} as uranio.types.Atom<A>;
 		
+		let data_object = {} as urn_response.General<any, any>;
+		
 		let title = 'No title';
 		
 		if (urn_util.object.has_key(atom_book, atom_name)) {
@@ -102,6 +105,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			} as uranio.types.Hook.Params<A, uranio.types.RouteName<A>>;
 			
 			const trx_response = await trx_hook(hook_params);
+			data_object = trx_response;
 			
 			urn_log.debug('[find_id] TRX Response: ', trx_response);
 			
@@ -142,8 +146,8 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			success,
 			title,
 			back_label,
-			error_object
-			
+			error_object,
+			data_object
 		};
 		
 	},
@@ -235,19 +239,22 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		},
 		
 		fail(trx_response:urn_response.Fail<any>):void{
+			urn_log.error('ERR MSG: ', trx_response.err_msg);
 			this.success = false;
 			this.message = trx_response.message || 'Unknown error';
-			this.error_object = trx_response;
-			urn_log.error('ERR MSG: ', trx_response.err_msg);
+			const cloned_error = { ...trx_response };
+			delete cloned_error.ex;
+			this.error_object = cloned_error;
 		},
 		
 		exit():void{
-			this.$router.push({
-				name: 'urn-admin-slug',
-				params: {
-					slug: this.atom_name
-				}
-			});
+			this.$router.back();
+			// this.$router.push({
+			//   name: 'urn-admin-slug',
+			//   params: {
+			//     slug: this.atom_name
+			//   }
+			// });
 		},
 		
 		async delete_atom<A extends uranio.types.AtomName>()

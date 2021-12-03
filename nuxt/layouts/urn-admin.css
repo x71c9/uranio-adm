@@ -435,9 +435,9 @@ body{
 .ui-PropertyATOMARRAY li a,
 .ui-PropertySET li{
   display: block;
-  height: 42px;
+  height: 40px;
   line-height: 22px;
-  padding: 10px 8px;
+  padding: 10px 0;
   width: 100%;
 }
 .ui-property-atom-li a:hover,
@@ -446,7 +446,10 @@ body{
 .ui-PropertySET li a:hover{
   color: var(--white-7);
 }
-
+.ui-PropertyATOM button.add_button,
+.ui-PropertyATOMARRAY button.add_button{
+  margin-top: 8px;
+}
 /* ALL TABLE */
 
 .ui-all-table{
@@ -610,7 +613,7 @@ body{
   font: inherit;
   border: 1px solid #2d2c2c;
   /* box-shadow: inset 8px 5px 5px -3px #111; */
-  box-shadow: inset 2px 2px 8px 0px #171717;
+  box-shadow: inset 1px 1px 1px 0px #171717;
 }
 .ui-property select{
   padding-right: 28px;
@@ -662,6 +665,12 @@ body{
   border-radius: 8px;
   padding: 0px 8px;
   box-shadow: 4px 4px 10px 2px #000;
+}
+.ui-property-atom-li:last-of-type,
+.ui-PropertyATOM li:last-of-type,
+.ui-PropertyATOMARRAY li:last-of-type,
+.ui-PropertySET li:last-of-type{
+  margin-bottom: 0;
 }
 .ui-PropertySET label{
   display: inline-block;
@@ -774,13 +783,13 @@ body.urn-single-page .ui-main-nuxt{
 .modal-atom-list li{
   width: 100%;
   border-radius: 8px;
-  padding: var(--padx2);
+  padding: 0 var(--padx1);
   background-color: var(--white-5);
   margin-bottom: var(--padx1);
   cursor: pointer;
   display: flex;
   align-items: center;
-  height: 24px;
+  height: 40px;
 }
 .modal-atom-list li:hover{
   background-color: var(--azure-radiance-2);
@@ -805,5 +814,5 @@ body.urn-single-page .ui-main-nuxt{
 .ui-property.urn-property-error textarea{
   background-color: var(--coral-red-2);
   border-color: #990000;
-  box-shadow: inset 8px 5px 5px -3px #4e0000;
+  box-shadow: inset 1px 1px 3px 2px #380101;
 }

@@ -1,0 +1,3 @@
+.ui-object > div > div > .ui-object{
+	padding-left: var(--padx2);
+}
