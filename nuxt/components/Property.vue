@@ -4,7 +4,9 @@
 			<label v-if="prop_type != 'Empty' && prop_type != 'PropertyHIDDEN'">
 				{{ prop_label }}
 			</label>
-			<div class="ui-property-data">
+			<div
+				v-if="prop_type !== 'PropertyReadOnly'"
+				class="ui-property-data">
 				<div class="prop_data prop_key monospace">
 					<img src="/img/icons/png/vpn_key.png">
 					{{ prop_key }}
