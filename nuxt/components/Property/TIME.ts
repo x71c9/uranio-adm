@@ -1,12 +1,10 @@
 import dateformat from 'dateformat';
 
-import Vue from 'vue';
+import mixins from 'vue-typed-mixins';
 
-import uranio from 'uranio';
+import shared from './Shared';
 
 type Data = {
-	// atom: uranio.types.Atom<uranio.types.AtomName>
-	// prop_name: string
 }
 
 type Methods = {
@@ -18,35 +16,15 @@ type Computed = {
 }
 
 type Props = {
-	atom: uranio.types.Atom<uranio.types.AtomName>
-	atom_name: uranio.types.AtomName
-	prop_name: string,
-	prop_type: string
 }
 
 type SimpleAtom = {
 	[k:string]: any
 }
 
-export default Vue.extend<Data, Methods, Computed, Props>({
+export default mixins(shared).extend<Data, Methods, Computed, Props>({
 	
-	inject: [
-		'atom',
-		'atom_name',
-		'prop_name',
-		'prop_type'
-	],
-	
-	data():Data {
-		// const this = this as any;
-		// const atom = this.atom;
-		// const prop_name = this.prop_name;
-		// return {
-		//   atom,
-		//   prop_name
-		// };
-		return {};
-	},
+	mixins: [shared],
 	
 	computed:{
 		value():string{

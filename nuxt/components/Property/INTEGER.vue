@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<input
+			ref="input"
 			class="urn_input"
 			type="number"
 			step="1"

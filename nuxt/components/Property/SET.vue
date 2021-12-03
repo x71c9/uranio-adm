@@ -18,6 +18,7 @@
 		</div>
 		<div class="ui-set-add-wrapper">
 			<input
+				ref="input"
 				:type="type"
 				:name="prop_name"
 				v-model="new_element"

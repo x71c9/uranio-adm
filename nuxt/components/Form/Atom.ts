@@ -10,7 +10,7 @@ export type UIAtomProp = {
 	name: string
 	optional: boolean
 	state: 'valid' | 'warning' | 'error'
-	// error: boolean
+	focus: boolean
 	style: uranio.types.Book.Definition.Property.AdminStyle
 }
 
@@ -27,6 +27,7 @@ type Methods = {
 	submit_exit: (event:Event) => void
 	delete_atom: (event:Event) => void
 	validate_form: () => boolean
+	focus: (prop_name:string) => void
 	on_change: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => void
 	on_keyup: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => void
 }
@@ -68,8 +69,8 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 						name: prop_name,
 						style: _fill_style(prop_def.style),
 						optional: prop_def.optional || false,
-						state: 'valid'
-						// error: false
+						state: 'valid',
+						focus: false
 					};
 				}
 			}
@@ -80,8 +81,8 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 							name: prop_name,
 							style: _fill_style(),
 							optional: false,
-							state: 'valid'
-							// error: false
+							state: 'valid',
+							focus: false
 						};
 					}
 				}
@@ -98,7 +99,6 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 		
 		on_change(prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>)
 				:void{
-			
 			const atom_value = this.atom[prop_name];
 			const prop = this.atom_props[prop_name];
 			if(prop.state === 'error' && atom_value){
@@ -106,11 +106,6 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 			}else if(prop.state !== 'error' && !atom_value){
 				prop.state = 'error';
 			}
-			// if(prop.error === true && atom_value){
-			//   prop.error = false;
-			// }else if(prop.error === false && !atom_value){
-			//   prop.error = true;
-			// }
 		},
 		
 		on_keyup(prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>)
@@ -119,59 +114,46 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 		},
 		
 		submit(_event: Event):void {
-			
 			if(this.validate_form()){
-				
 				this.$emit('submit_atom_form');
-				
 			}
-			
 		},
 		
 		submit_exit(_event:Event):void{
-			
 			if(this.validate_form()){
-				
 				this.$emit('submit_exit_atom_form');
-				
 			}
 		},
 		
 		delete_atom(_event:Event):void{
-			
 			this.$emit('delete_atom');
-			
 		},
 		
 		validate_form():boolean{
-			
 			const empty_required_keys = _empty_required_properties(
 				this.atom_name,
 				this.atom
 			);
-			
 			for(const [key, _value] of Object.entries(this.atom_props)){
-				// Vue.set(this.atom_props[key], 'error', false);
 				Vue.set(this.atom_props[key], 'state', 'valid');
 			}
-			
-			console.log(empty_required_keys);
-			console.log(this.atom_props);
-			
 			if(empty_required_keys.length > 0){
-				
 				for(let i = 0; i < empty_required_keys.length; i++){
-					// Vue.set(this.atom_props[empty_required_keys[i]], 'error', true);
 					Vue.set(this.atom_props[empty_required_keys[i]], 'state', 'error');
 				}
-				
+				this.focus(empty_required_keys[0]);
 				return false;
-				
 			}
-			
 			return true;
-			
+		},
+		
+		focus(prop_name:string):void{
+			for(const [prop_name, _prop] of Object.entries(this.atom_props)){
+				this.atom_props[prop_name].focus = false;
+			}
+			this.atom_props[prop_name].focus = true;
 		}
+		
 	},
 	
 });
@@ -246,12 +228,10 @@ function _empty_required_properties<A extends uranio.types.AtomName>(atom_name: 
 
 function _fill_style(prop_def_style?:uranio.types.Book.Definition.Property.AdminStyle)
 		:uranio.types.Book.Definition.Property.AdminStyle{
-	
 	const default_style:uranio.types.Book.Definition.Property.AdminStyle = {
 		full_width: false,
 		classes: ''
 	};
-	
 	if(typeof prop_def_style === 'undefined'){
 		prop_def_style = default_style;
 	}else{
@@ -262,6 +242,5 @@ function _fill_style(prop_def_style?:uranio.types.Book.Definition.Property.Admin
 			}
 		}
 	}
-	
 	return prop_def_style;
 }

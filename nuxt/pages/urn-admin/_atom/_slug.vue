@@ -40,6 +40,9 @@
 					<UIButton class="secondary" v-on:click.native="$router.go()">Reload</UIButton>
 				</div>
 			</div>
+			<div class="ui-error-body">
+				<UIObjectInspector :obj="error_object" />
+			</div>
 		</div>
 	</div>
 </template>

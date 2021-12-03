@@ -17,6 +17,7 @@ const ENUMProps = ['PropertyENUMNUMBER', 'PropertyENUMSTRING'];
 type Data = {
 	prop_type: string
 	prop_label: string
+	prop_key: string
 }
 
 type Methods = {
@@ -71,9 +72,6 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			if(this.prop.state === 'error'){
 				prop_classes += ` urn-property-error`;
 			}
-			// if(this.prop.error === true){
-			//   prop_classes += ` urn-property-error`;
-			// }
 			return prop_classes;
 		}
 	},
@@ -85,20 +83,20 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		
 		const atom_def_props = atom_def["properties"];
 		
-		const prop_name = this.prop.name;
+		const prop_key = this.prop.name;
 		
 		let prop_type = "Empty";
-		let prop_label = prop_name;
+		let prop_label = prop_key;
 		
-		if(urn_util.object.has_key(atom_hard_properties, prop_name)) {
+		if(urn_util.object.has_key(atom_hard_properties, prop_key)) {
 			
 			prop_type = "PropertyReadOnly";
-			prop_label = atom_hard_properties[prop_name].label;
+			prop_label = atom_hard_properties[prop_key].label;
 			
-		} else if (urn_util.object.has_key(atom_def_props, prop_name)) {
+		} else if (urn_util.object.has_key(atom_def_props, prop_key)) {
 			
-			prop_type = `Property${atom_def_props[prop_name].type.replace(/_/g, "")}`;
-			prop_label = atom_def_props[prop_name].label;
+			prop_type = `Property${atom_def_props[prop_key].type.replace(/_/g, "")}`;
+			prop_label = atom_def_props[prop_key].label;
 			
 		}
 		
@@ -113,6 +111,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		return {
 			prop_type,
 			prop_label,
+			prop_key
 		};
 		
 	},

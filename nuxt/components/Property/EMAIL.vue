@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<input
+			ref="input"
 			autocomplete="off"
 			class="urn_input"
 			type="email"

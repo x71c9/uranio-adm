@@ -16,13 +16,14 @@ type Data<A extends uranio.types.AtomName> = {
 	message: string
 	success: boolean
 	title: string
+	error_object:urn_response.Fail<any>
 }
 
 type Methods<A extends uranio.types.AtomName> = {
 	modalAtomSelected: (id: string | string[]) => void
 	submit: (event:Event) => Promise<void>
 	submit_exit: (event:Event) => Promise<void>
-	fail: (message:string, err_msg:string) => void
+	fail: (trx_response:urn_response.Fail<any>) => void
 	exit: () => void
 	assign_atom: (atom:uranio.types.Atom<A>) => void
 	update: () => Promise<urn_response.General<uranio.types.Atom<A>, any>>
@@ -131,6 +132,8 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			
 		}
 		
+		const error_object = {} as urn_response.Fail<any>;
+		
 		return {
 			atom_name,
 			atom,
@@ -138,7 +141,9 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			message,
 			success,
 			title,
-			back_label
+			back_label,
+			error_object
+			
 		};
 		
 	},
@@ -206,26 +211,21 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		async submit(_event: Event)
 				:Promise<void> {
 			const trx_response = await this.update();
-			
 			if(trx_response.success){
 				this.assign_atom(trx_response.payload);
 			}else{
-				this.fail(trx_response.message || '', trx_response.err_msg);
+				this.fail(trx_response);
 			}
-			
 		},
 		
 		async submit_exit(_event: Event):Promise<void> {
-			
 			const trx_response = await this.update();
-			
 			if(trx_response.success){
 				this.assign_atom(trx_response.payload);
 				this.exit();
 			}else{
-				this.fail(trx_response.message || '', trx_response.err_msg);
+				this.fail(trx_response);
 			}
-			
 		},
 		
 		assign_atom<A extends uranio.types.AtomName>(atom:uranio.types.Atom<A>):void{
@@ -234,10 +234,11 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			}
 		},
 		
-		fail(message:string, err_msg?:string):void{
+		fail(trx_response:urn_response.Fail<any>):void{
 			this.success = false;
-			this.message = message;
-			urn_log.error('ERR MSG: ', err_msg);
+			this.message = trx_response.message || 'Unknown error';
+			this.error_object = trx_response;
+			urn_log.error('ERR MSG: ', trx_response.err_msg);
 		},
 		
 		exit():void{
@@ -269,7 +270,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 				
 			}else{
 				
-				this.fail(trx_response.message || '', trx_response.err_msg);
+				this.fail(trx_response);
 				
 			}
 		}
