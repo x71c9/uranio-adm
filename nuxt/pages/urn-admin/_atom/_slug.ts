@@ -105,7 +105,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			} as uranio.types.Hook.Params<A, uranio.types.RouteName<A>>;
 			
 			const trx_response = await trx_hook(hook_params);
-			data_object = trx_response;
+			data_object = JSON.parse(JSON.stringify({...trx_response}));
 			
 			urn_log.debug('[find_id] TRX Response: ', trx_response);
 			
@@ -239,6 +239,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		},
 		
 		fail(trx_response:urn_response.Fail<any>):void{
+			window.scrollTo(0, 0);
 			urn_log.error('ERR MSG: ', trx_response.err_msg);
 			this.success = false;
 			this.message = trx_response.message || 'Unknown error';

@@ -1,11 +1,30 @@
 <template>
 	<div>
 		<ul v-if="atom[prop_name].length">
-			<li v-for="atom_id in atom[prop_name]" :key="atom_id">
-				<NuxtLink :to="`/urn-admin/${prop_atom_name}/${atom_id}`">
-					{{ atom_id }}
-				</NuxtLink>
-				<UIButton class="small secondary red" @click.native.prevent="remove(atom_id)">X</UIButton>
+			<li
+				class="ui-li-element ui-li-atom"
+				v-for="atom_id in atom[prop_name]"
+				:key="atom_id"
+				>
+				<div class="drag">
+					<img src="/img/icons/png/menu.png"/>
+				</div>
+				<div class="name">{{ atom_id }}</div>
+				<UIButton
+					class="visit small secondary">
+					<NuxtLink
+						:to="`/urn-admin/${prop_atom_name}/${atom_id}`"
+						>
+						<img src="/img/icons/png/insert_link.png" />
+						Visit
+					</NuxtLink>
+				</UIButton>
+				<UIButton
+					class="small secondary red"
+					@click.native.prevent="remove(atom_id)"
+					>
+					Remove
+				</UIButton>
 			</li>
 		</ul>
 		<div style="display: none;">
