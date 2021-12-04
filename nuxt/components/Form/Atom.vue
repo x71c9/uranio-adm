@@ -1,6 +1,7 @@
 <template>
 	<form
 		class="ui-property-wrapper"
+		:class="{error: error_class}"
 		@submit.prevent="submit"
 		@keydown.enter.prevent
 		@keyup.enter.prevent

@@ -20,6 +20,7 @@ type UIAtomProps = {
 
 type Data = {
 	atom_props: UIAtomProps
+	error_class: boolean
 }
 
 type Methods = {
@@ -27,6 +28,7 @@ type Methods = {
 	submit_exit: (event:Event) => void
 	delete_atom: (event:Event) => void
 	validate_form: () => boolean
+	error: () => void
 	focus: (prop_name:string) => void
 	on_change: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => void
 	on_keyup: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => void
@@ -91,6 +93,7 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 		
 		return {
 			atom_props,
+			error_class: false
 		};
 		
 	},
@@ -116,12 +119,16 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 		submit(_event: Event):void {
 			if(this.validate_form()){
 				this.$emit('submit_atom_form');
+			}else{
+				this.error();
 			}
 		},
 		
 		submit_exit(_event:Event):void{
 			if(this.validate_form()){
 				this.$emit('submit_exit_atom_form');
+			}else{
+				this.error();
 			}
 		},
 		
@@ -130,6 +137,7 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 		},
 		
 		validate_form():boolean{
+			// urn_log.debug('VALIDATE FORM');
 			const empty_required_keys = _empty_required_properties(
 				this.atom_name,
 				this.atom
@@ -145,6 +153,11 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 				return false;
 			}
 			return true;
+		},
+		
+		error():void{
+			this.error_class = true;
+			setTimeout(() => this.error_class = false, 400);
 		},
 		
 		focus(prop_name:string):void{
@@ -192,7 +205,7 @@ function _empty_required_properties<A extends uranio.types.AtomName>(atom_name: 
 					}
 					case uranio.types.BookPropertyType.TIME:
 					case uranio.types.BookPropertyType.DAY:{
-						if(atom[k] === ''){
+						if(!atom[k]){
 							is_empty = true;
 						}
 						break;
@@ -203,7 +216,7 @@ function _empty_required_properties<A extends uranio.types.AtomName>(atom_name: 
 					case uranio.types.BookPropertyType.ENUM_STRING:
 					case uranio.types.BookPropertyType.ENCRYPTED:
 					case uranio.types.BookPropertyType.EMAIL:{
-						if(atom[k] === ''){
+						if(!atom[k]){
 							is_empty = true;
 						}
 						break;
@@ -211,7 +224,7 @@ function _empty_required_properties<A extends uranio.types.AtomName>(atom_name: 
 					case uranio.types.BookPropertyType.INTEGER:
 					case uranio.types.BookPropertyType.FLOAT:
 					case uranio.types.BookPropertyType.ENUM_NUMBER:{
-						if(atom[k] === ''){
+						if(isNaN(atom[k] as unknown as number)){
 							is_empty = true;
 						}
 						break;

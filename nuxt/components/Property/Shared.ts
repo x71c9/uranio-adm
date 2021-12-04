@@ -41,9 +41,18 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 				$input.focus();
 			}
 			if((this.$el as HTMLElement).offsetTop){
-				const top = (this.$el as HTMLElement).offsetTop - 48;
-				window.scrollTo(0, top);
+				const top = (this.$el as HTMLElement).offsetTop - 34;
+				if(!check_if_element_is_visible(this.$el as HTMLElement)){
+					window.scrollTo(0, top);
+				}
 			}
 		}
 	},
 });
+
+export function check_if_element_is_visible(el:HTMLElement):boolean{
+	const rect = el.getBoundingClientRect();
+	const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+	console.log(!(rect.bottom < 0 || rect.top - viewHeight >= 0));
+	return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
+}
