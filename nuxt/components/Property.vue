@@ -17,7 +17,11 @@
 				</div>
 			</div>
 		</div>
-		<component :is="prop_type" :focus="prop.focus"></component>
+		<component
+			class="ui-property-in"
+			:is="prop_type"
+			:focus="prop.focus"
+			></component>
 	</div>
 </template>
 <script lang="ts" src="./Property.ts"></script>

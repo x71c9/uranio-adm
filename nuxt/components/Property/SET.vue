@@ -1,9 +1,21 @@
 <template>
 	<div>
 		<ul>
-			<li v-for="(el, i) in value" :key="`${el}${i}`">
-				<label>{{ el }}</label>
-				<UIButton class="secondary small red" @click.native.prevent="remove_element(el)">X</UIButton>
+			<li
+				class="ui-li-element ui-li-set"
+				v-for="(el, i) in value"
+				:key="`${el}${i}`"
+				>
+				<div class="drag">
+					<img src="/img/icons/png/menu.png"/>
+				</div>
+				<div class="name">{{ el }}</div>
+				<UIButton
+					class="secondary small red"
+					@click.native.prevent="remove_element(el)"
+					>
+					Remove
+					</UIButton>
 			</li>
 		</ul>
 		<div style="display: none;">
