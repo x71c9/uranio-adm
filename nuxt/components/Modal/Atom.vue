@@ -6,13 +6,15 @@
 				<li
 					v-for="atom in $store.state.modalAtom.atoms"
 					:key="atom._id"
-					:class="{ 'selected' : $store.state.modalAtom.selected_atoms[atom._id] === true}"
+					class="ui-li-element ui-li-modal-el"
+					:class="{selected: $store.state.modalAtom.selected_atoms[atom._id]}"
 					@click.prevent="select(atom._id)"
 					>
-					<span class="check_icon" v-if="$store.state.modalAtom.selected_atoms[atom._id]">
-						<img src="/img/icons/png/check.png" />
-					</span>
-					{{ atom._id }}
+						<img
+							v-show="$store.state.modalAtom.selected_atoms[atom._id]"
+							src="/img/icons/png/check.png"
+							/>
+						{{ atom._id }}
 				</li>
 			</ul>
 		</div>

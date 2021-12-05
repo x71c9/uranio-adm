@@ -25,11 +25,11 @@
 			<UIPagination />
 		</div>
 		<div v-else>
-			<div class="flex-row-3">
-				<p class="inter-medium-white-36px">
-					{{ message }}
-				</p>
-			</div>
+			<Error
+				class="ui-all-slug-error"
+				:message="message"
+				:error="error_object"
+				/>
 		</div>
 	</div>
 </template>

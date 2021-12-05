@@ -6,7 +6,9 @@
 				v-for="(el, i) in value"
 				:key="`${el}${i}`"
 				>
-				<div class="drag">
+				<div
+					v-if="value.length > 1"
+					class="drag">
 					<img src="/img/icons/png/menu.png"/>
 				</div>
 				<div class="name">{{ el }}</div>

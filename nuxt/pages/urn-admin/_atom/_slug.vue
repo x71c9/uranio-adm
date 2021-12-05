@@ -1,8 +1,11 @@
 <template>
-	<div>
+	<div class="ui-atom-slug">
 		<div v-if="success">
 			<div class="flex-row-3">
-				<h1 class="ui-flex-row-3-el today inter-medium-white-36px">
+				<h1
+					class="ui-flex-row-3-el today inter-medium-white-36px"
+					v-on:click="$router.go()"
+					>
 					<span class="inter-medium-white-36px">{{ title }}</span>
 					<span class="ui-atom-name">({{ atom_name }})</span>
 				</h1>
@@ -32,23 +35,12 @@
 			<ModalAtom @atom_selected="modalAtomSelected"/>
 		</div>
 		<div v-else>
-			<div class="flex-row-3">
-				<h1 class="ui-flex-row-3-el today inter-medium-white-36px">
-					<span class="inter-medium-white-36px">{{ message }}</span>
-				</h1>
-				<div class="ui-flex-row-3-el">
-					<UIButton class="secondary" v-on:click.native="$router.go()">Reload</UIButton>
-				</div>
-			</div>
-			<br>
-			<div class="ui-error-body">
-				<UIObjectInspector :data="error_object" />
-			</div>
+			<Error
+				:message="message"
+				:error="error_object"
+				/>
 		</div>
-		<br>
-		<h2>TRX Response</h2>
-		<br>
-		<UIObjectInspector :data="data_object" />
+		<Raw :data="data_object"/>
 	</div>
 </template>
 <script lang="ts" src="./_slug.ts"></script>

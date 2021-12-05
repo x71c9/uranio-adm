@@ -516,7 +516,13 @@ body{
 }
 
 /* atom/_slug */
-
+.ui-atom-slug h1{
+  cursor: pointer;
+  position: relative;
+}
+.ui-atom-slug h1:active{
+  top: 1px;
+}
 .button.back_button{
   display: flex;
   align-items: center;
@@ -818,26 +824,42 @@ body.urn-single-page .ui-main-nuxt{
 .modal-atom-body h2{
   margin-bottom: var(--padx2);
 }
-.modal-atom-list li{
-  width: 100%;
+.modal-atom-list{
+  background-color: rgb(41, 41, 41);
+  padding: 8px;
   border-radius: 8px;
-  padding: 0 var(--padx1);
-  background-color: var(--white-5);
-  margin-bottom: var(--padx1);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  height: 40px;
 }
-.modal-atom-list li:hover{
-  background-color: var(--azure-radiance-2);
+.ui-li-element.ui-li-modal-el img{
+  height: 20px;
+  margin-right: 8px;
 }
-.modal-atom-list li.selected{
-  background-color: var(--azure-radiance);
+.ui-li-element.ui-li-modal-el:hover{
+  /* background-color: var(--white-5); */
+  border-color: var(--dodger-blue);
 }
-.modal-atom-list li .check_icon{
-  margin-right: var(--padx1);
+.ui-li-element.ui-li-modal-el.selected{
+  border-color: var(--dodger-blue);
 }
+/* .modal-atom-list li{ */
+/*   width: 100%; */
+/*   border-radius: 8px; */
+/*   padding: 0 var(--padx1); */
+/*   background-color: var(--white-5); */
+/*   margin-bottom: var(--padx1); */
+/*   cursor: pointer; */
+/*   display: flex; */
+/*   align-items: center; */
+/*   height: 40px; */
+/* } */
+/* .modal-atom-list li:hover{ */
+/*   background-color: var(--azure-radiance-2); */
+/* } */
+/* .modal-atom-list li.selected{ */
+/*   background-color: var(--azure-radiance); */
+/* } */
+/* .modal-atom-list li .check_icon{ */
+/*   margin-right: var(--padx1); */
+/* } */
 .modal-atom-list li .check_icon img{
   height: 24px;
   display: inline-block;
@@ -853,4 +875,26 @@ body.urn-single-page .ui-main-nuxt{
   background-color: var(--coral-red-2);
   border-color: #990000;
   /* box-shadow: inset 1px 1px 3px 2px #380101; */
+}
+
+/* Raw */
+.ui-raw-data{
+  margin-top: 24px;
+}
+.ui-raw-data h2{
+  color: var(--white-2);
+}
+.ui-raw-header{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.ui-raw-header img{
+  height: 20px;
+}
+
+.ui-all-slug-error{
+  max-width: 1080px;
+  margin: 0 auto;
 }
