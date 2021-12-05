@@ -17,7 +17,7 @@
 				:key="`${el}${i}`"
 				>
 				<div
-					v-if="value.length > 1"
+					v-if="atom[prop_name].length > 1"
 					class="drag_handle">
 					<img src="/img/icons/png/menu.png"/>
 				</div>
@@ -32,7 +32,7 @@
 		</draggable>
 		<div style="display: none;">
 			<input
-				v-for="(el, i) in value"
+				v-for="(el, i) in atom[prop_name]"
 				class="urn_input"
 				type="hidden"
 				:key="`${el}${i}`"
