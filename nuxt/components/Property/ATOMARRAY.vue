@@ -6,7 +6,9 @@
 				v-for="atom_id in atom[prop_name]"
 				:key="atom_id"
 				>
-				<div class="drag">
+				<div
+					v-if="atom[prop_name].length > 1"
+					class="drag">
 					<img src="/img/icons/png/menu.png"/>
 				</div>
 				<div class="name">{{ atom_id }}</div>

@@ -82,6 +82,8 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		
 		let title = 'No title';
 		
+		let error_object = {} as urn_response.Fail<any>;
+		
 		if (urn_util.object.has_key(atom_book, atom_name)) {
 			
 			const atom_def = atom_book[atom_name];
@@ -111,7 +113,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			
 			success = trx_response.success;
 			
-			if (trx_response.status == 200) {
+			if (trx_response.success === true) {
 				
 				atom = trx_response.payload;
 				
@@ -127,6 +129,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			} else {
 				
 				message = (trx_response as urn_response.Fail<any>).err_msg || "ERROR";
+				error_object = trx_response;
 				
 			}
 			
@@ -135,8 +138,6 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			context.error({ statusCode: 404, message: "Page not found" });
 			
 		}
-		
-		const error_object = {} as urn_response.Fail<any>;
 		
 		return {
 			atom_name,

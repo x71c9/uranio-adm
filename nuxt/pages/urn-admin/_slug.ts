@@ -1,3 +1,5 @@
+import mixins from 'vue-typed-mixins';
+
 import { Route } from 'vue-router';
 
 import uranio from 'uranio';
@@ -6,24 +8,14 @@ import { urn_util, urn_response, urn_log } from "urn-lib";
 
 import { atom_book } from "uranio-books/atom";
 
-type ErrorParams = {
-	statusCode: number;
-	message: string;
-};
-type Context = {
-	params: {
-		slug: string
-	}
-	query: {
-		page: number
-		limit: number
-		sort: any
-	}
-	error: (p: ErrorParams) => void
-};
+import { Context } from '@nuxt/types';
+
+import shared from './shared';
+
 type SortBy = {
 	[prop_name:string]: 1 | -1
 };
+
 export type Page = {
 	index: number
 	total_page_num: number
@@ -31,19 +23,33 @@ export type Page = {
 	query_limit: number
 	sort_by: SortBy
 }
-type ReturnData<N extends uranio.types.AtomName> = {
+
+type Data<A extends uranio.types.AtomName> = {
 	page: Page
-	atom_name: N;
-	plural: string;
-	atoms: uranio.types.Atom<N>[];
-	message: string;
-	success: boolean;
+	atom_name: A
+	plural: string
+	atoms: uranio.types.Atom<A>[]
+	message: string,
+	success: boolean
+	error_object:urn_response.Fail<any>
 };
 
-export default {
+type Methods = {
+	
+}
+type Computed = {
+}
+
+type Props = {
+}
+
+export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Computed, Props>({
 	layout(): string {
 		return "urn-admin";
 	},
+	mixins: [
+		shared
+	],
 	provide():any{
 		return {
 			page: (this as any).page,
@@ -64,7 +70,7 @@ export default {
 		return true;
 	},
 	async asyncData<A extends uranio.types.AtomName>(context:Context)
-			:Promise<ReturnData<A>> {
+			:Promise<Data<A>> {
 		
 		urn_log.debug('AsyncData.context.params', context.params);
 		
@@ -73,11 +79,13 @@ export default {
 		/** TODO **/
 		/* Validate atom_name */
 		
+		let message = '';
+		let success = false;
+		let error_object = {} as urn_response.Fail<any>;
+		
 		let plural = atom_name + "s";
-		let message = "";
 		let count_success = false;
 		let find_success = false;
-		let success = false;
 		let atoms: uranio.types.Molecule<A>[] = [];
 		
 		let total_atom_count = 0;
@@ -85,7 +93,7 @@ export default {
 		let index = 0;
 		let query_limit = 10;
 		let sort_by:SortBy = {_date: -1};
-		
+
 		if(context.query.page){
 			index = parseInt(context.query.page as any) - 1;
 		}
@@ -98,7 +106,7 @@ export default {
 			}
 		}
 		if(context.query.sort){
-			sort_by = context.query.sort;
+			sort_by = context.query.sort as unknown as SortBy;
 		}
 		
 		if(urn_util.object.has_key(atom_book, atom_name)){
@@ -111,7 +119,7 @@ export default {
 			const trx_hook_find = trx_base.hook('find');
 			
 			const trx_res_count = await trx_hook_count({});
-			if(trx_res_count.status == 200){
+			if(trx_res_count.success === true){
 				
 				total_atom_count = trx_res_count.payload;
 				count_success = trx_res_count.success;
@@ -142,16 +150,18 @@ export default {
 				
 				success = count_success && find_success;
 				
-				if(trx_res_find.status == 200){
+				if(trx_res_find.success === true){
 					atoms = trx_res_find.payload;
 				}else{
 					message = (trx_res_find as urn_response.Fail<any>).err_msg || "ERROR";
+					error_object = trx_res_find;
 				}
 				
 				urn_log.debug('TRX Response: ', trx_res_find);
 				
 			}else{
 				message = (trx_res_count as urn_response.Fail<any>).err_msg || "ERROR";
+				error_object = trx_res_count;
 			}
 			
 		}else{
@@ -175,6 +185,7 @@ export default {
 			atoms,
 			message,
 			success,
+			error_object
 		};
 	},
-};
+});
