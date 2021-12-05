@@ -7,6 +7,8 @@ import uranio from "uranio";
 
 import shared from './Shared';
 
+import sortable from './Sortable';
+
 type Data = {
 	type: 'number' | 'string'
 	new_element: number | string
@@ -27,9 +29,9 @@ type SimpleAtom = {
 	[k:string]: any
 }
 
-export default mixins(shared).extend<Data, Methods, Computed, Props>({
+export default mixins(shared, sortable).extend<Data, Methods, Computed, Props>({
 	
-	mixins: [shared],
+	mixins: [shared, sortable],
 	
 	data():Data{
 		
@@ -46,24 +48,13 @@ export default mixins(shared).extend<Data, Methods, Computed, Props>({
 		
 		const new_element = '';
 		
+		this.drag_group = this.prop_name;
+		
 		return {
 			type,
 			new_element
 		};
 		
-	},
-	
-	computed:{
-		
-		value():string{
-			
-			let value = (this.atom as SimpleAtom)[this.prop_name];
-			if(!value){
-				value = [];
-			}
-			
-			return value;
-		}
 	},
 	
 	methods:{

@@ -1,6 +1,16 @@
 <template>
 	<div>
-		<ul v-if="atom[prop_name].length">
+		<draggable
+			class="drag-wrapper"
+			:class="{dragging}"
+			v-if="atom[prop_name].length"
+			v-model="atom[prop_name]"
+			:group="{put: prop_name, name: prop_name}"
+			@start="drag_start()"
+			@end="drag_end()"
+			v-bind="drag_options"
+			handle=".drag_handle"
+			>
 			<li
 				class="ui-li-element ui-li-atom"
 				v-for="atom_id in atom[prop_name]"
@@ -8,7 +18,7 @@
 				>
 				<div
 					v-if="atom[prop_name].length > 1"
-					class="drag">
+					class="drag_handle">
 					<img src="/img/icons/png/menu.png"/>
 				</div>
 				<div class="name">{{ atom_id }}</div>
@@ -28,7 +38,7 @@
 					Remove
 				</UIButton>
 			</li>
-		</ul>
+		</draggable>
 		<div style="display: none;">
 			<input
 				v-for="atom_id in atom[prop_name]"
@@ -46,3 +56,5 @@
 	</div>
 </template>
 <script lang="ts" src="./ATOMARRAY.ts"></script>
+<style>
+</style>

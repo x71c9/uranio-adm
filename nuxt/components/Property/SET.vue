@@ -1,14 +1,24 @@
 <template>
 	<div>
-		<ul>
+		<draggable
+			class="drag-wrapper"
+			:class="{dragging}"
+			v-if="atom[prop_name].length"
+			v-model="atom[prop_name]"
+			:group="{put: prop_name, name: prop_name}"
+			@start="drag_start()"
+			@end="drag_end()"
+			v-bind="drag_options"
+			handle=".drag_handle"
+			>
 			<li
 				class="ui-li-element ui-li-set"
-				v-for="(el, i) in value"
+				v-for="(el, i) in atom[prop_name]"
 				:key="`${el}${i}`"
 				>
 				<div
 					v-if="value.length > 1"
-					class="drag">
+					class="drag_handle">
 					<img src="/img/icons/png/menu.png"/>
 				</div>
 				<div class="name">{{ el }}</div>
@@ -19,7 +29,7 @@
 					Remove
 					</UIButton>
 			</li>
-		</ul>
+		</draggable>
 		<div style="display: none;">
 			<input
 				v-for="(el, i) in value"
