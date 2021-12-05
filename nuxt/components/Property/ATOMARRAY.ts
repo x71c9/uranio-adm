@@ -7,6 +7,8 @@ import uranio from 'uranio';
 
 import shared from './Shared';
 
+import sortable from './Sortable';
+
 type Data = {
 	prop_atom_name: uranio.types.AtomName
 }
@@ -15,21 +17,16 @@ type Methods = {
 	remove: (atom_id:string) => void
 	add: () => void
 }
-
 type Computed = {
-
 }
-
 type Props = {
 }
-
 type SimpleAtom = {
 	[k:string]: any
 }
-
-export default mixins(shared).extend<Data, Methods, Computed, Props>({
+export default mixins(shared, sortable).extend<Data, Methods, Computed, Props>({
 	
-	mixins: [shared],
+	mixins: [shared, sortable],
 	
 	data():Data {
 		
@@ -46,6 +43,8 @@ export default mixins(shared).extend<Data, Methods, Computed, Props>({
 		if(!(this.atom as SimpleAtom)[this.prop_name]){
 			this.$set(this.atom, this.prop_name, []);
 		}
+		
+		this.drag_group = this.prop_name;
 		
 		return {
 			prop_atom_name,

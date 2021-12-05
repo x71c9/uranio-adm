@@ -646,6 +646,12 @@ body{
   display: none;
 }
 
+
+.ui-li-element.ghost{
+  opacity: 0.5;
+}
+.ui-li-element.dragging,
+.ui-li-element.sortable-chosen,
 .ui-li-element{
   box-shadow: 1px 1px 0px 1px #000;
   display: flex;
@@ -665,6 +671,11 @@ body{
 	-ms-user-select: none;
 	user-select: none;
 }
+.ui-li-element.dragging{
+  box-shadow: 0;
+  border-radius: 0;
+  background-color: #292929;
+}
 .ui-li-element .button{
   margin-left: auto;
   cursor: pointer;
@@ -675,12 +686,22 @@ body{
 .ui-li-element.ui-li-set .button:last-of-type{
   margin-left: auto;
 }
-.ui-li-element .drag{
+.ui-li-element .drag_handle{
   margin-right: 8px;
   display: none;
 }
-.ui-li-element:hover .drag{
+.ui-li-element.ghost .drag_handle,
+.ui-li-element:hover .drag_handle{
   display: block;
+}
+.drag-wrapper.dragging .ui-li-element:not(.dragging) .drag_handle{
+  display: none;
+}
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.no-move {
+  transition: transform 0s;
 }
 .ui-li-element.ui-li-atom .visit{
   padding: 0;
@@ -702,7 +723,7 @@ body{
 .ui-li-element .visit img{
   margin-right: 4px;
 }
-.ui-li-element .drag img,
+.ui-li-element .drag_handle img,
 .ui-li-element .visit img{
   height: 20px;
 }
@@ -722,6 +743,9 @@ body{
   flex-direction: column;
   justify-content: space-between;
   width: 23.6%;
+  background-color: #292929;
+  /* important: needed for avoiding artifact in dragImage for Sortable items */
+  padding-right: 10px;
 }
 .ui-property-header .ui-property-data{
   font-size: var(--font-size-s);
@@ -742,6 +766,7 @@ body{
 .ui-property-in{
   width: 100%;
   margin-bottom: 44px;
+  background-color: #292929;
 }
 .ui-PropertyReadOnly .ui-property-in{
   margin-bottom: 0;
