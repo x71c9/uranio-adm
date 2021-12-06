@@ -1,31 +1,33 @@
 import Vue from 'vue';
 
-import { urn_log, urn_util, urn_exception } from "urn-lib";
+import { urn_log, urn_exception } from "urn-lib";
 
 // const urn_exc = urn_exception.init('ADMIN_FORM_ATOM', 'Uranio admin Form Atom');
 
 import uranio from 'uranio';
 
-import { atom_book } from "uranio-books/atom";
+// import { atom_book } from "uranio-books/atom";
 
+export enum PropState {
+	VALID = 'VALID',
+	WARNING = 'WARNING',
+	ERROR = 'ERROR'
+}
 export type UIAtomProp = {
 	name: string
 	optional: boolean
-	state: 'valid' | 'warning' | 'error'
+	state: PropState
 	focus: boolean
 	style: uranio.types.Book.Definition.Property.AdminStyle
 	error_message: string
 }
-
 type UIAtomProps = {
 	[k:string]: UIAtomProp
 }
-
 type Data = {
 	atom_props: UIAtomProps
 	error_class: boolean
 }
-
 type Methods = {
 	submit: (event:Event) => void
 	submit_exit: (event:Event) => void
@@ -38,16 +40,13 @@ type Methods = {
 	on_change: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => void
 	on_keyup: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => void
 }
-
 type Computed = {
 }
-
 type Props<A extends uranio.types.AtomName> = {
 	atom: uranio.types.Molecule<A>
 	atom_name: A
 	call: 'insert' | 'update'
 }
-
 export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>({
 	
 	props: {
@@ -64,19 +63,20 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 	data():Data{
 		
 		const atom_props:UIAtomProps = {};
-		
-		if (urn_util.object.has_key(atom_book, this.atom_name)) {
+		if (uranio.api.book.atom.validate_name(this.atom_name)) {
 			
-			const atom_def = atom_book[this.atom_name];
-			const atom_def_props = atom_def.properties as uranio.types.Book.Definition.Properties;
+			// const atom_def = atom_book[this.atom_name];
+			// const atom_def_props = atom_def.properties as uranio.types.Book.Definition.Properties;
 			
-			for(const [prop_name, prop_def] of Object.entries(atom_def_props)){
+			const prop_defs = uranio.api.book.atom.get_custom_property_definitions(this.atom_name);
+			
+			for(const [prop_name, prop_def] of Object.entries(prop_defs)){
 				if(!prop_def.hidden){
 					atom_props[prop_name] = {
 						name: prop_name,
-						style: _fill_style(prop_def.style),
+						style: _fill_style((prop_def as any).style),
 						optional: prop_def.optional || false,
-						state: 'valid',
+						state: PropState.VALID,
 						error_message: '',
 						focus: false
 					};
@@ -89,7 +89,7 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 							name: prop_name,
 							style: _fill_style(),
 							optional: false,
-							state: 'valid',
+							state: PropState.VALID,
 							error_message: '',
 							focus: false
 						};
@@ -160,11 +160,11 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 		
 		validate_property(prop_name:keyof uranio.types.Book.Definition.Properties)
 				:boolean{
-			const prop_def = uranio.core.book.get_property_definition(this.atom_name, prop_name);
+			const prop_def = uranio.api.book.atom.get_property_definition(this.atom_name, prop_name);
 			const prop_value = this.atom[prop_name as keyof uranio.types.Atom<uranio.types.AtomName>];
 			const prop = this.atom_props[prop_name];
 			if(_is_property_empty(this.atom_name, this.atom, prop_name)){
-				prop.state = 'error';
+				prop.state = PropState.ERROR;
 				prop.error_message = 'This field is required.';
 				return false;
 			}
@@ -175,11 +175,11 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 					prop_value,
 					this.atom
 				);
-				prop.state = 'valid';
+				prop.state = PropState.VALID;
 				prop.error_message = '';
 			}catch(e){
 				if(e.type === urn_exception.ExceptionType.INVALID_ATOM){
-					prop.state = 'error';
+					prop.state = PropState.ERROR;
 					prop.error_message = _format_message(e.msg);
 				}
 				urn_log.error(e);
@@ -242,7 +242,7 @@ function _is_property_empty<A extends uranio.types.AtomName>(
 	prop_key:keyof uranio.types.Book.Definition.Properties
 ):boolean{
 	let is_empty = false;
-	const prop_def = uranio.core.book.get_property_definition(atom_name, prop_key);
+	const prop_def = uranio.api.book.atom.get_property_definition(atom_name, prop_key);
 	if(!prop_def.optional && !prop_def.hidden){
 		const k = prop_key as keyof typeof atom;
 		if(typeof atom[k] === 'undefined'){

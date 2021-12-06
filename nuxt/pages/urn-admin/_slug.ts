@@ -6,7 +6,7 @@ import uranio from 'uranio';
 
 import { urn_util, urn_response, urn_log } from "urn-lib";
 
-import { atom_book } from "uranio-books/atom";
+// import { atom_book } from "uranio-books/atom";
 
 import { Context } from '@nuxt/types';
 
@@ -109,8 +109,9 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 			sort_by = context.query.sort as unknown as SortBy;
 		}
 		
-		if(urn_util.object.has_key(atom_book, atom_name)){
-			const atom_def = atom_book[atom_name] as uranio.types.Book.BasicDefinition;
+		if(uranio.api.book.atom.validate_name(atom_name)){
+			// const atom_def = atom_book[atom_name] as uranio.types.Book.BasicDefinition;
+			const atom_def = uranio.api.book.atom.get_definition(atom_name);
 			if(urn_util.object.has_key(atom_def, 'plural') && atom_def.plural){
 				plural = atom_def.plural;
 			}

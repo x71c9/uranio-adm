@@ -4,9 +4,9 @@ import { urn_util } from "urn-lib";
 
 import uranio from 'uranio';
 
-import { atom_book } from "uranio-books/atom";
+// import { atom_book } from "uranio-books/atom";
 
-import { UIAtomProp } from '../components/Form/Atom';
+import { UIAtomProp, PropState } from '../components/Form/Atom';
 
 const atom_hard_properties = uranio.core.stc.atom_hard_properties;
 
@@ -70,7 +70,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			if(this.prop.optional === true){
 				prop_classes += ` urn-property-optional`;
 			}
-			if(this.prop.state === 'error'){
+			if(this.prop.state === PropState.ERROR){
 				prop_classes += ` urn-property-error`;
 			}
 			return prop_classes;
@@ -79,10 +79,12 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	
 	data():Data {
 		
-		const atom_def = atom_book[this.atom_name as uranio.types.AtomName] as
-			uranio.types.Book.BasicDefinition;
+		// const atom_def = atom_book[this.atom_name as uranio.types.AtomName] as
+		//   uranio.types.Book.BasicDefinition;
+		// const atom_def = uranio.api.book.atom.get_atom_definition(this.atom_name as uranio.types.AtomName);
 		
-		const atom_def_props = atom_def["properties"];
+		// const atom_def_props = atom_def["properties"];
+		const prop_defs = uranio.api.book.atom.get_custom_property_definitions(this.atom_name as uranio.types.AtomName);
 		
 		const prop_key = this.prop.name;
 		
@@ -95,17 +97,17 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			prop_type = "PropertyReadOnly";
 			prop_label = atom_hard_properties[prop_key].label;
 			
-		} else if (urn_util.object.has_key(atom_def_props, prop_key)) {
+		} else if (urn_util.object.has_key(prop_defs, prop_key)) {
 			
-			prop_type = `Property${atom_def_props[prop_key].type.replace(/_/g, "")}`;
-			prop_label = atom_def_props[prop_key].label;
+			prop_type = `Property${prop_defs[prop_key].type.replace(/_/g, "")}`;
+			prop_label = prop_defs[prop_key].label;
 			
 		}
 		
 		switch(prop_type){
 			case 'PropertyATOM':
 			case 'PropertyATOMARRAY':{
-				const prop_def = (atom_def_props[prop_key] as uranio.types.Book.Definition.Property.Atom);
+				const prop_def = (prop_defs[prop_key] as uranio.types.Book.Definition.Property.Atom);
 				type_type = `[${prop_def.atom}]`;
 				break;
 			}

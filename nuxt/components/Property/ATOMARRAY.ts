@@ -1,7 +1,7 @@
 
 import mixins from 'vue-typed-mixins';
 
-import { atom_book } from "uranio-books/atom";
+// import { atom_book } from "uranio-books/atom";
 
 import uranio from 'uranio';
 
@@ -30,15 +30,18 @@ export default mixins(shared, sortable).extend<Data, Methods, Computed, Props>({
 	
 	data():Data {
 		
-		const atom_def = atom_book[
-			this.atom_name as uranio.types.AtomName
-		] as uranio.types.Book.BasicDefinition;
+		// const atom_def = atom_book[
+		//   this.atom_name as uranio.types.AtomName
+		// ] as uranio.types.Book.BasicDefinition;
 		
-		const atom_props = atom_def.properties;
-		const atom_prop = atom_props[this.prop_name] as
+		// const atom_props = atom_def.properties;
+		// const atom_prop = atom_props[this.prop_name] as
+		//   uranio.types.Book.Definition.Property.AtomArray;
+		
+		const prop_def = uranio.api.book.atom.get_property_definition(this.atom_name, this.prop_name) as
 			uranio.types.Book.Definition.Property.AtomArray;
 		
-		const prop_atom_name = atom_prop.atom;
+		const prop_atom_name = prop_def.atom;
 		
 		if(!(this.atom as SimpleAtom)[this.prop_name]){
 			this.$set(this.atom, this.prop_name, []);

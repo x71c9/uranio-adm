@@ -5,7 +5,7 @@ import { urn_util, urn_log } from "urn-lib";
 
 import uranio from 'uranio';
 
-import { atom_book } from "uranio-books/atom";
+// import { atom_book } from "uranio-books/atom";
 
 type Provide = {
 	atom: uranio.types.Atom<uranio.types.AtomName>,
@@ -63,7 +63,7 @@ export default Vue.extend<Data, Methods, Props, Props>({
 		
 		const atom_name = this.$route.params.atom as uranio.types.AtomName;
 		
-		const atom_def = atom_book[atom_name] as uranio.types.Book.BasicDefinition;
+		const atom_def = uranio.api.book.atom.get_definition(atom_name);
 		
 		let plural = atom_name + "s";
 		

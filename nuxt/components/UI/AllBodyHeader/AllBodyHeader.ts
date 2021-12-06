@@ -4,9 +4,9 @@ import uranio from 'uranio';
 
 // import { urn_util } from "urn-lib";
 
-import { atom_book } from "uranio-books/atom";
+// import { atom_book } from "uranio-books/atom";
 
-import { dock_book } from "uranio-books/dock";
+// import { dock_book } from "uranio-books/dock";
 
 import {Page} from '../../../pages/urn-admin/_slug';
 
@@ -69,11 +69,15 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			total_label = this.atom_name;
 		}
 		
-		const atom_def = atom_book[this.atom_name] as
-			uranio.types.Book.BasicDefinition;
+		// const atom_def = atom_book[this.atom_name] as
+		//   uranio.types.Book.BasicDefinition;
 		
-		const dock_def = dock_book[this.atom_name] as
-			uranio.types.Book.BasicDefinition;
+		const atom_def = uranio.api.book.atom.get_definition(this.atom_name);
+		
+		// const dock_def = dock_book[this.atom_name] as
+		//   uranio.types.Book.BasicDefinition;
+		
+		const dock_def = uranio.api.book.dock.get_definition(this.atom_name);
 		
 		let connection = 'main';
 		if(typeof atom_def.connection === 'string' && atom_def.connection !== 'main'){
@@ -81,16 +85,17 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		}
 		
 		let dock_url = '/' + this.atom_name;
-		if(typeof dock_def.dock?.url === 'string'){
-			dock_url = dock_def.dock.url;
+		if(typeof dock_def?.url === 'string'){
+			dock_url = dock_def.url;
 		}
 		
 		const sort_items:SortItem[] = [];
 		
-		const atom_properties = {
-			...uranio.core.stc.atom_hard_properties,
-			...atom_def.properties
-		};
+		// const atom_properties = {
+		//   ...uranio.core.stc.atom_hard_properties,
+		//   ...atom_def.properties
+		// };
+		const atom_properties = uranio.api.book.atom.get_all_property_definitions(this.atom_name);
 		
 		let current_sort_prop_name = '_date';
 		let current_sort_direction = -1;
