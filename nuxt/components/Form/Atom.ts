@@ -1,6 +1,8 @@
 import Vue from 'vue';
 
-import { urn_util } from "urn-lib";
+import { urn_log, urn_util, urn_exception } from "urn-lib";
+
+// const urn_exc = urn_exception.init('ADMIN_FORM_ATOM', 'Uranio admin Form Atom');
 
 import uranio from 'uranio';
 
@@ -12,6 +14,7 @@ export type UIAtomProp = {
 	state: 'valid' | 'warning' | 'error'
 	focus: boolean
 	style: uranio.types.Book.Definition.Property.AdminStyle
+	error_message: string
 }
 
 type UIAtomProps = {
@@ -27,7 +30,9 @@ type Methods = {
 	submit: (event:Event) => void
 	submit_exit: (event:Event) => void
 	delete_atom: (event:Event) => void
+	validate_property: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => boolean
 	validate_form: () => boolean
+	// custom_validate_form: () => boolean
 	error: () => void
 	focus: (prop_name:string) => void
 	on_change: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => void
@@ -72,6 +77,7 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 						style: _fill_style(prop_def.style),
 						optional: prop_def.optional || false,
 						state: 'valid',
+						error_message: '',
 						focus: false
 					};
 				}
@@ -84,6 +90,7 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 							style: _fill_style(),
 							optional: false,
 							state: 'valid',
+							error_message: '',
 							focus: false
 						};
 					}
@@ -102,13 +109,28 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 		
 		on_change(prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>)
 				:void{
-			const atom_value = this.atom[prop_name];
-			const prop = this.atom_props[prop_name];
-			if(prop.state === 'error' && atom_value){
-				prop.state = 'valid';
-			}else if(prop.state !== 'error' && !atom_value){
-				prop.state = 'error';
-			}
+			this.validate_property(prop_name);
+			// const atom_prop_defs = atom_book[this.atom_name].properties as
+			//   uranio.types.Book.Definition.Properties;
+			// const prop_def = atom_prop_defs[prop_name];
+			// const prop_value = this.atom[prop_name];
+			// const prop = this.atom_props[prop_name];
+			// if(_is_property_empty(this.atom_name, this.atom, prop_name)){
+			//   prop.state = 'error';
+			//   prop.error_message = 'This field is required.';
+			// }else{
+			//   try{
+			//     uranio.core.atm.validate.property(prop_name, prop_def, prop_value, this.atom);
+			//     prop.state = 'valid';
+			//     prop.error_message = '';
+			//   }catch(e){
+			//     if(e.type === urn_exception.ExceptionType.INVALID_ATOM){
+			//       prop.state = 'error';
+			//       prop.error_message = _format_message(e.msg);
+			//     }
+			//     urn_log.error(e);
+			//   }
+			// }
 		},
 		
 		on_keyup(prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>)
@@ -136,24 +158,67 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 			this.$emit('delete_atom');
 		},
 		
-		validate_form():boolean{
-			// urn_log.debug('VALIDATE FORM');
-			const empty_required_keys = _empty_required_properties(
-				this.atom_name,
-				this.atom
-			);
-			for(const [key, _value] of Object.entries(this.atom_props)){
-				Vue.set(this.atom_props[key], 'state', 'valid');
+		validate_property(prop_name:keyof uranio.types.Book.Definition.Properties)
+				:boolean{
+			const prop_def = uranio.core.book.get_property_definition(this.atom_name, prop_name);
+			const prop_value = this.atom[prop_name as keyof uranio.types.Atom<uranio.types.AtomName>];
+			const prop = this.atom_props[prop_name];
+			if(_is_property_empty(this.atom_name, this.atom, prop_name)){
+				prop.state = 'error';
+				prop.error_message = 'This field is required.';
+				return false;
 			}
-			if(empty_required_keys.length > 0){
-				for(let i = 0; i < empty_required_keys.length; i++){
-					Vue.set(this.atom_props[empty_required_keys[i]], 'state', 'error');
+			try{
+				uranio.core.atm.validate.property(
+					prop_name as keyof uranio.types.Atom<uranio.types.AtomName>,
+					prop_def,
+					prop_value,
+					this.atom
+				);
+				prop.state = 'valid';
+				prop.error_message = '';
+			}catch(e){
+				if(e.type === urn_exception.ExceptionType.INVALID_ATOM){
+					prop.state = 'error';
+					prop.error_message = _format_message(e.msg);
 				}
-				this.focus(empty_required_keys[0]);
+				urn_log.error(e);
 				return false;
 			}
 			return true;
 		},
+		
+		validate_form():boolean{
+			let is_form_valid = true;
+			for(const [key, _value] of Object.entries(this.atom_props)){
+				const k = key as keyof uranio.types.Molecule<uranio.types.AtomName>;
+				if(this.validate_property(k) === false){
+					is_form_valid = false;
+					this.focus(k);
+				}
+			}
+			return is_form_valid;
+		},
+		
+		// custom_validate_form():boolean{
+		//   try{
+		//     uranio.core.atm.validate.atom(this.atom_name, this.atom);
+		//     return true;
+		//   }catch(e){
+		//     if(e.type === urn_exception.ExceptionType.INVALID_ATOM){
+		//       for(let i = 0; i < e.keys.length; i++){
+		//         Vue.set(this.atom_props[e.keys[i]], 'state', 'error');
+		//         Vue.set(
+		//           this.atom_props[e.keys[i]],
+		//           'error_message',
+		//           _format_message(e.msg)
+		//         );
+		//       }
+		//     }
+		//     urn_log.error(e);
+		//     return false;
+		//   }
+		// },
 		
 		error():void{
 			this.error_class = true;
@@ -171,73 +236,79 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 	
 });
 
-function _empty_required_properties<A extends uranio.types.AtomName>(atom_name: A, atom:uranio.types.Atom<A>)
-		:(keyof uranio.types.Book.Definition<A>)[]{
-	const atom_prop_defs = atom_book[atom_name].properties;
-	const empty_required_keys:(keyof uranio.types.Book.Definition<A>)[] = [];
-	for(const [prop_key, prop_def] of Object.entries(atom_prop_defs)){
+function _is_property_empty<A extends uranio.types.AtomName>(
+	atom_name:A,
+	atom:uranio.types.AtomShape<A>,
+	prop_key:keyof uranio.types.Book.Definition.Properties
+):boolean{
+	let is_empty = false;
+	const prop_def = uranio.core.book.get_property_definition(atom_name, prop_key);
+	if(!prop_def.optional && !prop_def.hidden){
 		const k = prop_key as keyof typeof atom;
-		if(!prop_def.optional && !prop_def.hidden){
-			const atom_def = atom_book[atom_name] as uranio.types.Book.BasicDefinition;
-			const atom_properties = atom_def.properties as uranio.types.Book.Definition.Properties;
-			const prop_def = atom_properties[prop_key] as uranio.types.Book.Definition.Property;
-			let is_empty = false;
-			if(typeof atom[k] === 'undefined'){
-				is_empty = true;
-			}else{
-				switch(prop_def.type){
-					case uranio.types.BookPropertyType.ATOM:{
-						if(atom[k] === {} || atom[k] === ''){
-							is_empty = true;
-						}
-						break;
+		if(typeof atom[k] === 'undefined'){
+			is_empty = true;
+		}else{
+			switch(prop_def.type){
+				case uranio.types.BookPropertyType.ATOM:{
+					if(atom[k] === {} || atom[k] === ''){
+						is_empty = true;
 					}
-					case uranio.types.BookPropertyType.SET_NUMBER:
-					case uranio.types.BookPropertyType.SET_STRING:
-					case uranio.types.BookPropertyType.ATOM_ARRAY:{
-						if((atom[k] as Array<any>).length === 0){
-							is_empty = true;
-						}
-						break;
-					}
-					case uranio.types.BookPropertyType.BINARY:{
-						break;
-					}
-					case uranio.types.BookPropertyType.TIME:
-					case uranio.types.BookPropertyType.DAY:{
-						if(!atom[k]){
-							is_empty = true;
-						}
-						break;
-					}
-					case uranio.types.BookPropertyType.TEXT:
-					case uranio.types.BookPropertyType.LONG_TEXT:
-					case uranio.types.BookPropertyType.ID:
-					case uranio.types.BookPropertyType.ENUM_STRING:
-					case uranio.types.BookPropertyType.ENCRYPTED:
-					case uranio.types.BookPropertyType.EMAIL:{
-						if(!atom[k]){
-							is_empty = true;
-						}
-						break;
-					}
-					case uranio.types.BookPropertyType.INTEGER:
-					case uranio.types.BookPropertyType.FLOAT:
-					case uranio.types.BookPropertyType.ENUM_NUMBER:{
-						if(isNaN(atom[k] as unknown as number)){
-							is_empty = true;
-						}
-						break;
-					}
+					break;
 				}
-			}
-			if(is_empty){
-				empty_required_keys.push(k as keyof uranio.types.Book.Definition<A>);
+				case uranio.types.BookPropertyType.SET_NUMBER:
+				case uranio.types.BookPropertyType.SET_STRING:
+				case uranio.types.BookPropertyType.ATOM_ARRAY:{
+					if((atom[k] as Array<any>).length === 0){
+						is_empty = true;
+					}
+					break;
+				}
+				case uranio.types.BookPropertyType.BINARY:{
+					break;
+				}
+				case uranio.types.BookPropertyType.TIME:
+				case uranio.types.BookPropertyType.DAY:{
+					if(!atom[k]){
+						is_empty = true;
+					}
+					break;
+				}
+				case uranio.types.BookPropertyType.TEXT:
+				case uranio.types.BookPropertyType.LONG_TEXT:
+				case uranio.types.BookPropertyType.ID:
+				case uranio.types.BookPropertyType.ENUM_STRING:
+				case uranio.types.BookPropertyType.ENCRYPTED:
+				case uranio.types.BookPropertyType.EMAIL:{
+					if(!atom[k]){
+						is_empty = true;
+					}
+					break;
+				}
+				case uranio.types.BookPropertyType.INTEGER:
+				case uranio.types.BookPropertyType.FLOAT:
+				case uranio.types.BookPropertyType.ENUM_NUMBER:{
+					if(isNaN(atom[k] as unknown as number)){
+						is_empty = true;
+					}
+					break;
+				}
 			}
 		}
 	}
-	return empty_required_keys;
+	return is_empty;
 }
+
+// function _empty_required_properties<A extends uranio.types.AtomName>(atom_name: A, atom:uranio.types.Atom<A>)
+//     :(keyof uranio.types.Book.Definition<A>)[]{
+//   const atom_prop_defs = atom_book[atom_name].properties;
+//   const empty_required_keys:(keyof uranio.types.Book.Definition<A>)[] = [];
+//   for(const [prop_key, _prop_def] of Object.entries(atom_prop_defs)){
+//     if(_is_property_empty(atom_name, atom, prop_key)){
+//       empty_required_keys.push(prop_key as keyof uranio.types.Book.Definition<A>);
+//     }
+//   }
+//   return empty_required_keys;
+// }
 
 function _fill_style(prop_def_style?:uranio.types.Book.Definition.Property.AdminStyle)
 		:uranio.types.Book.Definition.Property.AdminStyle{
@@ -257,3 +328,8 @@ function _fill_style(prop_def_style?:uranio.types.Book.Definition.Property.Admin
 	}
 	return prop_def_style;
 }
+
+function _format_message(str:string){
+	return str.replace(/`([^`]*)`/g, '<code>$1</code>');
+}
+

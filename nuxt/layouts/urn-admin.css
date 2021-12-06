@@ -580,6 +580,9 @@ body{
   border: 1px solid var(--white-5);
   display: flex;
 }
+.ui-property-body{
+  width: 100%;
+}
 .ui-property.ui-PropertyReadOnly{
   width: 45%;
 }
@@ -763,10 +766,20 @@ body{
   height: 14px;
   margin-right: 6px;
 }
+.ui-property-header .ui-property-data .prop_type_type{
+  margin-left: 6px;
+}
 .ui-property-in{
   width: 100%;
-  margin-bottom: 44px;
+  margin-bottom: 14px;
   background-color: #292929;
+}
+.ui-property-error-wrapper{
+  min-height: 44px;
+  color: #990000;
+}
+.ui-PropertyReadOnly .ui-property-error-wrapper{
+  min-height: 0;
 }
 .ui-PropertyReadOnly .ui-property-in{
   margin-bottom: 0;
