@@ -78,6 +78,7 @@ select:-webkit-autofill:focus {
   /* color: #fff !important; */
 }
 
+code,
 .monospace{
   font-family: var(--font-family-pt_mono);
 }

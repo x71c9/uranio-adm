@@ -18,6 +18,7 @@ type Data = {
 	prop_type: string
 	prop_label: string
 	prop_key: string
+	type_type: string
 }
 
 type Methods = {
@@ -85,8 +86,9 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		
 		const prop_key = this.prop.name;
 		
-		let prop_type = "Empty";
+		let prop_type = 'Empty';
 		let prop_label = prop_key;
+		let type_type = '';
 		
 		if(urn_util.object.has_key(atom_hard_properties, prop_key)) {
 			
@@ -100,6 +102,31 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			
 		}
 		
+		switch(prop_type){
+			case 'PropertyATOM':
+			case 'PropertyATOMARRAY':{
+				const prop_def = (atom_def_props[prop_key] as uranio.types.Book.Definition.Property.Atom);
+				type_type = `[${prop_def.atom}]`;
+				break;
+			}
+			case 'PropertySETNUMBER':{
+				type_type = `(number)`;
+				break;
+			}
+			case 'PropertySETSTRING':{
+				type_type = `(string)`;
+				break;
+			}
+			case 'PropertyENUMNUMBER':{
+				type_type = `(number)`;
+				break;
+			}
+			case 'PropertyENUMSTRING':{
+				type_type = `(string)`;
+				break;
+			}
+		}
+		
 		if(SETProps.includes(prop_type)){
 			prop_type = `PropertySET`;
 		}
@@ -111,7 +138,8 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		return {
 			prop_type,
 			prop_label,
-			prop_key
+			prop_key,
+			type_type
 		};
 		
 	},
