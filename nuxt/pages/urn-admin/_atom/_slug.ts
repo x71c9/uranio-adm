@@ -4,7 +4,7 @@ import { urn_util, urn_response, urn_log } from "urn-lib";
 
 import uranio from 'uranio';
 
-import { atom_book } from "uranio-books/atom";
+// import { atom_book } from "uranio-books/atom";
 
 import { Context } from '@nuxt/types';
 
@@ -68,7 +68,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		
 		const atom_id = context.params.slug;
 		
-		let plural = atom_name + "s";
+		const plural = atom_name + "s";
 		
 		let back_label = `back to ${plural}`;
 		
@@ -84,14 +84,15 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		
 		let error_object = {} as urn_response.Fail<any>;
 		
-		if (urn_util.object.has_key(atom_book, atom_name)) {
+		if (uranio.api.book.atom.validate_name(atom_name)) {
 			
-			const atom_def = atom_book[atom_name];
-			const atom_def_props = atom_def.properties as uranio.types.Book.Definition.Properties;
+			// const atom_def = atom_book[atom_name];
+			// const atom_def_props = atom_def.properties as uranio.types.Book.Definition.Properties;
+			const atom_def = uranio.api.book.atom.get_definition(atom_name);
+			const prop_defs = uranio.api.book.atom.get_custom_property_definitions(atom_name);
 			
 			if(urn_util.object.has_key(atom_def, "plural")){
-				plural = (atom_def as any).plural;
-				back_label = `back to ${plural}`;
+				back_label = `back to ${atom_def.plural}`;
 			}
 			if(context?.from?.params?.slug !== atom_name){
 				back_label = 'back';
@@ -119,9 +120,9 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 				
 				title = atom._id;
 				
-				for(const [prop_name, prop_def] of Object.entries(atom_def_props)){
+				for(const [prop_name, prop_def] of Object.entries(prop_defs)){
 					const prop_value = atom[prop_name as keyof uranio.types.Atom<A>];
-					if(prop_def.is_title === true && typeof prop_value === 'string' && prop_value !== ''){
+					if((prop_def as any).is_title === true && typeof prop_value === 'string' && prop_value !== ''){
 						title = prop_value;
 					}
 				}
@@ -292,7 +293,8 @@ function _clean_atom<A extends uranio.types.AtomName>(atom_name:A, atom:uranio.t
 	if(cloned_atom._date){
 		delete cloned_atom._date;
 	}
-	const atom_prop_defs = atom_book[atom_name].properties;
+	// const atom_prop_defs = atom_book[atom_name].properties;
+	const atom_prop_defs = uranio.api.book.atom.get_custom_property_definitions(atom_name);
 	for(const [prop_key, prop_def] of Object.entries(atom_prop_defs)){
 		if(prop_def.optional && cloned_atom[prop_key] === ''){
 			delete cloned_atom[prop_key];

@@ -5,7 +5,7 @@ import { urn_util } from "urn-lib";
 
 import uranio from 'uranio';
 
-import { atom_book } from "uranio-books/atom";
+// import { atom_book } from "uranio-books/atom";
 
 import {Entry} from './UI/Section/SideBarBody';
 
@@ -29,9 +29,10 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		const items_atom = [] as Entry[];
 		const items_log = [] as Entry[];
 		
-		for (const atom_name in atom_book) {
-			const atom_def = atom_book[atom_name as keyof typeof atom_book] as
-				uranio.types.Book.BasicDefinition;
+		for (const atom_name in uranio.api.book.atom.get_names()) {
+			// const atom_def = atom_book[atom_name as keyof typeof atom_book] as
+			//   uranio.types.Book.BasicDefinition;
+			const atom_def = uranio.api.book.atom.get_definition(atom_name as uranio.types.AtomName);
 			let plural = `${atom_name}s`;
 			if(urn_util.object.has_key(atom_def, 'plural') && atom_def.plural){
 				plural = atom_def.plural;

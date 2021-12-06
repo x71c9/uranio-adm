@@ -1,7 +1,7 @@
 
 import mixins from 'vue-typed-mixins';
 
-import { atom_book } from "uranio-books/atom";
+// import { atom_book } from "uranio-books/atom";
 
 import uranio from "uranio";
 
@@ -40,16 +40,20 @@ export default mixins(shared).extend<Data<EnumNS>, Methods, Computed, Props>({
 	
 	data<T extends EnumNS>():Data<T> {
 		
-		const atom_def = atom_book[
-			this.atom_name as uranio.types.AtomName
-		] as uranio.types.Book.BasicDefinition;
+		// const atom_def = atom_book[
+		//   this.atom_name as uranio.types.AtomName
+		// ] as uranio.types.Book.BasicDefinition;
 		
-		const atom_props = atom_def.properties;
-		const atom_prop = atom_props[this.prop_name] as
-			uranio.types.Book.Definition.Property.Enum;
+		// const atom_def = uranio.api.book.atom.get_atom_definition(this.atom_name);
 		
-		const enum_values = atom_prop.values as EnumNSValues<T>;
-		const enum_type = atom_prop.type as T;
+		// const atom_props = atom_def.properties;
+		// const atom_prop = atom_props[this.prop_name] as
+		//   uranio.types.Book.Definition.Property.Enum;
+		
+		const prop_def = uranio.api.book.atom.get_property_definition(this.atom_name, this.prop_name);
+		
+		const enum_values = (prop_def as uranio.types.Book.Definition.Property.Enum).values as EnumNSValues<T>;
+		const enum_type = prop_def.type as T;
 		
 		return {
 			enum_values,
