@@ -84,7 +84,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		// const atom_def = uranio.api.book.atom.get_atom_definition(this.atom_name as uranio.types.AtomName);
 		
 		// const atom_def_props = atom_def["properties"];
-		const prop_defs = uranio.api.book.atom.get_custom_property_definitions(this.atom_name as uranio.types.AtomName);
+		const prop_defs = uranio.book.atom.get_custom_property_definitions(this.atom_name as uranio.types.AtomName);
 		
 		const prop_key = this.prop.name;
 		

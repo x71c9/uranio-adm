@@ -72,7 +72,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		count_label(){
 			// const atom_def = atom_book[this.atom_name as keyof typeof atom_book] as
 			//   uranio.types.Book.BasicDefinition;
-			const atom_def = uranio.api.book.atom.get_definition(this.atom_name as uranio.types.AtomName);
+			const atom_def = uranio.book.atom.get_definition(this.atom_name as uranio.types.AtomName);
 			const plural = atom_def.plural || this.atom_name + 's';
 			return (this.count_selected > 1) ? plural : this.atom_name;
 		}

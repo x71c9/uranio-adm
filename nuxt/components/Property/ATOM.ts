@@ -39,7 +39,7 @@ export default mixins(shared).extend<Data, Methods, Computed, Props>({
 		// const atom_prop = atom_props[prop_name] as
 		//   uranio.types.Book.Definition.Property.Atom;
 		
-		const prop_def = uranio.api.book.atom.get_property_definition(this.atom_name, this.prop_name) as
+		const prop_def = uranio.book.atom.get_property_definition(this.atom_name, this.prop_name) as
 			uranio.types.Book.Definition.Property.Atom;
 		
 		const prop_atom_name = prop_def.atom;
