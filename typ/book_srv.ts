@@ -37,6 +37,9 @@ export namespace Book {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		export import Dock = urn_trx.types.Book.Definition.Dock;
 		
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		export import Bll = urn_trx.types.Book.Definition.Bll;
+		
 		
 		// Exporting the types that has been overwritten in Book client.
 		
