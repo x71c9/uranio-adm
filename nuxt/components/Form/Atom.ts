@@ -181,8 +181,9 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 				if(e.type === urn_exception.ExceptionType.INVALID_ATOM){
 					prop.state = PropState.ERROR;
 					prop.error_message = _format_message(e.msg);
+				}else{
+					urn_log.error(e);
 				}
-				urn_log.error(e);
 				return false;
 			}
 			return true;
