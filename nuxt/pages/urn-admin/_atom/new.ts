@@ -63,7 +63,7 @@ export default Vue.extend<Data, Methods, Props, Props>({
 		
 		const atom_name = this.$route.params.atom as uranio.types.AtomName;
 		
-		const atom_def = uranio.api.book.atom.get_definition(atom_name);
+		const atom_def = uranio.book.atom.get_definition(atom_name);
 		
 		let plural = atom_name + "s";
 		

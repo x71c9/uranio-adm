@@ -13,6 +13,8 @@ import api from 'uranio-api';
 
 import trx from 'uranio-trx';
 
+import * as book from '../book/';
+
 import * as types from './types';
 
 export {
@@ -20,5 +22,6 @@ export {
 	trx,
 	api,
 	core,
+	book,
 	types,
 };
