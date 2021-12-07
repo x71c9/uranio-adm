@@ -43,7 +43,7 @@ export default mixins(shared, sortable).extend<Data, Methods, Computed, Props>({
 		// const atom_prop = atom_props[this.prop_name] as
 		//   uranio.types.Book.Definition.Property.Set;
 		
-		const prop_def = uranio.api.book.atom.get_property_definition(this.atom_name, this.prop_name) as
+		const prop_def = uranio.book.atom.get_property_definition(this.atom_name, this.prop_name) as
 			uranio.types.Book.Definition.Property.Set;
 		
 		const type = (prop_def.type === uranio.types.BookPropertyType.SET_NUMBER) ?

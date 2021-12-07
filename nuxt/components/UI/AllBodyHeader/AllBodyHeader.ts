@@ -72,12 +72,12 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		// const atom_def = atom_book[this.atom_name] as
 		//   uranio.types.Book.BasicDefinition;
 		
-		const atom_def = uranio.api.book.atom.get_definition(this.atom_name);
+		const atom_def = uranio.book.atom.get_definition(this.atom_name);
 		
 		// const dock_def = dock_book[this.atom_name] as
 		//   uranio.types.Book.BasicDefinition;
 		
-		const dock_def = uranio.api.book.dock.get_definition(this.atom_name);
+		const dock_def = uranio.book.dock.get_definition(this.atom_name);
 		
 		let connection = 'main';
 		if(typeof atom_def.connection === 'string' && atom_def.connection !== 'main'){
@@ -95,7 +95,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		//   ...uranio.core.stc.atom_hard_properties,
 		//   ...atom_def.properties
 		// };
-		const atom_properties = uranio.api.book.atom.get_all_property_definitions(this.atom_name);
+		const atom_properties = uranio.book.atom.get_all_property_definitions(this.atom_name);
 		
 		let current_sort_prop_name = '_date';
 		let current_sort_direction = -1;

@@ -50,7 +50,7 @@ export default mixins(shared).extend<Data<EnumNS>, Methods, Computed, Props>({
 		// const atom_prop = atom_props[this.prop_name] as
 		//   uranio.types.Book.Definition.Property.Enum;
 		
-		const prop_def = uranio.api.book.atom.get_property_definition(this.atom_name, this.prop_name);
+		const prop_def = uranio.book.atom.get_property_definition(this.atom_name, this.prop_name);
 		
 		const enum_values = (prop_def as uranio.types.Book.Definition.Property.Enum).values as EnumNSValues<T>;
 		const enum_type = prop_def.type as T;

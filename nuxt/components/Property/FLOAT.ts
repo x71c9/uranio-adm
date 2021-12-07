@@ -37,7 +37,7 @@ export default mixins(shared).extend<Data, Methods, Computed, Props>({
 		// const atom_prop = atom_def.properties[this.prop_name] as
 		//   uranio.types.Book.Definition.Property.Float;
 		
-		const prop_def = uranio.api.book.atom.get_property_definition(this.atom_name, this.prop_name) as
+		const prop_def = uranio.book.atom.get_property_definition(this.atom_name, this.prop_name) as
 			uranio.types.Book.Definition.Property.Float;
 		
 		let step = 0.01;
@@ -71,7 +71,7 @@ export default mixins(shared).extend<Data, Methods, Computed, Props>({
 			// const atom_prop = atom_def.properties[this.prop_name] as
 			//   uranio.types.Book.Definition.Property.Float;
 			
-			const prop_def = uranio.api.book.atom.get_property_definition(this.atom_name, this.prop_name) as
+			const prop_def = uranio.book.atom.get_property_definition(this.atom_name, this.prop_name) as
 				uranio.types.Book.Definition.Property.Float;
 		
 			if(prop_def.format && prop_def.format.decimal){

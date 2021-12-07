@@ -8,7 +8,7 @@ import * as book_atom from 'uranio-trx/book/atom/client';
 
 import {Book} from '../../typ/book_cln';
 
-import {AtomName} from '../../types';
+import {AtomName} from '../../cln/types';
 
 export * from 'uranio-trx/book/atom/client';
 

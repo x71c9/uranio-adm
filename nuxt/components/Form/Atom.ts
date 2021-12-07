@@ -63,12 +63,12 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 	data():Data{
 		
 		const atom_props:UIAtomProps = {};
-		if (uranio.api.book.atom.validate_name(this.atom_name)) {
+		if (uranio.book.atom.validate_name(this.atom_name)) {
 			
 			// const atom_def = atom_book[this.atom_name];
 			// const atom_def_props = atom_def.properties as uranio.types.Book.Definition.Properties;
 			
-			const prop_defs = uranio.api.book.atom.get_custom_property_definitions(this.atom_name);
+			const prop_defs = uranio.book.atom.get_custom_property_definitions(this.atom_name);
 			
 			for(const [prop_name, prop_def] of Object.entries(prop_defs)){
 				if(!prop_def.hidden){
@@ -160,7 +160,7 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 		
 		validate_property(prop_name:keyof uranio.types.Book.Definition.Properties)
 				:boolean{
-			const prop_def = uranio.api.book.atom.get_property_definition(this.atom_name, prop_name);
+			const prop_def = uranio.book.atom.get_property_definition(this.atom_name, prop_name);
 			const prop_value = this.atom[prop_name as keyof uranio.types.Atom<uranio.types.AtomName>];
 			const prop = this.atom_props[prop_name];
 			if(_is_property_empty(this.atom_name, this.atom, prop_name)){
@@ -243,7 +243,7 @@ function _is_property_empty<A extends uranio.types.AtomName>(
 	prop_key:keyof uranio.types.Book.Definition.Properties
 ):boolean{
 	let is_empty = false;
-	const prop_def = uranio.api.book.atom.get_property_definition(atom_name, prop_key);
+	const prop_def = uranio.book.atom.get_property_definition(atom_name, prop_key);
 	if(!prop_def.optional && !prop_def.hidden){
 		const k = prop_key as keyof typeof atom;
 		if(typeof atom[k] === 'undefined'){

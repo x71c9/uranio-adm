@@ -84,12 +84,12 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		
 		let error_object = {} as urn_response.Fail<any>;
 		
-		if (uranio.api.book.atom.validate_name(atom_name)) {
+		if (uranio.book.atom.validate_name(atom_name)) {
 			
 			// const atom_def = atom_book[atom_name];
 			// const atom_def_props = atom_def.properties as uranio.types.Book.Definition.Properties;
-			const atom_def = uranio.api.book.atom.get_definition(atom_name);
-			const prop_defs = uranio.api.book.atom.get_custom_property_definitions(atom_name);
+			const atom_def = uranio.book.atom.get_definition(atom_name);
+			const prop_defs = uranio.book.atom.get_custom_property_definitions(atom_name);
 			
 			if(urn_util.object.has_key(atom_def, "plural")){
 				back_label = `back to ${atom_def.plural}`;
@@ -294,7 +294,7 @@ function _clean_atom<A extends uranio.types.AtomName>(atom_name:A, atom:uranio.t
 		delete cloned_atom._date;
 	}
 	// const atom_prop_defs = atom_book[atom_name].properties;
-	const atom_prop_defs = uranio.api.book.atom.get_custom_property_definitions(atom_name);
+	const atom_prop_defs = uranio.book.atom.get_custom_property_definitions(atom_name);
 	for(const [prop_key, prop_def] of Object.entries(atom_prop_defs)){
 		if(prop_def.optional && cloned_atom[prop_key] === ''){
 			delete cloned_atom[prop_key];
