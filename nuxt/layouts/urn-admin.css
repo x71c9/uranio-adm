@@ -120,7 +120,12 @@ body{
 .side-bar-group-footer{
 	margin-top: auto;
 }
-
+.side-bar-group-footer button{
+  position: relative;
+}
+.side-bar-group-footer button:active{
+  top: 1px;
+}
 /* HEADER */
 
 .overlap-group4 {

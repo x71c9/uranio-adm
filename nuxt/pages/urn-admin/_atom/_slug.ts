@@ -287,6 +287,11 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			
 			if(trx_response.success){
 				
+				this.$store.dispatch('notification/show_notification', {
+					type: Notification.ERROR,
+					message: `${this.atom_name} deleted.`,
+				});
+				
 				this.exit();
 				
 			}else{

@@ -89,6 +89,9 @@ a{
 a:hover{
   color: var(--azure-radiance);
 }
+button{
+  cursor: pointer;
+}
 /* a:visited{ */
 /*   color: var(--pink); */
 /* } */
