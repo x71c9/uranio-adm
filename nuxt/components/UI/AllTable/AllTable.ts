@@ -13,6 +13,7 @@ type Data = {
 	checked_by_id: Checked
 	is_all_checked: boolean
 	is_all_indeterminate: boolean
+	primary_properties: string[]
 };
 
 type Methods = {
@@ -50,10 +51,18 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		}
 		const is_all_checked = false;
 		const is_all_indeterminate = false;
+		const prop_defs = uranio.book.atom.get_all_property_definitions(this.atom_name);
+		const primary_properties:string[] = [];
+		for(const [prop_key, prop_def] of Object.entries(prop_defs)){
+			if(prop_def.primary === true){
+				primary_properties.push(prop_key);
+			}
+		}
 		return {
 			checked_by_id,
 			is_all_checked,
 			is_all_indeterminate,
+			primary_properties
 		};
 	},
 	computed: {

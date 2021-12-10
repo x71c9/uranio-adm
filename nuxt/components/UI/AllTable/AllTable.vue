@@ -11,11 +11,14 @@
 						:indeterminate="is_all_indeterminate"
 						/>
 				</th>
-				<th>
+				<th
+					class="sticky">
 					<div
 						v-if="count_selected > 0"
 						>
-						<div class="ui-button-group">
+						<div
+							class="ui-button-group bulk-edit-wrapper"
+							>
 							<UIButton class="small secondary disabled">
 								{{ count_selected }} {{ count_label }} selected
 							</UIButton>
@@ -26,6 +29,17 @@
 					<div v-else>
 						_id
 					</div>
+				</th>
+				<th
+					v-for="(prop_key, index) in primary_properties"
+					:key="prop_key"
+					>
+					<span
+						class="th-span"
+						:class="{hidden: count_selected > 0}"
+						>
+					{{ prop_key }}
+					</span>
 				</th>
 				<th class="right">
 					_date
@@ -46,12 +60,33 @@
 						:checked="_self.checked_by_id[atom._id]"
 						/>
 				</td>
-				<td>
+				<td
+					class="sticky">
 					<NuxtLink
 						:to="`/urn-admin/${atom_name}/${atom._id}`"
 						class="ui-active-row monospace"
 						>
-						{{ atom._id }}
+						<span
+							class="span-id"
+							v-if="primary_properties.length > 0"
+							>
+							{{ atom._id.slice(-8) }}
+						</span>
+						<span v-else>
+							{{ atom._id }}
+						</span>
+									
+					</NuxtLink>
+				</td>
+				<td
+					v-for="(prop_key, index) in primary_properties"
+					:key="prop_key"
+					>
+					<NuxtLink
+						:to="`/urn-admin/${atom_name}/${atom._id}`"
+						class="ui-active-row monospace"
+						>
+						{{ atom[prop_key] }}
 					</NuxtLink>
 				</td>
 				<td class="secondary right">
