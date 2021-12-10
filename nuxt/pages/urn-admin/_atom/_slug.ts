@@ -4,9 +4,9 @@ import { urn_util, urn_response, urn_log } from "urn-lib";
 
 import uranio from 'uranio';
 
-// import { atom_book } from "uranio-books/atom";
-
 import { Context } from '@nuxt/types';
+
+import { Notification } from '../../../store/notification';
 
 type Data<A extends uranio.types.AtomName> = {
 	atom_name: A
@@ -219,6 +219,12 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			const trx_response = await this.update();
 			if(trx_response.success){
 				this.assign_atom(trx_response.payload);
+				
+				this.$store.dispatch('notification/show_notification', {
+					type: Notification.SUCCESS,
+					message: `${this.atom_name} updated.`,
+				});
+				
 			}else{
 				this.fail(trx_response);
 			}
@@ -248,6 +254,11 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			const cloned_error = { ...trx_response };
 			delete cloned_error.ex;
 			this.error_object = cloned_error;
+			
+			this.$store.dispatch('notification/show_notification', {
+				type: Notification.ERROR,
+				message: this.message,
+			});
 		},
 		
 		exit():void{
