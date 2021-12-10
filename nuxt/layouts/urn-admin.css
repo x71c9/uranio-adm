@@ -494,10 +494,11 @@ body{
   border-bottom: 0;
 }
 .ui-all-table tbody tr:hover{
-  background-color: var(--azure-radiance-2);
+  background-color: #12314d;
 }
 .ui-all-table tbody tr:hover td{
   /* border-color: var(--black); */
+  background-color: #12314d;
 }
 .ui-all-table tr:hover a{
   color: var(--white);
@@ -956,6 +957,7 @@ body.urn-single-page .ui-main-nuxt{
   height: 20px;
 }
 
+.ui-main-nuxt.error,
 .ui-all-slug-error{
   max-width: 1080px;
   margin: 0 auto;
