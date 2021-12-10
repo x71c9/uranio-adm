@@ -2,7 +2,6 @@
 import Vue from 'vue';
 
 type Data = {
-	type: 'info' | 'success' | 'warn' | 'error'
 };
 
 type Methods = {
@@ -15,11 +14,15 @@ type Props = {
 }
 
 export default Vue.extend<Data, Methods, Computed, Props>({
+	props: {
+	},
 	data():Data {
 		return {
-			type: 'error'
 		};
 	},
 	methods: {
+		close_notification():void{
+			this.$store.dispatch('notification/hide_notification');
+		}
 	}
 });

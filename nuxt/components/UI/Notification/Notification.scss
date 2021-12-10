@@ -2,34 +2,34 @@
     background-color: var(--azure-radiance);
     background-color: rgb(0, 47, 91);
     align-items: center;
-    border-radius: 8px;
+    border-radius: 5px;
     display: flex;
-    height: 96px;
+    height: 56px;
     overflow: hidden;
-    padding: 0 20px;
+    padding: 0 6px;
     width: 360px;
     position: fixed;
     top: 12px;
     right: 48px;
     color: var(--white-3);
+    transform: translateX(0);
+    box-shadow: 0px 1px 1px #00000029, 0px 12px 11px #0000001f, 0px 11px 13px #00000033;
+    transition: all .3s;
 
     .icon{
-        height: 40px;
+        height: 20px;
         margin-left: 8px;
-        width: 40px;
+        width: 20px;
     }
     .text{
         align-items: flex-start;
         display: flex;
         flex-direction: column;
         margin-left: 20px;
-        min-height: 56px;
-        width: 212px;
     }
     .title{
         letter-spacing: 0;
         line-height: 28px;
-        min-height: 28px;
         white-space: nowrap;
         font-size: var(--font-size-l);
     }
@@ -41,10 +41,10 @@
         color: var(--white-4);
     }
     .close{
-        height: 24px;
-        margin-bottom: 32px;
-        margin-left: 16px;
-        width: 24px;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        cursor: pointer;
     }
 }
 
@@ -56,4 +56,8 @@
 }
 .ui-notification-wrapper.error{
     background-color: #5b0000;
+}
+.ui-notification-wrapper.notif-enter,
+.ui-notification-wrapper.notif-leave-to{
+    transform: translateX(calc(100% + 48px));
 }
