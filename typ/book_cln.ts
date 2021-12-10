@@ -73,13 +73,14 @@ export namespace Book {
 		export namespace Property {
 			
 			export type AdminStyle = {
-				full_width?: boolean,
+				full_width?: boolean
 				classes?: string
 			}
 			
 			export type ExtendedSharedFields = {
-				sortable?: boolean,
-				is_title?: boolean,
+				sortable?: boolean
+				is_title?: boolean
+				primary?: boolean
 				style?: AdminStyle
 			}
 			

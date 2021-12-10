@@ -387,6 +387,7 @@ body{
 }
 .ui-all-body{
   margin-top: var(--padx1);
+  overflow: auto;
 }
 .icon-sort{
   width: 20px;
@@ -435,20 +436,32 @@ body{
 .ui-all-table{
   width: 100%;
 }
+.bulk-edit-wrapper{
+  width: 80px;
+}
 .ui-all-table th.check{
   position: -webkit-sticky;
   position: sticky;
   left: 0;
   width: 36px;
   padding: var(--padx05) 0 var(--padx05) var(--padx05);
+  background-color: var(--licorice);
+}
+.ui-all-table th.sticky,
+.ui-all-table td.sticky{
+  position: -webkit-sticky;
+  position: sticky;
+  left: 44px;
+  background-color: var(--licorice);
 }
 .ui-all-table td.check{
   position: -webkit-sticky;
   position: sticky;
   left: 0;
   z-index: 31;
-  padding: var(--padx05) 0 var(--padx05) var(--padx05);
+  padding: var(--padx05) 18px var(--padx05) var(--padx05);
   vertical-align: middle;
+  background-color: var(--licorice);
 }
 .ui-all-table th,
 .ui-all-table td{
@@ -461,12 +474,21 @@ body{
   line-height: 40px;
   vertical-align: middle;
   color: var(--white-4);
+  padding-right: 38px;
+}
+.ui-all-table .th-span.hidden{
+  opacity: 0;
+}
+.ui-all-table .span-id{
+  width: 80px;
+  display: block;
 }
 .ui-all-table td a{
   padding: 4px 0;
   display: block;
   height: 100%;
   width: 100%;
+  color: var(--white-4);
 }
 .ui-all-table tr:last-child td{
   border-bottom: 0;
@@ -490,6 +512,8 @@ body{
 .ui-all-table th.right,
 .ui-all-table td.right{
   text-align: right;
+  width: 100%;
+  padding-right: 0;
 }
 
 /* BUTTON GROUP */
