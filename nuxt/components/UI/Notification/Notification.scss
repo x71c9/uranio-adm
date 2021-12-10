@@ -1,0 +1,59 @@
+.ui-notification-wrapper{
+    background-color: var(--azure-radiance);
+    background-color: rgb(0, 47, 91);
+    align-items: center;
+    border-radius: 8px;
+    display: flex;
+    height: 96px;
+    overflow: hidden;
+    padding: 0 20px;
+    width: 360px;
+    position: fixed;
+    top: 12px;
+    right: 48px;
+    color: var(--white-3);
+
+    .icon{
+        height: 40px;
+        margin-left: 8px;
+        width: 40px;
+    }
+    .text{
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+        min-height: 56px;
+        width: 212px;
+    }
+    .title{
+        letter-spacing: 0;
+        line-height: 28px;
+        min-height: 28px;
+        white-space: nowrap;
+        font-size: var(--font-size-l);
+    }
+    .surname{
+        letter-spacing: 0;
+        line-height: 24px;
+        margin-top: 0;
+        min-height: 24px;
+        color: var(--white-4);
+    }
+    .close{
+        height: 24px;
+        margin-bottom: 32px;
+        margin-left: 16px;
+        width: 24px;
+    }
+}
+
+.ui-notification-wrapper.success{
+    background-color: #005b4a;
+}
+.ui-notification-wrapper.warn{
+    background-color: #5b5400;
+}
+.ui-notification-wrapper.error{
+    background-color: #5b0000;
+}

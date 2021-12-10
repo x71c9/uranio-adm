@@ -5,6 +5,7 @@
 			<UISectionHeader />
 			<Nuxt class="ui-main-nuxt" />
 		</div>
+		<UINotification />
 	</div>
 </template>
 <style type="text/css" src="./urn-admin-reset.css"></style>
