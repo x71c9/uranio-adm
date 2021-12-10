@@ -80,7 +80,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		
 		let data_object = {} as urn_response.General<any, any>;
 		
-		let title = 'No title';
+		let title = '[NO TITLE]';
 		
 		let error_object = {} as urn_response.Fail<any>;
 		
