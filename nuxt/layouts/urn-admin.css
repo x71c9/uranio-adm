@@ -643,6 +643,7 @@ body{
 }
 .ui-property select{
   padding-right: 28px;
+  box-shadow: 1px 1px 1px 0px #171717;
 }
 .ui-property select option{
   background-color: var(--black-2);
@@ -939,6 +940,7 @@ body.urn-single-page .ui-main-nuxt{
 }
 
 .ui-property.urn-property-error input,
+.ui-property.urn-property-error select,
 .ui-property.urn-property-error textarea{
   background-color: var(--coral-red-2);
   border-color: #990000;
