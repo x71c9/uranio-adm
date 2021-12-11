@@ -1,8 +1,6 @@
 
 import mixins from 'vue-typed-mixins';
 
-// import { atom_book } from "uranio-books/atom";
-
 import uranio from "uranio";
 
 import shared from './Shared';
@@ -18,6 +16,7 @@ type EnumNSValues<T extends EnumNS> =
 type Data<T extends EnumNS> = {
 	enum_values: EnumNSValues<T>,
 	enum_type: T
+	prop_label: string
 }
 
 type Methods = {
@@ -30,9 +29,9 @@ type Computed = {
 type Props = {
 }
 
-type SimpleAtom = {
-	[k:string]: any
-}
+// type SimpleAtom = {
+//   [k:string]: any
+// }
 
 export default mixins(shared).extend<Data<EnumNS>, Methods, Computed, Props>({
 	
@@ -40,24 +39,22 @@ export default mixins(shared).extend<Data<EnumNS>, Methods, Computed, Props>({
 	
 	data<T extends EnumNS>():Data<T> {
 		
-		// const atom_def = atom_book[
-		//   this.atom_name as uranio.types.AtomName
-		// ] as uranio.types.Book.BasicDefinition;
-		
-		// const atom_def = uranio.api.book.atom.get_atom_definition(this.atom_name);
-		
-		// const atom_props = atom_def.properties;
-		// const atom_prop = atom_props[this.prop_name] as
-		//   uranio.types.Book.Definition.Property.Enum;
-		
 		const prop_def = uranio.book.atom.get_property_definition(this.atom_name, this.prop_name);
 		
 		const enum_values = (prop_def as uranio.types.Book.Definition.Property.Enum).values as EnumNSValues<T>;
+		
 		const enum_type = prop_def.type as T;
+		
+		let prop_label = this.prop_name as string;
+		
+		if(prop_def.label){
+			prop_label = prop_def.label;
+		}
 		
 		return {
 			enum_values,
-			enum_type
+			enum_type,
+			prop_label
 		};
 		
 	},
@@ -73,7 +70,8 @@ export default mixins(shared).extend<Data<EnumNS>, Methods, Computed, Props>({
 				target_value = Number(target_value);
 			}
 			
-			(this.atom as SimpleAtom)[this.prop_name] = target_value;
+			// (this.atom as SimpleAtom)[this.prop_name] = target_value;
+			this.atom[this.prop_name] = target_value;
 		}
 		
 	}

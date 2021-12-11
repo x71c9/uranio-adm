@@ -15,7 +15,7 @@ type Computed = {
 type Props = {
 	atom: uranio.types.Atom<uranio.types.AtomName>
 	atom_name: uranio.types.AtomName
-	prop_name: string
+	prop_name: keyof uranio.types.Molecule<uranio.types.AtomName>
 	prop_type: string
 	focus: boolean
 }
@@ -30,7 +30,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	props: {
 		atom: Object,
 		atom_name: String as () => uranio.types.AtomName,
-		prop_name: String,
+		prop_name: String as () => keyof uranio.types.Molecule<uranio.types.AtomName>,
 		prop_type: String,
 		focus: Boolean
 	},
