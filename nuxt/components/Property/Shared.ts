@@ -53,6 +53,6 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 export function check_if_element_is_visible(el:HTMLElement):boolean{
 	const rect = el.getBoundingClientRect();
 	const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-	console.log(!(rect.bottom < 0 || rect.top - viewHeight >= 0));
+	// console.log(!(rect.bottom < 0 || rect.top - viewHeight >= 0));
 	return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
 }
