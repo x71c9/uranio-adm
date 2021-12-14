@@ -1,7 +1,7 @@
 
 import Vue from 'vue';
 
-import Dropzone from 'dropzone';
+// import Dropzone from 'dropzone';
 
 type Data = {
 };
@@ -20,10 +20,10 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		return "urn-admin";
 	},
 	mounted(){
-		const zonedrop = new Dropzone("form.dropzone");
-		zonedrop.on("addedfile", file => {
-			console.log(`File added: ${file.name}`);
-		});
+		// const zonedrop = new Dropzone("form.dropzone");
+		// zonedrop.on("addedfile", file => {
+		//   console.log(`File added: ${file.name}`);
+		// });
 	},
 	data():Data{
 		return {
