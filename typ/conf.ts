@@ -4,7 +4,10 @@
  * @packageDocumentation
  */
 
-import {FullConfiguration as ApiFullConfiguration} from 'uranio-trx/types';
+import {
+	Configuration as TrxConfiguration,
+	FullConfiguration as TrxFullConfiguration
+} from 'uranio-trx/types';
 
 type RequiredConfigParams = {
 }
@@ -13,12 +16,12 @@ type OptionalConfigParam = {
 }
 
 export type Configuration =
-	ApiFullConfiguration &
+	TrxConfiguration &
 	RequiredConfigParams &
 	Partial<OptionalConfigParam>;
 
 export type FullConfiguration =
-	ApiFullConfiguration &
+	TrxFullConfiguration &
 	RequiredConfigParams &
 	OptionalConfigParam;
 

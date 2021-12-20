@@ -4,15 +4,23 @@
  * @packageDocumentation
  */
 
-// type RequiredClientConfigParams = {}
+import {
+	ClientConfiguration as TrxClientConfiguration,
+	FullClientConfiguration as TrxFullClientConfiguration
+} from 'uranio-trx/cln/types';
 
-// type OptionalClientConfigParam = {}
+type RequiredClientConfigParams = {
+}
 
-// export type ClientConfiguration =
-//   RequiredClientConfigParams &
-//   Partial<OptionalClientConfigParam>;
+type OptionalClientConfigParam = {
+}
 
-// export type FullClientConfiguration =
-//   RequiredClientConfigParams &
-//   OptionalClientConfigParam;
+export type ClientConfiguration =
+	TrxClientConfiguration &
+	RequiredClientConfigParams &
+	Partial<OptionalClientConfigParam>;
 
+export type FullClientConfiguration =
+	TrxFullClientConfiguration &
+	RequiredClientConfigParams &
+	OptionalClientConfigParam;

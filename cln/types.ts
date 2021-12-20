@@ -11,4 +11,4 @@ import {Book} from '../typ/book_cln';
 
 export {Book};
 
-// export * from '../typ/conf_cln';
+export * from '../typ/conf_cln';
