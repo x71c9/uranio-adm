@@ -4,8 +4,12 @@
  * @packageDocumentation
  */
 
-// import {FullClientConfiguration} from './types';
+import {trx_client_config} from 'uranio-trx/cln/defaults';
 
-// export const adm_client_config:FullClientConfiguration = {
+import {FullClientConfiguration} from './types';
 
-// };
+export const adm_client_config:FullClientConfiguration = {
+	
+	...trx_client_config
+	
+};

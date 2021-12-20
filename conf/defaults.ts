@@ -6,7 +6,7 @@
 
 import {FullConfiguration} from '../types';
 
-import {trx_config} from 'uranio-trx/cnf/defaults';
+import {trx_config} from 'uranio-trx/conf/defaults';
 
 export const adm_config:FullConfiguration = {
 	
