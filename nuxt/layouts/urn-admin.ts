@@ -8,6 +8,9 @@ urn_log.init(
 	'[URANIO]'
 );
 
+import uranio from 'uranio';
+uranio.init();
+
 type Data = {
 }
 
