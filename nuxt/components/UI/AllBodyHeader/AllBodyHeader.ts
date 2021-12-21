@@ -105,7 +105,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		}
 		
 		for(const [prop_name, prop_def] of Object.entries(atom_properties)){
-			if((prop_def as any).sortable === false){
+			if(prop_def.sortable === false || prop_def.optional === true){
 				continue;
 			}
 			const radio_item_asc = {} as SortItem;

@@ -74,6 +74,8 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 		
 		urn_log.debug('AsyncData.context.params', context.params);
 		
+		context.store.dispatch('auth/authenticate');
+		
 		const atom_name = context.params.slug as A;
 		
 		/** TODO **/
