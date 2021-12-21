@@ -13,8 +13,8 @@ import {AtomName} from '../../types';
 export * from 'uranio-trx/book/atom/';
 
 export function get_definition<A extends AtomName>(atom_name:A)
-		:Book.BasicDefinition{
-	return book_atom.get_definition(atom_name) as Book.BasicDefinition;
+		:Book.BasicDefinition<A>{
+	return book_atom.get_definition(atom_name) as Book.BasicDefinition<A>;
 }
 export function get_property_definition<A extends AtomName>(atom_name:A, property_name:keyof Book.Definition.Properties)
 		:Book.Definition.Property{
