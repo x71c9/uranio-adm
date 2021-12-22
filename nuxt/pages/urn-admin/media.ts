@@ -31,10 +31,11 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		return "urn-admin";
 	},
 	mounted(){
+		console.log(this.$store.state.auth.token);
 		const zonedrop = new Dropzone("form.dropzone",{
-			// headers:{
-			//   'x-auth-token': this.$store.auth_token
-			// }
+			headers:{
+				'x-auth-token': this.$store.state.auth.token
+			}
 		});
 		zonedrop.on("addedfile", file => {
 			urn_log.debug(`File added: ${file.name}`);

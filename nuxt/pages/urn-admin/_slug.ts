@@ -74,7 +74,7 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 		
 		urn_log.debug('AsyncData.context.params', context.params);
 		
-		context.store.dispatch('auth/authenticate');
+		await context.store.dispatch('auth/authenticate');
 		
 		const atom_name = context.params.slug as A;
 		
@@ -117,7 +117,7 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 			if(urn_util.object.has_key(atom_def, 'plural') && atom_def.plural){
 				plural = atom_def.plural;
 			}
-			const trx_base = uranio.trx.base.create<A>(atom_name);
+			const trx_base = uranio.trx.base.create<A>(atom_name, context.store.state.auth.token);
 			const trx_hook_count = trx_base.hook('count');
 			const trx_hook_find = trx_base.hook('find');
 			

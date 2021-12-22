@@ -98,7 +98,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 				back_label = 'back';
 			}
 			
-			const trx_base = uranio.trx.base.create(atom_name);
+			const trx_base = uranio.trx.base.create(atom_name, context.store.state.auth.token);
 			
 			const trx_hook = trx_base.hook('find_id');
 			const hook_params = {
