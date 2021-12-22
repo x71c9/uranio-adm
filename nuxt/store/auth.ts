@@ -26,14 +26,18 @@ export const mutations: MutationTree<RootState> = {
 };
 
 export const actions: ActionTree<RootState, RootState> = {
-	select_atom(context:ActionContext<ReturnState, RootState>, atom_id:string) {
-		context.commit('SELECT_ATOM', atom_id);
-	},
 	async authenticate(context:ActionContext<ReturnState, RootState>){
+		if(context.state.logged === true){
+			return;
+		}
 		try{
-			const token = await uranio.trx.hooks.superusers.authenticate('b@a.com', 'Password');
-			context.commit('CHANGE_TOKEN', token);
-			context.commit('CHANGE_LOGGED', true);
+			const response = await uranio.trx.hooks.superusers.authenticate('b@a.com', 'Password');
+			if(response.success){
+				context.commit('CHANGE_TOKEN', response.payload.token);
+				context.commit('CHANGE_LOGGED', true);
+			}else{
+				console.error('Cannot authenticate', response);
+			}
 		}catch(e){
 			console.error(e);
 		}
