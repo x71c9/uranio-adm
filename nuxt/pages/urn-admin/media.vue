@@ -4,7 +4,11 @@
 		<form
 			:action="target"
 			class="dropzone"
-			></form>
+			>
+			<div class="fallback">
+				<input name="file" type="file" />
+			</div>
+		</form>
 	</div>
 </template>
 <script lang="ts" src="./media.ts"></script>

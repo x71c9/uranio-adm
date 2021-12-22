@@ -31,8 +31,8 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		return "urn-admin";
 	},
 	mounted(){
-		console.log(this.$store.state.auth.token);
 		const zonedrop = new Dropzone("form.dropzone",{
+			paramName: 'file',
 			headers:{
 				'x-auth-token': this.$store.state.auth.token
 			}
