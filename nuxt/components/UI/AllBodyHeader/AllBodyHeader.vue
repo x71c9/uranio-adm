@@ -41,7 +41,7 @@
 			<div class="info-item">
 				<img src="/img/icons/png/horizontal_split.png"/>
 				Total {{ total_label }}:
-				<span class="monospace">{{ page.total_atom_count }}</span>
+				<span class="monospace">{{ total_atom_count_format }}</span>
 			</div>
 			<div class="info-item">
 				<img src="/img/icons/png/power.png"/>

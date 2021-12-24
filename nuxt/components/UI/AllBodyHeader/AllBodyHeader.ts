@@ -2,7 +2,7 @@ import Vue from "vue";
 
 import uranio from 'uranio';
 
-// import { urn_util } from "urn-lib";
+import { urn_util } from "urn-lib";
 
 // import { atom_book } from "uranio-books/atom";
 
@@ -29,6 +29,7 @@ type Data = {
 	search_input_focused: boolean
 	sorted_by: string
 	sorted_direction: 1 | -1
+	total_atom_count_format: string
 };
 type Methods = {
 	update_sort: () => void
@@ -166,6 +167,8 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			sort_items.push(radio_item_des);
 		}
 		
+		const total_atom_count_format = urn_util.number.format(this.page.total_atom_count,2);
+		
 		return{
 			sort_items,
 			sort_list_visible: false,
@@ -176,6 +179,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			dock_url,
 			sorted_by,
 			sorted_direction,
+			total_atom_count_format
 		};
 	},
 	methods:{

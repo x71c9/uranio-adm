@@ -102,3 +102,6 @@
 	position: relative;
 	top: 1px;
 }
+.ui-object-wrapper * {
+	overflow-wrap: anywhere;
+}
