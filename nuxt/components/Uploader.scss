@@ -1,0 +1,23 @@
+.uppy-size--height-md .uppy-Dashboard-AddFiles-info{
+  display: none;
+}
+.uppy-Dashboard-inner{
+  width: 100% !important;
+  border-color: #333;
+}
+
+.uppy-size--md .uppy-Dashboard-Item-preview,
+.uppy-size--lg .uppy-Dashboard-Item-preview,
+.uppy-size--xl .uppy-Dashboard-Item-preview,
+.uppy-size--xl .uppy-Dashboard-Item{
+  height: auto;
+}
+.uppy-size--xl .uppy-Dashboard-Item{
+  /* width: calc(10% - 15px - 15px); */
+}
+.uppy-size--md .uppy-Dashboard-AddFiles-title{
+  max-width: 520px;
+}
+[data-uppy-drag-drop-supported=true] .uppy-Dashboard-AddFiles{
+  padding: 42px 0;
+}

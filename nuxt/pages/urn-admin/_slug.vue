@@ -1,11 +1,17 @@
 <template>
 	<div>
 		<div v-if="success">
+			<Uploader
+				v-if="atom_name === 'media' && this.page.index === 0"
+				/>
 			<div class="flex-row-3">
 				<h1 class="ui-flex-row-3-el today inter-medium-white-36px">
 					<span class="inter-medium-white-36px">{{ plural }}</span>
 				</h1>
-				<div class="ui-flex-row-3-el">
+				<div
+					class="ui-flex-row-3-el"
+					v-show="atom_name !== 'media'"
+					>
 					<nuxt-link :to="`/urn-admin/${atom_name}/new`">
 						<UIButton>Add {{ atom_name }}</UIButton>
 					</nuxt-link>
