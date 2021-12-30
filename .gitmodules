@@ -1,0 +1,5 @@
+[submodule "trx"]
+	path = trx
+	url = git+ssh://git@github.com/nbl7/uranio-trx.git
+	branch = master
+	update = rebase
