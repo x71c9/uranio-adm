@@ -142,6 +142,9 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 				if(reminder > 0){
 					total_page_num += 1;
 				}
+				if(total_page_num === 0){
+					total_page_num = 1;
+				}
 				
 				if(index < 0 || index > total_page_num - 1){
 					

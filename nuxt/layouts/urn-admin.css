@@ -969,3 +969,7 @@ body.urn-single-page .ui-main-nuxt{
   max-width: 1080px;
   margin: 0 auto;
 }
+
+.no_atom_yet{
+  padding: 34px 0;
+}

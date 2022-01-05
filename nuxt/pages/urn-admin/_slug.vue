@@ -22,13 +22,21 @@
 			<div class="surname inter-normal-white-20px">
 				<span class="inter-normal-white-20px">lorem ipsum dolor sit amet</span>
 			</div>
-			<UIGroup>
-				<UIAllBodyHeader />
-				<div class="ui-all-body">
-					<UIAllTable/>
-				</div>
-			</UIGroup>
-			<UIPagination />
+			<div v-if="page.total_atom_count > 0">
+				<UIGroup>
+					<UIAllBodyHeader />
+					<div class="ui-all-body">
+						<UIAllTable/>
+					</div>
+				</UIGroup>
+				<UIPagination />
+			</div>
+			<div
+				v-else
+				class="no_atom_yet"
+				>
+				There are no {{ atom_name }} in the database yet.
+			</div>
 		</div>
 		<div v-else>
 			<Error

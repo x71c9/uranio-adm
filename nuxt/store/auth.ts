@@ -31,7 +31,10 @@ export const actions: ActionTree<RootState, RootState> = {
 			return;
 		}
 		try{
-			const response = await uranio.trx.hooks.superusers.authenticate('b@a.com', 'Password');
+			const response = await uranio.trx.hooks.superusers.authenticate(
+				'uranio@uranio.xyz',
+				'kcXkaF3Ad7KC3G3t'
+			);
 			if(response.success){
 				context.commit('CHANGE_TOKEN', response.payload.token);
 				context.commit('CHANGE_LOGGED', true);
