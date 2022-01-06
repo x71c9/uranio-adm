@@ -111,8 +111,6 @@ export namespace Book {
 			export namespace Validation {
 				export type String = urn_trx_client.types.Book.Definition.Property.Validation.String;
 				export type Number = urn_trx_client.types.Book.Definition.Property.Validation.Number;
-				// export type Day = urn_trx_client.types.Book.Definition.Property.Validation.DayTime;
-				// export type Time = urn_trx_client.types.Book.Definition.Property.Validation.DayTime;
 				export type DayTime = urn_trx_client.types.Book.Definition.Property.Validation.DayTime;
 				export type SetString = urn_trx_client.types.Book.Definition.Property.Validation.SetString;
 				export type SetNumber = urn_trx_client.types.Book.Definition.Property.Validation.SetNumber;
