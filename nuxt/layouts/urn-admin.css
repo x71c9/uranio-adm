@@ -973,3 +973,22 @@ body.urn-single-page .ui-main-nuxt{
 .no_atom_yet{
   padding: 34px 0;
 }
+
+#homepage{
+  text-align: center;
+  margin: 128px auto;
+}
+#homepage h1{
+  font-size: 22px;
+}
+.button.home_go{
+  display: inline-block;
+  line-height: 40px;
+  position: relative;
+}
+.button.home_go:hover{
+  color: #FFF;
+}
+.button.home_go:active{
+  top: 1px;
+}
