@@ -125,7 +125,7 @@ export default Vue.extend<Data, Methods, Props, Props>({
 		async submit(_event: Event)
 				:Promise<void> {
 			
-			const trx_base = uranio.trx.base.create(this.atom_name);
+			const trx_base = uranio.trx.base.create(this.atom_name, this.$store.state.auth.token);
 			
 			const cloned_atom = _process_atom(this.atom_name, this.atom);
 			
