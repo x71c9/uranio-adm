@@ -40,13 +40,13 @@
 
   --pink: #bd008c;
 
-  --font-size-xxs: 10px;
-  --font-size-xs: 12px;
-  --font-size-s: 13px;
-  --font-size-m: 16px;
-  --font-size-l: 20px;
-  --font-size-xl: 24px;
-  --font-size-xxl: 36px;
+  --font-size-xxs: 9px;
+  --font-size-xs: 10px;
+  --font-size-s: 12px;
+  --font-size-m: 14px;
+  --font-size-l: 18px;
+  --font-size-xl: 22px;
+  --font-size-xxl: 28px;
 
   --font-family-inter: "Inter";
   --font-family-pt_mono: "IBM Plex Mono";

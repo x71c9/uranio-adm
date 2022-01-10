@@ -18,6 +18,7 @@ type Data<A extends uranio.types.AtomName> = {
 	title: string
 	error_object:urn_response.Fail<any>
 	data_object:urn_response.General<any, any>
+	previous_url: string
 }
 
 type Methods<A extends uranio.types.AtomName> = {
@@ -30,6 +31,7 @@ type Methods<A extends uranio.types.AtomName> = {
 	update: () => Promise<urn_response.General<uranio.types.Atom<A>, any>>
 	external_submit: (event:Event) => void
 	delete_atom: () => Promise<void>
+	go_back: () => void
 }
 
 type Computed = {
@@ -140,6 +142,8 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			
 		}
 		
+		const previous_url = '';
+		
 		return {
 			atom_name,
 			atom,
@@ -149,12 +153,29 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			title,
 			back_label,
 			error_object,
-			data_object
+			data_object,
+			previous_url
 		};
 		
 	},
 	
+	beforeRouteEnter (_to, from, next) {
+		next(vm => {
+			(vm as any).previous_url = from.path;
+			next();
+		});
+	},
+	
 	methods: {
+		
+		go_back():void{
+			const last_path = this.previous_url.split('/').slice(-1)[0];
+			if(last_path === 'new'){
+				this.$router.push({path: `/urn-admin/${this.atom_name}`});
+				return;
+			}
+			this.$router.back();
+		},
 		
 		modalAtomSelected()
 				:void{

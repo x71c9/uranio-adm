@@ -1,10 +1,8 @@
 <template>
-	<div
-		class="main-container"
-		>
-		<UISectionSideBar class="main-flex ui-section-sidebar"/>
+	<div class="main-container">
+		<UISectionHeader />
 		<div class="main-flex ui-main">
-			<UISectionHeader />
+			<UISectionSideBar class="main-flex ui-section-sidebar"/>
 			<Nuxt
 				class="ui-main-nuxt"
 				/>

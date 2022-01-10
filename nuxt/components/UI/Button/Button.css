@@ -2,7 +2,7 @@
   align-items: center;
   background-color: var(--azure-radiance);
   border-width: 0;
-  border-radius: 8px;
+  border-radius: 4px;
   box-shadow: 0px 1px 1px #00000014, 0px 2px 1px #0000000f, 0px 1px 3px #0000001a;
   display: flex;
   cursor: pointer;
@@ -14,8 +14,8 @@
   font-size: var(--font-size-m);
   line-height: 24px;
   min-height: 24px;
-  height: 40px;
-  padding: 0 12px;
+  height: 34px;
+  padding: 0 16px;
   white-space: nowrap;
 }
 .button:hover{

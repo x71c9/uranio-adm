@@ -23,6 +23,7 @@ type Methods = {
 	submit: (event:Event) => Promise<void>
 	external_submit: (event:Event) => void
 	modalAtomSelected: (id: string | string[]) => void
+	go_back: () => void
 }
 
 type Props = {
@@ -120,6 +121,10 @@ export default Vue.extend<Data, Methods, Props, Props>({
 			if(this.$refs.atom_form && (this.$refs.atom_form as any).submit){
 				(this.$refs as any).atom_form.submit();
 			}
+		},
+		
+		go_back():void{
+			this.$router.back();
 		},
 		
 		async submit(_event: Event)

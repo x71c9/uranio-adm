@@ -1,7 +1,7 @@
 .pagination {
     align-items: center;
     display: flex;
-    margin-top: 24px;
+    margin-top: 16px;
 
     .ui-page-label {
         letter-spacing: 0;
@@ -23,12 +23,13 @@
     }
     .button-text-arrow{
         align-items: center;
-        background-color: var(--licorice);
+        /* background-color: var(--licorice); */
+        background-color: var(--eerie-black);
         border-color: var(--black-3);
-        border-radius: 8px;
+        border-radius: 4px;
         box-shadow: 0px 1px 1px #0000000f;
         display: flex;
-        height: 40px;
+        height: 34px;
         overflow: hidden;
         padding: 0 8px;
         width: 83px;
@@ -48,10 +49,10 @@
     }
     .button-prev {
         margin-left: 0;
-        margin-right: 8px;
+        margin-right: 4px;
     }
     .button-next {
-        margin-left: 8px;
+        margin-left: 4px;
         margin-right: 0;
     }
     .icon {
@@ -93,18 +94,21 @@
 
     .pag-button.button-arrow-left{
         margin-left: 0;
+        margin-right: 4px;
+        padding-left: 8px;
     }
     .pag-button {
         align-items: center;
-        background-color: var(--licorice);
-        border-radius: 8px;
+        /* background-color: var(--licorice); */
+        background-color: var(--eerie-black);
+        border-radius: 4px;
         box-shadow: 0px 1px 1px #0000000f;
         display: flex;
-        height: 40px;
-        margin-left: 8px;
+        height: 34px;
+        margin-left: 4px;
         overflow: hidden;
         padding: 0 12px;
-        width: 45px;
+        width: 38px;
         border-width: 1px;
         border-style: solid;
         border-color: var(--black-3);
@@ -139,12 +143,13 @@
         cursor: default;
     }
     .default .pag-button:last-of-type{
-        margin-right: 8px;
+        /* margin-right: 8px; */
+        padding-left: 6px;
     }
     .text-dots {
         letter-spacing: 0;
         line-height: 24px;
-        margin-left: 8px;
+        margin-left: 4px;
         min-height: 24px;
         min-width: 14px;
         text-align: center;
@@ -152,16 +157,17 @@
     }
     .button-arrow-right {
         align-items: center;
-        background-color: var(--licorice);
-        border-radius: 8px;
+        /* background-color: var(--licorice); */
+        background-color: var(--eerie-black);
+        border-radius: 4px;
         box-shadow: 0px 1px 1px #0000000f;
         border-color: var(--black-3);
         display: flex;
-        height: 40px;
+        height: 34px;
         margin-left: 8px;
         overflow: hidden;
         padding: 0 10px;
-        width: 40px;
+        width: 34px;
     }
     .button-text-arrow:not(.active):not(.disabled):hover,
     .button-arrow:not(.active):not(.disabled):hover,
@@ -195,7 +201,7 @@
     }
     .text-field {
         align-items: flex-start;
-        border-radius: 8px;
+        border-radius: 4px;
         background-color: var(--licorice);
         color: var(--white);
         border-color: var(--black-3);
@@ -207,8 +213,9 @@
     .go-to .left {
         align-items: center;
         display: flex;
-        height: 40px;
+        height: 34px;
         width: 100%;
+        background-color: var(--eerie-black);
     }
     .go-to .text-2 {
         letter-spacing: 0;
@@ -231,9 +238,12 @@
         outline: none;
         border: 0;
         padding-left: var(--padx1);
-        background-color: var(--licorice);
+        /* background-color: var(--licorice); */
+        background-color: var(--eerie-black);
         color: var(--white);
         margin-right: 8px;
+        border-left: 1px solid var(--licorice);
+        box-shadow: inset;
     }
     .ui-item-per-page{
         display: flex;
@@ -241,8 +251,8 @@
     }
     .ui-item-per-page input{
         width: 64px;
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
     }
     .ui-item-per-page .button{
         padding: 0;
@@ -252,10 +262,11 @@
         display: block;
         width: 100%;
         height: 100%;
-        padding: 8px 14px;
+        padding: 6px 14px;
     }
     .ui-item-per-page .button.secondary{
-        background-color: var(--licorice);
+        /* background-color: var(--licorice); */
+      background-color: var(--eerie-black);
     }
     .ui-item-per-page .button.secondary.active,
     .ui-item-per-page .button.secondary:hover{
