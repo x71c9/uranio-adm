@@ -13,7 +13,7 @@
 					v-show="atom_name !== 'media'"
 					>
 					<nuxt-link :to="`/urn-admin/${atom_name}/new`">
-						<UIButton>Add {{ atom_name }}</UIButton>
+						<UIButton>+ &nbsp;Add {{ atom_name }}</UIButton>
 					</nuxt-link>
 					<UIButton class="borderless">Export</UIButton>
 					<UIButton class="borderless">Import</UIButton>

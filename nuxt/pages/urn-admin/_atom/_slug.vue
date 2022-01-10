@@ -16,7 +16,7 @@
 			<div class="flex-row-4">
 				<UIButton
 					class="borderless secondary back_button"
-					v-on:click.native="$router.back()"
+					v-on:click.native="go_back()"
 					>
 					<img src="/img/icons/png/arrow_back.png" />
 					<span>{{ back_label }}</span>

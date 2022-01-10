@@ -7,7 +7,7 @@
 .ui-sidebar-entry.urn-exact-active-link,
 .side-bar-group .ui-sidebar-entry.urn-active-link{
     background-color: var(--dodger-blue-2);
-    border-radius: 8px;
+    border-radius: 4px;
     color: var(--white);
 }
 
@@ -25,12 +25,12 @@
 .x-base1-one-lin-left-label-icon {
     align-items: center;
     display: flex;
-    height: 44px;
-    padding: 0 15px;
+    height: 32px;
+    padding: 0 9px;
 }
 .icon {
-    height: 18px;
-    width: 18px;
+    height: 15px;
+    width: 15px;
 }
 .ui-sidebar-entry.urn-exact-active-link .icon,
 .ui-sidebar-entry:hover .icon {
@@ -48,7 +48,7 @@
     white-space: nowrap;
 }
 .label-with-margin {
-    margin-left: 15px;
+    margin-left: 9px;
 }
 .counter {
     align-items: flex-start;
