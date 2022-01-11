@@ -103,7 +103,6 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 				back_label = 'back';
 			}
 			
-			console.log(atom_def);
 			if(urn_util.object.has_key(atom_def, 'read_only') && atom_def.read_only === true){
 				is_read_only = true;
 			}
