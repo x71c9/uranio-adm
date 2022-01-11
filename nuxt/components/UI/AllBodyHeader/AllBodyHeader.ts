@@ -4,10 +4,6 @@ import uranio from 'uranio';
 
 import { urn_util } from "urn-lib";
 
-// import { atom_book } from "uranio-books/atom";
-
-// import { dock_book } from "uranio-books/dock";
-
 import {Page} from '../../../pages/urn-admin/_slug';
 
 type SortValue = {
@@ -70,13 +66,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			total_label = this.atom_name;
 		}
 		
-		// const atom_def = atom_book[this.atom_name] as
-		//   uranio.types.Book.BasicDefinition;
-		
 		const atom_def = uranio.book.atom.get_definition(this.atom_name);
-		
-		// const dock_def = dock_book[this.atom_name] as
-		//   uranio.types.Book.BasicDefinition;
 		
 		const dock_def = uranio.book.dock.get_definition(this.atom_name);
 		
