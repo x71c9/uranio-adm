@@ -24,7 +24,10 @@ export namespace Book {
 	
 	export type BasicDefinition<A extends urn_trx.types.AtomName> =
 		Omit<urn_trx.types.Book.BasicDefinition<A>, 'properties'> &
-		{ properties: book_cln.Book.Definition.Properties }
+		{
+			properties: book_cln.Book.Definition.Properties
+			read_only?: boolean
+		}
 	
 	export type Definition<A extends urn_trx.types.AtomName> =
 		Omit<urn_trx.types.Book.Definition<A>, keyof Book.BasicDefinition<A>> &
