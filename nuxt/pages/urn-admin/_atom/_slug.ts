@@ -19,6 +19,7 @@ type Data<A extends uranio.types.AtomName> = {
 	error_object:urn_response.Fail<any>
 	data_object:urn_response.General<any, any>
 	previous_url: string
+	is_read_only: boolean
 }
 
 type Methods<A extends uranio.types.AtomName> = {
@@ -72,6 +73,8 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		
 		const plural = atom_name + "s";
 		
+		let is_read_only = false;
+		
 		let back_label = `back to ${plural}`;
 		
 		let message = "";
@@ -100,6 +103,10 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 				back_label = 'back';
 			}
 			
+			console.log(atom_def);
+			if(urn_util.object.has_key(atom_def, 'read_only') && atom_def.read_only === true){
+				is_read_only = true;
+			}
 			const trx_base = uranio.trx.base.create(atom_name, context.store.state.auth.token);
 			
 			const trx_hook = trx_base.hook('find_id');
@@ -154,7 +161,8 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			back_label,
 			error_object,
 			data_object,
-			previous_url
+			previous_url,
+			is_read_only
 		};
 		
 	},
@@ -283,7 +291,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		},
 		
 		exit():void{
-			this.$router.back();
+			this.go_back();
 			// this.$router.push({
 			//   name: 'urn-admin-slug',
 			//   params: {

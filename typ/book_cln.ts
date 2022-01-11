@@ -21,7 +21,10 @@ export namespace Book {
 	
 	export type BasicDefinition =
 		Omit<urn_trx_client.types.Book.BasicDefinition, 'properties'> &
-		{ properties: Definition.Properties }
+		{
+			properties: Definition.Properties
+			read_only?: boolean
+		}
 	
 	export type Definition =
 		Book.BasicDefinition

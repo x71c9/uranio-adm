@@ -32,17 +32,20 @@ type Computed = {
 
 type Props = {
 	atoms: uranio.types.Atom<uranio.types.AtomName>[]
-	atom_name: uranio.types.AtomName
+	atom_name: uranio.types.AtomName,
+	is_read_only: boolean
 }
 
 export default Vue.extend<Data, Methods, Computed, Props>({
 	inject: [
 		'atoms',
-		'atom_name'
+		'atom_name',
+		'is_read_only'
 	],
 	props: {
 		atoms: Array,
-		atom_name: Object
+		atom_name: Object,
+		is_read_only: Boolean
 	},
 	data():Data {
 		const checked_by_id = {} as Checked;

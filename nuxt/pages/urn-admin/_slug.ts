@@ -32,6 +32,7 @@ type Data<A extends uranio.types.AtomName> = {
 	message: string,
 	success: boolean
 	error_object:urn_response.Fail<any>
+	is_read_only: boolean
 };
 
 type Methods = {
@@ -54,6 +55,7 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 		return {
 			page: (this as any).page,
 			plural: (this as any).plural,
+			is_read_only: (this as any).is_read_only,
 			atoms: (this as any).atoms,
 			atom_name: (this as any).atom_name
 		};
@@ -90,6 +92,8 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 		let find_success = false;
 		let atoms: uranio.types.Molecule<A>[] = [];
 		
+		let is_read_only = false;
+		
 		let total_atom_count = 0;
 		let total_page_num = 0;
 		let index = 0;
@@ -120,6 +124,10 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 			const trx_base = uranio.trx.base.create<A>(atom_name, context.store.state.auth.token);
 			const trx_hook_count = trx_base.hook('count');
 			const trx_hook_find = trx_base.hook('find');
+			
+			if(urn_util.object.has_key(atom_def, 'read_only') && atom_def.read_only === true){
+				is_read_only = atom_def.read_only;
+			}
 			
 			const trx_res_count = await trx_hook_count({});
 			if(trx_res_count.success === true){
@@ -191,7 +199,8 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 			atoms,
 			message,
 			success,
-			error_object
+			error_object,
+			is_read_only
 		};
 	},
 });
