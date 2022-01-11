@@ -1,8 +1,9 @@
 <template>
-	<table class="ui-all-table">
+	<table :class="{'ui-all-table': true, 'ui-read-only-table': is_read_only}">
 		<thead>
 			<tr class="ui-all-table-row ui-all-table-row-head">
 				<th
+					v-if="is_read_only === false"
 					class="check"
 					@click.stop="toggle_all"
 					>
@@ -53,6 +54,7 @@
 				class="ui-all-table-row"
 				>
 				<td
+					v-if="is_read_only === false"
 					class="check"
 					>
 					<UICheckbox

@@ -9,14 +9,19 @@
 					<span class="inter-medium-white-36px">{{ plural }}</span>
 				</h1>
 				<div
-					class="ui-flex-row-3-el"
+					class="ui-flex-row-3-el header_actions"
 					v-show="atom_name !== 'media'"
 					>
-					<nuxt-link :to="`/urn-admin/${atom_name}/new`">
+					<nuxt-link
+						:to="`/urn-admin/${atom_name}/new`"
+						v-if="is_read_only === false"
+						>
 						<UIButton>+ &nbsp;Add {{ atom_name }}</UIButton>
 					</nuxt-link>
 					<UIButton class="borderless">Export</UIButton>
-					<UIButton class="borderless">Import</UIButton>
+					<UIButton
+						v-if="is_read_only === false"
+						class="borderless">Import</UIButton>
 				</div>
 			</div>
 			<div class="surname inter-normal-white-20px">
