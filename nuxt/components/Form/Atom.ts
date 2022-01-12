@@ -99,12 +99,9 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 			}
 		}
 		
-		const previous_url = '';
-		
 		return {
 			atom_props,
-			error_class: false,
-			previous_url
+			error_class: false
 		};
 		
 	},
