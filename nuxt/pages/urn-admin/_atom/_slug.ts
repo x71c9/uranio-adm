@@ -130,7 +130,11 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 				
 				for(const [prop_name, prop_def] of Object.entries(prop_defs)){
 					const prop_value = atom[prop_name as keyof uranio.types.Atom<A>];
-					if((prop_def as any).is_title === true && typeof prop_value === 'string' && prop_value !== ''){
+					if(
+						(prop_def as any).is_title === true
+						&& typeof prop_value === 'string'
+						&& prop_value !== ''
+					){
 						title = prop_value;
 					}
 				}
@@ -240,6 +244,10 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			
 			const trx_response = await trx_hook(hook_params);
 			urn_log.debug('[update] TRX Response: ', trx_response);
+			
+			if(!trx_response.success){
+				this.fail(trx_response);
+			}
 			
 			return trx_response;
 			
