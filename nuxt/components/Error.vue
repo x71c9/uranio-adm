@@ -4,7 +4,7 @@
 			<h1 class="ui-flex-row-3-el today inter-medium-white-36px">
 				<span class="inter-medium-white-36px">{{ message }}</span>
 			</h1>
-			<div class="ui-flex-row-3-el">
+			<div class="ui-flex-row-3-el header_actions">
 				<UIButton class="secondary" v-on:click.native="$router.go()">Reload</UIButton>
 				<UIButton v-if="error.status === 404" class="secondary" v-on:click.native="$router.back()">Back</UIButton>
 			</div>

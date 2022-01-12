@@ -7,14 +7,15 @@
     height: 56px;
     overflow: hidden;
     padding: 0 6px;
-    width: 360px;
+    width: 290px;
     position: fixed;
-    top: 12px;
-    right: 48px;
+    top: 74px;
+    right: 18px;
     color: var(--white-3);
     transform: translateX(0);
     box-shadow: 0px 1px 1px #00000029, 0px 12px 11px #0000001f, 0px 11px 13px #00000033;
     transition: all .3s;
+    z-index: 120;
 
     .icon{
         height: 20px;
