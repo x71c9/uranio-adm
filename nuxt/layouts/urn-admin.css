@@ -303,7 +303,7 @@ body{
 .flex-row-3 {
   align-items: center;
   display: flex;
-  height: 48px;
+  min-height: 48px;
   margin-top: 30px;
 }
 .ui-flex-row-3-el {
@@ -325,9 +325,9 @@ body{
 }
 .today {
   letter-spacing: 0;
-  line-height: 48px;
+  /* line-height: 48px; */
   min-height: 48px;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 .surname {
   align-self: flex-start;
