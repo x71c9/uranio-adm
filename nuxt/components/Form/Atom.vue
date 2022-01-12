@@ -20,7 +20,7 @@
 					<div class="left">
 						<UIButton
 							class="secondary"
-							v-on:click.native.prevent="$router.back()"
+							v-on:click.native.prevent="go_back"
 							>Cancel</UIButton>
 						<UIButton
 							v-if="call === 'update'"

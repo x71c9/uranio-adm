@@ -32,6 +32,7 @@
 				ref="atom_form"
 				@submit_atom_form="submit"
 				@submit_exit_atom_form="submit_exit"
+				@go_back="go_back"
 				@delete_atom="delete_atom"
 				call="update"
 				/>
