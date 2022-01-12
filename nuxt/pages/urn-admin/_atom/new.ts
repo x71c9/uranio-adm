@@ -1,9 +1,11 @@
 
 import Vue from 'vue';
 
-import { urn_util, urn_log } from "urn-lib";
+import { urn_util, urn_log, urn_response } from "urn-lib";
 
 import uranio from 'uranio';
+
+import { Notification } from '../../../store/notification';
 
 // import { atom_book } from "uranio-books/atom";
 
@@ -17,12 +19,15 @@ type Data = {
 	atom_name: uranio.types.AtomName
 	plural: string
 	message: string
+	success: boolean
+	error_object:urn_response.Fail<any>
 }
 
 type Methods = {
 	submit: (event:Event) => Promise<void>
 	external_submit: (event:Event) => void
 	modalAtomSelected: (id: string | string[]) => void
+	fail: (trx_response:urn_response.Fail<any>) => void
 	go_back: () => void
 }
 
@@ -107,11 +112,17 @@ export default Vue.extend<Data, Methods, Props, Props>({
 				}
 			}
 		}
+		
+		const error_object = {} as urn_response.Fail<any>;
+		const success = true;
+		
 		return {
 			atom,
 			atom_name,
 			message,
-			plural
+			plural,
+			error_object,
+			success
 		};
 	},
 	
@@ -139,10 +150,9 @@ export default Vue.extend<Data, Methods, Props, Props>({
 			
 			urn_log.debug('[insert] TRX Response: ', trx_response);
 			
-			if(trx_response.success && !Array.isArray(trx_response.payload)){
+			if(trx_response.success){
 				
 				this.$router.push({
-					
 					name: 'urn-admin-atom-slug',
 					params: {
 						atom: this.atom_name,
@@ -152,10 +162,24 @@ export default Vue.extend<Data, Methods, Props, Props>({
 				
 			}else{
 				
-				this.message = trx_response.message || '';
-				urn_log.error('ERRMSG: ', trx_response.message);
+				this.fail(trx_response);
 				
 			}
+		},
+		
+		fail(trx_response:urn_response.Fail<any>):void{
+			window.scrollTo(0, 0);
+			urn_log.error('ERR MSG: ', trx_response.err_msg);
+			this.success = false;
+			this.message = trx_response.message || 'Unknown error';
+			const cloned_error = { ...trx_response };
+			delete cloned_error.ex;
+			this.error_object = cloned_error;
+			
+			this.$store.dispatch('notification/show_notification', {
+				type: Notification.ERROR,
+				message: this.message,
+			});
 		},
 		
 		modalAtomSelected()
