@@ -32,6 +32,7 @@ type Methods = {
 	submit: (event:Event) => void
 	submit_exit: (event:Event) => void
 	delete_atom: (event:Event) => void
+	go_back: (event:Event) => void
 	validate_property: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => boolean
 	validate_form: () => boolean
 	// custom_validate_form: () => boolean
@@ -98,9 +99,12 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 			}
 		}
 		
+		const previous_url = '';
+		
 		return {
 			atom_props,
-			error_class: false
+			error_class: false,
+			previous_url
 		};
 		
 	},
@@ -156,6 +160,10 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 		
 		delete_atom(_event:Event):void{
 			this.$emit('delete_atom');
+		},
+		
+		go_back(_event:Event):void{
+			this.$emit('go_back');
 		},
 		
 		validate_property(prop_name:keyof uranio.types.Book.Definition.Properties)

@@ -226,7 +226,10 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 				:Promise<urn_response.General<uranio.types.Atom<A>, any>> {
 			
 			const cloned_atom = _clean_atom(this.atom_name, this.atom);
-			const trx_base = uranio.trx.base.create<A>(this.atom_name as A);
+			const trx_base = uranio.trx.base.create<A>(
+				this.atom_name as A,
+				this.$store.state.auth.token
+			);
 			const trx_hook = trx_base.hook('update');
 			const hook_params = {
 				params:{
@@ -302,7 +305,10 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		async delete_atom<A extends uranio.types.AtomName>()
 				:Promise<void>{
 			
-			const trx_base = uranio.trx.base.create<A>(this.atom_name as A);
+			const trx_base = uranio.trx.base.create<A>(
+				this.atom_name as A,
+				this.$store.state.auth.token
+			);
 			const trx_hook = trx_base.hook('delete');
 			const hook_params = {
 				params:{
