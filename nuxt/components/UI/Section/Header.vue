@@ -1,6 +1,6 @@
 <template>
 <div class="urn-section-header overlap-group4">
-	<div class="urn-header-logo">
+	<nuxt-link class="urn-header-logo" to="/urn-admin">
 		<div class="logo border-1px-white-5">
 			<img class="icon-3" src="/img/icons/@2x/icon-217@2x.png">
 		</div>
@@ -15,7 +15,7 @@
 			<!--   <span class="inter-normal-white-13px">andrea@urn.sh</span> -->
 			<!-- </div> -->
 		</div>
-	</div>
+	</nuxt-link>
 	<div class="flex-row-2">
 		<!-- <div class="ui-header-el ui-header-searchbar search-bar"> -->
 		<!--   <div class="left"> -->
