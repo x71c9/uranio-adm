@@ -52,9 +52,9 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		const uppy_xhr_options = {
 			endpoint: target,
 			fieldName: 'file',
-			headers:{
-				'x-auth-token': this.$store.state.auth.token
-			}
+			// headers:{
+			//   'urn-auth-token': this.$store.state.auth.token
+			// }
 		};
 		
 		const uppy_options = {

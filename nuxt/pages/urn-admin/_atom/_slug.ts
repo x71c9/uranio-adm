@@ -106,7 +106,8 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			if(urn_util.object.has_key(atom_def, 'read_only') && atom_def.read_only === true){
 				is_read_only = true;
 			}
-			const trx_base = uranio.trx.base.create(atom_name, context.store.state.auth.token);
+			// const trx_base = uranio.trx.base.create(atom_name, context.store.state.auth.token);
+			const trx_base = uranio.trx.base.create(atom_name);
 			
 			const trx_hook = trx_base.hook('find_id');
 			const hook_params = {
@@ -232,7 +233,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			const cloned_atom = _clean_atom(this.atom_name, this.atom);
 			const trx_base = uranio.trx.base.create<A>(
 				this.atom_name as A,
-				this.$store.state.auth.token
+				// this.$store.state.auth.token
 			);
 			const trx_hook = trx_base.hook('update');
 			const hook_params = {
@@ -315,7 +316,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			
 			const trx_base = uranio.trx.base.create<A>(
 				this.atom_name as A,
-				this.$store.state.auth.token
+				// this.$store.state.auth.token
 			);
 			const trx_hook = trx_base.hook('delete');
 			const hook_params = {

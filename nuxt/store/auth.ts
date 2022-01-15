@@ -6,12 +6,12 @@ import uranio from 'uranio';
 
 type ReturnState = {
 	logged: boolean
-	token: string
+	// token: string
 }
 
 export const state = ():ReturnState => ({
 	logged: false,
-	token: '',
+	// token: '',
 });
 
 export type RootState = ReturnType<typeof state>
@@ -22,7 +22,7 @@ export type RootState = ReturnType<typeof state>
 
 export const mutations: MutationTree<RootState> = {
 	CHANGE_LOGGED: (state, logged:boolean) => (state.logged = logged),
-	CHANGE_TOKEN: (state, token:string) => (state.token = token),
+	// CHANGE_TOKEN: (state, token:string) => (state.token = token),
 };
 
 export const actions: ActionTree<RootState, RootState> = {
@@ -36,7 +36,7 @@ export const actions: ActionTree<RootState, RootState> = {
 				'kcXkaF3Ad7KC3G3t'
 			);
 			if(response.success){
-				context.commit('CHANGE_TOKEN', response.payload.token);
+				// context.commit('CHANGE_TOKEN', response.payload.token);
 				context.commit('CHANGE_LOGGED', true);
 			}else{
 				console.error('Cannot authenticate', response);
