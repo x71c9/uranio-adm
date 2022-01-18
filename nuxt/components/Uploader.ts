@@ -47,7 +47,11 @@ type Props = {
 export default Vue.extend<Data, Methods, Computed, Props>({
 	data():Data{
 		
-		const target =  uranio.conf.get(`base_url`) + `/media/upload`;
+		let base_url = uranio.conf.get('protocol') + '://';
+		base_url += uranio.conf.get('domain');
+		base_url += ':' + uranio.conf.get('port');
+		
+		const target =  base_url + `/media/upload`;
 		
 		const uppy_xhr_options = {
 			endpoint: target,
