@@ -28,8 +28,8 @@ export function init(config?:types.Configuration)
 	}else{
 		urn_trx.conf.set(adm_config, config);
 	}
-	// _validate_trx_variables();
-	// _validate_trx_book();
+	// _validate_adm_variables();
+	// _validate_adm_book();
 	
 	conf.set_initialize(true);
 }
@@ -38,8 +38,8 @@ export function init(config?:types.Configuration)
  * NOTE:
  * Maybe this should be before compilation and not at runtime?
  */
-// function _validate_trx_book(){
+// function _validate_adm_book(){
 // }
 
-// function _validate_trx_variables(){
+// function _validate_adm_variables(){
 // }

@@ -28,6 +28,9 @@ export function init(config?:types.ClientConfiguration)
 	adm_client_config.service_url =
 		`${adm_client_config.protocol}://${adm_client_config.domain}:${adm_client_config.port}/uranio/api`;
 	
+	/**
+	 * trx_client_config must be updated too.
+	 */
 	trx_client_config.service_url = adm_client_config.service_url;
 	
 	_validate_adm_client_variables();
