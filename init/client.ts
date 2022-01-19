@@ -25,13 +25,31 @@ export function init(config?:types.ClientConfiguration)
 		urn_trx.conf.set(adm_client_config, config);
 	}
 	
-	adm_client_config.service_url =
-		`${adm_client_config.protocol}://${adm_client_config.domain}:${adm_client_config.port}/uranio/api`;
-	
-	/**
-	 * trx_client_config must be updated too.
-	 */
-	trx_client_config.service_url = adm_client_config.service_url;
+	if(process.env.NETLIFY_DEV){
+		
+		adm_client_config.service_url = `http://localhost:7777/uranio/api`;
+		/**
+		 * trx_client_config must be updated too.
+		 */
+		trx_client_config.service_url = `http://localhost:7777/uranio/api`;
+		
+	}else if(process.env.NETLIFY){
+		
+		adm_client_config.service_url = `${process.env.URL}/uranio/api`;
+		/**
+		 * trx_client_config must be updated too.
+		 */
+		trx_client_config.service_url = `${process.env.URL}/uranio/api`;
+		
+	}else{
+		
+		adm_client_config.service_url =
+			`${adm_client_config.protocol}://${adm_client_config.domain}:${adm_client_config.port}/uranio/api`;
+		/**
+		 * trx_client_config must be updated too.
+		 */
+		trx_client_config.service_url = adm_client_config.service_url;
+	}
 	
 	_validate_adm_client_variables();
 	_validate_adm_client_book();
