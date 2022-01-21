@@ -2,6 +2,7 @@
 	<div>
 		<input
 			ref="input"
+			:readonly="readonly"
 			autocomplete="new-password"
 			class="urn_input"
 			type="password"
