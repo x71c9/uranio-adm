@@ -72,16 +72,17 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 			const prop_defs = uranio.book.atom.get_custom_property_definitions(this.atom_name);
 			
 			for(const [prop_name, prop_def] of Object.entries(prop_defs)){
-				if(!prop_def.hidden){
-					atom_props[prop_name] = {
-						name: prop_name,
-						style: _fill_style((prop_def as any).style),
-						optional: prop_def.optional || false,
-						state: PropState.VALID,
-						error_message: '',
-						focus: false
-					};
+				if(this.call === 'update' && prop_def.hidden){
+					continue;
 				}
+				atom_props[prop_name] = {
+					name: prop_name,
+					style: _fill_style((prop_def as any).style),
+					optional: prop_def.optional || false,
+					state: PropState.VALID,
+					error_message: '',
+					focus: false
+				};
 			}
 			if(this.call === 'update'){
 				for(const [prop_name, prop_def] of Object.entries(uranio.core.stc.atom_hard_properties)){

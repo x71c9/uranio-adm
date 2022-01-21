@@ -5,7 +5,7 @@
 				<span class="inter-medium-white-36px">New {{ atom_name }}</span>
 			</h1>
 			<div class="ui-flex-row-3-el header_actions">
-				<UIButton v-on:click.native="external_submit">Insert</UIButton>
+				<UIButton v-on:click.native="external_submit">Save</UIButton>
 			</div>
 		</div>
 		<div class="flex-row-4">

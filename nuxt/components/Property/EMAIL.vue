@@ -2,6 +2,7 @@
 	<div>
 		<input
 			ref="input"
+			:readonly="readonly"
 			autocomplete="off"
 			class="urn_input"
 			type="email"

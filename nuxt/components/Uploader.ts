@@ -47,15 +47,12 @@ type Props = {
 export default Vue.extend<Data, Methods, Computed, Props>({
 	data():Data{
 		
-		let base_url = uranio.conf.get('protocol') + '://';
-		base_url += uranio.conf.get('domain');
-		base_url += ':' + uranio.conf.get('port');
-		
-		const target =  base_url + `/media/upload`;
+		const target =  uranio.conf.get('service_url') + `/media/upload`;
 		
 		const uppy_xhr_options = {
 			endpoint: target,
 			fieldName: 'file',
+			formData: true
 			// headers:{
 			//   'urn-auth-token': this.$store.state.auth.token
 			// }
