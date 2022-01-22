@@ -1,21 +1,18 @@
 
 import Vue from 'vue';
 
-import {urn_log} from 'urn-lib';
+import {urn_log, urn_exception} from 'urn-lib';
+const urn_exc = urn_exception.init(`NUXT_UPLOADER`, `Nuxt Uploader`);
 
 import uranio from 'uranio';
 
-import Uppy from '@uppy/core';
-
+import Uppy, { UppyFile } from '@uppy/core';
 import { Dashboard } from '@uppy/vue';
-
 import Audio from '@uppy/audio';
-
 import Webcam from '@uppy/webcam';
-
 import ImageEditor from '@uppy/image-editor';
-
 import XHRUpload from '@uppy/xhr-upload';
+import AwsS3 from '@uppy/aws-s3';
 
 import '@uppy/core/dist/style.css';
 import '@uppy/dashboard/dist/style.css';
@@ -27,6 +24,7 @@ type Data = {
 	target: string
 	uppy_options: any
 	uppy_xhr_options: any
+	uppy_aws_options: any
 	uppy_dashboard_options: any
 	uppy_audio_optins: any
 	uppy_webcam_options: any
@@ -44,6 +42,10 @@ type Computed = {
 type Props = {
 }
 
+type UppyFiles = {
+	[k:string]: UppyFile
+}
+
 export default Vue.extend<Data, Methods, Computed, Props>({
 	data():Data{
 		
@@ -56,6 +58,34 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			// headers:{
 			//   'urn-auth-token': this.$store.state.auth.token
 			// }
+		};
+		
+		const uppy_aws_options = {
+			// limit: 1,
+			// timeout: 60000, // 1 minute
+			// companionUrl: 'https://uppy-companion.myapp.com/',
+			getUploadParameters (file:any) {
+				
+				console.log(file);
+				
+				return uranio.trx.hooks.media.presigned(file.name, file.size, file.type)
+					.then((urn_res) => {
+						if(urn_res.success === false){
+							throw urn_exc.create(
+								`CANNOT_GET_PRESIGNED_URL`,
+								`Cannot get presigned url for [${file.name}]`
+							);
+						}
+						return {
+							method: 'put',
+							url: urn_res.payload,
+							// fields: data.fields,
+							headers: {
+								'Content-Type': file.type,
+							},
+						};
+					});
+			}
 		};
 		
 		const uppy_options = {
@@ -73,7 +103,13 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			},
 			meta: {},
 			// onBeforeFileAdded: (currentFile:any, _files:any) => currentFile,
-			// onBeforeUpload: (_files) => {},
+			onBeforeUpload: (_files:UppyFiles) => {
+				// for(const [_key, file] of Object.entries(files)){
+				//   const name = file.name;
+				//   const size = file.size;
+				//   const types = file.type;
+				// }
+			},
 			// locale: {},
 			// store: new DefaultStore(),
 			// logger: justErrorsLogger,
@@ -175,6 +211,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			target,
 			uppy_options,
 			uppy_xhr_options,
+			uppy_aws_options,
 			uppy_dashboard_options,
 			uppy_audio_optins,
 			uppy_webcam_options,
@@ -190,6 +227,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	computed: {
 		uppy: function() {
 			return new Uppy(this.uppy_options)
+				.use(AwsS3, this.uppy_aws_options)
 				.use(XHRUpload, this.uppy_xhr_options)
 				.use(ImageEditor, this.uppy_image_editor_options)
 				.use(Audio, this.uppy_audio_optins)
