@@ -3,6 +3,7 @@
 		<div v-if="success">
 			<Uploader
 				v-if="atom_name === 'media' && this.page.index === 0"
+				v-on:add-atoms="add_atoms"
 				/>
 			<div class="flex-row-3">
 				<h1 class="ui-flex-row-3-el today inter-medium-white-36px">

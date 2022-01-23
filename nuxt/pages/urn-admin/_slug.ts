@@ -36,12 +36,18 @@ type Data<A extends uranio.types.AtomName> = {
 };
 
 type Methods = {
-	
+	add_atoms<A extends uranio.types.AtomName>(atoms:uranio.types.Atom<A>):void
 }
 type Computed = {
 }
 
 type Props = {
+}
+
+export type UploadedFile = {
+	id: string
+	name: string
+	url: string
 }
 
 export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Computed, Props>({
@@ -70,6 +76,12 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 	// ],
 	watchQuery(_oldQuery:unknown, _newQuery:unknown):boolean{
 		return true;
+	},
+	methods:{
+		add_atoms<A extends uranio.types.AtomName>(atoms:uranio.types.Atom<A>){
+			this.atoms.unshift(atoms);
+			this.page.total_atom_count += 1;
+		}
 	},
 	async asyncData<A extends uranio.types.AtomName>(context:Context)
 			:Promise<Data<A>> {

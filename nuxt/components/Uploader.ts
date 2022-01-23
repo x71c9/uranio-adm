@@ -20,6 +20,8 @@ import '@uppy/audio/dist/style.css';
 import '@uppy/webcam/dist/style.css';
 import '@uppy/image-editor/dist/style.css';
 
+// import {UploadedFile} from '../pages/urn-admin/_slug';
+
 type Data = {
 	target: string
 	uppy_options: any
@@ -240,6 +242,30 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 					// with file IDs in current upload
 					// data: { id, fileIDs }
 					console.log(`Starting upload ${data.id} for files ${data.fileIDs}`);
+				})
+				.on('upload-progress', (file, progress) => {
+					console.log(file, progress);
+				})
+				.on('upload-success', (file, response) => {
+					console.log('Upload successful', file, response);
+				})
+				.on('complete', (result) => {
+					
+					console.log('Complete: ', result);
+					
+					const atom_shape:uranio.types.AtomShape<'media'> = {
+						src: result.successful[0].name,
+						filename: result.successful[0].name,
+						type: result.successful[0].type || '',
+						size: result.successful[0].size
+					};
+					uranio.trx.hooks.media.insert(atom_shape).then((urn_res) => {
+						if(urn_res.success){
+							const atom = urn_res.payload;
+							this.$emit('add-atoms', atom);
+						}
+					});
+					
 				});
 		}
 	},

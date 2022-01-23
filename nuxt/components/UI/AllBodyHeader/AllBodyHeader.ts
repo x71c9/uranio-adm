@@ -25,7 +25,7 @@ type Data = {
 	search_input_focused: boolean
 	sorted_by: string
 	sorted_direction: 1 | -1
-	total_atom_count_format: string
+	// total_atom_count_format: string
 };
 type Methods = {
 	update_sort: () => void
@@ -33,6 +33,7 @@ type Methods = {
 	toggle_sort_list: () => void
 };
 type Computed = {
+	total_atom_count_format: string
 };
 type Props = {
 	page: Page
@@ -157,7 +158,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			sort_items.push(radio_item_des);
 		}
 		
-		const total_atom_count_format = urn_util.number.format(this.page.total_atom_count,2);
+		// const total_atom_count_format = urn_util.number.format(this.page.total_atom_count,2);
 		
 		return{
 			sort_items,
@@ -169,8 +170,13 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			dock_url,
 			sorted_by,
 			sorted_direction,
-			total_atom_count_format
+			// total_atom_count_format
 		};
+	},
+	computed:{
+		total_atom_count_format(){
+			return urn_util.number.format(this.page.total_atom_count,2);
+		}
 	},
 	methods:{
 		toggle_sort_list():void{
