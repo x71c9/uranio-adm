@@ -6,13 +6,15 @@
 
 import urn_trx from 'uranio-trx/client';
 
-import {trx_client_config} from 'uranio-trx/cln/defaults';
+// import {trx_client_config} from 'uranio-trx/cln/defaults';
 
 import {adm_client_config} from '../cln/defaults';
 
 import * as types from '../cln/types';
 
 import * as conf from '../conf/client';
+
+import {raw_config} from 'uranio-trx/raw/defaults';
 
 export function init(config?:types.ClientConfiguration)
 		:void{
@@ -27,28 +29,12 @@ export function init(config?:types.ClientConfiguration)
 	
 	if(process.env.NETLIFY_DEV){
 		
-		adm_client_config.service_url = `http://localhost:7777/uranio/api`;
-		/**
-		 * trx_client_config must be updated too.
-		 */
-		trx_client_config.service_url = `http://localhost:7777/uranio/api`;
+		raw_config.service_url = `http://localhost:7777/uranio/api`;
 		
 	}else if(process.env.NETLIFY){
 		
-		adm_client_config.service_url = `${process.env.URL}/uranio/api`;
-		/**
-		 * trx_client_config must be updated too.
-		 */
-		trx_client_config.service_url = `${process.env.URL}/uranio/api`;
+		raw_config.service_url = `${process.env.URL}/uranio/api`;
 		
-	}else{
-		
-		adm_client_config.service_url =
-			`${adm_client_config.protocol}://${adm_client_config.domain}:${adm_client_config.port}/uranio/api`;
-		/**
-		 * trx_client_config must be updated too.
-		 */
-		trx_client_config.service_url = adm_client_config.service_url;
 	}
 	
 	_validate_adm_client_variables();
