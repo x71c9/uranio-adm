@@ -25,9 +25,11 @@ type Data = {
 
 type Methods = {
 	submit: (event:Event) => Promise<void>
+	submit_exit: (event:Event) => Promise<void>
 	external_submit: (event:Event) => void
 	modalAtomSelected: (id: string | string[]) => void
 	fail: (trx_response:urn_response.Fail<any>) => void
+	exit: () => void
 	go_back: () => void
 }
 
@@ -166,6 +168,21 @@ export default Vue.extend<Data, Methods, Props, Props>({
 				this.fail(trx_response);
 				
 			}
+		},
+		
+		async submit_exit(_event: Event):Promise<void>{
+			await this.submit(_event);
+			this.exit();
+		},
+		
+		exit():void{
+			// this.go_back();
+			this.$router.push({
+				name: 'urn-admin-slug',
+				params: {
+					slug: this.atom_name
+				}
+			});
 		},
 		
 		fail(trx_response:urn_response.Fail<any>):void{

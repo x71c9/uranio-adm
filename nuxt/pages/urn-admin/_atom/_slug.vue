@@ -14,6 +14,7 @@
 					v-if="is_read_only === false"
 					>
 					<UIButton v-on:click.native="external_submit">Save</UIButton>
+					<!-- <UIButton v-on:click.native="external_submit_exit">Save / Exit</UIButton> -->
 				</div>
 			</div>
 			<div class="flex-row-4">
