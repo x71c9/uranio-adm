@@ -31,6 +31,7 @@ type Methods<A extends uranio.types.AtomName> = {
 	assign_atom: (atom:uranio.types.Atom<A>) => void
 	update: () => Promise<urn_response.General<uranio.types.Atom<A>, any>>
 	external_submit: (event:Event) => void
+	external_submit_exit: (event:Event) => void
 	delete_atom: () => Promise<void>
 	go_back: () => void
 }
@@ -227,6 +228,12 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			}
 		},
 		
+		external_submit_exit(_event: Event):void{
+			if(this.$refs.atom_form && (this.$refs.atom_form as any).submit){
+				(this.$refs as any).atom_form.submit_exit();
+			}
+		},
+		
 		async update<A extends uranio.types.AtomName>()
 				:Promise<urn_response.General<uranio.types.Atom<A>, any>> {
 			
@@ -274,6 +281,12 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			const trx_response = await this.update();
 			if(trx_response.success){
 				this.assign_atom(trx_response.payload);
+				
+				this.$store.dispatch('notification/show_notification', {
+					type: Notification.SUCCESS,
+					message: `${this.atom_name} updated.`,
+				});
+				
 				this.exit();
 			}else{
 				this.fail(trx_response);

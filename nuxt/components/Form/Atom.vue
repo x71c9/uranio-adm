@@ -30,8 +30,8 @@
 				</div>
 				<div class="right">
 					<UIButton type="submit">Save</UIButton>
+					<!-- v-if="call === 'update'" -->
 					<UIButton
-						v-if="call === 'update'"
 						@click.native.prevent="submit_exit"
 						>Save / Exit</UIButton>
 				</div>

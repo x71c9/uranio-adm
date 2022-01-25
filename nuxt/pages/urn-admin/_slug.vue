@@ -32,7 +32,11 @@
 				<UIGroup>
 					<UIAllBodyHeader />
 					<div class="ui-all-body">
-						<UIAllTable/>
+						<UIAllTable
+							ref="allTable"
+							v-on:delete_atoms="delete_atoms"
+							v-on:delete_all_atoms="delete_all_atoms"
+						/>
 					</div>
 				</UIGroup>
 				<UIPagination />

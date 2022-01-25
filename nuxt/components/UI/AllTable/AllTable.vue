@@ -23,8 +23,31 @@
 							<UIButton class="small secondary disabled">
 								{{ count_selected }} {{ count_label }} selected
 							</UIButton>
-							<UIButton class="small secondary">Bulk edit</UIButton>
-							<UIButton class="small secondary red">Delete</UIButton>
+							<UIButton
+								class="small secondary"
+								@click.native="edit_selected"
+								>
+								Bulk edit selected
+							</UIButton>
+							<UIButton
+								class="small secondary red last_right"
+								@click.native="delete_selected"
+								>
+								Delete selected
+							</UIButton>
+							<div class="divisor"></div>
+							<UIButton
+								class="small secondary first_left"
+								@click.native="edit_all"
+								>
+								Bulk edit all {{ plural }}
+							</UIButton>
+							<UIButton
+								class="small secondary red"
+								@click.native="delete_all"
+								>
+								Delete all {{ plural }}
+							</UIButton>
 						</div>
 					</div>
 					<div v-else>
