@@ -2,13 +2,13 @@ import Vue from 'vue';
 
 import { urn_log } from 'urn-lib';
 
-urn_log.init(
-	urn_log.LogLevel.FUNCTION_DEBUG,
-	urn_log.LogContext.BROWSER,
-	'[URANIO]'
-);
+urn_log.init({
+	log_level: urn_log.LogLevel.FUNCTION_DEBUG,
+	context: urn_log.LogContext.BROWSER,
+	prefix: '[URANIO]'
+});
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 uranio.init();
 
 type Data = {

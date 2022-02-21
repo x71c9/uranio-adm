@@ -13,14 +13,16 @@
 
 import urn_trx_client from 'uranio-trx/client';
 
+import {schema} from '../sch/index';
+
 export type Book = {
-	[k in urn_trx_client.types.AtomName]?: Book.Definition;
+	[k in schema.AtomName]?: Book.Definition;
 }
 
 export namespace Book {
 	
 	export type BasicDefinition =
-		Omit<urn_trx_client.types.Book.BasicDefinition, 'properties'> &
+		Omit<urn_trx_client.types.Book.Definition, 'properties'> &
 		{
 			properties: Definition.Properties
 			read_only?: boolean

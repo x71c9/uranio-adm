@@ -4,7 +4,7 @@ import Vue from 'vue';
 
 import { ActionTree, MutationTree, ActionContext } from 'vuex';
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 type ReturnState = {
 	is_open: boolean
@@ -12,7 +12,7 @@ type ReturnState = {
 	replace: boolean
 	atom_prop_name: string
 	atom_prop_atom: string
-	atoms: uranio.types.Atom<uranio.types.AtomName>[],
+	atoms: uranio.schema.Atom<uranio.schema.AtomName>[],
 	selected_atoms: {
 		[k:string]: boolean
 	}
@@ -40,8 +40,8 @@ export const mutations: MutationTree<RootState> = {
 	CHANGE_ATOM_PROP_ATOM: (state, atom_prop_atom:string) => (state.atom_prop_atom = atom_prop_atom),
 	CHANGE_MULTIPLE: (state, multiple: boolean) => (state.multiple = multiple),
 	CHANGE_REPLACE: (state, replace: boolean) => (state.replace = replace),
-	CHANGE_ATOMS: (state, atoms: uranio.types.Atom<uranio.types.AtomName>[]) => (state.atoms = atoms),
-	RESET_SELECTED_ATOMS: (state, atoms: uranio.types.Atom<uranio.types.AtomName>[]) => {
+	CHANGE_ATOMS: (state, atoms: uranio.schema.Atom<uranio.schema.AtomName>[]) => (state.atoms = atoms),
+	RESET_SELECTED_ATOMS: (state, atoms: uranio.schema.Atom<uranio.schema.AtomName>[]) => {
 		state.selected_atoms = {};
 		for(const atom of atoms){
 			Vue.set(state.selected_atoms, atom._id, false);

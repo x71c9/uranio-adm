@@ -16,7 +16,7 @@ import * as types from '../cln/types';
 
 let _is_client_adm_initialized = false;
 
-export function get<k extends keyof types.FullClientConfiguration>(param_name:k)
+export function get<k extends keyof types.ClientConfiguration>(param_name:k)
 		:typeof adm_client_config[k]{
 	_check_if_uranio_was_initialized();
 	_check_if_param_exists(param_name);
@@ -31,7 +31,7 @@ export function set_initialize(is_initialized:boolean):void{
 	_is_client_adm_initialized = is_initialized;
 }
 
-export function set(repo_config:types.FullClientConfiguration, config:types.ClientConfiguration)
+export function set(repo_config:Required<types.ClientConfiguration>, config:types.ClientConfiguration)
 		:void{
 	return urn_trx.conf.set(repo_config, config);
 }

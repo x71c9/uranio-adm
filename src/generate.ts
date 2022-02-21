@@ -1,5 +1,5 @@
 /**
- * Api generate module
+ * Adm generate module
  *
  * @packageDocumentation
  */
@@ -36,14 +36,14 @@ switch(urn_command){
 		util.generate.hooks_and_save();
 		break;
 	}
-	case 'types':{
-		util.generate.types_and_save();
+	case 'trx-types':{
+		util.generate.trx_types_and_save();
 		break;
 	}
 	default:{
 		util.generate.schema_and_save();
 		util.generate.hooks_and_save();
-		util.generate.types_and_save();
+		util.generate.trx_types_and_save();
 		break;
 	}
 }

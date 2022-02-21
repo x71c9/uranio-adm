@@ -2,7 +2,7 @@ import Vue from 'vue';
 
 import { urn_util } from "urn-lib";
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 // import { atom_book } from "uranio-books/atom";
 
@@ -29,7 +29,7 @@ type Computed = {
 }
 
 type Props = {
-	atom: uranio.types.Atom<uranio.types.AtomName>
+	atom: uranio.schema.Atom<uranio.schema.AtomName>
 	atom_name: string
 	prop: UIAtomProp
 }
@@ -79,12 +79,12 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	
 	data():Data {
 		
-		// const atom_def = atom_book[this.atom_name as uranio.types.AtomName] as
+		// const atom_def = atom_book[this.atom_name as uranio.schema.AtomName] as
 		//   uranio.types.Book.BasicDefinition;
-		// const atom_def = uranio.api.book.atom.get_atom_definition(this.atom_name as uranio.types.AtomName);
+		// const atom_def = uranio.api.book.atom.get_atom_definition(this.atom_name as uranio.schema.AtomName);
 		
 		// const atom_def_props = atom_def["properties"];
-		const prop_defs = uranio.book.atom.get_custom_property_definitions(this.atom_name as uranio.types.AtomName);
+		const prop_defs = uranio.book.get_custom_property_definitions(this.atom_name as uranio.schema.AtomName);
 		
 		const prop_key = this.prop.name;
 		

@@ -1,7 +1,7 @@
 
 import Vue from 'vue';
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 // import {atom_book} from 'uranio-books/atom';
 
@@ -38,8 +38,8 @@ type Computed = {
 }
 
 type Props = {
-	atoms: uranio.types.Atom<uranio.types.AtomName>[]
-	atom_name: uranio.types.AtomName,
+	atoms: uranio.schema.Atom<uranio.schema.AtomName>[]
+	atom_name: uranio.schema.AtomName,
 	is_read_only: boolean
 }
 
@@ -61,14 +61,14 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		}
 		const is_all_checked = false;
 		const is_all_indeterminate = false;
-		const prop_defs = uranio.book.atom.get_all_property_definitions(this.atom_name);
+		const prop_defs = uranio.book.get_full_properties_definition(this.atom_name);
 		const primary_properties:string[] = [];
 		for(const [prop_key, prop_def] of Object.entries(prop_defs)){
 			if(prop_def.primary === true){
 				primary_properties.push(prop_key);
 			}
 		}
-		const atom_def = uranio.book.atom.get_definition(this.atom_name as uranio.types.AtomName);
+		const atom_def = uranio.book.get_definition(this.atom_name as uranio.schema.AtomName);
 		const plural = atom_def.plural || this.atom_name + 's';
 		return {
 			checked_by_id,

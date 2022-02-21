@@ -4,11 +4,11 @@
  * @packageDocumentation
  */
 
-import {FullConfiguration} from '../types';
+import {Configuration} from '../types';
 
 import {trx_config} from 'uranio-trx/conf/defaults';
 
-export const adm_config:FullConfiguration = {
+export const adm_config:Required<Configuration> = {
 	
 	...trx_config,
 	

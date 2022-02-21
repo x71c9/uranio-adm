@@ -1,7 +1,7 @@
 
 import Vue from 'vue';
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 import { urn_util } from "urn-lib";
 
@@ -24,8 +24,8 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	data():Data {
 		const items = [] as Entry[];
 		
-		for (const atom_name of uranio.book.atom.get_names()) {
-			const atom_def = uranio.book.atom.get_definition(atom_name as uranio.types.AtomName);
+		for (const atom_name of uranio.book.get_names()) {
+			const atom_def = uranio.book.get_definition(atom_name as uranio.schema.AtomName);
 			let plural = `${atom_name}s`;
 			if(atom_name !== 'setting'){
 				continue;

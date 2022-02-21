@@ -3,20 +3,20 @@ import Vue from 'vue';
 
 import { urn_util, urn_log, urn_response } from "urn-lib";
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 import { Notification } from '../../../store/notification';
 
 // import { atom_book } from "uranio-books/atom";
 
 type Provide = {
-	atom: uranio.types.Atom<uranio.types.AtomName>,
-	atom_name: uranio.types.AtomName
+	atom: uranio.schema.Atom<uranio.schema.AtomName>,
+	atom_name: uranio.schema.AtomName
 }
 
 type Data = {
-	atom: uranio.types.Atom<uranio.types.AtomName>
-	atom_name: uranio.types.AtomName
+	atom: uranio.schema.Atom<uranio.schema.AtomName>
+	atom_name: uranio.schema.AtomName
 	plural: string
 	message: string
 	success: boolean
@@ -34,14 +34,14 @@ type Methods = {
 }
 
 type Props = {
-	atom: uranio.types.Atom<uranio.types.AtomName>
-	atom_name: uranio.types.AtomName
+	atom: uranio.schema.Atom<uranio.schema.AtomName>
+	atom_name: uranio.schema.AtomName
 }
 
-function _process_atom<A extends uranio.types.AtomName>(
+function _process_atom<A extends uranio.schema.AtomName>(
 	atom_name: A,
-	partial_atom:Partial<uranio.types.AtomShape<A>>
-):Partial<uranio.types.AtomShape<A>>{
+	partial_atom:Partial<uranio.schema.AtomShape<A>>
+):Partial<uranio.schema.AtomShape<A>>{
 	let cloned_atom = {...partial_atom};
 	cloned_atom = uranio.core.atm.util.delete_undefined_optional(atom_name, partial_atom);
 	uranio.core.atm.validate.atom_partial(atom_name, cloned_atom);
@@ -69,9 +69,9 @@ export default Vue.extend<Data, Methods, Props, Props>({
 		
 		const message = '';
 		
-		const atom_name = this.$route.params.atom as uranio.types.AtomName;
+		const atom_name = this.$route.params.atom as uranio.schema.AtomName;
 		
-		const atom_def = uranio.book.atom.get_definition(atom_name);
+		const atom_def = uranio.book.get_definition(atom_name);
 		
 		let plural = atom_name + "s";
 		
@@ -79,32 +79,32 @@ export default Vue.extend<Data, Methods, Props, Props>({
 			plural = (atom_def as any).plural;
 		}
 			
-		let atom = {} as uranio.types.Atom<typeof atom_name>;
+		let atom = {} as uranio.schema.Atom<typeof atom_name>;
 		
 		for(const key in atom_def.properties){
 			
 			const prop = atom_def.properties[key];
 			switch(prop.type){
-				case uranio.types.BookPropertyType.ATOM:{
+				case uranio.types.PropertyType.ATOM:{
 					atom = {...atom, ...{[key] : null}};
 					break;
 				}
-				case uranio.types.BookPropertyType.BINARY:{
+				case uranio.types.PropertyType.BINARY:{
 					atom = {...atom, ...{[key] : false}};
 					break;
 				}
-				case uranio.types.BookPropertyType.FLOAT:{
+				case uranio.types.PropertyType.FLOAT:{
 					atom = {...atom, ...{[key] : .0}};
 					break;
 				}
-				case uranio.types.BookPropertyType.ENUM_NUMBER:
-				case uranio.types.BookPropertyType.INTEGER:{
+				case uranio.types.PropertyType.ENUM_NUMBER:
+				case uranio.types.PropertyType.INTEGER:{
 					atom = {...atom, ...{[key] : 0}};
 					break;
 				}
-				case uranio.types.BookPropertyType.SET_NUMBER:
-				case uranio.types.BookPropertyType.SET_STRING:
-				case uranio.types.BookPropertyType.ATOM_ARRAY:{
+				case uranio.types.PropertyType.SET_NUMBER:
+				case uranio.types.PropertyType.SET_STRING:
+				case uranio.types.PropertyType.ATOM_ARRAY:{
 					atom = {...atom, ...{[key] : []}};
 					break;
 				}

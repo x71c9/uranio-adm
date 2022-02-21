@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 type Data = {
 };
@@ -12,7 +12,7 @@ type Methods = {
 };
 
 type Computed = {
-	atoms: uranio.types.Atom<uranio.types.AtomName>[]
+	atoms: uranio.schema.Atom<uranio.schema.AtomName>[]
 	message: string
 };
 
@@ -22,7 +22,7 @@ type Props = {
 export default Vue.extend<Data, Methods, Computed, Props>({
 	
 	data():any {
-		const atoms:uranio.types.Atom<uranio.types.AtomName>[] = [];
+		const atoms:uranio.schema.Atom<uranio.schema.AtomName>[] = [];
 		const message = '';
 		return {
 			atoms,
@@ -30,7 +30,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		};
 	},
 	// computed: {
-	//   atoms():Promise<uranio.types.Atom<uranio.types.AtomName>[]>{
+	//   atoms():Promise<uranio.schema.Atom<uranio.schema.AtomName>[]>{
 	//     return await this.get_atoms();
 	//   },
 	//   message():string{
@@ -38,8 +38,8 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	//   }
 	// },
 	methods: {
-		// async get_atoms<A extends uranio.types.AtomName>()
-		//       :Promise<uranio.types.Atom<any>[]>{
+		// async get_atoms<A extends uranio.schema.AtomName>()
+		//       :Promise<uranio.schema.Atom<any>[]>{
 		//   urn_log.debug('GET_ATOMS');
 		//   const atom_name = this.$store.state.modalAtom.atom_prop_atom;
 		//   const trx_base = uranio.base.create(atom_name);

@@ -4,7 +4,7 @@ import { urn_log, urn_exception } from "urn-lib";
 
 // const urn_exc = urn_exception.init('ADMIN_FORM_ATOM', 'Uranio admin Form Atom');
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 // import { atom_book } from "uranio-books/atom";
 
@@ -33,22 +33,22 @@ type Methods = {
 	submit_exit: (event:Event) => void
 	delete_atom: (event:Event) => void
 	go_back: (event:Event) => void
-	validate_property: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => boolean
+	validate_property: (prop_name:keyof uranio.schema.Molecule<uranio.schema.AtomName>) => boolean
 	validate_form: () => boolean
 	// custom_validate_form: () => boolean
 	error: () => void
 	focus: (prop_name:string) => void
-	on_change: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => void
-	on_keyup: (prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>) => void
+	on_change: (prop_name:keyof uranio.schema.Molecule<uranio.schema.AtomName>) => void
+	on_keyup: (prop_name:keyof uranio.schema.Molecule<uranio.schema.AtomName>) => void
 }
 type Computed = {
 }
-type Props<A extends uranio.types.AtomName> = {
-	atom: uranio.types.Molecule<A>
+type Props<A extends uranio.schema.AtomName> = {
+	atom: uranio.schema.Molecule<A>
 	atom_name: A
 	call: 'insert' | 'update'
 }
-export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>({
+export default Vue.extend<Data, Methods, Computed, Props<uranio.schema.AtomName>>({
 	
 	props: {
 		atom: Object,
@@ -64,12 +64,12 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 	data():Data{
 		
 		const atom_props:UIAtomProps = {};
-		if (uranio.book.atom.validate_name(this.atom_name)) {
+		if (uranio.book.validate_name(this.atom_name)) {
 			
 			// const atom_def = atom_book[this.atom_name];
 			// const atom_def_props = atom_def.properties as uranio.types.Book.Definition.Properties;
 			
-			const prop_defs = uranio.book.atom.get_custom_property_definitions(this.atom_name);
+			const prop_defs = uranio.book.get_custom_property_definitions(this.atom_name);
 			
 			for(const [prop_name, prop_def] of Object.entries(prop_defs)){
 				if(this.call === 'update' && prop_def.hidden){
@@ -109,7 +109,7 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 	
 	methods: {
 		
-		on_change(prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>)
+		on_change(prop_name:keyof uranio.schema.Molecule<uranio.schema.AtomName>)
 				:void{
 			this.validate_property(prop_name);
 			// const atom_prop_defs = atom_book[this.atom_name].properties as
@@ -135,7 +135,7 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 			// }
 		},
 		
-		on_keyup(prop_name:keyof uranio.types.Molecule<uranio.types.AtomName>)
+		on_keyup(prop_name:keyof uranio.schema.Molecule<uranio.schema.AtomName>)
 				:void{
 			this.on_change(prop_name);
 		},
@@ -166,8 +166,8 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 		
 		validate_property(prop_name:keyof uranio.types.Book.Definition.Properties)
 				:boolean{
-			const prop_def = uranio.book.atom.get_property_definition(this.atom_name, prop_name);
-			const prop_value = this.atom[prop_name as keyof uranio.types.Atom<uranio.types.AtomName>];
+			const prop_def = uranio.book.get_property_definition(this.atom_name, prop_name);
+			const prop_value = this.atom[prop_name as keyof uranio.schema.Atom<uranio.schema.AtomName>];
 			const prop = this.atom_props[prop_name];
 			if(_is_property_empty(this.atom_name, this.atom, prop_name)){
 				prop.state = PropState.ERROR;
@@ -176,7 +176,7 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 			}
 			try{
 				uranio.core.atm.validate.property(
-					prop_name as keyof uranio.types.Atom<uranio.types.AtomName>,
+					prop_name as keyof uranio.schema.Atom<uranio.schema.AtomName>,
 					prop_def,
 					prop_value,
 					this.atom
@@ -199,7 +199,7 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 		validate_form():boolean{
 			let is_form_valid = true;
 			for(const [key, _value] of Object.entries(this.atom_props)){
-				const k = key as keyof uranio.types.Molecule<uranio.types.AtomName>;
+				const k = key as keyof uranio.schema.Molecule<uranio.schema.AtomName>;
 				if(this.validate_property(k) === false){
 					is_form_valid = false;
 					this.focus(k);
@@ -244,57 +244,57 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.types.AtomName>>
 	
 });
 
-function _is_property_empty<A extends uranio.types.AtomName>(
+function _is_property_empty<A extends uranio.schema.AtomName>(
 	atom_name:A,
-	atom:uranio.types.AtomShape<A>,
+	atom:uranio.schema.AtomShape<A>,
 	prop_key:keyof uranio.types.Book.Definition.Properties
 ):boolean{
 	let is_empty = false;
-	const prop_def = uranio.book.atom.get_property_definition(atom_name, prop_key);
+	const prop_def = uranio.book.get_property_definition(atom_name, prop_key);
 	if(!prop_def.optional && !prop_def.hidden){
 		const k = prop_key as keyof typeof atom;
 		if(typeof atom[k] === 'undefined'){
 			is_empty = true;
 		}else{
 			switch(prop_def.type){
-				case uranio.types.BookPropertyType.ATOM:{
+				case uranio.types.PropertyType.ATOM:{
 					if(atom[k] === {} || atom[k] === ''){
 						is_empty = true;
 					}
 					break;
 				}
-				case uranio.types.BookPropertyType.SET_NUMBER:
-				case uranio.types.BookPropertyType.SET_STRING:
-				case uranio.types.BookPropertyType.ATOM_ARRAY:{
+				case uranio.types.PropertyType.SET_NUMBER:
+				case uranio.types.PropertyType.SET_STRING:
+				case uranio.types.PropertyType.ATOM_ARRAY:{
 					if((atom[k] as Array<any>).length === 0){
 						is_empty = true;
 					}
 					break;
 				}
-				case uranio.types.BookPropertyType.BINARY:{
+				case uranio.types.PropertyType.BINARY:{
 					break;
 				}
-				case uranio.types.BookPropertyType.TIME:
-				case uranio.types.BookPropertyType.DAY:{
+				case uranio.types.PropertyType.TIME:
+				case uranio.types.PropertyType.DAY:{
 					if(!atom[k]){
 						is_empty = true;
 					}
 					break;
 				}
-				case uranio.types.BookPropertyType.TEXT:
-				case uranio.types.BookPropertyType.LONG_TEXT:
-				case uranio.types.BookPropertyType.ID:
-				case uranio.types.BookPropertyType.ENUM_STRING:
-				case uranio.types.BookPropertyType.ENCRYPTED:
-				case uranio.types.BookPropertyType.EMAIL:{
+				case uranio.types.PropertyType.TEXT:
+				case uranio.types.PropertyType.LONG_TEXT:
+				case uranio.types.PropertyType.ID:
+				case uranio.types.PropertyType.ENUM_STRING:
+				case uranio.types.PropertyType.ENCRYPTED:
+				case uranio.types.PropertyType.EMAIL:{
 					if(!atom[k]){
 						is_empty = true;
 					}
 					break;
 				}
-				case uranio.types.BookPropertyType.INTEGER:
-				case uranio.types.BookPropertyType.FLOAT:
-				case uranio.types.BookPropertyType.ENUM_NUMBER:{
+				case uranio.types.PropertyType.INTEGER:
+				case uranio.types.PropertyType.FLOAT:
+				case uranio.types.PropertyType.ENUM_NUMBER:{
 					if(isNaN(atom[k] as unknown as number)){
 						is_empty = true;
 					}
@@ -306,7 +306,7 @@ function _is_property_empty<A extends uranio.types.AtomName>(
 	return is_empty;
 }
 
-// function _empty_required_properties<A extends uranio.types.AtomName>(atom_name: A, atom:uranio.types.Atom<A>)
+// function _empty_required_properties<A extends uranio.schema.AtomName>(atom_name: A, atom:uranio.schema.Atom<A>)
 //     :(keyof uranio.types.Book.Definition<A>)[]{
 //   const atom_prop_defs = atom_book[atom_name].properties;
 //   const empty_required_keys:(keyof uranio.types.Book.Definition<A>)[] = [];

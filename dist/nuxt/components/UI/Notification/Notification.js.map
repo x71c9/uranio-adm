@@ -1,0 +1,1 @@
+{"version":3,"file":"Notification.js","sourceRoot":"","sources":["../../../../../src/nuxt/components/UI/Notification/Notification.ts"],"names":[],"mappings":";;;;;AACA,8CAAsB;AActB,kBAAe,aAAG,CAAC,MAAM,CAAiC;IACzD,KAAK,EAAE,EACN;IACD,IAAI;QACH,OAAO,EACN,CAAC;IACH,CAAC;IACD,OAAO,EAAE;QACR,kBAAkB;YACjB,IAAI,CAAC,MAAM,CAAC,QAAQ,CAAC,gCAAgC,CAAC,CAAC;QACxD,CAAC;KACD;CACD,CAAC,CAAC"}

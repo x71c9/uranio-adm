@@ -14,8 +14,7 @@ import uranio from './index';
 
 console.log(uranio.types.AuthAction);
 
-
-const service = uranio.api.service.create();
+const service = uranio.trx.api.service.create();
 service.listen(8888, () => {
 	
 	// const pro_bll = uranio.core.bll.basic.create('product');

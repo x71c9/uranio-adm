@@ -3,14 +3,14 @@ import mixins from 'vue-typed-mixins';
 
 // import { atom_book } from "uranio-books/atom";
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 import shared from './Shared';
 
 import sortable from './Sortable';
 
 type Data = {
-	prop_atom_name: uranio.types.AtomName
+	prop_atom_name: uranio.schema.AtomName
 }
 
 type Methods = {
@@ -31,14 +31,14 @@ export default mixins(shared, sortable).extend<Data, Methods, Computed, Props>({
 	data():Data {
 		
 		// const atom_def = atom_book[
-		//   this.atom_name as uranio.types.AtomName
+		//   this.atom_name as uranio.schema.AtomName
 		// ] as uranio.types.Book.BasicDefinition;
 		
 		// const atom_props = atom_def.properties;
 		// const atom_prop = atom_props[this.prop_name] as
 		//   uranio.types.Book.Definition.Property.AtomArray;
 		
-		const prop_def = uranio.book.atom.get_property_definition(this.atom_name, this.prop_name) as
+		const prop_def = uranio.book.get_property_definition(this.atom_name, this.prop_name) as
 			uranio.types.Book.Definition.Property.AtomArray;
 		
 		const prop_atom_name = prop_def.atom;

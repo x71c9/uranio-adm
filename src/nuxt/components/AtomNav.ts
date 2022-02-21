@@ -3,7 +3,7 @@ import Vue from 'vue';
 
 import { urn_util } from "urn-lib";
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 import { Entry } from './UI/Section/SideBarBody';
 
@@ -27,8 +27,8 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		const items_atom = [] as Entry[];
 		const items_log = [] as Entry[];
 		
-		for (const atom_name of uranio.book.atom.get_names()) {
-			const atom_def = uranio.book.atom.get_definition(atom_name as uranio.types.AtomName);
+		for (const atom_name of uranio.book.get_names()) {
+			const atom_def = uranio.book.get_definition(atom_name as uranio.schema.AtomName);
 			let plural = `${atom_name}s`;
 			if(atom_name === 'setting'){
 				continue;

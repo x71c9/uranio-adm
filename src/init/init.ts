@@ -20,11 +20,11 @@ import {adm_config} from '../conf/defaults';
 
 import * as types from '../types';
 
-import * as conf from '../conf/';
+import * as conf from '../conf/index';
 
 // import * as client_init from './client';
 
-// import * as book from '../book/';
+// import * as book from '../book/index';
 
 export function init(config?:types.Configuration)
 		:void{
