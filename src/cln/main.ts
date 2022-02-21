@@ -22,6 +22,8 @@ import * as types from './types';
 
 export * from '../init/client';
 
+export * from '../reg/client';
+
 export {
 	core,
 	api,
