@@ -1,0 +1,46 @@
+{
+	"compilerOptions": {
+		"alwaysStrict": true,
+		"allowJs": true,
+		"baseUrl": ".",
+		"declaration": false,
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"incremental": false,
+		"lib": [
+			"ESNext",
+			"ESNext.AsyncIterable",
+			"DOM"
+		],
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"noEmit": false,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitThis": true,
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"paths": {
+		},
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"strictPropertyInitialization": true,
+		"target": "ES2018",
+		"typeRoots": [
+			"node_modules/@types",
+			".uranio/generate/types"
+		]
+	},
+	"include": [
+		"src/**/*",
+		".uranio/generate/types/**/*"
+	],
+	"exclude": [
+		"node_modules"
+	]
+}
