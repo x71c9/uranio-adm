@@ -242,7 +242,17 @@ declare module 'uranio-trx/cln/main' {
   import { schema } from 'uranio-trx/sch/index';
   import { hooks } from 'uranio-trx/hooks/index';
   export * from 'uranio-trx/init/client';
+  export * from 'uranio-trx/reg/client';
   export { core, api, base, auth, media, book, conf, log, types, schema, hooks, };
+
+}
+declare module 'uranio-trx/cln/register' {
+  /**
+   * Register module for URANIO Api
+   *
+   * @packageDocumentation
+   */
+  export {};
 
 }
 declare module 'uranio-trx/cln/types' {
@@ -507,6 +517,17 @@ declare module 'uranio-trx/raw/types' {
       post<R extends schema.RouteName<A>, D extends schema.Depth>(url: string, body: any, query?: cln_types.Hook.Query<A, R, D>, headers?: cln_types.Hook.Headers): Promise<urn_response.General<any, any>>;
       delete<R extends schema.RouteName<A>, D extends schema.Depth>(url: string, query?: cln_types.Hook.Query<A, R, D>, headers?: cln_types.Hook.Headers): Promise<urn_response.General<any, any>>;
   }
+
+}
+declare module 'uranio-trx/reg/client' {
+  /**
+   * Register module for client
+   *
+   * @packageDocumentation
+   */
+  import * as types from 'uranio-trx/cln/types';
+  import { schema } from 'uranio-trx/sch/index';
+  export function register<A extends schema.AtomName>(atom_definition: types.Book.Definition, atom_name?: A): string;
 
 }
 declare module 'uranio-trx/reg/index' {
