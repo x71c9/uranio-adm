@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import {trx_client_config} from 'uranio-trx/cln/defaults';
+import trx from 'uranio-trx/client';
 
 import {ClientConfiguration} from './types';
 
@@ -17,6 +17,6 @@ import {ClientConfiguration} from './types';
  */
 export const adm_client_config:Required<ClientConfiguration> = {
 	
-	...trx_client_config
+	...trx.conf.defaults
 	
 };

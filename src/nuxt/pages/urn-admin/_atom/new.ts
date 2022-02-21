@@ -38,13 +38,23 @@ type Props = {
 	atom_name: uranio.schema.AtomName
 }
 
+// function _process_atom<A extends uranio.schema.AtomName>(
+//   atom_name: A,
+//   partial_atom:Partial<uranio.schema.AtomShape<A>>
+// ):Partial<uranio.schema.AtomShape<A>>{
+//   let cloned_atom = {...partial_atom};
+//   cloned_atom = uranio.atom.util.delete_undefined_optional(atom_name, partial_atom);
+//   uranio.atom.validate.atom_partial(atom_name, cloned_atom);
+//   return cloned_atom;
+// }
+
 function _process_atom<A extends uranio.schema.AtomName>(
 	atom_name: A,
-	partial_atom:Partial<uranio.schema.AtomShape<A>>
-):Partial<uranio.schema.AtomShape<A>>{
+	partial_atom:uranio.schema.AtomShape<A>
+):uranio.schema.AtomShape<A>{
 	let cloned_atom = {...partial_atom};
-	cloned_atom = uranio.core.atm.util.delete_undefined_optional(atom_name, partial_atom);
-	uranio.core.atm.validate.atom_partial(atom_name, cloned_atom);
+	cloned_atom = uranio.core.atom.util.delete_undefined_optional(atom_name, partial_atom);
+	uranio.core.atom.validate.atom_shape(atom_name, cloned_atom);
 	return cloned_atom;
 }
 
@@ -143,8 +153,7 @@ export default Vue.extend<Data, Methods, Props, Props>({
 		async submit(_event: Event)
 				:Promise<void> {
 			
-			// const trx_base = uranio.trx.base.create(this.atom_name, this.$store.state.auth.token);
-			const trx_base = uranio.trx.base.create(this.atom_name);
+			const trx_base = uranio.trx.base.create(this.atom_name, this.$store.state.auth.token);
 			
 			const cloned_atom = _process_atom(this.atom_name, this.atom);
 			

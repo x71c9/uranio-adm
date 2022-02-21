@@ -1,3 +1,4 @@
+/// <reference types=".uranio/generate/types/schema" />
 import uranio from 'uranio/client';
 declare type Data = {
     prop_atom_name: uranio.schema.AtomName;
@@ -52,7 +53,7 @@ declare const _default: import("vue/types/vue").ExtendedVue<{
     }) | (import("uranio-schema/typ/common").AtomHardProperties & import("uranio-schema/typ/common").AtomCommonProperties & {
         name: string;
     });
-    atom_name: uranio.schema.AtomName;
+    atom_name: uranio.core.schema.AtomName;
     prop_name: "_id" | "_date" | "_r" | "_w" | "_deleted_from";
     prop_type: string;
     focus: boolean;

@@ -124,7 +124,7 @@ exports.default = vue_1.default.extend({
                 return false;
             }
             try {
-                client_1.default.core.atm.validate.property(prop_name, prop_def, prop_value, this.atom);
+                client_1.default.core.atom.validate.property(prop_name, prop_def, prop_value, this.atom);
                 prop.state = PropState.VALID;
                 prop.error_message = '';
             }

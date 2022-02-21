@@ -6,10 +6,10 @@
 
 import {Configuration} from '../types';
 
-import {trx_config} from 'uranio-trx/conf/defaults';
+import trx from 'uranio-trx';
 
 export const adm_config:Required<Configuration> = {
 	
-	...trx_config,
+	...trx.conf.defaults,
 	
 };

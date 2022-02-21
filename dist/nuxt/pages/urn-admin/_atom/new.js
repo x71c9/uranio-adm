@@ -7,10 +7,19 @@ const vue_1 = __importDefault(require("vue"));
 const urn_lib_1 = require("urn-lib");
 const client_1 = __importDefault(require("uranio/client"));
 const notification_1 = require("../../../store/notification");
+// function _process_atom<A extends uranio.schema.AtomName>(
+//   atom_name: A,
+//   partial_atom:Partial<uranio.schema.AtomShape<A>>
+// ):Partial<uranio.schema.AtomShape<A>>{
+//   let cloned_atom = {...partial_atom};
+//   cloned_atom = uranio.atom.util.delete_undefined_optional(atom_name, partial_atom);
+//   uranio.atom.validate.atom_partial(atom_name, cloned_atom);
+//   return cloned_atom;
+// }
 function _process_atom(atom_name, partial_atom) {
     let cloned_atom = { ...partial_atom };
-    cloned_atom = client_1.default.core.atm.util.delete_undefined_optional(atom_name, partial_atom);
-    client_1.default.core.atm.validate.atom_partial(atom_name, cloned_atom);
+    cloned_atom = client_1.default.core.atom.util.delete_undefined_optional(atom_name, partial_atom);
+    client_1.default.core.atom.validate.atom_shape(atom_name, cloned_atom);
     return cloned_atom;
 }
 exports.default = vue_1.default.extend({
@@ -88,8 +97,7 @@ exports.default = vue_1.default.extend({
             this.$router.back();
         },
         async submit(_event) {
-            // const trx_base = uranio.trx.base.create(this.atom_name, this.$store.state.auth.token);
-            const trx_base = client_1.default.trx.base.create(this.atom_name);
+            const trx_base = client_1.default.trx.base.create(this.atom_name, this.$store.state.auth.token);
             const cloned_atom = _process_atom(this.atom_name, this.atom);
             const trx_hook = trx_base.hook('insert');
             const trx_response = await trx_hook({ body: cloned_atom });

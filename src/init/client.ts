@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import urn_trx from 'uranio-trx/client';
+import trx from 'uranio-trx/client';
 
 // import {trx_client_config} from 'uranio-trx/cln/defaults';
 
@@ -14,26 +14,24 @@ import * as types from '../cln/types';
 
 import * as conf from '../conf/client';
 
-import {raw_config} from 'uranio-trx/raw/defaults';
-
 export function init(config?:types.ClientConfiguration)
 		:void{
 	
-	urn_trx.init(config);
+	trx.init(config);
 	
 	if(typeof config === 'undefined'){
-		urn_trx.conf.set_from_env(adm_client_config);
+		trx.conf.set_from_env(adm_client_config);
 	}else{
-		urn_trx.conf.set(adm_client_config, config);
+		trx.conf.set(adm_client_config, config);
 	}
 	
 	if(process.env.NETLIFY_DEV){
 		
-		raw_config.service_url = `http://localhost:7777/uranio/api`;
+		trx.conf.defaults.service_url = `http://localhost:7777/uranio/api`;
 		
 	}else if(process.env.NETLIFY){
 		
-		raw_config.service_url = `${process.env.URL}/uranio/api`;
+		trx.conf.defaults.service_url = `${process.env.URL}/uranio/api`;
 		
 	}
 	

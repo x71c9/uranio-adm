@@ -38,5 +38,5 @@ declare type Props<A extends uranio.schema.AtomName> = {
     atom_name: A;
     call: 'insert' | 'update';
 };
-declare const _default: import("vue/types/vue").ExtendedVue<Vue, Data, Methods, Computed, Props<uranio.schema.AtomName>>;
+declare const _default: import("vue/types/vue").ExtendedVue<Vue, Data, Methods, Computed, Props<uranio.core.schema.AtomName>>;
 export default _default;

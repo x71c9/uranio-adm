@@ -8,9 +8,11 @@ import {urn_util, urn_exception} from 'urn-lib';
 
 const urn_exc = urn_exception.init('CONF_ADM_MODULE', `Admin configuration module`);
 
-import urn_trx from 'uranio-trx';
+import trx from 'uranio-trx';
 
 import {adm_config} from './defaults';
+
+export {adm_config as defaults};
 
 import * as types from '../types';
 
@@ -24,7 +26,7 @@ export function get<k extends keyof types.Configuration>(param_name:k)
 }
 
 export function is_initialized():boolean{
-	return urn_trx.conf.is_initialized() && _is_adm_initialized;
+	return trx.conf.is_initialized() && _is_adm_initialized;
 }
 
 export function set_initialize(is_initialized:boolean):void{
@@ -33,12 +35,12 @@ export function set_initialize(is_initialized:boolean):void{
 
 export function set_from_env(repo_config:Required<types.Configuration>)
 		:void{
-	return urn_trx.conf.set_from_env(repo_config);
+	return trx.conf.set_from_env(repo_config);
 }
 
 export function set(repo_config:Required<types.Configuration>, config:types.Configuration)
 		:void{
-	return urn_trx.conf.set(repo_config, config);
+	return trx.conf.set(repo_config, config);
 }
 
 function _check_if_param_exists(param_name:string){
