@@ -6,7 +6,6 @@
 
 import {
 	ClientConfiguration as TrxClientConfiguration,
-	FullClientConfiguration as TrxFullClientConfiguration
 } from 'uranio-trx/cln/types';
 
 type RequiredClientConfigParams = {
@@ -19,8 +18,3 @@ export type ClientConfiguration =
 	TrxClientConfiguration &
 	RequiredClientConfigParams &
 	Partial<OptionalClientConfigParam>;
-
-export type FullClientConfiguration =
-	TrxFullClientConfiguration &
-	RequiredClientConfigParams &
-	OptionalClientConfigParam;

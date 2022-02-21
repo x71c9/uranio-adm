@@ -5,30 +5,27 @@
  */
 
 
-import core from 'uranio-core';
+// import core from 'uranio-core';
 
-import api from 'uranio-api';
+// import api from 'uranio-api';
 
 import trx from 'uranio-trx';
 
-import * as book from '../book/';
+import {schema} from '../sch/index';
 
-import * as conf from '../conf/';
+import * as book from '../book/index';
+
+import * as conf from '../conf/index';
 
 import * as types from './types';
 
-/*
- * First level methods.
- * If other methods are added, urn-cli must be updated.
- * Go to urn-cli/src/cmd/transpose.ts and
- * add the new method names.
- */
-export * from '../init/';
+export * from '../init/index';
 
 export {
 	trx,
-	api,
-	core,
+	// api,
+	// core,
+	schema,
 	book,
 	conf,
 	types,

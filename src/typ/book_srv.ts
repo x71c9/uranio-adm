@@ -14,22 +14,24 @@
 
 import urn_trx from 'uranio-trx';
 
+import {schema} from '../sch/index';
+
 import * as book_cln from './book_cln';
 
 export type Book = {
-	[k in urn_trx.types.AtomName]?: Book.Definition<k>;
+	[k in schema.AtomName]?: Book.Definition<k>;
 }
 
 export namespace Book {
 	
-	export type BasicDefinition<A extends urn_trx.types.AtomName> =
-		Omit<urn_trx.types.Book.BasicDefinition<A>, 'properties'> &
+	export type BasicDefinition<A extends schema.AtomName> =
+		Omit<urn_trx.types.Book.Definition<A>, 'properties'> &
 		{
 			properties: book_cln.Book.Definition.Properties
 			read_only?: boolean
 		}
 	
-	export type Definition<A extends urn_trx.types.AtomName> =
+	export type Definition<A extends schema.AtomName> =
 		Omit<urn_trx.types.Book.Definition<A>, keyof Book.BasicDefinition<A>> &
 		Book.BasicDefinition<A>;
 	
@@ -43,19 +45,19 @@ export namespace Book {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		// export import Dock = urn_trx.types.Book.Definition.Dock;
 		
-		export type Dock<A extends urn_trx.types.AtomName> = urn_trx.types.Book.Definition.Dock<A>;
+		export type Dock<A extends schema.AtomName> = urn_trx.types.Book.Definition.Dock<A>;
 		
 		export namespace Dock {
 			
-			export type Routes<A extends urn_trx.types.AtomName> = urn_trx.types.Book.Definition.Dock.Routes<A>;
+			export type Routes<A extends schema.AtomName> = urn_trx.types.Book.Definition.Dock.Routes<A>;
 			
 			export namespace Routes {
 				
-				export type Route<A extends urn_trx.types.AtomName, R extends urn_trx.types.RouteName<A>, D extends urn_trx.types.Depth = 0> =
+				export type Route<A extends schema.AtomName, R extends schema.RouteName<A>, D extends schema.Depth = 0> =
 					urn_trx.types.Book.Definition.Dock.Routes.Route<A, R, D>
 				
 				export namespace Route {
-					export type Call<A extends urn_trx.types.AtomName, R extends urn_trx.types.RouteName<A>, D extends urn_trx.types.Depth = 0> =
+					export type Call<A extends schema.AtomName, R extends schema.RouteName<A>, D extends schema.Depth = 0> =
 						urn_trx.types.Book.Definition.Dock.Routes.Route<A, R, D>
 				}
 				
@@ -65,7 +67,7 @@ export namespace Book {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		// export import Bll = urn_trx.types.Book.Definition.Bll;
 		
-		export type Bll<A extends urn_trx.types.AtomName> = urn_trx.types.Book.Definition.Bll<A>;
+		export type Bll<A extends schema.AtomName> = urn_trx.types.Book.Definition.Bll<A>;
 		
 		
 		// Exporting the types that has been overwritten in Book client.

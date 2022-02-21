@@ -4,7 +4,7 @@ import Vue from 'vue';
 import {urn_log, urn_exception} from 'urn-lib';
 const urn_exc = urn_exception.init(`NUXT_UPLOADER`, `Nuxt Uploader`);
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 import Uppy, { UppyFile } from '@uppy/core';
 import { Dashboard } from '@uppy/vue';
@@ -253,7 +253,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 					
 					console.log('Complete: ', result);
 					
-					const atom_shape:uranio.types.AtomShape<'media'> = {
+					const atom_shape:uranio.schema.AtomShape<'media'> = {
 						src: result.successful[0].name,
 						filename: result.successful[0].name,
 						type: result.successful[0].type || '',

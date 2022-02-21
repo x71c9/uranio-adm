@@ -2,7 +2,7 @@ import mixins from 'vue-typed-mixins';
 
 import { Route } from 'vue-router';
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 // import { urn_util, urn_response, urn_log, urn_exception, urn_return } from "urn-lib";
 import { urn_util, urn_response, urn_log, urn_return } from "urn-lib";
@@ -25,8 +25,8 @@ type PageQuery = {
 	sort: SortBy
 }
 
-type LoadedData<A extends uranio.types.AtomName, D extends uranio.types.Depth> = {
-	atoms: uranio.types.Molecule<A,D>[]
+type LoadedData<A extends uranio.schema.AtomName, D extends uranio.schema.Depth> = {
+	atoms: uranio.schema.Molecule<A,D>[]
 	page: Page
 }
 
@@ -38,11 +38,11 @@ export type Page = {
 	sort_by: SortBy
 }
 
-type Data<A extends uranio.types.AtomName> = {
+type Data<A extends uranio.schema.AtomName> = {
 	page: Page
 	atom_name: A
 	plural: string
-	atoms: uranio.types.Molecule<A,0>[]
+	atoms: uranio.schema.Molecule<A,0>[]
 	message: string,
 	success: boolean
 	error_object:urn_response.Fail<any>
@@ -50,7 +50,7 @@ type Data<A extends uranio.types.AtomName> = {
 };
 
 type Methods = {
-	add_atoms<A extends uranio.types.AtomName>(atoms:uranio.types.Atom<A>):void
+	add_atoms<A extends uranio.schema.AtomName>(atoms:uranio.schema.Atom<A>):void
 	delete_atoms(ids: string[]): Promise<void>
 	delete_all_atoms(): Promise<void>
 	reload_atoms(): Promise<void>
@@ -69,7 +69,7 @@ export type UploadedFile = {
 	url: string
 }
 
-export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Computed, Props>({
+export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Computed, Props>({
 	layout(): string {
 		return "urn-admin";
 	},
@@ -100,7 +100,7 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 		fail(){
 			//
 		},
-		add_atoms<A extends uranio.types.AtomName>(atoms:uranio.types.Atom<A>){
+		add_atoms<A extends uranio.schema.AtomName>(atoms:uranio.schema.Atom<A>){
 			this.atoms.unshift(atoms);
 			this.page.total_atom_count += 1;
 		},
@@ -173,7 +173,7 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 		}
 	},
 	
-	async asyncData<A extends uranio.types.AtomName>(
+	async asyncData<A extends uranio.schema.AtomName>(
 		context:Context
 	):Promise<Data<A>> {
 		
@@ -185,7 +185,7 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 		
 		const atom_name = context.params.slug as A;
 		
-		if(!uranio.book.atom.validate_name(atom_name)){
+		if(!uranio.book.validate_name(atom_name)){
 			urn_log.error(`Invalid context param slug.`);
 			context.error({ statusCode: 404, message: "Page not found" });
 		}
@@ -193,7 +193,7 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 		let plural = atom_name + "s";
 		let is_read_only = false;
 		
-		const atom_def = uranio.book.atom.get_definition(atom_name);
+		const atom_def = uranio.book.get_definition(atom_name);
 		if(urn_util.object.has_key(atom_def, 'plural') && atom_def.plural){
 			plural = atom_def.plural;
 		}
@@ -210,7 +210,7 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 			sort: context.query.sort as unknown as SortBy
 		};
 		
-		let atoms:uranio.types.Atom<A>[] = [];
+		let atoms:uranio.schema.Atom<A>[] = [];
 		
 		let page:Page = {
 			index: 0,
@@ -245,7 +245,7 @@ export default mixins(shared).extend<Data<uranio.types.AtomName>, Methods, Compu
 	},
 });
 
-async function _count_atoms(atom_name:uranio.types.AtomName)
+async function _count_atoms(atom_name:uranio.schema.AtomName)
 		:Promise<number>{
 	const trx_base = uranio.trx.base.create(atom_name);
 	const trx_hook_count = trx_base.hook('count');
@@ -256,13 +256,13 @@ async function _count_atoms(atom_name:uranio.types.AtomName)
 	return trx_res_count.payload;
 }
 
-async function _find_atoms<A extends uranio.types.AtomName, D extends uranio.types.Depth>(
+async function _find_atoms<A extends uranio.schema.AtomName, D extends uranio.schema.Depth>(
 	atom_name: A,
 	query_limit: number,
 	sort_by: SortBy,
 	skip: number,
 	depth?:D
-):Promise<uranio.types.Molecule<A,D>[]>{
+):Promise<uranio.schema.Molecule<A,D>[]>{
 			
 	const trx_base = uranio.trx.base.create(atom_name);
 	const trx_hook_find = trx_base.hook<'find', D>('find');
@@ -288,7 +288,7 @@ async function _find_atoms<A extends uranio.types.AtomName, D extends uranio.typ
 	
 }
 	
-async function _load_data<A extends uranio.types.AtomName, D extends uranio.types.Depth>(
+async function _load_data<A extends uranio.schema.AtomName, D extends uranio.schema.Depth>(
 	atom_name:A,
 	query:PageQuery,
 	depth?:D

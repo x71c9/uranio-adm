@@ -16,7 +16,7 @@ import * as types from '../types';
 
 let _is_adm_initialized = false;
 
-export function get<k extends keyof types.FullConfiguration>(param_name:k)
+export function get<k extends keyof types.Configuration>(param_name:k)
 		:typeof adm_config[k]{
 	_check_if_uranio_was_initialized();
 	_check_if_param_exists(param_name);
@@ -31,12 +31,12 @@ export function set_initialize(is_initialized:boolean):void{
 	_is_adm_initialized = is_initialized;
 }
 
-export function set_from_env(repo_config:types.FullConfiguration)
+export function set_from_env(repo_config:Required<types.Configuration>)
 		:void{
 	return urn_trx.conf.set_from_env(repo_config);
 }
 
-export function set(repo_config:types.FullConfiguration, config:types.Configuration)
+export function set(repo_config:Required<types.Configuration>, config:types.Configuration)
 		:void{
 	return urn_trx.conf.set(repo_config, config);
 }

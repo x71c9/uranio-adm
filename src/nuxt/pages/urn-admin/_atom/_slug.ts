@@ -2,15 +2,15 @@ import Vue from 'vue';
 
 import { urn_util, urn_response, urn_log } from "urn-lib";
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 import { Context } from '@nuxt/types';
 
 import { Notification } from '../../../store/notification';
 
-type Data<A extends uranio.types.AtomName> = {
+type Data<A extends uranio.schema.AtomName> = {
 	atom_name: A
-	atom: uranio.types.Molecule<A>
+	atom: uranio.schema.Molecule<A>
 	plural: string
 	back_label: string
 	message: string
@@ -22,14 +22,14 @@ type Data<A extends uranio.types.AtomName> = {
 	is_read_only: boolean
 }
 
-type Methods<A extends uranio.types.AtomName> = {
+type Methods<A extends uranio.schema.AtomName> = {
 	modalAtomSelected: (id: string | string[]) => void
 	submit: (event:Event) => Promise<void>
 	submit_exit: (event:Event) => Promise<void>
 	fail: (trx_response:urn_response.Fail<any>) => void
 	exit: () => void
-	assign_atom: (atom:uranio.types.Atom<A>) => void
-	update: () => Promise<urn_response.General<uranio.types.Atom<A>, any>>
+	assign_atom: (atom:uranio.schema.Atom<A>) => void
+	update: () => Promise<urn_response.General<uranio.schema.Atom<A>, any>>
 	external_submit: (event:Event) => void
 	external_submit_exit: (event:Event) => void
 	delete_atom: () => Promise<void>
@@ -42,7 +42,7 @@ type Computed = {
 type Props = {
 }
 
-export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.AtomName>, Computed, Props>({
+export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.AtomName>, Computed, Props>({
 	
 	head: {
 		bodyAttrs: {
@@ -61,7 +61,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		};
 	},
 	
-	async asyncData<A extends uranio.types.AtomName>(context: Context)
+	async asyncData<A extends uranio.schema.AtomName>(context: Context)
 			:Promise<Data<A>> {
 		
 		urn_log.debug('AsyncData.context.params: ', context.params);
@@ -82,7 +82,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		
 		let success = false;
 		
-		let atom = {} as uranio.types.Atom<A>;
+		let atom = {} as uranio.schema.Atom<A>;
 		
 		let data_object = {} as urn_response.General<any, any>;
 		
@@ -90,12 +90,12 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 		
 		let error_object = {} as urn_response.Fail<any>;
 		
-		if (uranio.book.atom.validate_name(atom_name)) {
+		if (uranio.book.validate_name(atom_name)) {
 			
 			// const atom_def = atom_book[atom_name];
 			// const atom_def_props = atom_def.properties as uranio.types.Book.Definition.Properties;
-			const atom_def = uranio.book.atom.get_definition(atom_name);
-			const prop_defs = uranio.book.atom.get_custom_property_definitions(atom_name);
+			const atom_def = uranio.book.get_definition(atom_name);
+			const prop_defs = uranio.book.get_custom_property_definitions(atom_name);
 			
 			if(urn_util.object.has_key(atom_def, "plural")){
 				back_label = `back to ${atom_def.plural}`;
@@ -115,7 +115,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 				params:{
 					id: atom_id
 				}
-			} as uranio.types.Hook.Params<A, uranio.types.RouteName<A>>;
+			} as uranio.types.Hook.Params<A, uranio.schema.RouteName<A>>;
 			
 			const trx_response = await trx_hook(hook_params);
 			data_object = JSON.parse(JSON.stringify({...trx_response}));
@@ -131,7 +131,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 				title = atom._id;
 				
 				for(const [prop_name, prop_def] of Object.entries(prop_defs)){
-					const prop_value = atom[prop_name as keyof uranio.types.Atom<A>];
+					const prop_value = atom[prop_name as keyof uranio.schema.Atom<A>];
 					if(
 						(prop_def as any).is_title === true
 						&& typeof prop_value === 'string'
@@ -234,8 +234,8 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			}
 		},
 		
-		async update<A extends uranio.types.AtomName>()
-				:Promise<urn_response.General<uranio.types.Atom<A>, any>> {
+		async update<A extends uranio.schema.AtomName>()
+				:Promise<urn_response.General<uranio.schema.Atom<A>, any>> {
 			
 			const cloned_atom = _clean_atom(this.atom_name, this.atom);
 			const trx_base = uranio.trx.base.create<A>(
@@ -248,7 +248,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 					id: cloned_atom._id
 				},
 				body: cloned_atom
-			} as uranio.types.Hook.Params<A, uranio.types.RouteName<A>>;
+			} as uranio.types.Hook.Params<A, uranio.schema.RouteName<A>>;
 			
 			const trx_response = await trx_hook(hook_params);
 			urn_log.debug('[update] TRX Response: ', trx_response);
@@ -293,7 +293,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			}
 		},
 		
-		assign_atom<A extends uranio.types.AtomName>(atom:uranio.types.Atom<A>):void{
+		assign_atom<A extends uranio.schema.AtomName>(atom:uranio.schema.Atom<A>):void{
 			for(const [key, value] of Object.entries(atom)){
 				this.$set(this.atom, key, value);
 			}
@@ -324,7 +324,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 			// });
 		},
 		
-		async delete_atom<A extends uranio.types.AtomName>()
+		async delete_atom<A extends uranio.schema.AtomName>()
 				:Promise<void>{
 			
 			const trx_base = uranio.trx.base.create<A>(
@@ -336,7 +336,7 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 				params:{
 					id: this.atom._id
 				}
-			} as uranio.types.Hook.Params<A, uranio.types.RouteName<A>>;
+			} as uranio.types.Hook.Params<A, uranio.schema.RouteName<A>>;
 			const trx_response = await trx_hook(hook_params);
 			
 			urn_log.debug('TRX Response: ', trx_response);
@@ -359,14 +359,14 @@ export default Vue.extend<Data<uranio.types.AtomName>, Methods<uranio.types.Atom
 	},
 });
 
-function _clean_atom<A extends uranio.types.AtomName>(atom_name:A, atom:uranio.types.Atom<A>)
-		:uranio.types.Atom<A>{
+function _clean_atom<A extends uranio.schema.AtomName>(atom_name:A, atom:uranio.schema.Atom<A>)
+		:uranio.schema.Atom<A>{
 	const cloned_atom = {...atom} as any;
 	if(cloned_atom._date){
 		delete cloned_atom._date;
 	}
 	// const atom_prop_defs = atom_book[atom_name].properties;
-	const atom_prop_defs = uranio.book.atom.get_custom_property_definitions(atom_name);
+	const atom_prop_defs = uranio.book.get_custom_property_definitions(atom_name);
 	for(const [prop_key, prop_def] of Object.entries(atom_prop_defs)){
 		if(prop_def.optional && cloned_atom[prop_key] === ''){
 			delete cloned_atom[prop_key];

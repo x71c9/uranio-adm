@@ -3,7 +3,7 @@
 		"alwaysStrict": true,
 		"allowJs": true,
 		"baseUrl": ".",
-		"declaration": false,
+		"declaration": true,
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"incremental": false,
@@ -23,6 +23,9 @@
 		"outDir": "./dist",
 		"rootDir": "./src",
 		"paths": {
+			"uranio": ["./src/index.ts"],
+			"uranio/client": ["./src/client.ts"],
+			"uranio/types": ["./src/types.ts"]
 		},
 		"skipLibCheck": true,
 		"sourceMap": true,

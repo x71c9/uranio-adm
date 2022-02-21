@@ -6,7 +6,7 @@
 
 import {trx_client_config} from 'uranio-trx/cln/defaults';
 
-import {FullClientConfiguration} from './types';
+import {ClientConfiguration} from './types';
 
 /**
  * IMPORTANT: if new variable are added here they must be added on
@@ -15,7 +15,7 @@ import {FullClientConfiguration} from './types';
  * Unfortunately the browser doesn't allow to dynamically access process.env
  * properties, like process.env[var_name] where `var_name` is a variable.
  */
-export const adm_client_config:FullClientConfiguration = {
+export const adm_client_config:Required<ClientConfiguration> = {
 	
 	...trx_client_config
 	

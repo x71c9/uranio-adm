@@ -1,6 +1,6 @@
 import Vue from "vue";
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 import { urn_util } from "urn-lib";
 
@@ -38,8 +38,8 @@ type Computed = {
 type Props = {
 	page: Page
 	plural: string
-	atoms: uranio.types.Atom<uranio.types.AtomName>[]
-	atom_name: uranio.types.AtomName
+	atoms: uranio.schema.Atom<uranio.schema.AtomName>[]
+	atom_name: uranio.schema.AtomName
 };
 export default Vue.extend<Data, Methods, Computed, Props>({
 	inject: [
@@ -67,9 +67,9 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			total_label = this.atom_name;
 		}
 		
-		const atom_def = uranio.book.atom.get_definition(this.atom_name);
+		const atom_def = uranio.book.get_definition(this.atom_name);
 		
-		const dock_def = uranio.book.dock.get_definition(this.atom_name);
+		const dock_def = uranio.book.get_dock_definition(this.atom_name);
 		
 		let connection = 'main';
 		if(typeof atom_def.connection === 'string' && atom_def.connection !== 'main'){
@@ -87,7 +87,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		//   ...uranio.core.stc.atom_hard_properties,
 		//   ...atom_def.properties
 		// };
-		const atom_properties = uranio.book.atom.get_all_property_definitions(this.atom_name);
+		const atom_properties = uranio.book.get_full_properties_definition(this.atom_name);
 		
 		let current_sort_prop_name = '_date';
 		let current_sort_direction = -1;

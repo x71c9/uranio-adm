@@ -3,7 +3,7 @@ import mixins from 'vue-typed-mixins';
 
 // import { atom_book } from "uranio-books/atom";
 
-import uranio from "uranio";
+import uranio from 'uranio/client';
 
 import shared from './Shared';
 
@@ -43,10 +43,10 @@ export default mixins(shared, sortable).extend<Data, Methods, Computed, Props>({
 		// const atom_prop = atom_props[this.prop_name] as
 		//   uranio.types.Book.Definition.Property.Set;
 		
-		const prop_def = uranio.book.atom.get_property_definition(this.atom_name, this.prop_name) as
+		const prop_def = uranio.book.get_property_definition(this.atom_name, this.prop_name) as
 			uranio.types.Book.Definition.Property.Set;
 		
-		const type = (prop_def.type === uranio.types.BookPropertyType.SET_NUMBER) ?
+		const type = (prop_def.type === uranio.types.PropertyType.SET_NUMBER) ?
 			'number' : 'string';
 		
 		const new_element = '';

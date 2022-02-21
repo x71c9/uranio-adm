@@ -1,7 +1,7 @@
 
 import Vue from 'vue';
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 type Data = {
 }
@@ -13,9 +13,9 @@ type Computed = {
 }
 
 type Props = {
-	atom: uranio.types.Atom<uranio.types.AtomName>
-	atom_name: uranio.types.AtomName
-	prop_name: keyof uranio.types.Molecule<uranio.types.AtomName>
+	atom: uranio.schema.Atom<uranio.schema.AtomName>
+	atom_name: uranio.schema.AtomName
+	prop_name: keyof uranio.schema.Molecule<uranio.schema.AtomName>
 	prop_type: string
 	focus: boolean
 }
@@ -29,8 +29,8 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	],
 	props: {
 		atom: Object,
-		atom_name: String as () => uranio.types.AtomName,
-		prop_name: String as () => keyof uranio.types.Molecule<uranio.types.AtomName>,
+		atom_name: String as () => uranio.schema.AtomName,
+		prop_name: String as () => keyof uranio.schema.Molecule<uranio.schema.AtomName>,
 		prop_type: String,
 		focus: Boolean
 	},

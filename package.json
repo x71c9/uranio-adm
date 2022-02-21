@@ -29,23 +29,45 @@
 		"generate:run": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./generate urn_repo=adm",
 		"generate:schema": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./.uranio/generate/types urn_repo=adm urn_command=schema",
 		"generate:hooks": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./.uranio/generate/ urn_repo=adm urn_command=hooks",
-		"generate:types": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./.uranio/generate/types urn_repo=adm urn_command=types",
+		"generate:types": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./.uranio/generate/types urn_repo=adm urn_command=trx-types",
 		"dev": "npx tsc-watch --onSuccess \"node -r source-map-support/register -r dotenv/config ./dist/dev.js\"",
 		"dev:generate:compile": "yarn generate:compile --watch",
 		"dev:generate:run": "npx nodemon --watch ./generate/_generate_bundled.js -e ts ./generate/_generate_bundled.js urn_output_dir=./generate urn_repo=adm",
 		"dev:generate": "npx concurrently \"yarn dev:generat:compile\" \"yarn dev:generate:run\"",
 		"schema:reset": "yarn upgrade uranio-schema && npx npm-dts generate -L debug -r node_modules/uranio-schema -o ../../.uranio/generate/base/schema.d.ts",
-		"types:reset": "npx npm-dts generate -L debug -r ./ -o ./.uranio/generate/base/uranio-trx.d.ts"
+		"trx-types:reset": "npx npm-dts generate -L debug -r ./node_modules/uranio-trx/ -o ../../.uranio/generate/base/uranio-trx.d.ts"
 	},
 	"devDependencies": {
+		"@nuxt/types": "^2.15.8",
+		"@nuxt/typescript-build": "^2.1.0",
+		"@nuxtjs/style-resources": "^1.2.1",
+		"@typescript-eslint/eslint-plugin": "^5.12.0",
+		"@typescript-eslint/parser": "^5.12.0",
 		"concurrently": "^7.0.0",
 		"esbuild": "^0.14.22",
-		"uranio-dev": "git+ssh://git@github.com/nbl7/uranio-dev.git"
+		"node-sass": "^7.0.1",
+		"pug": "^3.0.2",
+		"pug-plain-loader": "^1.1.0",
+		"sass-loader": "^12.6.0",
+		"ts-loader": "^9.2.6",
+		"uranio-dev": "git+ssh://git@github.com/nbl7/uranio-dev.git",
+		"vue-typed-mixins": "^0.2.0"
 	},
 	"dependencies": {
+		"@nuxtjs/proxy": "^2.1.0",
+		"@uppy/audio": "^0.2.1",
+		"@uppy/aws-s3": "^2.0.7",
+		"@uppy/core": "^2.1.5",
+		"@uppy/dashboard": "^2.1.4",
+		"@uppy/image-editor": "^1.1.1",
+		"@uppy/vue": "^0.4.5",
+		"@uppy/webcam": "^2.0.5",
+		"@uppy/xhr-upload": "^2.0.7",
 		"dotenv": "^16.0.0",
-		"uranio-trx": "git+ssh://git@github.com/nbl7/uranio-trx.git#new",
+		"nuxt": "^2.15.8",
 		"uranio-schema": "ssh://git@github.com/nbl7/uranio-schema.git",
-		"urn-lib": "git+ssh://git@github.com/nbl7/uranio-lib.git#new"
+		"uranio-trx": "git+ssh://git@github.com/nbl7/uranio-trx.git#new",
+		"urn-lib": "git+ssh://git@github.com/nbl7/uranio-lib.git#new",
+		"vuedraggable": "^2.24.3"
 	}
 }

@@ -2,7 +2,7 @@
 
 import { ActionTree, MutationTree, ActionContext } from 'vuex';
 
-import uranio from 'uranio';
+import uranio from 'uranio/client';
 
 type ReturnState = {
 	logged: boolean

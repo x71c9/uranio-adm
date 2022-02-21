@@ -1,16 +1,16 @@
 
 import mixins from 'vue-typed-mixins';
 
-import uranio from "uranio";
+import uranio from 'uranio/client';
 
 import shared from './Shared';
 
 type EnumNS =
-	uranio.types.BookPropertyType.ENUM_NUMBER |
-	uranio.types.BookPropertyType.ENUM_STRING;
+	uranio.types.PropertyType.ENUM_NUMBER |
+	uranio.types.PropertyType.ENUM_STRING;
 
 type EnumNSValues<T extends EnumNS> =
-	T extends uranio.types.BookPropertyType.ENUM_NUMBER ?
+	T extends uranio.types.PropertyType.ENUM_NUMBER ?
 	number[] : string[];
 
 type Data<T extends EnumNS> = {
@@ -39,7 +39,7 @@ export default mixins(shared).extend<Data<EnumNS>, Methods, Computed, Props>({
 	
 	data<T extends EnumNS>():Data<T> {
 		
-		const prop_def = uranio.book.atom.get_property_definition(this.atom_name, this.prop_name);
+		const prop_def = uranio.book.get_property_definition(this.atom_name, this.prop_name);
 		
 		const enum_values = (prop_def as uranio.types.Book.Definition.Property.Enum).values as EnumNSValues<T>;
 		
@@ -66,7 +66,7 @@ export default mixins(shared).extend<Data<EnumNS>, Methods, Computed, Props>({
 			const target = event.target as HTMLInputElement;
 			
 			let target_value = target.value as any;
-			if(this.enum_type === uranio.types.BookPropertyType.ENUM_NUMBER){
+			if(this.enum_type === uranio.types.PropertyType.ENUM_NUMBER){
 				target_value = Number(target_value);
 			}
 			
