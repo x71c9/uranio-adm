@@ -1,0 +1,108 @@
+import { resolve } from 'path';
+
+export default {
+	alias: {
+		'uranio/client': resolve(__dirname, './src/client'),
+		'uranio-core/client': resolve(__dirname, './node_modules/uranio-core/dist/client'),
+		'uranio-core/types': resolve(__dirname, './node_modules/uranio-core/dist/types'),
+		'uranio-api/client': resolve(__dirname, './node_modules/uranio-api/dist/client'),
+		'uranio-api/types': resolve(__dirname, './node_modules/uranio-api/dist/types'),
+		'uranio-trx/client': resolve(__dirname, './node_modules/uranio-trx/dist/client'),
+		'uranio-trx/types': resolve(__dirname, './node_modules/uranio-trx/dist/types'),
+		// 'uranio': resolve(__dirname, './src/uranio/client'),
+		// 'uranio-trx': resolve(__dirname, './src/uranio/trx/'),
+		// 'uranio-api': resolve(__dirname, './src/uranio/trx/api/'),
+		// 'uranio-core': resolve(__dirname, './src/uranio/trx/api/core/'),
+	},
+	env: {
+		URN_CLIENT_FETCH: process.env.URN_CLIENT_FETCH || 'axios',
+		URN_CLIENT_PROTOCOL: process.env.URN_CLIENT_PROTOCOL || 'http',
+		URN_CLIENT_DOMAIN: process.env.URN_CLIENT_DOMAIN || 'localhost',
+		URN_CLIENT_PORT: Number(process.env.URN_CLIENT_PORT) || 4444
+	},
+	components: [
+		{
+			path: '~/components/',
+			extensions: ['vue']
+		}
+	],
+	buildDir: './.nuxt',
+	srcDir: './src/nuxt/',
+	target: 'static',
+	ssr: false,
+	// modules:[
+	//   '@nuxtjs/proxy'
+	// ],
+	buildModules: [
+		'@nuxt/typescript-build',
+		'@nuxtjs/style-resources'
+	],
+	// proxy: {
+	//   '/uranio/api': {
+	//     target: "http://localhost:9797/uranio/api",
+	//     pathRewrite: {
+	//       "^/uranio/api": ""
+	//     }
+	//   }
+	// },
+	typescript: {
+		typeCheck: true
+	},
+	generate: {
+		dir: './dist/nuxt',
+		fallback: '404.html',
+		subFolders: false,
+		exclude: ['/urn-admin'],
+	},
+	server: {
+		host: "0.0.0.0",
+		port: 5454
+	},
+	router: {
+		trailingSlash: false,
+		linkActiveClass: 'urn-active-link',
+		linkExactActiveClass: 'urn-exact-active-link',
+		parseQuery(q) {
+			return require('qs').parse(q);
+		},
+		stringifyQuery(q) {
+			const r = require('qs').stringify(q);
+			return r ? '?' + r : '';
+		},
+	},
+	loading: {
+		color: '#2222FF',
+		height: '2px',
+		throttle: 200,
+		duration: 2000,
+		continuous: true
+	},
+	// watchers: {
+	//   webpack: {
+	//     ignored: [
+	//       `${process.cwd()}/node_modules/**/*`,
+	//       `${process.cwd()}/.uranio/server/**/*`,
+	//       `${process.cwd()}/.uranio/.tmp/**/*`,
+	//       `${process.cwd()}/src/**/*`,
+	//       `${process.cwd()}/dist/**/*`,
+	//     ]
+	//   }
+	// },
+	hooks: {
+		build: {
+			before(){
+				// console.log('BEFORE BUILD');
+			},
+			compile(){
+				// console.log('BEFORE COMPILE');
+			},
+			compiled(){
+				console.log('╭────────────────────────────────────────────╮');
+				console.log('│                                            │');
+				console.log('│ Client listening on http://localhost:5454  │');
+				console.log('│                                            │');
+				console.log('╰────────────────────────────────────────────╯');
+			}
+		}
+	}
+};

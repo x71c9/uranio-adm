@@ -30,11 +30,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.types = exports.conf = exports.book = exports.schema = exports.trx = void 0;
-// import core from 'uranio-core';
-// import api from 'uranio-api';
+exports.types = exports.conf = exports.book = exports.schema = exports.trx = exports.api = exports.core = void 0;
+const uranio_core_1 = __importDefault(require("uranio-core"));
+exports.core = uranio_core_1.default;
+const uranio_api_1 = __importDefault(require("uranio-api"));
+exports.api = uranio_api_1.default;
 const uranio_trx_1 = __importDefault(require("uranio-trx"));
 exports.trx = uranio_trx_1.default;
+// export * from '../trx/index';
 const index_1 = require("../sch/index");
 Object.defineProperty(exports, "schema", { enumerable: true, get: function () { return index_1.schema; } });
 const book = __importStar(require("../book/index"));

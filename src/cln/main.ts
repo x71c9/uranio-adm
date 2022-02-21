@@ -4,11 +4,13 @@
  * @packageDocumentation
  */
 
-// import core from 'uranio-core/client';
+import core from 'uranio-core/client';
 
-// import api from 'uranio-api/client';
+import api from 'uranio-api/client';
 
 import trx from 'uranio-trx/client';
+
+// export * from '../trx/client';
 
 import {schema} from '../sch/index';
 
@@ -21,10 +23,10 @@ import * as types from './types';
 export * from '../init/client';
 
 export {
-	// core,
-	// api,
-	schema,
+	core,
+	api,
 	trx,
+	schema,
 	book,
 	conf,
 	types

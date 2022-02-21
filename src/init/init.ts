@@ -8,7 +8,7 @@
 
 // const urn_exc = urn_exception.init('INIT_TRX_MODULE', `TRX init module`);
 
-import urn_trx from 'uranio-trx';
+import trx from 'uranio-trx';
 
 // import {trx_config} from 'uranio-trx/conf/defaults';
 
@@ -32,12 +32,12 @@ export function init(config?:types.Configuration)
 	// Raw create use `service_url` from client_config.
 	// client_init.init();
 	
-	urn_trx.init(config);
+	trx.init(config);
 	
 	if(typeof config === 'undefined'){
-		urn_trx.conf.set_from_env(adm_config);
+		trx.conf.set_from_env(adm_config);
 	}else{
-		urn_trx.conf.set(adm_config, config);
+		trx.conf.set(adm_config, config);
 	}
 	
 	// _validate_adm_variables();

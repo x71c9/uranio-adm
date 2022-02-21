@@ -1,3 +1,27 @@
+declare module 'uranio-trx/api/api' {
+  /**
+   * Re-export api module
+   *
+   * @packageDocumentation
+   */
+
+}
+declare module 'uranio-trx/api/client' {
+  /**
+   * Re-export api client module
+   *
+   * @packageDocumentation
+   */
+
+}
+declare module 'uranio-trx/api/index' {
+  /**
+   * Re-export Api index module
+   *
+   * @packageDocumentation
+   */
+
+}
 declare module 'uranio-trx/atoms' {
   /**
    * Required TRX books
@@ -90,30 +114,6 @@ declare module 'uranio-trx/base/types' {
   }
 
 }
-declare module 'uranio-trx/book/_dock/client' {
-  /**
-   * Module for Client Dock Book Methods
-   *
-   * @packageDocumentation
-   */
-
-}
-declare module 'uranio-trx/book/_dock/index' {
-  /**
-   * Index module for Dock Book methods
-   *
-   * @packageDocumentation
-   */
-
-}
-declare module 'uranio-trx/book/_dock/server' {
-  /**
-   * Module for Server Dock Book Methods
-   *
-   * @packageDocumentation
-   */
-
-}
 declare module 'uranio-trx/book/atom/client' {
   /**
    * Module for Client Book Methods
@@ -201,7 +201,9 @@ declare module 'uranio-trx/client' {
    *
    * @packageDocumentation
    */
+  export * from 'uranio-trx/register';
   import * as urn_trx_client from 'uranio-trx/cln/main';
+  export * from 'uranio-trx/cln/main';
   export default urn_trx_client;
 
 }
@@ -228,6 +230,7 @@ declare module 'uranio-trx/cln/main' {
    *
    * @packageDocumentation
    */
+  import core from 'uranio-core/client';
   import api from 'uranio-api/client';
   import * as base from 'uranio-trx/base/index';
   import * as auth from 'uranio-trx/auth/index';
@@ -239,7 +242,7 @@ declare module 'uranio-trx/cln/main' {
   import { schema } from 'uranio-trx/sch/index';
   import { hooks } from 'uranio-trx/hooks/index';
   export * from 'uranio-trx/init/client';
-  export { api, base, auth, media, book, conf, log, types, schema, hooks, };
+  export { core, api, base, auth, media, book, conf, log, types, schema, hooks, };
 
 }
 declare module 'uranio-trx/cln/types' {
@@ -262,6 +265,7 @@ declare module 'uranio-trx/conf/client' {
    * @packageDocumentation
    */
   import { trx_client_config } from 'uranio-trx/cln/defaults';
+  export { trx_client_config as defaults };
   import * as types from 'uranio-trx/cln/types';
   export function get<k extends keyof Required<types.ClientConfiguration>>(param_name: k): typeof trx_client_config[k];
   export function is_initialized(): boolean;
@@ -277,8 +281,9 @@ declare module 'uranio-trx/conf/conf' {
    * @packageDocumentation
    */
   import { trx_config } from 'uranio-trx/conf/defaults';
+  export { trx_config as defaults };
   import * as types from 'uranio-trx/types';
-  export function get<k extends keyof Required<types.Configuration>>(param_name: k): typeof trx_config[k];
+  export function get<k extends keyof types.Configuration>(param_name: k): typeof trx_config[k];
   export function is_initialized(): boolean;
   export function set_initialize(is_initialized: boolean): void;
   export function set_from_env(repo_config: Required<types.Configuration>): void;
@@ -352,7 +357,9 @@ declare module 'uranio-trx/index' {
    *
    * @packageDocumentation
    */
+  export * from 'uranio-trx/register';
   import * as urn_trx from 'uranio-trx/srv/main';
+  export * from 'uranio-trx/srv/main';
   export default urn_trx;
 
 }
@@ -556,6 +563,7 @@ declare module 'uranio-trx/srv/main' {
    *
    * @packageDocumentation
    */
+  import core from 'uranio-core';
   import api from 'uranio-api';
   import * as base from 'uranio-trx/base/index';
   import * as auth from 'uranio-trx/auth/index';
@@ -569,7 +577,7 @@ declare module 'uranio-trx/srv/main' {
   import { hooks } from 'uranio-trx/hooks/index';
   export * from 'uranio-trx/init/index';
   export * from 'uranio-trx/reg/index';
-  export { api, base, auth, media, book, conf, util, log, types, schema, hooks, };
+  export { core, api, base, auth, media, book, conf, util, log, types, schema, hooks, };
 
 }
 declare module 'uranio-trx/srv/types' {

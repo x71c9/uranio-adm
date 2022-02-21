@@ -6,6 +6,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const vue_1 = __importDefault(require("vue"));
 const client_1 = __importDefault(require("uranio/client"));
 const urn_lib_1 = require("urn-lib");
+var RealPropertyType;
+(function (RealPropertyType) {
+    RealPropertyType["ID"] = "string";
+    RealPropertyType["TEXT"] = "string";
+    RealPropertyType["LONG_TEXT"] = "string";
+    RealPropertyType["EMAIL"] = "string";
+    RealPropertyType["INTEGER"] = "number";
+    RealPropertyType["FLOAT"] = "number";
+    RealPropertyType["BINARY"] = "boolean";
+    RealPropertyType["ENCRYPTED"] = "string";
+    RealPropertyType["DAY"] = "datetime";
+    RealPropertyType["TIME"] = "datetime";
+    RealPropertyType["ENUM_STRING"] = "set";
+    RealPropertyType["ENUM_NUMBER"] = "set";
+    RealPropertyType["SET_STRING"] = "set";
+    RealPropertyType["SET_NUMBER"] = "set";
+    RealPropertyType["ATOM"] = "object";
+    RealPropertyType["ATOM_ARRAY"] = "set";
+})(RealPropertyType || (RealPropertyType = {}));
 exports.default = vue_1.default.extend({
     inject: [
         "atoms",
@@ -66,7 +85,7 @@ exports.default = vue_1.default.extend({
                 && current_sort_direction == -1);
             radio_item_des.value = {};
             radio_item_des.value[prop_name] = -1;
-            const real_type = client_1.default.types.BookPropertyStringType[prop_def.type];
+            const real_type = RealPropertyType[prop_def.type];
             switch (real_type) {
                 case 'string': {
                     radio_item_asc.label += ` (A - Z)`;

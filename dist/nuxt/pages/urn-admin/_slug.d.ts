@@ -40,5 +40,5 @@ declare const _default: import("vue/types/vue").ExtendedVue<{
     error_object: urn_response.Fail<any>;
 } & {
     fail: (trx_response: urn_response.Fail<any>) => void;
-} & import("vue").default, Data<uranio.schema.AtomName>, Methods, Computed, Props>;
+} & import("vue").default, Data<uranio.core.schema.AtomName>, Methods, Computed, Props>;
 export default _default;

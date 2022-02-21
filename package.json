@@ -28,14 +28,15 @@
 		"generate:compile": "npx esbuild ./src/generate.ts --outfile=./generate/_generate_bundled.js --bundle --platform=node",
 		"generate:run": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./generate urn_repo=adm",
 		"generate:schema": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./.uranio/generate/types urn_repo=adm urn_command=schema",
-		"generate:hooks": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./.uranio/generate/ urn_repo=adm urn_command=hooks",
-		"generate:types": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./.uranio/generate/types urn_repo=adm urn_command=trx-types",
+		"generate:hooks": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./.uranio/generate urn_repo=adm urn_command=hooks",
+		"generate:trx-types": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./.uranio/generate/types urn_repo=adm urn_command=trx-types",
 		"dev": "npx tsc-watch --onSuccess \"node -r source-map-support/register -r dotenv/config ./dist/dev.js\"",
 		"dev:generate:compile": "yarn generate:compile --watch",
 		"dev:generate:run": "npx nodemon --watch ./generate/_generate_bundled.js -e ts ./generate/_generate_bundled.js urn_output_dir=./generate urn_repo=adm",
 		"dev:generate": "npx concurrently \"yarn dev:generat:compile\" \"yarn dev:generate:run\"",
 		"schema:reset": "yarn upgrade uranio-schema && npx npm-dts generate -L debug -r node_modules/uranio-schema -o ../../.uranio/generate/base/schema.d.ts",
-		"trx-types:reset": "npx npm-dts generate -L debug -r ./node_modules/uranio-trx/ -o ../../.uranio/generate/base/uranio-trx.d.ts"
+		"trx-types:reset": "npx npm-dts generate -L debug -r ./node_modules/uranio-trx/ -o ../../.uranio/generate/base/uranio-trx.d.ts",
+		"trx-types": "yarn trx-types:reset && yarn generate:trx-types"
 	},
 	"devDependencies": {
 		"@nuxt/types": "^2.15.8",
@@ -48,8 +49,8 @@
 		"node-sass": "^7.0.1",
 		"pug": "^3.0.2",
 		"pug-plain-loader": "^1.1.0",
-		"sass-loader": "^12.6.0",
-		"ts-loader": "^9.2.6",
+		"sass-loader": "^10.1.1",
+		"ts-loader": "^8.2.0",
 		"uranio-dev": "git+ssh://git@github.com/nbl7/uranio-dev.git",
 		"vue-typed-mixins": "^0.2.0"
 	},
@@ -65,6 +66,8 @@
 		"@uppy/xhr-upload": "^2.0.7",
 		"dotenv": "^16.0.0",
 		"nuxt": "^2.15.8",
+		"uranio-api": "git+ssh://git@github.com/nbl7/uranio-api.git#new",
+		"uranio-core": "git+ssh://git@github.com/nbl7/uranio-core.git#new",
 		"uranio-schema": "ssh://git@github.com/nbl7/uranio-schema.git",
 		"uranio-trx": "git+ssh://git@github.com/nbl7/uranio-trx.git#new",
 		"urn-lib": "git+ssh://git@github.com/nbl7/uranio-lib.git#new",

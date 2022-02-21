@@ -5,11 +5,13 @@
  */
 
 
-// import core from 'uranio-core';
+import core from 'uranio-core';
 
-// import api from 'uranio-api';
+import api from 'uranio-api';
 
 import trx from 'uranio-trx';
+
+// export * from '../trx/index';
 
 import {schema} from '../sch/index';
 
@@ -22,9 +24,9 @@ import * as types from './types';
 export * from '../init/index';
 
 export {
+	core,
+	api,
 	trx,
-	// api,
-	// core,
 	schema,
 	book,
 	conf,

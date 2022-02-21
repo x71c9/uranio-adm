@@ -6,6 +6,24 @@ import { urn_util } from "urn-lib";
 
 import {Page} from '../../../pages/urn-admin/_slug';
 
+enum RealPropertyType {
+	ID = 'string',
+	TEXT = 'string',
+	LONG_TEXT = 'string',
+	EMAIL = 'string',
+	INTEGER = 'number',
+	FLOAT = 'number',
+	BINARY = 'boolean',
+	ENCRYPTED = 'string',
+	DAY = 'datetime',
+	TIME = 'datetime',
+	ENUM_STRING = 'set',
+	ENUM_NUMBER = 'set',
+	SET_STRING = 'set',
+	SET_NUMBER = 'set',
+	ATOM = 'object',
+	ATOM_ARRAY = 'set'
+}
 type SortValue = {
 	[prop_name:string]: 1 | -1
 }
@@ -118,7 +136,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			radio_item_des.value = {};
 			radio_item_des.value[prop_name] = -1;
 			
-			const real_type = uranio.types.BookPropertyStringType[prop_def.type];
+			const real_type = RealPropertyType[prop_def.type];
 			switch(real_type){
 				case 'string':{
 					radio_item_asc.label += ` (A - Z)`;

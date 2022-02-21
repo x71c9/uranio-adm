@@ -29,5 +29,5 @@ declare type Methods<A extends uranio.schema.AtomName> = {
 };
 declare type Computed = {};
 declare type Props = {};
-declare const _default: import("vue/types/vue").ExtendedVue<Vue, Data<uranio.schema.AtomName>, Methods<uranio.schema.AtomName>, Computed, Props>;
+declare const _default: import("vue/types/vue").ExtendedVue<Vue, Data<uranio.core.schema.AtomName>, Methods<uranio.core.schema.AtomName>, Computed, Props>;
 export default _default;

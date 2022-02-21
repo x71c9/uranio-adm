@@ -175,7 +175,7 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.schema.AtomName>
 				return false;
 			}
 			try{
-				uranio.core.atm.validate.property(
+				uranio.core.atom.validate.property(
 					prop_name as keyof uranio.schema.Atom<uranio.schema.AtomName>,
 					prop_def,
 					prop_value,
@@ -258,7 +258,7 @@ function _is_property_empty<A extends uranio.schema.AtomName>(
 		}else{
 			switch(prop_def.type){
 				case uranio.types.PropertyType.ATOM:{
-					if(atom[k] === {} || atom[k] === ''){
+					if(atom[k] === {} || (atom[k] as unknown) === ''){
 						is_empty = true;
 					}
 					break;
@@ -266,7 +266,7 @@ function _is_property_empty<A extends uranio.schema.AtomName>(
 				case uranio.types.PropertyType.SET_NUMBER:
 				case uranio.types.PropertyType.SET_STRING:
 				case uranio.types.PropertyType.ATOM_ARRAY:{
-					if((atom[k] as Array<any>).length === 0){
+					if((atom[k] as unknown as Array<any>).length === 0){
 						is_empty = true;
 					}
 					break;

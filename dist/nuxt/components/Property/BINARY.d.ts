@@ -1,3 +1,4 @@
+/// <reference types=".uranio/generate/types/schema" />
 declare type Data = {};
 declare type Methods = {
     on_input: (event: Event) => void;
