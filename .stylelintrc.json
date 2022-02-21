@@ -1,0 +1,20 @@
+{
+	"extends": "stylelint-config-standard",
+	"rules": {
+		"selector-list-comma-newline-after":false,
+		"block-opening-brace-space-before":false,
+		"block-opening-brace-space-after":false,
+		"block-closing-brace-space-before":false,
+		"block-closing-brace-space-after":false,
+		"selector-pseudo-element-colon-notation":false,
+		"custom-property-empty-line-before":false,
+		"max-empty-lines":3,
+		"rule-empty-line-before":false,
+		"length-zero-no-unit":false,
+		"color-hex-length":false,
+		"indentation":"tab|2",
+		"comment-empty-line-before": false,
+		"number-leading-zero": false,
+		"no-descending-specificity": false
+	}
+}
