@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-// export * from './cln/register';
+export * from './cln/register';
 
 import * as urn_adm_client from './cln/main';
 

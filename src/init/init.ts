@@ -4,33 +4,25 @@
  * @packageDocumentation
  */
 
-// import {urn_exception} from 'urn-lib';
-
-// const urn_exc = urn_exception.init('INIT_TRX_MODULE', `TRX init module`);
+import {urn_log} from 'urn-lib';
 
 import trx from 'uranio-trx';
 
-// import {trx_config} from 'uranio-trx/conf/defaults';
-
 import {adm_config} from '../conf/defaults';
-
-// import {trx_client_config} from 'uranio-trx/cln/defaults';
-
-// import {adm_client_config} from '../cln/defaults';
 
 import * as types from '../types';
 
 import * as conf from '../conf/index';
 
-// import * as client_init from './client';
-
-// import * as book from '../book/index';
+import * as log from '../log/index';
 
 export function init(config?:types.Configuration)
 		:void{
 	
 	// Raw create use `service_url` from client_config.
 	// client_init.init();
+	
+	log.init(urn_log.defaults);
 	
 	trx.init(config);
 	
