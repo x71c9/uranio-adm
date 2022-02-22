@@ -4,9 +4,9 @@
  * @packageDocumentation
  */
 
-import trx from 'uranio-trx/client';
+import {urn_log} from 'urn-lib';
 
-// import {trx_client_config} from 'uranio-trx/cln/defaults';
+import trx from 'uranio-trx/client';
 
 import {adm_client_config} from '../cln/defaults';
 
@@ -14,8 +14,12 @@ import * as types from '../cln/types';
 
 import * as conf from '../conf/client';
 
+import * as log from '../log/client';
+
 export function init(config?:types.ClientConfiguration)
 		:void{
+	
+	log.init(urn_log.defaults);
 	
 	trx.init(config);
 	

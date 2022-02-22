@@ -19,6 +19,8 @@ import * as book from '../book/index';
 
 import * as conf from '../conf/index';
 
+import * as log from '../log/index';
+
 import * as types from './types';
 
 export * from '../init/index';
@@ -28,6 +30,7 @@ export {
 	api,
 	trx,
 	schema,
+	log,
 	book,
 	conf,
 	types,

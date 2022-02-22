@@ -10,13 +10,13 @@ import api from 'uranio-api/client';
 
 import trx from 'uranio-trx/client';
 
-// export * from '../trx/client';
-
 import {schema} from '../sch/index';
 
 import * as book from '../book/client';
 
 import * as conf from '../conf/client';
+
+import * as log from '../log/client';
 
 import * as types from './types';
 
@@ -28,6 +28,7 @@ export {
 	core,
 	api,
 	trx,
+	log,
 	schema,
 	book,
 	conf,
