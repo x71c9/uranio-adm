@@ -12,10 +12,6 @@ export default {
 		'uranio-trx/client': resolve(__dirname, './node_modules/uranio-trx/dist/client'),
 		'uranio-trx/types': resolve(__dirname, './node_modules/uranio-trx/dist/types'),
 		'uranio-trx/cln/types': resolve(__dirname, './node_modules/uranio-trx/dist/cln/types'),
-		// 'uranio': resolve(__dirname, './src/uranio/client'),
-		// 'uranio-trx': resolve(__dirname, './src/uranio/trx/'),
-		// 'uranio-api': resolve(__dirname, './src/uranio/trx/api/'),
-		// 'uranio-core': resolve(__dirname, './src/uranio/trx/api/core/'),
 	},
 	env: {
 		URN_CLIENT_FETCH: process.env.URN_CLIENT_FETCH || 'axios',
