@@ -11,7 +11,7 @@ urn_log.init({
 
 export * from './hooks';
 
-import uranio from './index';
+import uranio from './server';
 uranio.init();
 
 const service = uranio.api.service.create();

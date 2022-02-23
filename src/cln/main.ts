@@ -10,7 +10,7 @@ import api from 'uranio-api/client';
 
 import trx from 'uranio-trx/client';
 
-import {schema} from '../sch/index';
+import {schema} from '../sch/client';
 
 import * as book from '../book/client';
 

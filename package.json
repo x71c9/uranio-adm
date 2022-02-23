@@ -4,23 +4,23 @@
 	"description": "Uranio Admin",
 	"main": "dist/index.js",
 	"exports": {
-		".": "./dist/index.js",
+		".": "./dist/server.js",
+		"./types": "./dist/srv/types.js",
 		"./client": "./dist/client.js",
-		"./types": "./dist/types.js",
-		"./cln/types": "./dist/types.js"
+		"./client/types": "./dist/cln/types.js"
 	},
 	"typesVersions": {
 		"*": {
 			"*": [
-				"dist/index.d.ts"
+				"dist/server.d.ts"
+			],
+			"types": [
+				"dist/srv/types.d.ts"
 			],
 			"client": [
 				"dist/client.d.ts"
 			],
-			"types": [
-				"dist/types.d.ts"
-			],
-			"cln/types": [
+			"client/types": [
 				"dist/cln/types.d.ts"
 			]
 		}

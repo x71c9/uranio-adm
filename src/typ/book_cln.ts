@@ -13,7 +13,7 @@
 
 import trx_client from 'uranio-trx/client';
 
-import {schema} from '../sch/index';
+import {schema} from '../sch/client';
 
 export type Book = {
 	[k in schema.AtomName]?: Book.Definition;
