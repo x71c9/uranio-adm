@@ -8,12 +8,12 @@ import {urn_response} from 'urn-lib';
 
 import uranio from 'uranio/client';
 
-uranio.hooks['superusers'] = {
+uranio.trx.hooks['superusers'] = {
 	authenticate: async (
 		email: string,
 		password: string
 	): Promise<urn_response.General<uranio.types.Api.AuthResponse>> => {
-		return await uranio.auth.create('superuser').authenticate(email, password);
+		return await uranio.trx.auth.create('superuser').authenticate(email, password);
 	},
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'superuser', 'count', D>,
@@ -23,14 +23,14 @@ uranio.hooks['superusers'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('superuser',current_token).hook<'count',D>('count')(args);
+		return await uranio.trx.base.create('superuser',current_token).hook<'count',D>('count')(args);
 	},
 	find_one: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'superuser', 'find_one', D>,
@@ -40,14 +40,14 @@ uranio.hooks['superusers'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('superuser',current_token).hook<'find_one',D>('find_one')(args);
+		return await uranio.trx.base.create('superuser',current_token).hook<'find_one',D>('find_one')(args);
 	},
 	find: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'superuser', 'find', D>,
@@ -57,14 +57,14 @@ uranio.hooks['superusers'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('superuser',current_token).hook<'find',D>('find')(args);
+		return await uranio.trx.base.create('superuser',current_token).hook<'find',D>('find')(args);
 	},
 	find_id: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -78,14 +78,14 @@ uranio.hooks['superusers'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('superuser',current_token).hook<'find_id',D>('find_id')(args);
+		return await uranio.trx.base.create('superuser',current_token).hook<'find_id',D>('find_id')(args);
 	},
 	insert: async <D extends uranio.schema.Depth>(
 		body:uranio.types.Hook.Body<'superuser', 'insert'>,
@@ -97,14 +97,14 @@ uranio.hooks['superusers'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('superuser',current_token).hook<'insert',D>('insert')(args);
+		return await uranio.trx.base.create('superuser',current_token).hook<'insert',D>('insert')(args);
 	},
 	update: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -120,14 +120,14 @@ uranio.hooks['superusers'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('superuser',current_token).hook<'update',D>('update')(args);
+		return await uranio.trx.base.create('superuser',current_token).hook<'update',D>('update')(args);
 	},
 	delete: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -141,14 +141,14 @@ uranio.hooks['superusers'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('superuser',current_token).hook<'delete',D>('delete')(args);
+		return await uranio.trx.base.create('superuser',current_token).hook<'delete',D>('delete')(args);
 	},
 	insert_multiple: async <D extends uranio.schema.Depth>(
 		body:uranio.types.Hook.Body<'superuser', 'insert_multiple'>,
@@ -160,14 +160,14 @@ uranio.hooks['superusers'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('superuser',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
+		return await uranio.trx.base.create('superuser',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
 	},
 	update_multiple: async <D extends uranio.schema.Depth>(
 		ids:string,
@@ -183,14 +183,14 @@ uranio.hooks['superusers'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('superuser',current_token).hook<'update_multiple',D>('update_multiple')(args);
+		return await uranio.trx.base.create('superuser',current_token).hook<'update_multiple',D>('update_multiple')(args);
 	},
 	delete_multiple: async <D extends uranio.schema.Depth>(
 		ids:string,
@@ -204,22 +204,22 @@ uranio.hooks['superusers'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('superuser',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
+		return await uranio.trx.base.create('superuser',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
 	},
 }
-uranio.hooks['users'] = {
+uranio.trx.hooks['users'] = {
 	authenticate: async (
 		email: string,
 		password: string
 	): Promise<urn_response.General<uranio.types.Api.AuthResponse>> => {
-		return await uranio.auth.create('user').authenticate(email, password);
+		return await uranio.trx.auth.create('user').authenticate(email, password);
 	},
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'user', 'count', D>,
@@ -229,14 +229,14 @@ uranio.hooks['users'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('user',current_token).hook<'count',D>('count')(args);
+		return await uranio.trx.base.create('user',current_token).hook<'count',D>('count')(args);
 	},
 	find_one: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'user', 'find_one', D>,
@@ -246,14 +246,14 @@ uranio.hooks['users'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('user',current_token).hook<'find_one',D>('find_one')(args);
+		return await uranio.trx.base.create('user',current_token).hook<'find_one',D>('find_one')(args);
 	},
 	find: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'user', 'find', D>,
@@ -263,14 +263,14 @@ uranio.hooks['users'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('user',current_token).hook<'find',D>('find')(args);
+		return await uranio.trx.base.create('user',current_token).hook<'find',D>('find')(args);
 	},
 	find_id: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -284,14 +284,14 @@ uranio.hooks['users'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('user',current_token).hook<'find_id',D>('find_id')(args);
+		return await uranio.trx.base.create('user',current_token).hook<'find_id',D>('find_id')(args);
 	},
 	insert: async <D extends uranio.schema.Depth>(
 		body:uranio.types.Hook.Body<'user', 'insert'>,
@@ -303,14 +303,14 @@ uranio.hooks['users'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('user',current_token).hook<'insert',D>('insert')(args);
+		return await uranio.trx.base.create('user',current_token).hook<'insert',D>('insert')(args);
 	},
 	update: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -326,14 +326,14 @@ uranio.hooks['users'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('user',current_token).hook<'update',D>('update')(args);
+		return await uranio.trx.base.create('user',current_token).hook<'update',D>('update')(args);
 	},
 	delete: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -347,14 +347,14 @@ uranio.hooks['users'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('user',current_token).hook<'delete',D>('delete')(args);
+		return await uranio.trx.base.create('user',current_token).hook<'delete',D>('delete')(args);
 	},
 	insert_multiple: async <D extends uranio.schema.Depth>(
 		body:uranio.types.Hook.Body<'user', 'insert_multiple'>,
@@ -366,14 +366,14 @@ uranio.hooks['users'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('user',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
+		return await uranio.trx.base.create('user',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
 	},
 	update_multiple: async <D extends uranio.schema.Depth>(
 		ids:string,
@@ -389,14 +389,14 @@ uranio.hooks['users'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('user',current_token).hook<'update_multiple',D>('update_multiple')(args);
+		return await uranio.trx.base.create('user',current_token).hook<'update_multiple',D>('update_multiple')(args);
 	},
 	delete_multiple: async <D extends uranio.schema.Depth>(
 		ids:string,
@@ -410,17 +410,17 @@ uranio.hooks['users'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('user',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
+		return await uranio.trx.base.create('user',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
 	},
 }
-uranio.hooks['groups'] = {
+uranio.trx.hooks['groups'] = {
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'group', 'count', D>,
 		token?:string
@@ -429,14 +429,14 @@ uranio.hooks['groups'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('group',current_token).hook<'count',D>('count')(args);
+		return await uranio.trx.base.create('group',current_token).hook<'count',D>('count')(args);
 	},
 	find_one: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'group', 'find_one', D>,
@@ -446,14 +446,14 @@ uranio.hooks['groups'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('group',current_token).hook<'find_one',D>('find_one')(args);
+		return await uranio.trx.base.create('group',current_token).hook<'find_one',D>('find_one')(args);
 	},
 	find: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'group', 'find', D>,
@@ -463,14 +463,14 @@ uranio.hooks['groups'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('group',current_token).hook<'find',D>('find')(args);
+		return await uranio.trx.base.create('group',current_token).hook<'find',D>('find')(args);
 	},
 	find_id: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -484,14 +484,14 @@ uranio.hooks['groups'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('group',current_token).hook<'find_id',D>('find_id')(args);
+		return await uranio.trx.base.create('group',current_token).hook<'find_id',D>('find_id')(args);
 	},
 	insert: async <D extends uranio.schema.Depth>(
 		body:uranio.types.Hook.Body<'group', 'insert'>,
@@ -503,14 +503,14 @@ uranio.hooks['groups'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('group',current_token).hook<'insert',D>('insert')(args);
+		return await uranio.trx.base.create('group',current_token).hook<'insert',D>('insert')(args);
 	},
 	update: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -526,14 +526,14 @@ uranio.hooks['groups'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('group',current_token).hook<'update',D>('update')(args);
+		return await uranio.trx.base.create('group',current_token).hook<'update',D>('update')(args);
 	},
 	delete: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -547,14 +547,14 @@ uranio.hooks['groups'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('group',current_token).hook<'delete',D>('delete')(args);
+		return await uranio.trx.base.create('group',current_token).hook<'delete',D>('delete')(args);
 	},
 	insert_multiple: async <D extends uranio.schema.Depth>(
 		body:uranio.types.Hook.Body<'group', 'insert_multiple'>,
@@ -566,14 +566,14 @@ uranio.hooks['groups'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('group',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
+		return await uranio.trx.base.create('group',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
 	},
 	update_multiple: async <D extends uranio.schema.Depth>(
 		ids:string,
@@ -589,14 +589,14 @@ uranio.hooks['groups'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('group',current_token).hook<'update_multiple',D>('update_multiple')(args);
+		return await uranio.trx.base.create('group',current_token).hook<'update_multiple',D>('update_multiple')(args);
 	},
 	delete_multiple: async <D extends uranio.schema.Depth>(
 		ids:string,
@@ -610,30 +610,30 @@ uranio.hooks['groups'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('group',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
+		return await uranio.trx.base.create('group',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
 	},
 }
-uranio.hooks['media'] = {
+uranio.trx.hooks['media'] = {
 	upload: async<D extends uranio.schema.Depth>(
 		file: Buffer | ArrayBuffer | Blob,
 		token?: string
 	): Promise<urn_response.General<uranio.schema.Atom<'media'>>> => {
 		let current_token: string | undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if (typeof hook_token === "string" && hook_token !== "") {
 			current_token = hook_token;
 		}
 		if (typeof token === "string" && token !== "") {
 			current_token = token;
 		}
-		return await uranio.media.create(current_token).upload<D>(file, current_token);
+		return await uranio.trx.media.create(current_token).upload<D>(file, current_token);
 	},
 	presigned: async(
 		filename: string,
@@ -642,14 +642,14 @@ uranio.hooks['media'] = {
 		token?: string
 	): Promise<urn_response.General<string>> => {
 		let current_token: string | undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if (typeof hook_token === "string" && hook_token !== "") {
 			current_token = hook_token;
 		}
 		if (typeof token === "string" && token !== "") {
 			current_token = token;
 		}
-		return await uranio.media.create(current_token).presigned(filename, size, type, current_token);
+		return await uranio.trx.media.create(current_token).presigned(filename, size, type, current_token);
 	},
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'media', 'count', D>,
@@ -659,14 +659,14 @@ uranio.hooks['media'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('media',current_token).hook<'count',D>('count')(args);
+		return await uranio.trx.base.create('media',current_token).hook<'count',D>('count')(args);
 	},
 	find_one: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'media', 'find_one', D>,
@@ -676,14 +676,14 @@ uranio.hooks['media'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('media',current_token).hook<'find_one',D>('find_one')(args);
+		return await uranio.trx.base.create('media',current_token).hook<'find_one',D>('find_one')(args);
 	},
 	find: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'media', 'find', D>,
@@ -693,14 +693,14 @@ uranio.hooks['media'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('media',current_token).hook<'find',D>('find')(args);
+		return await uranio.trx.base.create('media',current_token).hook<'find',D>('find')(args);
 	},
 	find_id: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -714,14 +714,14 @@ uranio.hooks['media'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('media',current_token).hook<'find_id',D>('find_id')(args);
+		return await uranio.trx.base.create('media',current_token).hook<'find_id',D>('find_id')(args);
 	},
 	insert: async <D extends uranio.schema.Depth>(
 		body:uranio.types.Hook.Body<'media', 'insert'>,
@@ -733,14 +733,14 @@ uranio.hooks['media'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('media',current_token).hook<'insert',D>('insert')(args);
+		return await uranio.trx.base.create('media',current_token).hook<'insert',D>('insert')(args);
 	},
 	update: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -756,14 +756,14 @@ uranio.hooks['media'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('media',current_token).hook<'update',D>('update')(args);
+		return await uranio.trx.base.create('media',current_token).hook<'update',D>('update')(args);
 	},
 	delete: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -777,14 +777,14 @@ uranio.hooks['media'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('media',current_token).hook<'delete',D>('delete')(args);
+		return await uranio.trx.base.create('media',current_token).hook<'delete',D>('delete')(args);
 	},
 	insert_multiple: async <D extends uranio.schema.Depth>(
 		body:uranio.types.Hook.Body<'media', 'insert_multiple'>,
@@ -796,14 +796,14 @@ uranio.hooks['media'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('media',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
+		return await uranio.trx.base.create('media',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
 	},
 	update_multiple: async <D extends uranio.schema.Depth>(
 		ids:string,
@@ -819,14 +819,14 @@ uranio.hooks['media'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('media',current_token).hook<'update_multiple',D>('update_multiple')(args);
+		return await uranio.trx.base.create('media',current_token).hook<'update_multiple',D>('update_multiple')(args);
 	},
 	delete_multiple: async <D extends uranio.schema.Depth>(
 		ids:string,
@@ -840,17 +840,17 @@ uranio.hooks['media'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('media',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
+		return await uranio.trx.base.create('media',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
 	},
 }
-uranio.hooks['errors'] = {
+uranio.trx.hooks['errors'] = {
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'error', 'count', D>,
 		token?:string
@@ -859,14 +859,14 @@ uranio.hooks['errors'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('error',current_token).hook<'count',D>('count')(args);
+		return await uranio.trx.base.create('error',current_token).hook<'count',D>('count')(args);
 	},
 	find_one: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'error', 'find_one', D>,
@@ -876,14 +876,14 @@ uranio.hooks['errors'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('error',current_token).hook<'find_one',D>('find_one')(args);
+		return await uranio.trx.base.create('error',current_token).hook<'find_one',D>('find_one')(args);
 	},
 	find: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'error', 'find', D>,
@@ -893,14 +893,14 @@ uranio.hooks['errors'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('error',current_token).hook<'find',D>('find')(args);
+		return await uranio.trx.base.create('error',current_token).hook<'find',D>('find')(args);
 	},
 	find_id: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -914,14 +914,14 @@ uranio.hooks['errors'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('error',current_token).hook<'find_id',D>('find_id')(args);
+		return await uranio.trx.base.create('error',current_token).hook<'find_id',D>('find_id')(args);
 	},
 	insert: async <D extends uranio.schema.Depth>(
 		body:uranio.types.Hook.Body<'error', 'insert'>,
@@ -933,14 +933,14 @@ uranio.hooks['errors'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('error',current_token).hook<'insert',D>('insert')(args);
+		return await uranio.trx.base.create('error',current_token).hook<'insert',D>('insert')(args);
 	},
 	update: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -956,14 +956,14 @@ uranio.hooks['errors'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('error',current_token).hook<'update',D>('update')(args);
+		return await uranio.trx.base.create('error',current_token).hook<'update',D>('update')(args);
 	},
 	delete: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -977,14 +977,14 @@ uranio.hooks['errors'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('error',current_token).hook<'delete',D>('delete')(args);
+		return await uranio.trx.base.create('error',current_token).hook<'delete',D>('delete')(args);
 	},
 	insert_multiple: async <D extends uranio.schema.Depth>(
 		body:uranio.types.Hook.Body<'error', 'insert_multiple'>,
@@ -996,14 +996,14 @@ uranio.hooks['errors'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('error',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
+		return await uranio.trx.base.create('error',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
 	},
 	update_multiple: async <D extends uranio.schema.Depth>(
 		ids:string,
@@ -1019,14 +1019,14 @@ uranio.hooks['errors'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('error',current_token).hook<'update_multiple',D>('update_multiple')(args);
+		return await uranio.trx.base.create('error',current_token).hook<'update_multiple',D>('update_multiple')(args);
 	},
 	delete_multiple: async <D extends uranio.schema.Depth>(
 		ids:string,
@@ -1040,17 +1040,17 @@ uranio.hooks['errors'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('error',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
+		return await uranio.trx.base.create('error',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
 	},
 }
-uranio.hooks['requests'] = {
+uranio.trx.hooks['requests'] = {
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'request', 'count', D>,
 		token?:string
@@ -1059,14 +1059,14 @@ uranio.hooks['requests'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('request',current_token).hook<'count',D>('count')(args);
+		return await uranio.trx.base.create('request',current_token).hook<'count',D>('count')(args);
 	},
 	find_one: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'request', 'find_one', D>,
@@ -1076,14 +1076,14 @@ uranio.hooks['requests'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('request',current_token).hook<'find_one',D>('find_one')(args);
+		return await uranio.trx.base.create('request',current_token).hook<'find_one',D>('find_one')(args);
 	},
 	find: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'request', 'find', D>,
@@ -1093,14 +1093,14 @@ uranio.hooks['requests'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('request',current_token).hook<'find',D>('find')(args);
+		return await uranio.trx.base.create('request',current_token).hook<'find',D>('find')(args);
 	},
 	find_id: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -1114,14 +1114,14 @@ uranio.hooks['requests'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('request',current_token).hook<'find_id',D>('find_id')(args);
+		return await uranio.trx.base.create('request',current_token).hook<'find_id',D>('find_id')(args);
 	},
 	insert: async <D extends uranio.schema.Depth>(
 		body:uranio.types.Hook.Body<'request', 'insert'>,
@@ -1133,14 +1133,14 @@ uranio.hooks['requests'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('request',current_token).hook<'insert',D>('insert')(args);
+		return await uranio.trx.base.create('request',current_token).hook<'insert',D>('insert')(args);
 	},
 	update: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -1156,14 +1156,14 @@ uranio.hooks['requests'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('request',current_token).hook<'update',D>('update')(args);
+		return await uranio.trx.base.create('request',current_token).hook<'update',D>('update')(args);
 	},
 	delete: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -1177,14 +1177,14 @@ uranio.hooks['requests'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('request',current_token).hook<'delete',D>('delete')(args);
+		return await uranio.trx.base.create('request',current_token).hook<'delete',D>('delete')(args);
 	},
 	insert_multiple: async <D extends uranio.schema.Depth>(
 		body:uranio.types.Hook.Body<'request', 'insert_multiple'>,
@@ -1196,14 +1196,14 @@ uranio.hooks['requests'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('request',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
+		return await uranio.trx.base.create('request',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
 	},
 	update_multiple: async <D extends uranio.schema.Depth>(
 		ids:string,
@@ -1219,14 +1219,14 @@ uranio.hooks['requests'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('request',current_token).hook<'update_multiple',D>('update_multiple')(args);
+		return await uranio.trx.base.create('request',current_token).hook<'update_multiple',D>('update_multiple')(args);
 	},
 	delete_multiple: async <D extends uranio.schema.Depth>(
 		ids:string,
@@ -1240,17 +1240,17 @@ uranio.hooks['requests'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('request',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
+		return await uranio.trx.base.create('request',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
 	},
 }
-uranio.hooks['settings'] = {
+uranio.trx.hooks['settings'] = {
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'setting', 'count', D>,
 		token?:string
@@ -1259,14 +1259,14 @@ uranio.hooks['settings'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('setting',current_token).hook<'count',D>('count')(args);
+		return await uranio.trx.base.create('setting',current_token).hook<'count',D>('count')(args);
 	},
 	find_one: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'setting', 'find_one', D>,
@@ -1276,14 +1276,14 @@ uranio.hooks['settings'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('setting',current_token).hook<'find_one',D>('find_one')(args);
+		return await uranio.trx.base.create('setting',current_token).hook<'find_one',D>('find_one')(args);
 	},
 	find: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'setting', 'find', D>,
@@ -1293,14 +1293,14 @@ uranio.hooks['settings'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('setting',current_token).hook<'find',D>('find')(args);
+		return await uranio.trx.base.create('setting',current_token).hook<'find',D>('find')(args);
 	},
 	find_id: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -1314,14 +1314,14 @@ uranio.hooks['settings'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('setting',current_token).hook<'find_id',D>('find_id')(args);
+		return await uranio.trx.base.create('setting',current_token).hook<'find_id',D>('find_id')(args);
 	},
 	insert: async <D extends uranio.schema.Depth>(
 		body:uranio.types.Hook.Body<'setting', 'insert'>,
@@ -1333,14 +1333,14 @@ uranio.hooks['settings'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('setting',current_token).hook<'insert',D>('insert')(args);
+		return await uranio.trx.base.create('setting',current_token).hook<'insert',D>('insert')(args);
 	},
 	update: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -1356,14 +1356,14 @@ uranio.hooks['settings'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('setting',current_token).hook<'update',D>('update')(args);
+		return await uranio.trx.base.create('setting',current_token).hook<'update',D>('update')(args);
 	},
 	delete: async <D extends uranio.schema.Depth>(
 		id:string,
@@ -1377,14 +1377,14 @@ uranio.hooks['settings'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('setting',current_token).hook<'delete',D>('delete')(args);
+		return await uranio.trx.base.create('setting',current_token).hook<'delete',D>('delete')(args);
 	},
 	insert_multiple: async <D extends uranio.schema.Depth>(
 		body:uranio.types.Hook.Body<'setting', 'insert_multiple'>,
@@ -1396,14 +1396,14 @@ uranio.hooks['settings'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('setting',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
+		return await uranio.trx.base.create('setting',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
 	},
 	update_multiple: async <D extends uranio.schema.Depth>(
 		ids:string,
@@ -1419,14 +1419,14 @@ uranio.hooks['settings'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('setting',current_token).hook<'update_multiple',D>('update_multiple')(args);
+		return await uranio.trx.base.create('setting',current_token).hook<'update_multiple',D>('update_multiple')(args);
 	},
 	delete_multiple: async <D extends uranio.schema.Depth>(
 		ids:string,
@@ -1440,13 +1440,13 @@ uranio.hooks['settings'] = {
 			...parameters
 		};
 		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
+		const hook_token = uranio.trx.hooks.get_token();
 		if(typeof hook_token === 'string' && hook_token !== ''){
 			current_token = hook_token;
 		}
 		if(typeof token === 'string' && token !== ''){
 			current_token = token;
 		}
-		return await uranio.base.create('setting',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
+		return await uranio.trx.base.create('setting',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
 	},
 }

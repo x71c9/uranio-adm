@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-export * from './register';
+// export * from './register';
 
 import * as urn_adm from './srv/main';
 

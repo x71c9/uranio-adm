@@ -114,30 +114,6 @@ declare module 'uranio-trx/base/types' {
   }
 
 }
-declare module 'uranio-trx/book/atom/client' {
-  /**
-   * Module for Client Book Methods
-   *
-   * @packageDocumentation
-   */
-
-}
-declare module 'uranio-trx/book/atom/index' {
-  /**
-   * Index module for Atom Book methods
-   *
-   * @packageDocumentation
-   */
-
-}
-declare module 'uranio-trx/book/atom/server' {
-  /**
-   * Module for Server Atom Book Methods
-   *
-   * @packageDocumentation
-   */
-
-}
 declare module 'uranio-trx/book/client' {
   /**
    * Module for Client Book Methods
@@ -201,7 +177,7 @@ declare module 'uranio-trx/client' {
    *
    * @packageDocumentation
    */
-  export * from 'uranio-trx/register';
+  export * from 'uranio-trx/cln/register';
   import * as urn_trx_client from 'uranio-trx/cln/main';
   export * from 'uranio-trx/cln/main';
   export default urn_trx_client;
@@ -237,7 +213,7 @@ declare module 'uranio-trx/cln/main' {
   import * as media from 'uranio-trx/media/index';
   import * as book from 'uranio-trx/book/client';
   import * as conf from 'uranio-trx/conf/client';
-  import * as log from 'uranio-trx/log/index';
+  import * as log from 'uranio-trx/log/client';
   import * as types from 'uranio-trx/cln/types';
   import { schema } from 'uranio-trx/sch/index';
   import { hooks } from 'uranio-trx/hooks/index';
@@ -495,6 +471,17 @@ declare module 'uranio-trx/init/init' {
   export function init(config?: types.Configuration): void;
 
 }
+declare module 'uranio-trx/log/client' {
+  /**
+   * Log module
+   *
+   * @packageDocumentation
+   */
+  import { urn_log } from 'urn-lib';
+  export function init(log_config?: urn_log.LogLevel): void;
+  export function init(log_config?: urn_log.LogConfig): void;
+
+}
 declare module 'uranio-trx/log/index' {
   /**
    * Index module for log
@@ -713,7 +700,7 @@ declare module 'uranio-trx/typ/api_cln' {
    *
    * @packageDocumentation
    */
-  export { Api, RouteParam, PropertyType, SecurityType, PermissionType, AuthAction, Passport, } from 'uranio-api/types';
+  export { Api, RouteParam, PropertyType, SecurityType, PermissionType, AuthAction, Passport, } from 'uranio-api/cln/types';
 
 }
 declare module 'uranio-trx/typ/api_srv' {
@@ -940,8 +927,8 @@ declare module 'uranio-trx/util/generate' {
   export function schema(): string;
   export function schema_and_save(): void;
   export function save_schema(text: string): void;
-  export function hooks(): string;
-  export function hooks_and_save(): void;
+  export function hooks(repo: string): string;
+  export function hooks_and_save(repo: string): void;
   export function save_hooks(text: string): void;
   export function types(): string;
   export function types_and_save(): void;
