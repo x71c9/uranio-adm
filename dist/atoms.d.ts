@@ -3,17 +3,16 @@
  *
  * @packageDocumentation
  */
-import * as types from './cln/types';
 export declare const atom_book: {
     readonly setting: {
         readonly plural: "settings";
         readonly security: {
-            readonly type: types.SecurityType.UNIFORM;
-            readonly _r: types.PermissionType.NOBODY;
+            readonly type: any;
+            readonly _r: any;
         };
         readonly properties: {
             readonly name: {
-                readonly type: types.PropertyType.TEXT;
+                readonly type: any;
                 readonly label: "Name";
             };
         };

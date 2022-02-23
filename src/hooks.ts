@@ -6,7 +6,7 @@
 
 import {urn_response} from 'urn-lib';
 
-import uranio from './index';
+import uranio from './client';
 
 export {};
 

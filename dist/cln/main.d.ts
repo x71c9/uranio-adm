@@ -6,7 +6,7 @@
 import core from 'uranio-core/client';
 import api from 'uranio-api/client';
 import trx from 'uranio-trx/client';
-import { schema } from '../sch/index';
+import { schema } from '../sch/client';
 import * as book from '../book/client';
 import * as conf from '../conf/client';
 import * as log from '../log/client';

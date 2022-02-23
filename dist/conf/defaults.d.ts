@@ -3,5 +3,5 @@
  *
  * @packageDocumentation
  */
-import { Configuration } from '../types';
+import { Configuration } from '../srv/types';
 export declare const adm_config: Required<Configuration>;

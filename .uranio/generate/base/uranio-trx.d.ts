@@ -1,27 +1,3 @@
-declare module 'uranio-trx/api/api' {
-  /**
-   * Re-export api module
-   *
-   * @packageDocumentation
-   */
-
-}
-declare module 'uranio-trx/api/client' {
-  /**
-   * Re-export api client module
-   *
-   * @packageDocumentation
-   */
-
-}
-declare module 'uranio-trx/api/index' {
-  /**
-   * Re-export Api index module
-   *
-   * @packageDocumentation
-   */
-
-}
 declare module 'uranio-trx/atoms' {
   /**
    * Required TRX books
@@ -31,7 +7,7 @@ declare module 'uranio-trx/atoms' {
   export const atom_book: {};
 
 }
-declare module 'uranio-trx/auth/class' {
+declare module 'uranio-trx/auth/client' {
   /**
    * Module for Auth
    *
@@ -39,7 +15,7 @@ declare module 'uranio-trx/auth/class' {
    */
   import { urn_response } from 'urn-lib';
   import * as client_types from 'uranio-trx/cln/types';
-  import { schema } from 'uranio-trx/sch/index';
+  import { schema } from 'uranio-trx/sch/client';
   class AuthBase<A extends schema.AuthName> {
       auth_name: A;
       private raw;
@@ -51,13 +27,24 @@ declare module 'uranio-trx/auth/class' {
   export {};
 
 }
-declare module 'uranio-trx/auth/index' {
+declare module 'uranio-trx/auth/server' {
   /**
-   * Auth index module
+   * Module for Auth
    *
    * @packageDocumentation
    */
-  export * from 'uranio-trx/auth/class';
+  import { urn_response } from 'urn-lib';
+  import * as client_types from 'uranio-trx/cln/types';
+  import { schema } from 'uranio-trx/sch/server';
+  class AuthBase<A extends schema.AuthName> {
+      auth_name: A;
+      private raw;
+      constructor(auth_name: A);
+      authenticate(email: string, password: string): Promise<urn_response.General<client_types.Api.AuthResponse>>;
+  }
+  export type AuthBaseInstance = InstanceType<typeof AuthBase>;
+  export function create<A extends schema.AuthName>(auth_name: A): AuthBase<A>;
+  export {};
 
 }
 declare module 'uranio-trx/base/class' {
@@ -67,7 +54,7 @@ declare module 'uranio-trx/base/class' {
    * @packageDocumentation
    */
   import * as client_types from 'uranio-trx/cln/types';
-  import { schema } from 'uranio-trx/sch/index';
+  import { schema } from 'uranio-trx/sch/client';
   import { Hook } from 'uranio-trx/base/types';
   export class Base<A extends schema.AtomName> {
       atom_name: A;
@@ -80,7 +67,17 @@ declare module 'uranio-trx/base/class' {
   export function create<A extends schema.AtomName>(atom_name: A, token?: string): Base<A>;
 
 }
-declare module 'uranio-trx/base/index' {
+declare module 'uranio-trx/base/client' {
+  /**
+   * Base index module
+   *
+   * @packageDocumentation
+   */
+  export * from 'uranio-trx/base/class';
+  export * from 'uranio-trx/base/types';
+
+}
+declare module 'uranio-trx/base/server' {
   /**
    * Base index module
    *
@@ -97,7 +94,7 @@ declare module 'uranio-trx/base/types' {
    * @packageDocumentation
    */
   import * as client_types from 'uranio-trx/cln/types';
-  import { schema } from 'uranio-trx/sch/index';
+  import { schema } from 'uranio-trx/sch/client';
   export namespace Hook {
       type Arguments<A extends schema.AtomName, R extends schema.RouteName<A>, D extends schema.Depth = 0> = {
           params?: Params<A, R>;
@@ -121,7 +118,7 @@ declare module 'uranio-trx/book/client' {
    * @packageDocumentation
    */
   import { Book } from 'uranio-trx/typ/book_cln';
-  import { schema } from 'uranio-trx/sch/index';
+  import { schema } from 'uranio-trx/sch/client';
   export function get_route_def<A extends schema.AtomName, R extends schema.RouteName<A>>(atom_name: A, route_name: R): Book.Definition.Dock.Routes.Route;
   export function get_routes_definition<A extends schema.AtomName>(atom_name: A): Book.Definition.Dock.Routes;
   export function get_routes_definition_with_defaults(atom_name: schema.AtomName): Book.Definition.Dock.Routes;
@@ -138,15 +135,6 @@ declare module 'uranio-trx/book/client' {
   export function get_names(): schema.AtomName[];
 
 }
-declare module 'uranio-trx/book/index' {
-  /**
-   * Index module for Book methods
-   *
-   * @packageDocumentation
-   */
-  export * from 'uranio-trx/book/server';
-
-}
 declare module 'uranio-trx/book/server' {
   /**
    * Module for Server Atom Book Methods
@@ -154,7 +142,7 @@ declare module 'uranio-trx/book/server' {
    * @packageDocumentation
    */
   import { Book } from 'uranio-trx/typ/book_srv';
-  import { schema } from 'uranio-trx/sch/index';
+  import { schema } from 'uranio-trx/sch/server';
   export function get_route_def<A extends schema.AtomName, R extends schema.RouteName<A>>(atom_name: A, route_name: R): Book.Definition.Dock.Routes.Route<A, R>;
   export function get_routes_definition<A extends schema.AtomName>(atom_name: A): Book.Definition.Dock.Routes<A>;
   export function get_routes_definition_with_defaults<A extends schema.AtomName>(atom_name: A): Book.Definition.Dock.Routes<A>;
@@ -208,15 +196,15 @@ declare module 'uranio-trx/cln/main' {
    */
   import core from 'uranio-core/client';
   import api from 'uranio-api/client';
-  import * as base from 'uranio-trx/base/index';
-  import * as auth from 'uranio-trx/auth/index';
-  import * as media from 'uranio-trx/media/index';
+  import * as base from 'uranio-trx/base/client';
+  import * as auth from 'uranio-trx/auth/client';
+  import * as media from 'uranio-trx/media/client';
   import * as book from 'uranio-trx/book/client';
   import * as conf from 'uranio-trx/conf/client';
   import * as log from 'uranio-trx/log/client';
   import * as types from 'uranio-trx/cln/types';
-  import { schema } from 'uranio-trx/sch/index';
-  import { hooks } from 'uranio-trx/hooks/index';
+  import { schema } from 'uranio-trx/sch/client';
+  import { hooks } from 'uranio-trx/hooks/client';
   export * from 'uranio-trx/init/client';
   export * from 'uranio-trx/reg/client';
   export { core, api, base, auth, media, book, conf, log, types, schema, hooks, };
@@ -260,7 +248,17 @@ declare module 'uranio-trx/conf/client' {
   export function set(repo_config: Required<types.ClientConfiguration>, config: types.ClientConfiguration): void;
 
 }
-declare module 'uranio-trx/conf/conf' {
+declare module 'uranio-trx/conf/defaults' {
+  /**
+   * Module for default configuration object
+   *
+   * @packageDocumentation
+   */
+  import { Configuration } from 'uranio-trx/srv/types';
+  export const trx_config: Required<Configuration>;
+
+}
+declare module 'uranio-trx/conf/server' {
   /**
    * Conf module
    *
@@ -268,31 +266,12 @@ declare module 'uranio-trx/conf/conf' {
    */
   import { trx_config } from 'uranio-trx/conf/defaults';
   export { trx_config as defaults };
-  import * as types from 'uranio-trx/types';
+  import * as types from 'uranio-trx/srv/types';
   export function get<k extends keyof types.Configuration>(param_name: k): typeof trx_config[k];
   export function is_initialized(): boolean;
   export function set_initialize(is_initialized: boolean): void;
   export function set_from_env(repo_config: Required<types.Configuration>): void;
   export function set(repo_config: Required<types.Configuration>, config: types.Configuration): void;
-
-}
-declare module 'uranio-trx/conf/defaults' {
-  /**
-   * Module for default configuration object
-   *
-   * @packageDocumentation
-   */
-  import { Configuration } from 'uranio-trx/types';
-  export const trx_config: Required<Configuration>;
-
-}
-declare module 'uranio-trx/conf/index' {
-  /**
-   * Index module for conf
-   *
-   * @packageDocumentation
-   */
-  export * from 'uranio-trx/conf/conf';
 
 }
 declare module 'uranio-trx/dev' {
@@ -304,16 +283,17 @@ declare module 'uranio-trx/dev' {
   export {};
 
 }
-declare module 'uranio-trx/generate' {
+declare module 'uranio-trx/hooks/client' {
   /**
-   * TRX generate module
+   * Export module for Hook
    *
    * @packageDocumentation
    */
-  export * from 'uranio-trx/register';
+  import { Hooks } from 'uranio-trx/hooks/types';
+  export const hooks: Hooks;
 
 }
-declare module 'uranio-trx/hooks/index' {
+declare module 'uranio-trx/hooks/server' {
   /**
    * Export module for Hook
    *
@@ -337,18 +317,6 @@ declare module 'uranio-trx/hooks/types' {
   /** --uranio-generate-types-end */
 
 }
-declare module 'uranio-trx/index' {
-  /**
-   * Index module
-   *
-   * @packageDocumentation
-   */
-  export * from 'uranio-trx/register';
-  import * as urn_trx from 'uranio-trx/srv/main';
-  export * from 'uranio-trx/srv/main';
-  export default urn_trx;
-
-}
 declare module 'uranio-trx/init/client' {
   /**
    * Init module
@@ -359,22 +327,13 @@ declare module 'uranio-trx/init/client' {
   export function init(config?: types.ClientConfiguration): void;
 
 }
-declare module 'uranio-trx/init/index' {
-  /**
-   * Index module for init
-   *
-   * @packageDocumentation
-   */
-  export * from 'uranio-trx/init/init';
-
-}
-declare module 'uranio-trx/init/init' {
+declare module 'uranio-trx/init/server' {
   /**
    * Init module
    *
    * @packageDocumentation
    */
-  import * as types from 'uranio-trx/types';
+  import * as types from 'uranio-trx/srv/types';
   export function init(config?: types.Configuration): void;
 
 }
@@ -389,16 +348,7 @@ declare module 'uranio-trx/log/client' {
   export function init(log_config?: urn_log.LogConfig): void;
 
 }
-declare module 'uranio-trx/log/index' {
-  /**
-   * Index module for log
-   *
-   * @packageDocumentation
-   */
-  export * from 'uranio-trx/log/log';
-
-}
-declare module 'uranio-trx/log/log' {
+declare module 'uranio-trx/log/server' {
   /**
    * Log module
    *
@@ -417,8 +367,8 @@ declare module 'uranio-trx/media/class' {
    */
   /// <reference types="node" />
   import { urn_response } from 'urn-lib';
-  import { schema } from 'uranio-trx/sch/index';
-  import { Base } from 'uranio-trx/base/index';
+  import { schema } from 'uranio-trx/sch/client';
+  import { Base } from 'uranio-trx/base/client';
   class MediaBase extends Base<'media'> {
       token?: string | undefined;
       constructor(token?: string | undefined);
@@ -430,7 +380,16 @@ declare module 'uranio-trx/media/class' {
   export {};
 
 }
-declare module 'uranio-trx/media/index' {
+declare module 'uranio-trx/media/client' {
+  /**
+   * Media index module
+   *
+   * @packageDocumentation
+   */
+  export * from 'uranio-trx/media/class';
+
+}
+declare module 'uranio-trx/media/server' {
   /**
    * Media index module
    *
@@ -448,7 +407,7 @@ declare module 'uranio-trx/raw/axios' {
   import { AxiosInstance } from 'axios';
   import { urn_response } from 'urn-lib';
   import * as client_types from 'uranio-trx/cln/types';
-  import { schema } from 'uranio-trx/sch/index';
+  import { schema } from 'uranio-trx/sch/client';
   import { RAW } from 'uranio-trx/raw/types';
   class AxiosRaw<A extends schema.AtomName> implements RAW<A> {
       private _axios_instance;
@@ -467,6 +426,17 @@ declare module 'uranio-trx/raw/axios' {
   export {};
 
 }
+declare module 'uranio-trx/raw/client' {
+  /**
+   * Export module for TRXRaw
+   *
+   * @packageDocumentation
+   */
+  export * from 'uranio-trx/raw/types';
+  import { create } from 'uranio-trx/raw/axios';
+  export { create };
+
+}
 declare module 'uranio-trx/raw/defaults' {
   /**
    * Module for default raw config
@@ -478,7 +448,7 @@ declare module 'uranio-trx/raw/defaults' {
   };
 
 }
-declare module 'uranio-trx/raw/index' {
+declare module 'uranio-trx/raw/server' {
   /**
    * Export module for TRXRaw
    *
@@ -498,7 +468,7 @@ declare module 'uranio-trx/raw/types' {
   import { urn_response } from 'urn-lib';
   export type RawName = 'axios';
   import * as cln_types from 'uranio-trx/cln/types';
-  import { schema } from 'uranio-trx/sch/index';
+  import { schema } from 'uranio-trx/sch/client';
   export interface RAW<A extends schema.AtomName> {
       get<R extends schema.RouteName<A>, D extends schema.Depth>(url: string, query?: cln_types.Hook.Query<A, R, D>, headers?: cln_types.Hook.Headers): Promise<urn_response.General<any, any>>;
       post<R extends schema.RouteName<A>, D extends schema.Depth>(url: string, body: any, query?: cln_types.Hook.Query<A, R, D>, headers?: cln_types.Hook.Headers): Promise<urn_response.General<any, any>>;
@@ -513,40 +483,22 @@ declare module 'uranio-trx/reg/client' {
    * @packageDocumentation
    */
   import * as types from 'uranio-trx/cln/types';
-  import { schema } from 'uranio-trx/sch/index';
+  import { schema } from 'uranio-trx/sch/client';
   export function register<A extends schema.AtomName>(atom_definition: types.Book.Definition, atom_name?: A): string;
 
 }
-declare module 'uranio-trx/reg/index' {
-  /**
-   * Index module for register
-   *
-   * @packageDocumentation
-   */
-  export * from 'uranio-trx/reg/register';
-
-}
-declare module 'uranio-trx/reg/register' {
+declare module 'uranio-trx/reg/server' {
   /**
    * Register module
    *
    * @packageDocumentation
    */
-  import * as types from 'uranio-trx/types';
-  import { schema } from 'uranio-trx/sch/index';
+  import * as types from 'uranio-trx/srv/types';
+  import { schema } from 'uranio-trx/sch/server';
   export function register<A extends schema.AtomName>(atom_definition: types.Book.Definition<A>, atom_name?: A): string;
 
 }
-declare module 'uranio-trx/register' {
-  /**
-   * Register module for URANIO Api
-   *
-   * @packageDocumentation
-   */
-  export {};
-
-}
-declare module 'uranio-trx/sch/index' {
+declare module 'uranio-trx/sch/client' {
   /**
    * Index module for Schema
    *
@@ -565,6 +517,35 @@ declare module 'uranio-trx/sch/schema' {
   export { schema };
 
 }
+declare module 'uranio-trx/sch/server' {
+  /**
+   * Index module for Schema
+   *
+   * @packageDocumentation
+   */
+  export * from 'uranio-trx/sch/schema';
+
+}
+declare module 'uranio-trx/server' {
+  /**
+   * Index module
+   *
+   * @packageDocumentation
+   */
+  import * as urn_trx from 'uranio-trx/srv/main';
+  export * from 'uranio-trx/srv/main';
+  export default urn_trx;
+
+}
+declare module 'uranio-trx/srv/generate' {
+  /**
+   * TRX generate module
+   *
+   * @packageDocumentation
+   */
+  export * from 'uranio-trx/srv/register';
+
+}
 declare module 'uranio-trx/srv/main' {
   /**
    * Main module for server
@@ -573,19 +554,28 @@ declare module 'uranio-trx/srv/main' {
    */
   import core from 'uranio-core';
   import api from 'uranio-api';
-  import * as base from 'uranio-trx/base/index';
-  import * as auth from 'uranio-trx/auth/index';
-  import * as media from 'uranio-trx/media/index';
-  import * as book from 'uranio-trx/book/index';
-  import * as conf from 'uranio-trx/conf/index';
-  import * as util from 'uranio-trx/util/index';
-  import * as log from 'uranio-trx/log/index';
+  import * as base from 'uranio-trx/base/server';
+  import * as auth from 'uranio-trx/auth/server';
+  import * as media from 'uranio-trx/media/server';
+  import * as book from 'uranio-trx/book/server';
+  import * as conf from 'uranio-trx/conf/server';
+  import * as util from 'uranio-trx/util/server';
+  import * as log from 'uranio-trx/log/server';
   import * as types from 'uranio-trx/srv/types';
-  import { schema } from 'uranio-trx/sch/index';
-  import { hooks } from 'uranio-trx/hooks/index';
-  export * from 'uranio-trx/init/index';
-  export * from 'uranio-trx/reg/index';
+  import { schema } from 'uranio-trx/sch/server';
+  import { hooks } from 'uranio-trx/hooks/server';
+  export * from 'uranio-trx/init/server';
+  export * from 'uranio-trx/reg/server';
   export { core, api, base, auth, media, book, conf, util, log, types, schema, hooks, };
+
+}
+declare module 'uranio-trx/srv/register' {
+  /**
+   * Register module for URANIO Api
+   *
+   * @packageDocumentation
+   */
+  export {};
 
 }
 declare module 'uranio-trx/srv/types' {
@@ -594,11 +584,20 @@ declare module 'uranio-trx/srv/types' {
    *
    * @packageDocumentation
    */
-  export * from 'uranio-trx/typ/api_srv';
+  export * from 'uranio-trx/typ/api';
   export * from 'uranio-trx/typ/book_srv';
   export * from 'uranio-trx/typ/conf';
   export * from 'uranio-trx/raw/types';
   export * from 'uranio-trx/base/types';
+
+}
+declare module 'uranio-trx/typ/api' {
+  /**
+   * Re-export API types module
+   *
+   * @packageDocumentation
+   */
+  export { Api, RouteParam, PropertyType, SecurityType, PermissionType, AuthAction, Database, Passport, Storage } from 'uranio-api/types';
 
 }
 declare module 'uranio-trx/typ/api_cln' {
@@ -607,16 +606,7 @@ declare module 'uranio-trx/typ/api_cln' {
    *
    * @packageDocumentation
    */
-  export { Api, RouteParam, PropertyType, SecurityType, PermissionType, AuthAction, Passport, } from 'uranio-api/cln/types';
-
-}
-declare module 'uranio-trx/typ/api_srv' {
-  /**
-   * Re-export API types module
-   *
-   * @packageDocumentation
-   */
-  export { Api, RouteParam, PropertyType, SecurityType, PermissionType, AuthAction, Database, Passport, Storage } from 'uranio-api/types';
+  export { Api, RouteParam, PropertyType, SecurityType, PermissionType, AuthAction, Passport, } from 'uranio-api/client/types';
 
 }
 declare module 'uranio-trx/typ/book_cln' {
@@ -630,7 +620,7 @@ declare module 'uranio-trx/typ/book_cln' {
    * @packageDocumentation
    */
   import api_client from 'uranio-api/client';
-  import { schema } from 'uranio-trx/sch/index';
+  import { schema } from 'uranio-trx/sch/client';
   export type Book = {
       [k in schema.AtomName]?: Book.Definition;
   };
@@ -704,7 +694,7 @@ declare module 'uranio-trx/typ/book_srv' {
    */
   import api from 'uranio-api';
   import * as book_cln from 'uranio-trx/typ/book_cln';
-  import { schema } from 'uranio-trx/sch/index';
+  import { schema } from 'uranio-trx/sch/server';
   export type Book = {
       [k in schema.AtomName]?: Book.Definition<k>;
   };
@@ -809,15 +799,6 @@ declare module 'uranio-trx/typ/conf_cln' {
   export {};
 
 }
-declare module 'uranio-trx/types' {
-  /**
-   * Main types module
-   *
-   * @packageDocumentation
-   */
-  export * from 'uranio-trx/srv/types';
-
-}
 declare module 'uranio-trx/util/generate' {
   /**
    * Generate module
@@ -843,7 +824,7 @@ declare module 'uranio-trx/util/generate' {
   export function init(): void;
 
 }
-declare module 'uranio-trx/util/index' {
+declare module 'uranio-trx/util/server' {
   /**
    * Index module for utils
    *

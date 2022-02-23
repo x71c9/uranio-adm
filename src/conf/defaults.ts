@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import {Configuration} from '../types';
+import {Configuration} from '../srv/types';
 
 import trx from 'uranio-trx';
 

@@ -12,7 +12,7 @@
  * @packageDocumentation
  */
 import urn_trx from 'uranio-trx';
-import { schema } from '../sch/index';
+import { schema } from '../sch/server';
 import * as book_cln from './book_cln';
 export declare type Book = {
     [k in schema.AtomName]?: Book.Definition<k>;

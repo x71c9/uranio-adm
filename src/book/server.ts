@@ -8,7 +8,7 @@ import trx from 'uranio-trx';
 
 import {Book} from '../typ/book_srv';
 
-import {schema} from '../sch/index';
+import {schema} from '../sch/server';
 
 import * as book_client from './client';
 

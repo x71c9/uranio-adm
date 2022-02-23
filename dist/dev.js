@@ -23,11 +23,11 @@ urn_lib_1.urn_log.init({
     log_level: urn_lib_1.urn_log.LogLevel.FUNCTION_DEBUG
 });
 __exportStar(require("./hooks"), exports);
-const index_1 = __importDefault(require("./index"));
-index_1.default.init();
-const service = index_1.default.api.service.create();
+const server_1 = __importDefault(require("./server"));
+server_1.default.init();
+const service = server_1.default.api.service.create();
 service.listen(async () => {
-    urn_lib_1.urn_log.debug(`Listening on port ${index_1.default.conf.get(`service_port`)}...`);
+    urn_lib_1.urn_log.debug(`Listening on port ${server_1.default.conf.get(`service_port`)}...`);
     // const auth_resp = await uranio.trx.hooks.superusers.authenticate(
     //   'uranio@uranio.xyz',
     //   'kcXkaF3Ad7KC3G3t'

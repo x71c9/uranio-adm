@@ -8,7 +8,7 @@ import trx_client from 'uranio-trx/client';
 
 import {Book} from '../typ/book_cln';
 
-import {schema} from '../sch/index';
+import {schema} from '../sch/client';
 
 export function get_route_def<A extends schema.AtomName, R extends schema.RouteName<A>>(
 	atom_name: A,
