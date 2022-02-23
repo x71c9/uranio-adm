@@ -25,7 +25,8 @@
 		"paths": {
 			"uranio": ["./src/index.ts"],
 			"uranio/client": ["./src/client.ts"],
-			"uranio/types": ["./src/types.ts"]
+			"uranio/types": ["./src/types.ts"],
+			"uranio/cln/types": ["./src/cln/types.ts"]
 		},
 		"skipLibCheck": true,
 		"sourceMap": true,

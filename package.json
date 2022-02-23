@@ -6,7 +6,8 @@
 	"exports": {
 		".": "./dist/index.js",
 		"./client": "./dist/client.js",
-		"./types": "./dist/types.js"
+		"./types": "./dist/types.js",
+		"./cln/types": "./dist/types.js"
 	},
 	"typesVersions": {
 		"*": {
@@ -18,22 +19,27 @@
 			],
 			"types": [
 				"dist/types.d.ts"
+			],
+			"cln/types": [
+				"dist/cln/types.d.ts"
 			]
 		}
 	},
 	"repository": "git@github.com:nbl7/uranio-adm.git",
 	"author": "Andrea Reni <mail@nbl7.net>",
 	"scripts": {
-		"build": "npx tsc -b",
+		"build": "yarn tsc -b",
 		"generate:compile": "npx esbuild ./src/generate.ts --outfile=./generate/_generate_bundled.js --bundle --platform=node",
 		"generate:run": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./generate urn_repo=adm",
 		"generate:schema": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./.uranio/generate/types urn_repo=adm urn_command=schema",
 		"generate:hooks": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./.uranio/generate urn_repo=adm urn_command=hooks",
 		"generate:trx-types": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./.uranio/generate/types urn_repo=adm urn_command=trx-types",
-		"dev": "npx tsc-watch --onSuccess \"node -r source-map-support/register -r dotenv/config ./dist/dev.js\"",
+		"dev:server": "yarn tsc-watch --onSuccess \"node -r source-map-support/register -r dotenv/config ./dist/dev.js\"",
+		"dev:client": "yarn nuxt dev",
+		"dev": "yarn concurrently \"yarn dev:server\" \"yarn dev:client\"",
 		"dev:generate:compile": "yarn generate:compile --watch",
 		"dev:generate:run": "npx nodemon --watch ./generate/_generate_bundled.js -e ts ./generate/_generate_bundled.js urn_output_dir=./generate urn_repo=adm",
-		"dev:generate": "npx concurrently \"yarn dev:generat:compile\" \"yarn dev:generate:run\"",
+		"dev:generate": "yarn concurrently \"yarn dev:generat:compile\" \"yarn dev:generate:run\"",
 		"schema:reset": "yarn upgrade uranio-schema && npx npm-dts generate -L debug -r node_modules/uranio-schema -o ../../.uranio/generate/base/schema.d.ts",
 		"trx-types:reset": "npx npm-dts generate -L debug -r ./node_modules/uranio-trx/ -o ../../.uranio/generate/base/uranio-trx.d.ts",
 		"trx-types": "yarn trx-types:reset && yarn generate:trx-types"

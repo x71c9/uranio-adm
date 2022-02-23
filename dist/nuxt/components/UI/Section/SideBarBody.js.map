@@ -1,0 +1,1 @@
+{"version":3,"file":"SideBarBody.js","sourceRoot":"","sources":["../../../../../src/nuxt/components/UI/Section/SideBarBody.ts"],"names":[],"mappings":";;;;;AACA,8CAAsB;AAuBtB,kBAAe,aAAG,CAAC,MAAM,CAAiC;IACzD,IAAI;QACH,MAAM,UAAU,GAAG;YAClB,EAAE,EAAE,YAAY;YAChB,KAAK,EAAE,MAAM;YACb,IAAI,EAAE,8BAA8B;SACpC,CAAC;QACF,OAAO;YACN,UAAU;SACV,CAAC;IACH,CAAC;CACD,CAAC,CAAC"}

@@ -37,17 +37,17 @@ export function save_schema(text:string):void{
 	return trx.util.generate.save_schema(text);
 }
 
-export function hooks():string{
+export function hooks(repo:string):string{
 	urn_log.debug('Started generating uranio trx hooks...');
 	init();
-	const trx_hooks = trx.util.generate.hooks();
+	const trx_hooks = trx.util.generate.hooks(repo);
 	const text = _generate_hooks_text(trx_hooks);
 	urn_log.debug(`TRX Hooks generated.`);
 	return text;
 }
 
-export function hooks_and_save():void{
-	const text = hooks();
+export function hooks_and_save(repo:string):void{
+	const text = hooks(repo);
 	save_hooks(text);
 	urn_log.debug(`Hooks generated and saved.`);
 }

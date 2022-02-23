@@ -25,25 +25,30 @@ export default {
 			extensions: ['vue']
 		}
 	],
+	plugins: [
+		{
+			src: '~/plugins/uranio.ts'
+		}
+	],
 	buildDir: './.nuxt',
 	srcDir: './src/nuxt/',
 	target: 'static',
 	ssr: false,
-	// modules:[
-	//   '@nuxtjs/proxy'
-	// ],
+	modules:[
+		'@nuxtjs/proxy'
+	],
 	buildModules: [
 		'@nuxt/typescript-build',
 		'@nuxtjs/style-resources'
 	],
-	// proxy: {
-	//   '/uranio/api': {
-	//     target: "http://localhost:9797/uranio/api",
-	//     pathRewrite: {
-	//       "^/uranio/api": ""
-	//     }
-	//   }
-	// },
+	proxy: {
+		'/uranio/api': {
+			target: "http://localhost:9794/uranio/api",
+			pathRewrite: {
+				"^/uranio/api": ""
+			}
+		}
+	},
 	typescript: {
 		typeCheck: true
 	},
