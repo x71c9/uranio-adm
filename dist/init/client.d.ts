@@ -3,5 +3,5 @@
  *
  * @packageDocumentation
  */
-import * as types from '../cln/types';
+import * as types from '../client/types';
 export declare function init(config?: types.ClientConfiguration): void;

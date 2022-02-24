@@ -14,7 +14,7 @@ declare module 'uranio-trx/auth/client' {
    * @packageDocumentation
    */
   import { urn_response } from 'urn-lib';
-  import * as client_types from 'uranio-trx/cln/types';
+  import * as client_types from 'uranio-trx/client/types';
   import { schema } from 'uranio-trx/sch/client';
   class AuthBase<A extends schema.AuthName> {
       auth_name: A;
@@ -34,7 +34,7 @@ declare module 'uranio-trx/auth/server' {
    * @packageDocumentation
    */
   import { urn_response } from 'urn-lib';
-  import * as client_types from 'uranio-trx/cln/types';
+  import * as client_types from 'uranio-trx/client/types';
   import { schema } from 'uranio-trx/sch/server';
   class AuthBase<A extends schema.AuthName> {
       auth_name: A;
@@ -53,7 +53,7 @@ declare module 'uranio-trx/base/class' {
    *
    * @packageDocumentation
    */
-  import * as client_types from 'uranio-trx/cln/types';
+  import * as client_types from 'uranio-trx/client/types';
   import { schema } from 'uranio-trx/sch/client';
   import { Hook } from 'uranio-trx/base/types';
   export class Base<A extends schema.AtomName> {
@@ -93,7 +93,7 @@ declare module 'uranio-trx/base/types' {
    *
    * @packageDocumentation
    */
-  import * as client_types from 'uranio-trx/cln/types';
+  import * as client_types from 'uranio-trx/client/types';
   import { schema } from 'uranio-trx/sch/client';
   export namespace Hook {
       type Arguments<A extends schema.AtomName, R extends schema.RouteName<A>, D extends schema.Depth = 0> = {
@@ -141,7 +141,7 @@ declare module 'uranio-trx/book/server' {
    *
    * @packageDocumentation
    */
-  import { Book } from 'uranio-trx/typ/book_srv';
+  import { Book } from 'uranio-trx/typ/book';
   import { schema } from 'uranio-trx/sch/server';
   export function get_route_def<A extends schema.AtomName, R extends schema.RouteName<A>>(atom_name: A, route_name: R): Book.Definition.Dock.Routes.Route<A, R>;
   export function get_routes_definition<A extends schema.AtomName>(atom_name: A): Book.Definition.Dock.Routes<A>;
@@ -159,25 +159,13 @@ declare module 'uranio-trx/book/server' {
   export function has_property<A extends schema.AtomName>(atom_name: A, key: string): boolean;
 
 }
-declare module 'uranio-trx/client' {
-  /**
-   * Index module for URANIO Client
-   *
-   * @packageDocumentation
-   */
-  export * from 'uranio-trx/cln/register';
-  import * as urn_trx_client from 'uranio-trx/cln/main';
-  export * from 'uranio-trx/cln/main';
-  export default urn_trx_client;
-
-}
-declare module 'uranio-trx/cln/defaults' {
+declare module 'uranio-trx/client/defaults' {
   /**
    * Module for default client configuration object
    *
    * @packageDocumentation
    */
-  import { ClientConfiguration } from 'uranio-trx/cln/types';
+  import { ClientConfiguration } from 'uranio-trx/client/types';
   /**
    * IMPORTANT: if new variable are added here they must be added on
    * uranio-trx/conf/client.ts
@@ -188,7 +176,7 @@ declare module 'uranio-trx/cln/defaults' {
   export const trx_client_config: Required<ClientConfiguration>;
 
 }
-declare module 'uranio-trx/cln/main' {
+declare module 'uranio-trx/client/main' {
   /**
    * Main module for client
    *
@@ -202,7 +190,7 @@ declare module 'uranio-trx/cln/main' {
   import * as book from 'uranio-trx/book/client';
   import * as conf from 'uranio-trx/conf/client';
   import * as log from 'uranio-trx/log/client';
-  import * as types from 'uranio-trx/cln/types';
+  import * as types from 'uranio-trx/client/types';
   import { schema } from 'uranio-trx/sch/client';
   import { hooks } from 'uranio-trx/hooks/client';
   export * from 'uranio-trx/init/client';
@@ -210,7 +198,7 @@ declare module 'uranio-trx/cln/main' {
   export { core, api, base, auth, media, book, conf, log, types, schema, hooks, };
 
 }
-declare module 'uranio-trx/cln/register' {
+declare module 'uranio-trx/client/register' {
   /**
    * Register module for URANIO Api
    *
@@ -219,7 +207,7 @@ declare module 'uranio-trx/cln/register' {
   export {};
 
 }
-declare module 'uranio-trx/cln/types' {
+declare module 'uranio-trx/client/types' {
   /**
    * Exported type module for client
    *
@@ -232,15 +220,27 @@ declare module 'uranio-trx/cln/types' {
   export * from 'uranio-trx/base/types';
 
 }
+declare module 'uranio-trx/client' {
+  /**
+   * Index module for URANIO Client
+   *
+   * @packageDocumentation
+   */
+  export * from 'uranio-trx/client/register';
+  import * as urn_trx_client from 'uranio-trx/client/main';
+  export * from 'uranio-trx/client/main';
+  export default urn_trx_client;
+
+}
 declare module 'uranio-trx/conf/client' {
   /**
    * Conf module
    *
    * @packageDocumentation
    */
-  import { trx_client_config } from 'uranio-trx/cln/defaults';
+  import { trx_client_config } from 'uranio-trx/client/defaults';
   export { trx_client_config as defaults };
-  import * as types from 'uranio-trx/cln/types';
+  import * as types from 'uranio-trx/client/types';
   export function get<k extends keyof Required<types.ClientConfiguration>>(param_name: k): typeof trx_client_config[k];
   export function is_initialized(): boolean;
   export function set_initialize(is_initialized: boolean): void;
@@ -254,7 +254,7 @@ declare module 'uranio-trx/conf/defaults' {
    *
    * @packageDocumentation
    */
-  import { Configuration } from 'uranio-trx/srv/types';
+  import { Configuration } from 'uranio-trx/server/types';
   export const trx_config: Required<Configuration>;
 
 }
@@ -266,7 +266,7 @@ declare module 'uranio-trx/conf/server' {
    */
   import { trx_config } from 'uranio-trx/conf/defaults';
   export { trx_config as defaults };
-  import * as types from 'uranio-trx/srv/types';
+  import * as types from 'uranio-trx/server/types';
   export function get<k extends keyof types.Configuration>(param_name: k): typeof trx_config[k];
   export function is_initialized(): boolean;
   export function set_initialize(is_initialized: boolean): void;
@@ -323,7 +323,7 @@ declare module 'uranio-trx/init/client' {
    *
    * @packageDocumentation
    */
-  import * as types from 'uranio-trx/cln/types';
+  import * as types from 'uranio-trx/client/types';
   export function init(config?: types.ClientConfiguration): void;
 
 }
@@ -333,7 +333,7 @@ declare module 'uranio-trx/init/server' {
    *
    * @packageDocumentation
    */
-  import * as types from 'uranio-trx/srv/types';
+  import * as types from 'uranio-trx/server/types';
   export function init(config?: types.Configuration): void;
 
 }
@@ -406,7 +406,7 @@ declare module 'uranio-trx/raw/axios' {
    */
   import { AxiosInstance } from 'axios';
   import { urn_response } from 'urn-lib';
-  import * as client_types from 'uranio-trx/cln/types';
+  import * as client_types from 'uranio-trx/client/types';
   import { schema } from 'uranio-trx/sch/client';
   import { RAW } from 'uranio-trx/raw/types';
   class AxiosRaw<A extends schema.AtomName> implements RAW<A> {
@@ -467,7 +467,7 @@ declare module 'uranio-trx/raw/types' {
    */
   import { urn_response } from 'urn-lib';
   export type RawName = 'axios';
-  import * as cln_types from 'uranio-trx/cln/types';
+  import * as cln_types from 'uranio-trx/client/types';
   import { schema } from 'uranio-trx/sch/client';
   export interface RAW<A extends schema.AtomName> {
       get<R extends schema.RouteName<A>, D extends schema.Depth>(url: string, query?: cln_types.Hook.Query<A, R, D>, headers?: cln_types.Hook.Headers): Promise<urn_response.General<any, any>>;
@@ -482,7 +482,7 @@ declare module 'uranio-trx/reg/client' {
    *
    * @packageDocumentation
    */
-  import * as types from 'uranio-trx/cln/types';
+  import * as types from 'uranio-trx/client/types';
   import { schema } from 'uranio-trx/sch/client';
   export function register<A extends schema.AtomName>(atom_definition: types.Book.Definition, atom_name?: A): string;
 
@@ -493,7 +493,7 @@ declare module 'uranio-trx/reg/server' {
    *
    * @packageDocumentation
    */
-  import * as types from 'uranio-trx/srv/types';
+  import * as types from 'uranio-trx/server/types';
   import { schema } from 'uranio-trx/sch/server';
   export function register<A extends schema.AtomName>(atom_definition: types.Book.Definition<A>, atom_name?: A): string;
 
@@ -526,27 +526,16 @@ declare module 'uranio-trx/sch/server' {
   export * from 'uranio-trx/sch/schema';
 
 }
-declare module 'uranio-trx/server' {
-  /**
-   * Index module
-   *
-   * @packageDocumentation
-   */
-  import * as urn_trx from 'uranio-trx/srv/main';
-  export * from 'uranio-trx/srv/main';
-  export default urn_trx;
-
-}
-declare module 'uranio-trx/srv/generate' {
+declare module 'uranio-trx/server/generate' {
   /**
    * TRX generate module
    *
    * @packageDocumentation
    */
-  export * from 'uranio-trx/srv/register';
+  export * from 'uranio-trx/server/register';
 
 }
-declare module 'uranio-trx/srv/main' {
+declare module 'uranio-trx/server/main' {
   /**
    * Main module for server
    *
@@ -561,7 +550,7 @@ declare module 'uranio-trx/srv/main' {
   import * as conf from 'uranio-trx/conf/server';
   import * as util from 'uranio-trx/util/server';
   import * as log from 'uranio-trx/log/server';
-  import * as types from 'uranio-trx/srv/types';
+  import * as types from 'uranio-trx/server/types';
   import { schema } from 'uranio-trx/sch/server';
   import { hooks } from 'uranio-trx/hooks/server';
   export * from 'uranio-trx/init/server';
@@ -569,7 +558,7 @@ declare module 'uranio-trx/srv/main' {
   export { core, api, base, auth, media, book, conf, util, log, types, schema, hooks, };
 
 }
-declare module 'uranio-trx/srv/register' {
+declare module 'uranio-trx/server/register' {
   /**
    * Register module for URANIO Api
    *
@@ -578,17 +567,28 @@ declare module 'uranio-trx/srv/register' {
   export {};
 
 }
-declare module 'uranio-trx/srv/types' {
+declare module 'uranio-trx/server/types' {
   /**
    * Exported type module for server
    *
    * @packageDocumentation
    */
   export * from 'uranio-trx/typ/api';
-  export * from 'uranio-trx/typ/book_srv';
+  export * from 'uranio-trx/typ/book';
   export * from 'uranio-trx/typ/conf';
   export * from 'uranio-trx/raw/types';
   export * from 'uranio-trx/base/types';
+
+}
+declare module 'uranio-trx/server' {
+  /**
+   * Index module
+   *
+   * @packageDocumentation
+   */
+  import * as urn_trx from 'uranio-trx/server/main';
+  export * from 'uranio-trx/server/main';
+  export default urn_trx;
 
 }
 declare module 'uranio-trx/typ/api' {
@@ -609,79 +609,7 @@ declare module 'uranio-trx/typ/api_cln' {
   export { Api, RouteParam, PropertyType, SecurityType, PermissionType, AuthAction, Passport, } from 'uranio-api/client/types';
 
 }
-declare module 'uranio-trx/typ/book_cln' {
-  /**
-   * Client Book types module
-   *
-   * This module defines the type of the `atom_book` for the Client.
-   *
-   * `type Book` must be re-defined.
-   *
-   * @packageDocumentation
-   */
-  import api_client from 'uranio-api/client';
-  import { schema } from 'uranio-trx/sch/client';
-  export type Book = {
-      [k in schema.AtomName]?: Book.Definition;
-  };
-  export namespace Book {
-      type Definition = api_client.types.Book.Definition;
-      namespace Definition {
-          type Dock = api_client.types.Book.Definition.Dock;
-          namespace Dock {
-              type Routes = api_client.types.Book.Definition.Dock.Routes;
-              namespace Routes {
-                  type Route = api_client.types.Book.Definition.Dock.Routes.Route;
-                  type Params = api_client.types.Book.Definition.Dock.Routes.Params;
-              }
-          }
-          /**
-           * ** NOTE **
-           * For some reason it is not possible to use the following syntax.
-           * NuxtJS will fail in the browser.
-           * All namespace and types must be re-defined.
-           */
-          type Property = api_client.types.Book.Definition.Property;
-          type Properties = api_client.types.Book.Definition.Properties;
-          namespace Property {
-              type ID = api_client.types.Book.Definition.Property.ID;
-              type Text = api_client.types.Book.Definition.Property.Text;
-              type LongText = api_client.types.Book.Definition.Property.LongText;
-              type String = api_client.types.Book.Definition.Property.String;
-              type Number = api_client.types.Book.Definition.Property.Number;
-              type Enum = api_client.types.Book.Definition.Property.Enum;
-              type Set = api_client.types.Book.Definition.Property.Set;
-              type DayTime = api_client.types.Book.Definition.Property.DayTime;
-              type Email = api_client.types.Book.Definition.Property.Email;
-              type Integer = api_client.types.Book.Definition.Property.Integer;
-              type Float = api_client.types.Book.Definition.Property.Float;
-              type Binary = api_client.types.Book.Definition.Property.Binary;
-              type Encrypted = api_client.types.Book.Definition.Property.Encrypted;
-              type Day = api_client.types.Book.Definition.Property.Day;
-              type Time = api_client.types.Book.Definition.Property.Time;
-              type EnumString = api_client.types.Book.Definition.Property.EnumString;
-              type EnumNumber = api_client.types.Book.Definition.Property.EnumNumber;
-              type SetString = api_client.types.Book.Definition.Property.SetNumber;
-              type SetNumber = api_client.types.Book.Definition.Property.SetString;
-              type Atom = api_client.types.Book.Definition.Property.Atom;
-              type AtomArray = api_client.types.Book.Definition.Property.AtomArray;
-              namespace Format {
-                  type Float = api_client.types.Book.Definition.Property.Format.Float;
-              }
-              namespace Validation {
-                  type String = api_client.types.Book.Definition.Property.Validation.String;
-                  type Number = api_client.types.Book.Definition.Property.Validation.Number;
-                  type DayTime = api_client.types.Book.Definition.Property.Validation.DayTime;
-                  type SetString = api_client.types.Book.Definition.Property.Validation.SetString;
-                  type SetNumber = api_client.types.Book.Definition.Property.Validation.SetNumber;
-                  type Atom = api_client.types.Book.Definition.Property.Validation.Atom;
-              }
-          }
-      }
-  }
-
-}
-declare module 'uranio-trx/typ/book_srv' {
+declare module 'uranio-trx/typ/book' {
   /**
    * Server book type module
    *
@@ -752,6 +680,78 @@ declare module 'uranio-trx/typ/book_srv' {
               }
           }
           type Security = api.types.Book.Definition.Security;
+      }
+  }
+
+}
+declare module 'uranio-trx/typ/book_cln' {
+  /**
+   * Client Book types module
+   *
+   * This module defines the type of the `atom_book` for the Client.
+   *
+   * `type Book` must be re-defined.
+   *
+   * @packageDocumentation
+   */
+  import api_client from 'uranio-api/client';
+  import { schema } from 'uranio-trx/sch/client';
+  export type Book = {
+      [k in schema.AtomName]?: Book.Definition;
+  };
+  export namespace Book {
+      type Definition = api_client.types.Book.Definition;
+      namespace Definition {
+          type Dock = api_client.types.Book.Definition.Dock;
+          namespace Dock {
+              type Routes = api_client.types.Book.Definition.Dock.Routes;
+              namespace Routes {
+                  type Route = api_client.types.Book.Definition.Dock.Routes.Route;
+                  type Params = api_client.types.Book.Definition.Dock.Routes.Params;
+              }
+          }
+          /**
+           * ** NOTE **
+           * For some reason it is not possible to use the following syntax.
+           * NuxtJS will fail in the browser.
+           * All namespace and types must be re-defined.
+           */
+          type Property = api_client.types.Book.Definition.Property;
+          type Properties = api_client.types.Book.Definition.Properties;
+          namespace Property {
+              type ID = api_client.types.Book.Definition.Property.ID;
+              type Text = api_client.types.Book.Definition.Property.Text;
+              type LongText = api_client.types.Book.Definition.Property.LongText;
+              type String = api_client.types.Book.Definition.Property.String;
+              type Number = api_client.types.Book.Definition.Property.Number;
+              type Enum = api_client.types.Book.Definition.Property.Enum;
+              type Set = api_client.types.Book.Definition.Property.Set;
+              type DayTime = api_client.types.Book.Definition.Property.DayTime;
+              type Email = api_client.types.Book.Definition.Property.Email;
+              type Integer = api_client.types.Book.Definition.Property.Integer;
+              type Float = api_client.types.Book.Definition.Property.Float;
+              type Binary = api_client.types.Book.Definition.Property.Binary;
+              type Encrypted = api_client.types.Book.Definition.Property.Encrypted;
+              type Day = api_client.types.Book.Definition.Property.Day;
+              type Time = api_client.types.Book.Definition.Property.Time;
+              type EnumString = api_client.types.Book.Definition.Property.EnumString;
+              type EnumNumber = api_client.types.Book.Definition.Property.EnumNumber;
+              type SetString = api_client.types.Book.Definition.Property.SetNumber;
+              type SetNumber = api_client.types.Book.Definition.Property.SetString;
+              type Atom = api_client.types.Book.Definition.Property.Atom;
+              type AtomArray = api_client.types.Book.Definition.Property.AtomArray;
+              namespace Format {
+                  type Float = api_client.types.Book.Definition.Property.Format.Float;
+              }
+              namespace Validation {
+                  type String = api_client.types.Book.Definition.Property.Validation.String;
+                  type Number = api_client.types.Book.Definition.Property.Validation.Number;
+                  type DayTime = api_client.types.Book.Definition.Property.Validation.DayTime;
+                  type SetString = api_client.types.Book.Definition.Property.Validation.SetString;
+                  type SetNumber = api_client.types.Book.Definition.Property.Validation.SetNumber;
+                  type Atom = api_client.types.Book.Definition.Property.Validation.Atom;
+              }
+          }
       }
   }
 

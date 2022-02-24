@@ -3,4 +3,4 @@
  *
  * @packageDocumentation
  */
-export { Api, Hook, RouteParam, PropertyType, SecurityType, PermissionType, AuthAction, Passport, } from 'uranio-trx/cln/types';
+export { Api, Hook, RouteParam, PropertyType, SecurityType, PermissionType, AuthAction, Passport, } from 'uranio-trx/client/types';

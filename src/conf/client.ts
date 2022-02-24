@@ -10,11 +10,11 @@ const urn_exc = urn_exception.init('CONF_ADM_CLIENT_MODULE', `Admin client confi
 
 import trx from 'uranio-trx/client';
 
-import {adm_client_config} from '../cln/defaults';
+import {adm_client_config} from '../client/defaults';
 
 export {adm_client_config as defaults};
 
-import * as types from '../cln/types';
+import * as types from '../client/types';
 
 let _is_client_adm_initialized = false;
 

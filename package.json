@@ -5,9 +5,9 @@
 	"main": "dist/index.js",
 	"exports": {
 		".": "./dist/server.js",
-		"./types": "./dist/srv/types.js",
+		"./types": "./dist/server/types.js",
 		"./client": "./dist/client.js",
-		"./client/types": "./dist/cln/types.js"
+		"./client/types": "./dist/client/types.js"
 	},
 	"typesVersions": {
 		"*": {
@@ -15,13 +15,13 @@
 				"dist/server.d.ts"
 			],
 			"types": [
-				"dist/srv/types.d.ts"
+				"dist/server/types.d.ts"
 			],
 			"client": [
 				"dist/client.d.ts"
 			],
 			"client/types": [
-				"dist/cln/types.d.ts"
+				"dist/client/types.d.ts"
 			]
 		}
 	},
@@ -29,7 +29,7 @@
 	"author": "Andrea Reni <mail@nbl7.net>",
 	"scripts": {
 		"build": "yarn tsc -b",
-		"generate:compile": "npx esbuild ./src/generate.ts --outfile=./generate/_generate_bundled.js --bundle --platform=node",
+		"generate:compile": "npx esbuild ./src/server/generate.ts --outfile=./generate/_generate_bundled.js --bundle --platform=node",
 		"generate:run": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./generate urn_repo=adm",
 		"generate:schema": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./.uranio/generate/types urn_repo=adm urn_command=schema",
 		"generate:hooks": "yarn generate:compile && node ./generate/_generate_bundled.js urn_output_dir=./.uranio/generate urn_repo=adm urn_command=hooks",

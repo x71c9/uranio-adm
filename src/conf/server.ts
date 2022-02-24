@@ -14,7 +14,7 @@ import {adm_config} from './defaults';
 
 export {adm_config as defaults};
 
-import * as types from '../srv/types';
+import * as types from '../server/types';
 
 let _is_adm_initialized = false;
 

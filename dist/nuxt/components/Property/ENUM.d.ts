@@ -60,5 +60,5 @@ declare const _default: import("vue/types/vue").ExtendedVue<{
     prop_name: "_id" | "_date" | "_r" | "_w" | "_deleted_from";
     prop_type: string;
     focus: boolean;
-} & import("vue").default, Data<any>, Methods, Computed, Props>;
+} & import("vue").default, Data<EnumNS>, Methods, Computed, Props>;
 export default _default;
