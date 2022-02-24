@@ -30,7 +30,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.init = void 0;
 const urn_lib_1 = require("urn-lib");
 const client_1 = __importDefault(require("uranio-trx/client"));
-const defaults_1 = require("../cln/defaults");
+const defaults_1 = require("../client/defaults");
 const client_2 = require("../reg/client");
 const atoms_1 = require("../atoms");
 const conf = __importStar(require("../conf/client"));

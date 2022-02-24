@@ -4,8 +4,8 @@
  * @packageDocumentation
  */
 
-import * as urn_adm from './srv/main';
+import * as urn_adm from './server/main';
 
-export * from './srv/main';
+export * from './server/main';
 
 export default urn_adm;

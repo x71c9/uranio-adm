@@ -3,7 +3,7 @@
  *
  * @packageDocumentation
  */
-import * as types from '../srv/types';
+import * as types from '../server/types';
 export declare function init(config?: types.Configuration): void;
 /**
  * NOTE:

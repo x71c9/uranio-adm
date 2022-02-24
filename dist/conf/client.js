@@ -12,7 +12,7 @@ exports.set = exports.set_initialize = exports.is_initialized = exports.get = ex
 const urn_lib_1 = require("urn-lib");
 const urn_exc = urn_lib_1.urn_exception.init('CONF_ADM_CLIENT_MODULE', `Admin client configuration module`);
 const client_1 = __importDefault(require("uranio-trx/client"));
-const defaults_1 = require("../cln/defaults");
+const defaults_1 = require("../client/defaults");
 Object.defineProperty(exports, "defaults", { enumerable: true, get: function () { return defaults_1.adm_client_config; } });
 let _is_client_adm_initialized = false;
 function get(param_name) {

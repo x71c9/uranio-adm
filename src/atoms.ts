@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import * as types from './cln/types';
+import * as types from './client/types';
 
 export const atom_book = {
 	setting:{

@@ -13,4 +13,4 @@ export {
 	PermissionType,
 	AuthAction,
 	Passport,
-} from 'uranio-trx/cln/types';
+} from 'uranio-trx/client/types';

@@ -14,7 +14,7 @@ import {register} from '../reg/server';
 
 import {atom_book} from '../atoms';
 
-import * as types from '../srv/types';
+import * as types from '../server/types';
 
 import * as conf from '../conf/server';
 

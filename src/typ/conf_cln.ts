@@ -6,7 +6,7 @@
 
 import {
 	ClientConfiguration as TrxClientConfiguration,
-} from 'uranio-trx/cln/types';
+} from 'uranio-trx/client/types';
 
 type RequiredClientConfigParams = {
 }

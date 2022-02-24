@@ -3,7 +3,7 @@
  *
  * @packageDocumentation
  */
-export * from './cln/register';
-import * as urn_adm_client from './cln/main';
-export * from './cln/main';
+export * from './client/register';
+import * as urn_adm_client from './client/main';
+export * from './client/main';
 export default urn_adm_client;

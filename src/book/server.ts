@@ -6,7 +6,7 @@
 
 import trx from 'uranio-trx';
 
-import {Book} from '../typ/book_srv';
+import {Book} from '../typ/book';
 
 import {schema} from '../sch/server';
 

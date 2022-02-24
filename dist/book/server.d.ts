@@ -3,7 +3,7 @@
  *
  * @packageDocumentation
  */
-import { Book } from '../typ/book_srv';
+import { Book } from '../typ/book';
 import { schema } from '../sch/server';
 export declare function get_route_def<A extends schema.AtomName, R extends schema.RouteName<A>>(atom_name: A, route_name: R): Book.Definition.Dock.Routes.Route<A, R>;
 export declare function get_routes_definition<A extends schema.AtomName>(atom_name: A): Book.Definition.Dock.Routes<A>;
