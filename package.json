@@ -66,11 +66,12 @@
 		"@uppy/xhr-upload": "^2.0.7",
 		"dotenv": "^16.0.0",
 		"nuxt": "^2.15.8",
-		"urn-lib": "git+ssh://git@github.com/nbl7/uranio-lib.git#new",
-		"uranio-schema": "ssh://git@github.com/nbl7/uranio-schema.git",
-		"uranio-core": "git+ssh://git@github.com/nbl7/uranio-core.git#new",
+		"saslprep": "^1.0.3",
 		"uranio-api": "git+ssh://git@github.com/nbl7/uranio-api.git#new",
+		"uranio-core": "git+ssh://git@github.com/nbl7/uranio-core.git#new",
+		"uranio-schema": "ssh://git@github.com/nbl7/uranio-schema.git",
 		"uranio-trx": "git+ssh://git@github.com/nbl7/uranio-trx.git#new",
+		"urn-lib": "git+ssh://git@github.com/nbl7/uranio-lib.git#new",
 		"vuedraggable": "^2.24.3"
 	}
 }

@@ -8,13 +8,14 @@ export default {
 		'uranio-api/client': resolve(__dirname, './node_modules/uranio-api/dist/client'),
 		'uranio-api/client/types': resolve(__dirname, './node_modules/uranio-api/dist/client/types'),
 		'uranio-core/client': resolve(__dirname, './node_modules/uranio-core/dist/client'),
-		'uranio-core/client/types': resolve(__dirname, './node_modules/uranio-core/dist/client/types')
+		'uranio-core/client/types': resolve(__dirname, './node_modules/uranio-core/dist/client/types'),
 	},
 	env: {
 		URN_CLIENT_FETCH: process.env.URN_CLIENT_FETCH || 'axios',
 		URN_CLIENT_PROTOCOL: process.env.URN_CLIENT_PROTOCOL || 'http',
 		URN_CLIENT_DOMAIN: process.env.URN_CLIENT_DOMAIN || 'localhost',
-		URN_CLIENT_PORT: Number(process.env.URN_CLIENT_PORT) || 4444
+		URN_CLIENT_PORT: Number(process.env.URN_CLIENT_PORT) || 4444,
+		URN_CLIENT_PREFIX_LOG: process.env.URN_PREFIX_LOG || '/log',
 	},
 	components: [
 		{
@@ -31,6 +32,16 @@ export default {
 	srcDir: './src/nuxt/',
 	target: 'static',
 	ssr: false,
+	generate: {
+		dir: './dist/admin',
+		fallback: '404.html',
+		subFolders: false,
+		exclude: ['/urn-admin'],
+	},
+	server: {
+		host: "0.0.0.0",
+		port: 5454
+	},
 	modules:[
 		'@nuxtjs/proxy'
 	],
@@ -48,16 +59,6 @@ export default {
 	},
 	typescript: {
 		typeCheck: true
-	},
-	generate: {
-		dir: './dist/nuxt',
-		fallback: '404.html',
-		subFolders: false,
-		exclude: ['/urn-admin'],
-	},
-	server: {
-		host: "0.0.0.0",
-		port: 5454
 	},
 	router: {
 		trailingSlash: false,
