@@ -59,7 +59,7 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
             if (!urn_res.success) {
                 return this.fail();
             }
-            const deleted_ids = urn_res.payload.map(a => a._deleted_from);
+            const deleted_ids = urn_res.payload.map(a => a._from);
             let count = 0;
             for (const id of deleted_ids) {
                 if (!id) {

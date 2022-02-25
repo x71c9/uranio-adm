@@ -8,14 +8,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.init = exports.save_trx_types = exports.trx_types_and_save = exports.trx_types = exports.save_hooks = exports.hooks_and_save = exports.hooks = exports.save_schema = exports.schema_and_save = exports.schema = exports.process_params = void 0;
+exports.init = exports.save_hook_types = exports.hook_types_and_save = exports.hook_types = exports.save_hooks = exports.hooks_and_save = exports.hooks = exports.save_schema = exports.schema_and_save = exports.schema = exports.process_params = void 0;
 const fs_1 = __importDefault(require("fs"));
 const uranio_trx_1 = __importDefault(require("uranio-trx"));
 const urn_lib_1 = require("urn-lib");
 exports.process_params = {
     urn_command: `schema`,
-    urn_base_schema: `./.uranio/generate/base/schema.d.ts`,
-    urn_base_types: `./.uranio/generate/base/uranio-trx.d.ts`,
+    urn_hook_types_path: `./node_modules/uranio-trx/dist/hooks/types.d.ts`,
+    // urn_base_schema: `./.uranio/generate/base/schema.d.ts`,
+    // urn_base_types: `./.uranio/generate/base/uranio-trx.d.ts`,
     urn_output_dir: `.`,
     urn_repo: 'adm'
 };
@@ -59,57 +60,65 @@ function save_hooks(text) {
     urn_lib_1.urn_log.debug(`Hooks saved in [${output}.`);
 }
 exports.save_hooks = save_hooks;
-function trx_types() {
-    urn_lib_1.urn_log.debug('Started generating uranio trx types...');
+function hook_types() {
+    urn_lib_1.urn_log.debug('Started generating uranio hook types...');
     init();
-    const text = uranio_trx_1.default.util.generate.types();
-    urn_lib_1.urn_log.debug(`ADM TRX Types generated.`);
+    const text = uranio_trx_1.default.util.generate.hook_types();
+    urn_lib_1.urn_log.debug(`ADM Hook types generated.`);
     return text;
 }
-exports.trx_types = trx_types;
-function trx_types_and_save() {
-    const text = trx_types();
-    save_trx_types(text);
+exports.hook_types = hook_types;
+function hook_types_and_save() {
+    const text = hook_types();
+    save_hook_types(text);
     urn_lib_1.urn_log.debug(`Types generated and saved.`);
 }
-exports.trx_types_and_save = trx_types_and_save;
-function save_trx_types(text) {
-    const output = `${exports.process_params.urn_output_dir}/uranio-trx.d.ts`;
-    fs_1.default.writeFileSync(output, text);
-    urn_lib_1.urn_log.debug(`Types saved in [${output}].`);
+exports.hook_types_and_save = hook_types_and_save;
+function save_hook_types(text) {
+    return uranio_trx_1.default.util.generate.save_hook_types(text);
+    // const output = `${process_params.urn_output_dir}/uranio-trx.d.ts`;
+    // fs.writeFileSync(
+    //   output,
+    //   text
+    // );
+    // urn_log.debug(`Types saved in [${output}].`);
 }
-exports.save_trx_types = save_trx_types;
+exports.save_hook_types = save_hook_types;
 function init() {
     uranio_trx_1.default.util.generate.init();
-    exports.process_params.urn_base_schema = uranio_trx_1.default.util.generate.process_params.urn_base_schema;
+    // process_params.urn_base_schema = trx.util.generate.process_params.urn_base_schema;
     exports.process_params.urn_command = uranio_trx_1.default.util.generate.process_params.urn_command;
     exports.process_params.urn_output_dir = uranio_trx_1.default.util.generate.process_params.urn_output_dir;
-    _init_trx_generate();
+    exports.process_params.urn_hook_types_path = uranio_trx_1.default.util.generate.process_params.urn_hook_types_path;
+    _init_adm_generate();
 }
 exports.init = init;
-function _init_trx_generate() {
-    for (const argv of process.argv) {
-        const splitted = argv.split('=');
-        if (splitted[0] === 'urn_base_types'
-            && typeof splitted[1] === 'string'
-            && splitted[1] !== '') {
-            exports.process_params.urn_base_types = splitted[1];
-        }
-        else if (splitted[0] === 'urn_repo'
-            && typeof splitted[1] === 'string'
-            && splitted[1] !== '') {
-            exports.process_params.urn_repo = splitted[1];
-        }
-    }
+function _init_adm_generate() {
+    // for(const argv of process.argv){
+    //   const splitted = argv.split('=');
+    //   if(
+    //     splitted[0] === 'urn_base_types'
+    //     && typeof splitted[1] === 'string'
+    //     && splitted[1] !== ''
+    //   ){
+    //     process_params.urn_base_types = splitted[1];
+    //   }else if(
+    //     splitted[0] === 'urn_repo'
+    //     && typeof splitted[1] === 'string'
+    //     && splitted[1] !== ''
+    //   ){
+    //     process_params.urn_repo = splitted[1];
+    //   }
+    // }
 }
 function _generate_uranio_schema_text(trx_schema) {
     const txt = _generate_adm_schema_text();
-    const split_text = '\texport {};/** --uranio-generate-end */index';
+    const split_text = 'export {};/** --uranio-generate-end */index';
     const data_splitted = trx_schema.split(split_text);
     let new_data = '';
     new_data += data_splitted[0];
     new_data += txt;
-    +'\n\n\t';
+    +'\n\n';
     new_data += split_text;
     new_data += data_splitted[1];
     return new_data;

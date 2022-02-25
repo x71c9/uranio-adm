@@ -26,7 +26,7 @@
 			"uranio": ["./src/index.ts"],
 			"uranio/client": ["./src/client.ts"],
 			"uranio/types": ["./src/types.ts"],
-			"uranio/cln/types": ["./src/cln/types.ts"]
+			"uranio/client/types": ["./src/client/types.ts"]
 		},
 		"skipLibCheck": true,
 		"sourceMap": true,
@@ -36,13 +36,11 @@
 		"strictPropertyInitialization": true,
 		"target": "ES2018",
 		"typeRoots": [
-			"node_modules/@types",
-			".uranio/generate/types"
+			"node_modules/@types"
 		]
 	},
 	"include": [
-		"src/**/*",
-		".uranio/generate/types/**/*"
+		"src/**/*"
 	],
 	"exclude": [
 		"node_modules"
