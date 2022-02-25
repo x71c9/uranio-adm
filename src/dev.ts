@@ -22,6 +22,6 @@ service.listen(async () => {
 		'kcXkaF3Ad7KC3G3t'
 	);
 	if(auth_resp.success){
-		uranio.trx.hooks.errors.count({}, auth_resp.payload.token);
+		// uranio.trx.hooks.errors.count({}, auth_resp.payload.token);
 	}
 });

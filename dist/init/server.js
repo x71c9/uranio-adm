@@ -36,8 +36,6 @@ const atoms_1 = require("../atoms");
 const conf = __importStar(require("../conf/server"));
 const log = __importStar(require("../log/server"));
 function init(config) {
-    // Raw create use `service_url` from client_config.
-    // client_init.init();
     log.init(urn_lib_1.urn_log.defaults);
     uranio_trx_1.default.init(config);
     _register_required_atoms();
@@ -47,20 +45,6 @@ function init(config) {
     else {
         uranio_trx_1.default.conf.set(defaults_1.adm_config, config);
     }
-    // _validate_adm_variables();
-    // _validate_adm_book();
-    // adm_config.service_url = '';
-    // adm_config.service_url += `${adm_config.service_protocol}://`;
-    // adm_config.service_url += `${adm_config.service_domain}:`;
-    // adm_config.service_url += `${adm_config.service_port}/uranio/api`;
-    /**
-     * trx_config must be updated too.
-     */
-    // trx_config.service_url = adm_config.service_url;
-    // adm_client_config.service_url = adm_config.service_url;
-    // trx_client_config.service_url = trx_config.service_url;
-    // console.log('ADM: ', adm_config);
-    // console.log('TRX: ', trx_config);
     conf.set_initialize(true);
 }
 exports.init = init;
@@ -69,12 +53,4 @@ function _register_required_atoms() {
         (0, server_1.register)(atom_def, atom_name);
     }
 }
-/**
- * NOTE:
- * Maybe this should be before compilation and not at runtime?
- */
-// function _validate_adm_book(){
-// }
-// function _validate_adm_variables(){
-// }
 //# sourceMappingURL=server.js.map
