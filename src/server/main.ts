@@ -21,11 +21,11 @@ import * as log from '../log/server';
 
 import * as util from '../util/server';
 
+import * as register from '../reg/server';
+
 import * as types from './types';
 
 export * from '../init/server';
-
-export * from '../reg/server';
 
 export {
 	core,
@@ -36,5 +36,6 @@ export {
 	book,
 	conf,
 	util,
+	register,
 	types,
 };
