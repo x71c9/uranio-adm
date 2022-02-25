@@ -3,12 +3,12 @@ import { resolve } from 'path';
 export default {
 	alias: {
 		'uranio/client': resolve(__dirname, './src/client'),
-		'uranio-core/client': resolve(__dirname, './node_modules/uranio-core/dist/client'),
-		'uranio-core/client/types': resolve(__dirname, './node_modules/uranio-core/dist/client/types'),
-		'uranio-api/client': resolve(__dirname, './node_modules/uranio-api/dist/client'),
-		'uranio-api/client/types': resolve(__dirname, './node_modules/uranio-api/dist/client/types'),
 		'uranio-trx/client': resolve(__dirname, './node_modules/uranio-trx/dist/client'),
 		'uranio-trx/client/types': resolve(__dirname, './node_modules/uranio-trx/dist/client/types'),
+		'uranio-api/client': resolve(__dirname, './node_modules/uranio-api/dist/client'),
+		'uranio-api/client/types': resolve(__dirname, './node_modules/uranio-api/dist/client/types'),
+		'uranio-core/client': resolve(__dirname, './node_modules/uranio-core/dist/client'),
+		'uranio-core/client/types': resolve(__dirname, './node_modules/uranio-core/dist/client/types')
 	},
 	env: {
 		URN_CLIENT_FETCH: process.env.URN_CLIENT_FETCH || 'axios',
