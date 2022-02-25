@@ -8,7 +8,7 @@ import {urn_util, urn_exception} from 'urn-lib';
 
 const urn_exc = urn_exception.init('CONF_ADM_CLIENT_MODULE', `Admin client configuration module`);
 
-import trx from 'uranio-trx/client';
+import trx_client from 'uranio-trx/client';
 
 import {adm_client_config} from '../client/defaults';
 
@@ -26,7 +26,7 @@ export function get<k extends keyof types.ClientConfiguration>(param_name:k)
 }
 
 export function is_initialized():boolean{
-	return _is_client_adm_initialized;
+	return trx_client.conf.is_initialized() && _is_client_adm_initialized;
 }
 
 export function set_initialize(is_initialized:boolean):void{
@@ -35,7 +35,7 @@ export function set_initialize(is_initialized:boolean):void{
 
 export function set(repo_config:Required<types.ClientConfiguration>, config:types.ClientConfiguration)
 		:void{
-	return trx.conf.set(repo_config, config);
+	return trx_client.conf.set(repo_config, config);
 }
 
 function _check_if_param_exists(param_name:string){

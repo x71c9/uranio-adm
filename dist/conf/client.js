@@ -22,7 +22,7 @@ function get(param_name) {
 }
 exports.get = get;
 function is_initialized() {
-    return _is_client_adm_initialized;
+    return client_1.default.conf.is_initialized() && _is_client_adm_initialized;
 }
 exports.is_initialized = is_initialized;
 function set_initialize(is_initialized) {
