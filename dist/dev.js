@@ -28,9 +28,12 @@ server_1.default.init();
 const service = server_1.default.api.service.create();
 service.listen(async () => {
     urn_lib_1.urn_log.debug(`Listening on port ${server_1.default.conf.get(`service_port`)}...`);
-    const auth_resp = await server_1.default.trx.hooks.superusers.authenticate('uranio@uranio.xyz', 'kcXkaF3Ad7KC3G3t');
-    if (auth_resp.success) {
-        // uranio.trx.hooks.errors.count({}, auth_resp.payload.token);
-    }
+    // const auth_resp = await uranio.trx.hooks.superusers.authenticate(
+    //   'uranio@uranio.xyz',
+    //   'kcXkaF3Ad7KC3G3t'
+    // );
+    // if(auth_resp.success){
+    //   uranio.trx.hooks.errors.count({}, auth_resp.payload.token);
+    // }
 });
 //# sourceMappingURL=dev.js.map

@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const vue_typed_mixins_1 = __importDefault(require("vue-typed-mixins"));
 const client_1 = __importDefault(require("uranio/client"));
-// import { urn_util, urn_response, urn_log, urn_exception, urn_return } from "urn-lib";
 const urn_lib_1 = require("urn-lib");
 const shared_1 = __importDefault(require("./shared"));
 const notification_1 = require("../../store/notification");

@@ -4,10 +4,7 @@ import { Route } from 'vue-router';
 
 import uranio from 'uranio/client';
 
-// import { urn_util, urn_response, urn_log, urn_exception, urn_return } from "urn-lib";
 import { urn_util, urn_response, urn_log, urn_return } from "urn-lib";
-
-// const urn_exc = urn_exception.init(`URANIO_ADMIN_SLUG`, `Uranio admin _slug`);
 
 import { Context } from '@nuxt/types';
 
