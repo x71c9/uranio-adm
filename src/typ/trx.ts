@@ -8,6 +8,7 @@ export {
 	Api,
 	Hook,
 	RouteParam,
+	RouteMethod,
 	PropertyType,
 	SecurityType,
 	PermissionType,

@@ -23,9 +23,9 @@
 		"outDir": "./dist",
 		"rootDir": "./src",
 		"paths": {
-			"uranio": ["./src/index.ts"],
+			"uranio": ["./src/server.ts"],
+			"uranio/types": ["./src/server/types.ts"],
 			"uranio/client": ["./src/client.ts"],
-			"uranio/types": ["./src/types.ts"],
 			"uranio/client/types": ["./src/client/types.ts"]
 		},
 		"skipLibCheck": true,
