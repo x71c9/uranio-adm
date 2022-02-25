@@ -20,7 +20,7 @@ import * as conf from '../conf/client';
 
 import * as log from '../log/client';
 
-import * as book from '../book/client';
+// import * as book from '../book/client';
 
 export function init(config?:types.ClientConfiguration)
 		:void{
@@ -30,8 +30,6 @@ export function init(config?:types.ClientConfiguration)
 	trx.init(config);
 	
 	_register_required_atoms();
-	
-	console.log(book.get_all_definitions());
 	
 	if(typeof config === 'undefined'){
 		trx.conf.set_from_env(adm_client_config);

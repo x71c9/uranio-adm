@@ -35,12 +35,11 @@ const client_2 = require("../reg/client");
 const atoms_1 = require("../atoms");
 const conf = __importStar(require("../conf/client"));
 const log = __importStar(require("../log/client"));
-const book = __importStar(require("../book/client"));
+// import * as book from '../book/client';
 function init(config) {
     log.init(urn_lib_1.urn_log.defaults);
     client_1.default.init(config);
     _register_required_atoms();
-    console.log(book.get_all_definitions());
     if (typeof config === 'undefined') {
         client_1.default.conf.set_from_env(defaults_1.adm_client_config);
     }

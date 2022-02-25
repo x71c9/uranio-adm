@@ -12,8 +12,9 @@ import {urn_log} from 'urn-lib';
 
 export const process_params = {
 	urn_command: `schema`,
-	urn_base_schema: `./.uranio/generate/base/schema.d.ts`,
-	urn_base_types: `./.uranio/generate/base/uranio-trx.d.ts`,
+	urn_hook_types_path: `./node_modules/uranio-trx/dist/hooks/types.d.ts`,
+	// urn_base_schema: `./.uranio/generate/base/schema.d.ts`,
+	// urn_base_types: `./.uranio/generate/base/uranio-trx.d.ts`,
 	urn_output_dir: `.`,
 	urn_repo: 'adm'
 };
@@ -61,63 +62,65 @@ export function save_hooks(text:string):void{
 	urn_log.debug(`Hooks saved in [${output}.`);
 }
 
-export function trx_types():string{
-	urn_log.debug('Started generating uranio trx types...');
+export function hook_types():string{
+	urn_log.debug('Started generating uranio hook types...');
 	init();
-	const text = trx.util.generate.types();
-	urn_log.debug(`ADM TRX Types generated.`);
+	const text = trx.util.generate.hook_types();
+	urn_log.debug(`ADM Hook types generated.`);
 	return text;
 }
 
-export function trx_types_and_save():void{
-	const text = trx_types();
-	save_trx_types(text);
+export function hook_types_and_save():void{
+	const text = hook_types();
+	save_hook_types(text);
 	urn_log.debug(`Types generated and saved.`);
 }
 
-export function save_trx_types(text:string):void{
-	const output = `${process_params.urn_output_dir}/uranio-trx.d.ts`;
-	fs.writeFileSync(
-		output,
-		text
-	);
-	urn_log.debug(`Types saved in [${output}].`);
+export function save_hook_types(text:string):void{
+	return trx.util.generate.save_hook_types(text);
+	// const output = `${process_params.urn_output_dir}/uranio-trx.d.ts`;
+	// fs.writeFileSync(
+	//   output,
+	//   text
+	// );
+	// urn_log.debug(`Types saved in [${output}].`);
 }
 
 export function init():void{
 	trx.util.generate.init();
-	process_params.urn_base_schema = trx.util.generate.process_params.urn_base_schema;
+	// process_params.urn_base_schema = trx.util.generate.process_params.urn_base_schema;
 	process_params.urn_command = trx.util.generate.process_params.urn_command;
 	process_params.urn_output_dir = trx.util.generate.process_params.urn_output_dir;
-	_init_trx_generate();
+	process_params.urn_hook_types_path = trx.util.generate.process_params.urn_hook_types_path;
+	_init_adm_generate();
 }
 
-function _init_trx_generate(){
-	for(const argv of process.argv){
-		const splitted = argv.split('=');
-		if(
-			splitted[0] === 'urn_base_types'
-			&& typeof splitted[1] === 'string'
-			&& splitted[1] !== ''
-		){
-			process_params.urn_base_types = splitted[1];
-		}else if(
-			splitted[0] === 'urn_repo'
-			&& typeof splitted[1] === 'string'
-			&& splitted[1] !== ''
-		){
-			process_params.urn_repo = splitted[1];
-		}
-	}
+function _init_adm_generate(){
+	// for(const argv of process.argv){
+	//   const splitted = argv.split('=');
+	//   if(
+	//     splitted[0] === 'urn_base_types'
+	//     && typeof splitted[1] === 'string'
+	//     && splitted[1] !== ''
+	//   ){
+	//     process_params.urn_base_types = splitted[1];
+	//   }else if(
+	//     splitted[0] === 'urn_repo'
+	//     && typeof splitted[1] === 'string'
+	//     && splitted[1] !== ''
+	//   ){
+	//     process_params.urn_repo = splitted[1];
+	//   }
+	// }
 }
 
 function _generate_uranio_schema_text(trx_schema:string){
 	const txt = _generate_adm_schema_text();
-	const split_text = '\texport {};/** --uranio-generate-end */index';
+	const split_text = 'export {};/** --uranio-generate-end */index';
 	const data_splitted = trx_schema.split(split_text);
 	let new_data = '';
 	new_data += data_splitted[0];
-	new_data += txt; + '\n\n\t';
+	new_data += txt; + '\n\n';
 	new_data += split_text;
 	new_data += data_splitted[1];
 	return new_data;
