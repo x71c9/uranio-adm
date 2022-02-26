@@ -11,31 +11,31 @@
  *
  * @packageDocumentation
  */
-import urn_trx from 'uranio-trx';
+import trx from 'uranio-trx';
 import { schema } from '../sch/server';
 import * as book_cln from './book_cln';
 export declare type Book = {
     [k in schema.AtomName]?: Book.Definition<k>;
 };
 export declare namespace Book {
-    type BasicDefinition<A extends schema.AtomName> = Omit<urn_trx.types.Book.Definition<A>, 'properties'> & {
+    type BasicDefinition<A extends schema.AtomName> = Omit<trx.types.Book.Definition<A>, 'properties'> & {
         properties: book_cln.Book.Definition.Properties;
         read_only?: boolean;
     };
-    type Definition<A extends schema.AtomName> = Omit<urn_trx.types.Book.Definition<A>, keyof Book.BasicDefinition<A>> & Book.BasicDefinition<A>;
+    type Definition<A extends schema.AtomName> = Omit<trx.types.Book.Definition<A>, keyof Book.BasicDefinition<A>> & Book.BasicDefinition<A>;
     namespace Definition {
-        type Security = urn_trx.types.Book.Definition.Security;
-        type Dock<A extends schema.AtomName> = urn_trx.types.Book.Definition.Dock<A>;
+        type Security = trx.types.Book.Definition.Security;
+        type Dock<A extends schema.AtomName> = trx.types.Book.Definition.Dock<A>;
         namespace Dock {
-            type Routes<A extends schema.AtomName> = urn_trx.types.Book.Definition.Dock.Routes<A>;
+            type Routes<A extends schema.AtomName> = trx.types.Book.Definition.Dock.Routes<A>;
             namespace Routes {
-                type Route<A extends schema.AtomName, R extends schema.RouteName<A>, D extends schema.Depth = 0> = urn_trx.types.Book.Definition.Dock.Routes.Route<A, R, D>;
+                type Route<A extends schema.AtomName, R extends schema.RouteName<A>, D extends schema.Depth = 0> = trx.types.Book.Definition.Dock.Routes.Route<A, R, D>;
                 namespace Route {
-                    type Call<A extends schema.AtomName, R extends schema.RouteName<A>, D extends schema.Depth = 0> = urn_trx.types.Book.Definition.Dock.Routes.Route<A, R, D>;
+                    type Call<A extends schema.AtomName, R extends schema.RouteName<A>, D extends schema.Depth = 0> = trx.types.Book.Definition.Dock.Routes.Route<A, R, D>;
                 }
             }
         }
-        type Bll<A extends schema.AtomName> = urn_trx.types.Book.Definition.Bll<A>;
+        type Bll<A extends schema.AtomName> = trx.types.Book.Definition.Bll<A>;
         type Property = book_cln.Book.Definition.Property;
         type Properties = book_cln.Book.Definition.Properties;
         namespace Property {

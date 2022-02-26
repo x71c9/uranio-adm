@@ -8,7 +8,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.get_names = exports.has_property = exports.get_full_properties_definition = exports.get_custom_property_definitions = exports.get_property_definition = exports.get_definition = exports.get_all_definitions = exports.validate_auth_name = exports.validate_name = exports.get_plural = exports.get_dock_definition = exports.get_routes_definition_with_defaults = exports.get_routes_definition = exports.get_route_def = void 0;
+exports.get_names = exports.has_property = exports.get_full_properties_definition = exports.get_custom_property_definitions = exports.get_property_definition = exports.get_definition = exports.get_all_definitions = exports.validate_auth_name = exports.validate_name = exports.get_plural = exports.add_definition = exports.get_dock_definition = exports.get_routes_definition_with_defaults = exports.get_routes_definition = exports.get_route_def = void 0;
 const client_1 = __importDefault(require("uranio-trx/client"));
 function get_route_def(atom_name, route_name) {
     return client_1.default.book.get_route_def(atom_name, route_name);
@@ -26,6 +26,10 @@ function get_dock_definition(atom_name) {
     return client_1.default.book.get_dock_definition(atom_name);
 }
 exports.get_dock_definition = get_dock_definition;
+function add_definition(atom_name, atom_definition) {
+    return client_1.default.book.add_definition(atom_name, atom_definition);
+}
+exports.add_definition = add_definition;
 function get_plural(atom_name) {
     return client_1.default.book.get_plural(atom_name);
 }
