@@ -12,7 +12,7 @@
  * @packageDocumentation
  */
 
-import urn_trx from 'uranio-trx';
+import trx from 'uranio-trx';
 
 import {schema} from '../sch/server';
 
@@ -25,58 +25,40 @@ export type Book = {
 export namespace Book {
 	
 	export type BasicDefinition<A extends schema.AtomName> =
-		Omit<urn_trx.types.Book.Definition<A>, 'properties'> &
+		Omit<trx.types.Book.Definition<A>, 'properties'> &
 		{
 			properties: book_cln.Book.Definition.Properties
 			read_only?: boolean
 		}
 	
 	export type Definition<A extends schema.AtomName> =
-		Omit<urn_trx.types.Book.Definition<A>, keyof Book.BasicDefinition<A>> &
+		Omit<trx.types.Book.Definition<A>, keyof Book.BasicDefinition<A>> &
 		Book.BasicDefinition<A>;
 	
 	export namespace Definition {
 		
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		// export import Security = urn_trx.types.Book.Definition.Security;
+		export type Security = trx.types.Book.Definition.Security;
 		
-		export type Security = urn_trx.types.Book.Definition.Security;
-		
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		// export import Dock = urn_trx.types.Book.Definition.Dock;
-		
-		export type Dock<A extends schema.AtomName> = urn_trx.types.Book.Definition.Dock<A>;
+		export type Dock<A extends schema.AtomName> = trx.types.Book.Definition.Dock<A>;
 		
 		export namespace Dock {
 			
-			export type Routes<A extends schema.AtomName> = urn_trx.types.Book.Definition.Dock.Routes<A>;
+			export type Routes<A extends schema.AtomName> = trx.types.Book.Definition.Dock.Routes<A>;
 			
 			export namespace Routes {
 				
 				export type Route<A extends schema.AtomName, R extends schema.RouteName<A>, D extends schema.Depth = 0> =
-					urn_trx.types.Book.Definition.Dock.Routes.Route<A, R, D>
+					trx.types.Book.Definition.Dock.Routes.Route<A, R, D>
 				
 				export namespace Route {
 					export type Call<A extends schema.AtomName, R extends schema.RouteName<A>, D extends schema.Depth = 0> =
-						urn_trx.types.Book.Definition.Dock.Routes.Route<A, R, D>
+						trx.types.Book.Definition.Dock.Routes.Route<A, R, D>
 				}
 				
 			}
 		}
 		
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		// export import Bll = urn_trx.types.Book.Definition.Bll;
-		
-		export type Bll<A extends schema.AtomName> = urn_trx.types.Book.Definition.Bll<A>;
-		
-		
-		// Exporting the types that has been overwritten in Book client.
-		
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		// export import Properties = book_cln.Book.Definition.Properties;
-		
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		// export import Property = book_cln.Book.Definition.Property;
+		export type Bll<A extends schema.AtomName> = trx.types.Book.Definition.Bll<A>;
 		
 		export type Property = book_cln.Book.Definition.Property;
 		
@@ -126,17 +108,17 @@ export namespace Book {
 //   customer:{
 //     plural: 'customers',
 //     security:{
-//       type: urn_trx.types.BookSecurityType.UNIFORM,
-//       _w: urn_trx.types.BookPermissionType.PUBLIC
+//       type: trx.types.BookSecurityType.UNIFORM,
+//       _w: trx.types.BookPermissionType.PUBLIC
 //     },
 //     properties: {
 //       first_name: {
 //         sortable: false,
-//         type: urn_trx.types.BookPropertyType.TEXT,
+//         type: trx.types.BookPropertyType.TEXT,
 //         label: 'First name'
 //       },
 //       last_name: {
-//         type: urn_trx.types.BookPropertyType.TEXT,
+//         type: trx.types.BookPropertyType.TEXT,
 //         label: 'Last name',
 //         is_title: true
 //       }
@@ -145,11 +127,11 @@ export namespace Book {
 //       url: '/customers',
 //       routes:{
 //         pippi:{
-//           method: urn_trx.types.RouteMethod.GET,
-//           action: urn_trx.types.AuthAction.READ,
+//           method: trx.types.RouteMethod.GET,
+//           action: trx.types.AuthAction.READ,
 //           url: '/pippo',
 //           return: Number,
-//           call: async (req:urn_trx.types.Api.Request<'customer', 'pippi'>):Promise<number> => {
+//           call: async (req:trx.types.Api.Request<'customer', 'pippi'>):Promise<number> => {
 //             console.log(req.route_name);
 //             return 899;
 //           }

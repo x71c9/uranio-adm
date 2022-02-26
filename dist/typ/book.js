@@ -17,17 +17,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //   customer:{
 //     plural: 'customers',
 //     security:{
-//       type: urn_trx.types.BookSecurityType.UNIFORM,
-//       _w: urn_trx.types.BookPermissionType.PUBLIC
+//       type: trx.types.BookSecurityType.UNIFORM,
+//       _w: trx.types.BookPermissionType.PUBLIC
 //     },
 //     properties: {
 //       first_name: {
 //         sortable: false,
-//         type: urn_trx.types.BookPropertyType.TEXT,
+//         type: trx.types.BookPropertyType.TEXT,
 //         label: 'First name'
 //       },
 //       last_name: {
-//         type: urn_trx.types.BookPropertyType.TEXT,
+//         type: trx.types.BookPropertyType.TEXT,
 //         label: 'Last name',
 //         is_title: true
 //       }
@@ -36,11 +36,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //       url: '/customers',
 //       routes:{
 //         pippi:{
-//           method: urn_trx.types.RouteMethod.GET,
-//           action: urn_trx.types.AuthAction.READ,
+//           method: trx.types.RouteMethod.GET,
+//           action: trx.types.AuthAction.READ,
 //           url: '/pippo',
 //           return: Number,
-//           call: async (req:urn_trx.types.Api.Request<'customer', 'pippi'>):Promise<number> => {
+//           call: async (req:trx.types.Api.Request<'customer', 'pippi'>):Promise<number> => {
 //             console.log(req.route_name);
 //             return 899;
 //           }

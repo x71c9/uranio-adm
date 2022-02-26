@@ -33,6 +33,13 @@ export function get_dock_definition<A extends schema.AtomName>(atom_name:A)
 	return trx_client.book.get_dock_definition(atom_name);
 }
 
+export function add_definition<A extends schema.AtomName>(
+	atom_name:A,
+	atom_definition:Book.Definition
+):Book{
+	return trx_client.book.add_definition(atom_name, atom_definition);
+}
+
 export function get_plural(atom_name:schema.AtomName):string{
 	return trx_client.book.get_plural(atom_name);
 }

@@ -9,6 +9,7 @@ export declare function get_route_def<A extends schema.AtomName, R extends schem
 export declare function get_routes_definition<A extends schema.AtomName>(atom_name: A): Book.Definition.Dock.Routes;
 export declare function get_routes_definition_with_defaults(atom_name: schema.AtomName): Book.Definition.Dock.Routes;
 export declare function get_dock_definition<A extends schema.AtomName>(atom_name: A): Book.Definition.Dock;
+export declare function add_definition<A extends schema.AtomName>(atom_name: A, atom_definition: Book.Definition): Book;
 export declare function get_plural(atom_name: schema.AtomName): string;
 export declare function validate_name(atom_name: string): atom_name is schema.AtomName;
 export declare function validate_auth_name(auth_name: string): auth_name is schema.AuthName;
