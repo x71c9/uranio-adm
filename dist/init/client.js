@@ -35,10 +35,12 @@ const client_2 = require("../reg/client");
 const atoms_1 = require("../atoms");
 const conf = __importStar(require("../conf/client"));
 const log = __importStar(require("../log/client"));
+const book = __importStar(require("../book/client"));
 // import * as book from '../book/client';
 function init(config) {
     log.init(urn_lib_1.urn_log.defaults);
     client_1.default.init(config);
+    _add_default_routes();
     _register_required_atoms();
     if (typeof config === 'undefined') {
         client_1.default.conf.set_from_env(defaults_1.adm_client_config);
@@ -57,6 +59,21 @@ function init(config) {
     conf.set_initialize(true);
 }
 exports.init = init;
+function _add_default_routes() {
+    const core_atom_book = book.get_all_definitions();
+    for (const [atom_name, atom_def] of Object.entries(core_atom_book)) {
+        if (atom_name === 'media') {
+            atom_def.dock.routes = {
+                ...client_1.default.api.routes.default_routes,
+                ...client_1.default.api.routes.media_routes
+            };
+        }
+        else {
+            atom_def.dock.routes = client_1.default.api.routes.default_routes;
+        }
+        client_2.register.atom(atom_def, atom_name);
+    }
+}
 function _register_required_atoms() {
     for (const [atom_name, atom_def] of Object.entries(atoms_1.atom_book)) {
         (0, client_2.register)(atom_def, atom_name);

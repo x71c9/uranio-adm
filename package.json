@@ -3,6 +3,10 @@
 	"version": "0.0.1",
 	"description": "Uranio Admin",
 	"main": "dist/index.js",
+	"bin": {
+		"uranio-generate-schema": "dist/server/generate.js",
+		"uranio-api": "dist/api.js"
+	},
 	"exports": {
 		".": "./dist/server.js",
 		"./types": "./dist/server/types.js",

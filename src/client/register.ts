@@ -1,13 +1,9 @@
 /**
- * Register module for URANIO Api
+ * API register required atoms module
  *
  * @packageDocumentation
  */
 
-import {register} from '../reg/client';
-
-import {atom_book} from '../atoms';
-
-for(const [atom_name, atom_def] of Object.entries(atom_book)){
-	register(atom_def as any, atom_name as any);
-}
+// export * from '../atoms/client/[atom_name]/index.ts';
+// export * from '../atoms/client/[atom_name]/routes/[route_name].ts';
+export {};
