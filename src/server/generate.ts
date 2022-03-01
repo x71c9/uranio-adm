@@ -1,8 +1,17 @@
+#!/usr/bin/env node
+
 /**
  * Adm generate module
  *
  * @packageDocumentation
  */
+
+import dotenv from 'dotenv';
+const result = dotenv.config();
+
+if(result.error){
+	throw result.error;
+}
 
 import {urn_log} from 'urn-lib';
 urn_log.init({
@@ -10,9 +19,9 @@ urn_log.init({
 	debug_info: false
 });
 
-// export * from './register';
+export * from './register';
 
-import uranio from '../server';
+import * as uranio from './main';
 uranio.init();
 
 import * as util from '../util/server';
@@ -36,7 +45,7 @@ switch(urn_command){
 		break;
 	}
 	case 'hooks':{
-		util.generate.hooks_and_save('adm');
+		util.generate.hooks_and_save('trx');
 		break;
 	}
 	case 'hook-types':{
@@ -45,7 +54,7 @@ switch(urn_command){
 	}
 	default:{
 		util.generate.schema_and_save();
-		util.generate.hooks_and_save('adm');
+		util.generate.hooks_and_save('trx');
 		util.generate.hook_types_and_save();
 		break;
 	}

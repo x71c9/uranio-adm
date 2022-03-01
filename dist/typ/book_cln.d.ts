@@ -11,9 +11,8 @@
  * @packageDocumentation
  */
 import trx_client from 'uranio-trx/client';
-import { schema } from '../sch/client';
 export declare type Book = {
-    [k in schema.AtomName]?: Book.Definition;
+    [k: string]: Book.Definition;
 };
 export declare namespace Book {
     type Definition = Omit<trx_client.types.Book.Definition, 'properties'> & {
