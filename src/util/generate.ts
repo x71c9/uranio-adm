@@ -116,7 +116,7 @@ function _init_adm_generate(){
 
 function _generate_uranio_schema_text(trx_schema:string){
 	const txt = _generate_adm_schema_text();
-	const split_text = 'export {};/** --uranio-generate-end */index';
+	const split_text = 'export {};/** --uranio-generate-end */';
 	const data_splitted = trx_schema.split(split_text);
 	let new_data = '';
 	new_data += data_splitted[0];

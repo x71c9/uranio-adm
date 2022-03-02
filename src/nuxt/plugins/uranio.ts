@@ -7,7 +7,7 @@ urn_log.init({
 	prefix: '[URANIO]'
 });
 
-export * from './__urn_hooks';
+// export * from './__urn_hooks';
 
 import uranio from 'uranio/client';
 uranio.init();

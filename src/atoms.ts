@@ -18,6 +18,9 @@ export const atom_book = {
 				type: types.PropertyType.TEXT,
 				label: 'Name'
 			}
+		},
+		dock:{
+			url: '/settings'
 		}
 	}
 } as const;

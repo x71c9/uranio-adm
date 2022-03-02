@@ -4,7 +4,7 @@
 	"description": "Uranio Admin",
 	"main": "dist/index.js",
 	"bin": {
-		"uranio-generate-schema": "dist/server/generate.js",
+		"uranio-adm-generate": "dist/server/generate.js",
 		"uranio-api": "dist/api.js"
 	},
 	"exports": {

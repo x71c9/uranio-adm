@@ -49,7 +49,7 @@ exports.default = vue_1.default.extend({
         //   uranio.types.Book.BasicDefinition;
         // const atom_def = uranio.api.book.atom.get_atom_definition(this.atom_name as uranio.schema.AtomName);
         // const atom_def_props = atom_def["properties"];
-        const prop_defs = client_1.default.book.get_custom_property_definitions(this.atom_name);
+        const prop_defs = client_1.default.book.get_custom_properties_definition(this.atom_name);
         const prop_key = this.prop.name;
         let prop_type = 'Empty';
         let prop_label = prop_key;

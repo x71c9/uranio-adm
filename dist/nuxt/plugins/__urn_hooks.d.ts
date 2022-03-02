@@ -1,5 +1,5 @@
 /**
- * Auto generate trx.hooks file
+ * Auto generate hooks file
  *
  * @packageDocumentation
  */

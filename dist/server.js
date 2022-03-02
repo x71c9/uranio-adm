@@ -29,5 +29,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const urn_adm = __importStar(require("./server/main"));
 __exportStar(require("./server/main"), exports);
+// export function ad<A extends urn_adm.schema.AtomName>(){
+//   const a:urn_adm.schema.RouteName<A> = 'find';
+//   console.log(a);
+// }
 exports.default = urn_adm;
 //# sourceMappingURL=server.js.map

@@ -4,6 +4,6 @@
  * @packageDocumentation
  */
 
-// export * from '../atoms/client/[atom_name]/index.ts';
-// export * from '../atoms/client/[atom_name]/routes/[route_name].ts';
+// export * from '../atoms/client/[atom_name]/index';
+// export * from '../atoms/client/[atom_name]/routes/[route_name]';
 export {};

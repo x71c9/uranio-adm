@@ -17,5 +17,8 @@ export declare const atom_book: {
                 readonly label: "Name";
             };
         };
+        readonly dock: {
+            readonly url: "/settings";
+        };
     };
 };
