@@ -61,7 +61,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		}
 		const is_all_checked = false;
 		const is_all_indeterminate = false;
-		const prop_defs = uranio.book.get_full_properties_definition(this.atom_name);
+		const prop_defs = uranio.book.get_properties_definition(this.atom_name);
 		const primary_properties:string[] = [];
 		for(const [prop_key, prop_def] of Object.entries(prop_defs)){
 			if(prop_def.primary === true){

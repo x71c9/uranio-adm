@@ -105,7 +105,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		//   ...uranio.core.stc.atom_hard_properties,
 		//   ...atom_def.properties
 		// };
-		const atom_properties = uranio.book.get_full_properties_definition(this.atom_name);
+		const atom_properties = uranio.book.get_properties_definition(this.atom_name);
 		
 		let current_sort_prop_name = '_date';
 		let current_sort_direction = -1;

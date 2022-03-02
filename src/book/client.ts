@@ -33,6 +33,14 @@ export function get_dock_definition<A extends schema.AtomName>(atom_name:A)
 	return trx_client.book.get_dock_definition(atom_name);
 }
 
+export function add_route_definition<A extends schema.AtomName>(
+	atom_name:A,
+	route_name: schema.RouteName<A>,
+	route_definition:Book.Definition.Dock.Routes.Route
+):Book.Definition.Dock.Routes{
+	return trx_client.book.add_route_definition(atom_name, route_name, route_definition);
+}
+
 export function add_definition<A extends schema.AtomName>(
 	atom_name:A,
 	atom_definition:Book.Definition

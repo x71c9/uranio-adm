@@ -31,20 +31,19 @@ export function get_dock_definition<A extends schema.AtomName>(atom_name:A)
 	return book_client.get_dock_definition(atom_name) as Book.Definition.Dock<A>;
 }
 
+export function add_route_definition<A extends schema.AtomName>(
+	atom_name:A,
+	route_name: schema.RouteName<A>,
+	route_definition:ClientBook.Definition.Dock.Routes.Route
+):Book.Definition.Dock.Routes<A>{
+	return trx.book.add_route_definition(atom_name, route_name, route_definition);
+}
+
 export function add_definition<A extends schema.AtomName>(
 	atom_name:A,
 	atom_definition:ClientBook.Definition
 ):ClientBook{
 	return trx.book.add_definition(atom_name, atom_definition);
-}
-
-export function add_route_call<A extends schema.AtomName, R extends schema.RouteName<A>, D extends schema.Depth>(
-	atom_name:A,
-	route_name:R,
-	route_call:Book.Definition.Dock.Routes.Route.Call<A,R,D>
-):Book.Definition.Dock.Routes.Route<A,R,D>{
-	// TODO check types error on route_call
-	return trx.book.add_route_call<A,R,D>(atom_name, route_name, route_call as any);
 }
 
 export function get_names():schema.AtomName[]{

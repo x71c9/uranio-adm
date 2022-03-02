@@ -23,7 +23,7 @@ exports.default = vue_1.default.extend({
         }
         const is_all_checked = false;
         const is_all_indeterminate = false;
-        const prop_defs = client_1.default.book.get_full_properties_definition(this.atom_name);
+        const prop_defs = client_1.default.book.get_properties_definition(this.atom_name);
         const primary_properties = [];
         for (const [prop_key, prop_def] of Object.entries(prop_defs)) {
             if (prop_def.primary === true) {

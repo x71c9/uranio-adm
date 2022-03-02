@@ -62,7 +62,7 @@ exports.default = vue_1.default.extend({
         //   ...uranio.core.stc.atom_hard_properties,
         //   ...atom_def.properties
         // };
-        const atom_properties = client_1.default.book.get_full_properties_definition(this.atom_name);
+        const atom_properties = client_1.default.book.get_properties_definition(this.atom_name);
         let current_sort_prop_name = '_date';
         let current_sort_direction = -1;
         for (const [prop_name, direction] of Object.entries(this.page.sort_by)) {

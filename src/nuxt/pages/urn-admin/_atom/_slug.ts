@@ -95,7 +95,7 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 			// const atom_def = atom_book[atom_name];
 			// const atom_def_props = atom_def.properties as uranio.types.Book.Definition.Properties;
 			const atom_def = uranio.book.get_definition(atom_name);
-			const prop_defs = uranio.book.get_custom_property_definitions(atom_name);
+			const prop_defs = uranio.book.get_custom_properties_definition(atom_name);
 			
 			if(urn_util.object.has_key(atom_def, "plural")){
 				back_label = `back to ${atom_def.plural}`;
@@ -242,6 +242,8 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 				this.atom_name as A,
 				// this.$store.state.auth.token
 			);
+			const a:uranio.schema.RouteName<'media'> = 'find';
+			console.log(a);
 			const trx_hook = trx_base.hook('update');
 			const hook_params = {
 				params:{
@@ -366,7 +368,7 @@ function _clean_atom<A extends uranio.schema.AtomName>(atom_name:A, atom:uranio.
 		delete cloned_atom._date;
 	}
 	// const atom_prop_defs = atom_book[atom_name].properties;
-	const atom_prop_defs = uranio.book.get_custom_property_definitions(atom_name);
+	const atom_prop_defs = uranio.book.get_custom_properties_definition(atom_name);
 	for(const [prop_key, prop_def] of Object.entries(atom_prop_defs)){
 		if(prop_def.optional && cloned_atom[prop_key] === ''){
 			delete cloned_atom[prop_key];

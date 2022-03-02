@@ -16,4 +16,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./atom_cln"), exports);
+__exportStar(require("./route_cln"), exports);
 //# sourceMappingURL=client.js.map

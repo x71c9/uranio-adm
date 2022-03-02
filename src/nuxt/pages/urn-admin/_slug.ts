@@ -281,7 +281,7 @@ async function _find_atoms<A extends uranio.schema.AtomName, D extends uranio.sc
 		throw trx_res_find;
 	}
 	
-	return trx_res_find.payload;
+	return trx_res_find.payload as unknown as uranio.schema.Molecule<A,D>[];
 	
 }
 	
