@@ -10,8 +10,6 @@ declare type Computed = {};
 declare type Props = {};
 declare const _default: import("vue/types/vue").ExtendedVue<{
     atom: (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
-        name: string;
-    }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
         email: string;
         password: string;
         groups?: string[] | undefined;
@@ -28,6 +26,8 @@ declare const _default: import("vue/types/vue").ExtendedVue<{
         size: number;
         width?: number | undefined;
         height?: number | undefined;
+    }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
+        name: string;
     }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
         status: number;
         msg: string;
@@ -53,7 +53,7 @@ declare const _default: import("vue/types/vue").ExtendedVue<{
         auth_action?: string | undefined;
     });
     atom_name: uranio.core.schema.AtomName;
-    prop_name: "_r" | "_w" | "_from" | "_id" | "_date";
+    prop_name: "_id" | "_date" | "_r" | "_w" | "_from";
     prop_type: string;
     focus: boolean;
 } & import("vue").default & {

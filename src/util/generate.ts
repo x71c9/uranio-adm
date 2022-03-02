@@ -59,7 +59,7 @@ export function save_hooks(text:string):void{
 		output,
 		text
 	);
-	urn_log.debug(`Hooks saved in [${output}.`);
+	urn_log.debug(`Hooks saved in [${output}].`);
 }
 
 export function hook_types():string{

@@ -18,7 +18,7 @@ uranio.hooks['superusers'] = {
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'superuser', 'count', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'superuser', 'count', D>>  => {
+	):uranio.types.Hook.Response<'superuser', 'count', D>  => {
 		const args:uranio.types.Hook.Arguments<'superuser', 'count', D> = {
 			...parameters
 		};
@@ -35,7 +35,7 @@ uranio.hooks['superusers'] = {
 	find_one: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'superuser', 'find_one', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'superuser', 'find_one', D>>  => {
+	):uranio.types.Hook.Response<'superuser', 'find_one', D>  => {
 		const args:uranio.types.Hook.Arguments<'superuser', 'find_one', D> = {
 			...parameters
 		};
@@ -52,7 +52,7 @@ uranio.hooks['superusers'] = {
 	find: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'superuser', 'find', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'superuser', 'find', D>>  => {
+	):uranio.types.Hook.Response<'superuser', 'find', D>  => {
 		const args:uranio.types.Hook.Arguments<'superuser', 'find', D> = {
 			...parameters
 		};
@@ -70,7 +70,7 @@ uranio.hooks['superusers'] = {
 		id:string,
 		parameters?:uranio.types.Hook.Arguments<'superuser', 'find_id', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'superuser', 'find_id', D>>  => {
+	):uranio.types.Hook.Response<'superuser', 'find_id', D>  => {
 		const args:uranio.types.Hook.Arguments<'superuser', 'find_id', D> = {
 			params: {
 				id: id,
@@ -91,7 +91,7 @@ uranio.hooks['superusers'] = {
 		body:uranio.types.Hook.Body<'superuser', 'insert'>,
 		parameters?:uranio.types.Hook.Arguments<'superuser', 'insert', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'superuser', 'insert', D>>  => {
+	):uranio.types.Hook.Response<'superuser', 'insert', D>  => {
 		const args:uranio.types.Hook.Arguments<'superuser', 'insert', D> = {
 			body: body,
 			...parameters
@@ -111,7 +111,7 @@ uranio.hooks['superusers'] = {
 		body:uranio.types.Hook.Body<'superuser', 'update'>,
 		parameters?:uranio.types.Hook.Arguments<'superuser', 'update', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'superuser', 'update', D>>  => {
+	):uranio.types.Hook.Response<'superuser', 'update', D>  => {
 		const args:uranio.types.Hook.Arguments<'superuser', 'update', D> = {
 			params: {
 				id: id,
@@ -133,7 +133,7 @@ uranio.hooks['superusers'] = {
 		id:string,
 		parameters?:uranio.types.Hook.Arguments<'superuser', 'delete', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'superuser', 'delete', D>>  => {
+	):uranio.types.Hook.Response<'superuser', 'delete', D>  => {
 		const args:uranio.types.Hook.Arguments<'superuser', 'delete', D> = {
 			params: {
 				id: id,
@@ -154,7 +154,7 @@ uranio.hooks['superusers'] = {
 		body:uranio.types.Hook.Body<'superuser', 'insert_multiple'>,
 		parameters?:uranio.types.Hook.Arguments<'superuser', 'insert_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'superuser', 'insert_multiple', D>>  => {
+	):uranio.types.Hook.Response<'superuser', 'insert_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'superuser', 'insert_multiple', D> = {
 			body: body,
 			...parameters
@@ -174,7 +174,7 @@ uranio.hooks['superusers'] = {
 		body:uranio.types.Hook.Body<'superuser', 'update_multiple'>,
 		parameters?:uranio.types.Hook.Arguments<'superuser', 'update_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'superuser', 'update_multiple', D>>  => {
+	):uranio.types.Hook.Response<'superuser', 'update_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'superuser', 'update_multiple', D> = {
 			params: {
 				ids: ids,
@@ -196,7 +196,7 @@ uranio.hooks['superusers'] = {
 		ids:string,
 		parameters?:uranio.types.Hook.Arguments<'superuser', 'delete_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'superuser', 'delete_multiple', D>>  => {
+	):uranio.types.Hook.Response<'superuser', 'delete_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'superuser', 'delete_multiple', D> = {
 			params: {
 				ids: ids,
@@ -224,7 +224,7 @@ uranio.hooks['users'] = {
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'user', 'count', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'user', 'count', D>>  => {
+	):uranio.types.Hook.Response<'user', 'count', D>  => {
 		const args:uranio.types.Hook.Arguments<'user', 'count', D> = {
 			...parameters
 		};
@@ -241,7 +241,7 @@ uranio.hooks['users'] = {
 	find_one: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'user', 'find_one', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'user', 'find_one', D>>  => {
+	):uranio.types.Hook.Response<'user', 'find_one', D>  => {
 		const args:uranio.types.Hook.Arguments<'user', 'find_one', D> = {
 			...parameters
 		};
@@ -258,7 +258,7 @@ uranio.hooks['users'] = {
 	find: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'user', 'find', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'user', 'find', D>>  => {
+	):uranio.types.Hook.Response<'user', 'find', D>  => {
 		const args:uranio.types.Hook.Arguments<'user', 'find', D> = {
 			...parameters
 		};
@@ -276,7 +276,7 @@ uranio.hooks['users'] = {
 		id:string,
 		parameters?:uranio.types.Hook.Arguments<'user', 'find_id', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'user', 'find_id', D>>  => {
+	):uranio.types.Hook.Response<'user', 'find_id', D>  => {
 		const args:uranio.types.Hook.Arguments<'user', 'find_id', D> = {
 			params: {
 				id: id,
@@ -297,7 +297,7 @@ uranio.hooks['users'] = {
 		body:uranio.types.Hook.Body<'user', 'insert'>,
 		parameters?:uranio.types.Hook.Arguments<'user', 'insert', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'user', 'insert', D>>  => {
+	):uranio.types.Hook.Response<'user', 'insert', D>  => {
 		const args:uranio.types.Hook.Arguments<'user', 'insert', D> = {
 			body: body,
 			...parameters
@@ -317,7 +317,7 @@ uranio.hooks['users'] = {
 		body:uranio.types.Hook.Body<'user', 'update'>,
 		parameters?:uranio.types.Hook.Arguments<'user', 'update', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'user', 'update', D>>  => {
+	):uranio.types.Hook.Response<'user', 'update', D>  => {
 		const args:uranio.types.Hook.Arguments<'user', 'update', D> = {
 			params: {
 				id: id,
@@ -339,7 +339,7 @@ uranio.hooks['users'] = {
 		id:string,
 		parameters?:uranio.types.Hook.Arguments<'user', 'delete', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'user', 'delete', D>>  => {
+	):uranio.types.Hook.Response<'user', 'delete', D>  => {
 		const args:uranio.types.Hook.Arguments<'user', 'delete', D> = {
 			params: {
 				id: id,
@@ -360,7 +360,7 @@ uranio.hooks['users'] = {
 		body:uranio.types.Hook.Body<'user', 'insert_multiple'>,
 		parameters?:uranio.types.Hook.Arguments<'user', 'insert_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'user', 'insert_multiple', D>>  => {
+	):uranio.types.Hook.Response<'user', 'insert_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'user', 'insert_multiple', D> = {
 			body: body,
 			...parameters
@@ -380,7 +380,7 @@ uranio.hooks['users'] = {
 		body:uranio.types.Hook.Body<'user', 'update_multiple'>,
 		parameters?:uranio.types.Hook.Arguments<'user', 'update_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'user', 'update_multiple', D>>  => {
+	):uranio.types.Hook.Response<'user', 'update_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'user', 'update_multiple', D> = {
 			params: {
 				ids: ids,
@@ -402,7 +402,7 @@ uranio.hooks['users'] = {
 		ids:string,
 		parameters?:uranio.types.Hook.Arguments<'user', 'delete_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'user', 'delete_multiple', D>>  => {
+	):uranio.types.Hook.Response<'user', 'delete_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'user', 'delete_multiple', D> = {
 			params: {
 				ids: ids,
@@ -424,7 +424,7 @@ uranio.hooks['groups'] = {
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'group', 'count', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'group', 'count', D>>  => {
+	):uranio.types.Hook.Response<'group', 'count', D>  => {
 		const args:uranio.types.Hook.Arguments<'group', 'count', D> = {
 			...parameters
 		};
@@ -441,7 +441,7 @@ uranio.hooks['groups'] = {
 	find_one: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'group', 'find_one', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'group', 'find_one', D>>  => {
+	):uranio.types.Hook.Response<'group', 'find_one', D>  => {
 		const args:uranio.types.Hook.Arguments<'group', 'find_one', D> = {
 			...parameters
 		};
@@ -458,7 +458,7 @@ uranio.hooks['groups'] = {
 	find: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'group', 'find', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'group', 'find', D>>  => {
+	):uranio.types.Hook.Response<'group', 'find', D>  => {
 		const args:uranio.types.Hook.Arguments<'group', 'find', D> = {
 			...parameters
 		};
@@ -476,7 +476,7 @@ uranio.hooks['groups'] = {
 		id:string,
 		parameters?:uranio.types.Hook.Arguments<'group', 'find_id', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'group', 'find_id', D>>  => {
+	):uranio.types.Hook.Response<'group', 'find_id', D>  => {
 		const args:uranio.types.Hook.Arguments<'group', 'find_id', D> = {
 			params: {
 				id: id,
@@ -497,7 +497,7 @@ uranio.hooks['groups'] = {
 		body:uranio.types.Hook.Body<'group', 'insert'>,
 		parameters?:uranio.types.Hook.Arguments<'group', 'insert', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'group', 'insert', D>>  => {
+	):uranio.types.Hook.Response<'group', 'insert', D>  => {
 		const args:uranio.types.Hook.Arguments<'group', 'insert', D> = {
 			body: body,
 			...parameters
@@ -517,7 +517,7 @@ uranio.hooks['groups'] = {
 		body:uranio.types.Hook.Body<'group', 'update'>,
 		parameters?:uranio.types.Hook.Arguments<'group', 'update', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'group', 'update', D>>  => {
+	):uranio.types.Hook.Response<'group', 'update', D>  => {
 		const args:uranio.types.Hook.Arguments<'group', 'update', D> = {
 			params: {
 				id: id,
@@ -539,7 +539,7 @@ uranio.hooks['groups'] = {
 		id:string,
 		parameters?:uranio.types.Hook.Arguments<'group', 'delete', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'group', 'delete', D>>  => {
+	):uranio.types.Hook.Response<'group', 'delete', D>  => {
 		const args:uranio.types.Hook.Arguments<'group', 'delete', D> = {
 			params: {
 				id: id,
@@ -560,7 +560,7 @@ uranio.hooks['groups'] = {
 		body:uranio.types.Hook.Body<'group', 'insert_multiple'>,
 		parameters?:uranio.types.Hook.Arguments<'group', 'insert_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'group', 'insert_multiple', D>>  => {
+	):uranio.types.Hook.Response<'group', 'insert_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'group', 'insert_multiple', D> = {
 			body: body,
 			...parameters
@@ -580,7 +580,7 @@ uranio.hooks['groups'] = {
 		body:uranio.types.Hook.Body<'group', 'update_multiple'>,
 		parameters?:uranio.types.Hook.Arguments<'group', 'update_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'group', 'update_multiple', D>>  => {
+	):uranio.types.Hook.Response<'group', 'update_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'group', 'update_multiple', D> = {
 			params: {
 				ids: ids,
@@ -602,7 +602,7 @@ uranio.hooks['groups'] = {
 		ids:string,
 		parameters?:uranio.types.Hook.Arguments<'group', 'delete_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'group', 'delete_multiple', D>>  => {
+	):uranio.types.Hook.Response<'group', 'delete_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'group', 'delete_multiple', D> = {
 			params: {
 				ids: ids,
@@ -654,7 +654,7 @@ uranio.hooks['media'] = {
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'media', 'count', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'media', 'count', D>>  => {
+	):uranio.types.Hook.Response<'media', 'count', D>  => {
 		const args:uranio.types.Hook.Arguments<'media', 'count', D> = {
 			...parameters
 		};
@@ -671,7 +671,7 @@ uranio.hooks['media'] = {
 	find_one: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'media', 'find_one', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'media', 'find_one', D>>  => {
+	):uranio.types.Hook.Response<'media', 'find_one', D>  => {
 		const args:uranio.types.Hook.Arguments<'media', 'find_one', D> = {
 			...parameters
 		};
@@ -688,7 +688,7 @@ uranio.hooks['media'] = {
 	find: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'media', 'find', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'media', 'find', D>>  => {
+	):uranio.types.Hook.Response<'media', 'find', D>  => {
 		const args:uranio.types.Hook.Arguments<'media', 'find', D> = {
 			...parameters
 		};
@@ -706,7 +706,7 @@ uranio.hooks['media'] = {
 		id:string,
 		parameters?:uranio.types.Hook.Arguments<'media', 'find_id', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'media', 'find_id', D>>  => {
+	):uranio.types.Hook.Response<'media', 'find_id', D>  => {
 		const args:uranio.types.Hook.Arguments<'media', 'find_id', D> = {
 			params: {
 				id: id,
@@ -727,7 +727,7 @@ uranio.hooks['media'] = {
 		body:uranio.types.Hook.Body<'media', 'insert'>,
 		parameters?:uranio.types.Hook.Arguments<'media', 'insert', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'media', 'insert', D>>  => {
+	):uranio.types.Hook.Response<'media', 'insert', D>  => {
 		const args:uranio.types.Hook.Arguments<'media', 'insert', D> = {
 			body: body,
 			...parameters
@@ -747,7 +747,7 @@ uranio.hooks['media'] = {
 		body:uranio.types.Hook.Body<'media', 'update'>,
 		parameters?:uranio.types.Hook.Arguments<'media', 'update', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'media', 'update', D>>  => {
+	):uranio.types.Hook.Response<'media', 'update', D>  => {
 		const args:uranio.types.Hook.Arguments<'media', 'update', D> = {
 			params: {
 				id: id,
@@ -769,7 +769,7 @@ uranio.hooks['media'] = {
 		id:string,
 		parameters?:uranio.types.Hook.Arguments<'media', 'delete', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'media', 'delete', D>>  => {
+	):uranio.types.Hook.Response<'media', 'delete', D>  => {
 		const args:uranio.types.Hook.Arguments<'media', 'delete', D> = {
 			params: {
 				id: id,
@@ -790,7 +790,7 @@ uranio.hooks['media'] = {
 		body:uranio.types.Hook.Body<'media', 'insert_multiple'>,
 		parameters?:uranio.types.Hook.Arguments<'media', 'insert_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'media', 'insert_multiple', D>>  => {
+	):uranio.types.Hook.Response<'media', 'insert_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'media', 'insert_multiple', D> = {
 			body: body,
 			...parameters
@@ -810,7 +810,7 @@ uranio.hooks['media'] = {
 		body:uranio.types.Hook.Body<'media', 'update_multiple'>,
 		parameters?:uranio.types.Hook.Arguments<'media', 'update_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'media', 'update_multiple', D>>  => {
+	):uranio.types.Hook.Response<'media', 'update_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'media', 'update_multiple', D> = {
 			params: {
 				ids: ids,
@@ -832,7 +832,7 @@ uranio.hooks['media'] = {
 		ids:string,
 		parameters?:uranio.types.Hook.Arguments<'media', 'delete_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'media', 'delete_multiple', D>>  => {
+	):uranio.types.Hook.Response<'media', 'delete_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'media', 'delete_multiple', D> = {
 			params: {
 				ids: ids,
@@ -854,7 +854,7 @@ uranio.hooks['settings'] = {
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'setting', 'count', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'setting', 'count', D>>  => {
+	):uranio.types.Hook.Response<'setting', 'count', D>  => {
 		const args:uranio.types.Hook.Arguments<'setting', 'count', D> = {
 			...parameters
 		};
@@ -871,7 +871,7 @@ uranio.hooks['settings'] = {
 	find_one: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'setting', 'find_one', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'setting', 'find_one', D>>  => {
+	):uranio.types.Hook.Response<'setting', 'find_one', D>  => {
 		const args:uranio.types.Hook.Arguments<'setting', 'find_one', D> = {
 			...parameters
 		};
@@ -888,7 +888,7 @@ uranio.hooks['settings'] = {
 	find: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'setting', 'find', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'setting', 'find', D>>  => {
+	):uranio.types.Hook.Response<'setting', 'find', D>  => {
 		const args:uranio.types.Hook.Arguments<'setting', 'find', D> = {
 			...parameters
 		};
@@ -906,7 +906,7 @@ uranio.hooks['settings'] = {
 		id:string,
 		parameters?:uranio.types.Hook.Arguments<'setting', 'find_id', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'setting', 'find_id', D>>  => {
+	):uranio.types.Hook.Response<'setting', 'find_id', D>  => {
 		const args:uranio.types.Hook.Arguments<'setting', 'find_id', D> = {
 			params: {
 				id: id,
@@ -927,7 +927,7 @@ uranio.hooks['settings'] = {
 		body:uranio.types.Hook.Body<'setting', 'insert'>,
 		parameters?:uranio.types.Hook.Arguments<'setting', 'insert', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'setting', 'insert', D>>  => {
+	):uranio.types.Hook.Response<'setting', 'insert', D>  => {
 		const args:uranio.types.Hook.Arguments<'setting', 'insert', D> = {
 			body: body,
 			...parameters
@@ -947,7 +947,7 @@ uranio.hooks['settings'] = {
 		body:uranio.types.Hook.Body<'setting', 'update'>,
 		parameters?:uranio.types.Hook.Arguments<'setting', 'update', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'setting', 'update', D>>  => {
+	):uranio.types.Hook.Response<'setting', 'update', D>  => {
 		const args:uranio.types.Hook.Arguments<'setting', 'update', D> = {
 			params: {
 				id: id,
@@ -969,7 +969,7 @@ uranio.hooks['settings'] = {
 		id:string,
 		parameters?:uranio.types.Hook.Arguments<'setting', 'delete', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'setting', 'delete', D>>  => {
+	):uranio.types.Hook.Response<'setting', 'delete', D>  => {
 		const args:uranio.types.Hook.Arguments<'setting', 'delete', D> = {
 			params: {
 				id: id,
@@ -990,7 +990,7 @@ uranio.hooks['settings'] = {
 		body:uranio.types.Hook.Body<'setting', 'insert_multiple'>,
 		parameters?:uranio.types.Hook.Arguments<'setting', 'insert_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'setting', 'insert_multiple', D>>  => {
+	):uranio.types.Hook.Response<'setting', 'insert_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'setting', 'insert_multiple', D> = {
 			body: body,
 			...parameters
@@ -1010,7 +1010,7 @@ uranio.hooks['settings'] = {
 		body:uranio.types.Hook.Body<'setting', 'update_multiple'>,
 		parameters?:uranio.types.Hook.Arguments<'setting', 'update_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'setting', 'update_multiple', D>>  => {
+	):uranio.types.Hook.Response<'setting', 'update_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'setting', 'update_multiple', D> = {
 			params: {
 				ids: ids,
@@ -1032,7 +1032,7 @@ uranio.hooks['settings'] = {
 		ids:string,
 		parameters?:uranio.types.Hook.Arguments<'setting', 'delete_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'setting', 'delete_multiple', D>>  => {
+	):uranio.types.Hook.Response<'setting', 'delete_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'setting', 'delete_multiple', D> = {
 			params: {
 				ids: ids,
@@ -1054,7 +1054,7 @@ uranio.hooks['errors'] = {
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'error', 'count', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'error', 'count', D>>  => {
+	):uranio.types.Hook.Response<'error', 'count', D>  => {
 		const args:uranio.types.Hook.Arguments<'error', 'count', D> = {
 			...parameters
 		};
@@ -1071,7 +1071,7 @@ uranio.hooks['errors'] = {
 	find_one: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'error', 'find_one', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'error', 'find_one', D>>  => {
+	):uranio.types.Hook.Response<'error', 'find_one', D>  => {
 		const args:uranio.types.Hook.Arguments<'error', 'find_one', D> = {
 			...parameters
 		};
@@ -1088,7 +1088,7 @@ uranio.hooks['errors'] = {
 	find: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'error', 'find', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'error', 'find', D>>  => {
+	):uranio.types.Hook.Response<'error', 'find', D>  => {
 		const args:uranio.types.Hook.Arguments<'error', 'find', D> = {
 			...parameters
 		};
@@ -1106,7 +1106,7 @@ uranio.hooks['errors'] = {
 		id:string,
 		parameters?:uranio.types.Hook.Arguments<'error', 'find_id', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'error', 'find_id', D>>  => {
+	):uranio.types.Hook.Response<'error', 'find_id', D>  => {
 		const args:uranio.types.Hook.Arguments<'error', 'find_id', D> = {
 			params: {
 				id: id,
@@ -1127,7 +1127,7 @@ uranio.hooks['errors'] = {
 		body:uranio.types.Hook.Body<'error', 'insert'>,
 		parameters?:uranio.types.Hook.Arguments<'error', 'insert', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'error', 'insert', D>>  => {
+	):uranio.types.Hook.Response<'error', 'insert', D>  => {
 		const args:uranio.types.Hook.Arguments<'error', 'insert', D> = {
 			body: body,
 			...parameters
@@ -1147,7 +1147,7 @@ uranio.hooks['errors'] = {
 		body:uranio.types.Hook.Body<'error', 'update'>,
 		parameters?:uranio.types.Hook.Arguments<'error', 'update', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'error', 'update', D>>  => {
+	):uranio.types.Hook.Response<'error', 'update', D>  => {
 		const args:uranio.types.Hook.Arguments<'error', 'update', D> = {
 			params: {
 				id: id,
@@ -1169,7 +1169,7 @@ uranio.hooks['errors'] = {
 		id:string,
 		parameters?:uranio.types.Hook.Arguments<'error', 'delete', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'error', 'delete', D>>  => {
+	):uranio.types.Hook.Response<'error', 'delete', D>  => {
 		const args:uranio.types.Hook.Arguments<'error', 'delete', D> = {
 			params: {
 				id: id,
@@ -1190,7 +1190,7 @@ uranio.hooks['errors'] = {
 		body:uranio.types.Hook.Body<'error', 'insert_multiple'>,
 		parameters?:uranio.types.Hook.Arguments<'error', 'insert_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'error', 'insert_multiple', D>>  => {
+	):uranio.types.Hook.Response<'error', 'insert_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'error', 'insert_multiple', D> = {
 			body: body,
 			...parameters
@@ -1210,7 +1210,7 @@ uranio.hooks['errors'] = {
 		body:uranio.types.Hook.Body<'error', 'update_multiple'>,
 		parameters?:uranio.types.Hook.Arguments<'error', 'update_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'error', 'update_multiple', D>>  => {
+	):uranio.types.Hook.Response<'error', 'update_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'error', 'update_multiple', D> = {
 			params: {
 				ids: ids,
@@ -1232,7 +1232,7 @@ uranio.hooks['errors'] = {
 		ids:string,
 		parameters?:uranio.types.Hook.Arguments<'error', 'delete_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'error', 'delete_multiple', D>>  => {
+	):uranio.types.Hook.Response<'error', 'delete_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'error', 'delete_multiple', D> = {
 			params: {
 				ids: ids,
@@ -1254,7 +1254,7 @@ uranio.hooks['requests'] = {
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'request', 'count', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'request', 'count', D>>  => {
+	):uranio.types.Hook.Response<'request', 'count', D>  => {
 		const args:uranio.types.Hook.Arguments<'request', 'count', D> = {
 			...parameters
 		};
@@ -1271,7 +1271,7 @@ uranio.hooks['requests'] = {
 	find_one: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'request', 'find_one', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'request', 'find_one', D>>  => {
+	):uranio.types.Hook.Response<'request', 'find_one', D>  => {
 		const args:uranio.types.Hook.Arguments<'request', 'find_one', D> = {
 			...parameters
 		};
@@ -1288,7 +1288,7 @@ uranio.hooks['requests'] = {
 	find: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'request', 'find', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'request', 'find', D>>  => {
+	):uranio.types.Hook.Response<'request', 'find', D>  => {
 		const args:uranio.types.Hook.Arguments<'request', 'find', D> = {
 			...parameters
 		};
@@ -1306,7 +1306,7 @@ uranio.hooks['requests'] = {
 		id:string,
 		parameters?:uranio.types.Hook.Arguments<'request', 'find_id', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'request', 'find_id', D>>  => {
+	):uranio.types.Hook.Response<'request', 'find_id', D>  => {
 		const args:uranio.types.Hook.Arguments<'request', 'find_id', D> = {
 			params: {
 				id: id,
@@ -1327,7 +1327,7 @@ uranio.hooks['requests'] = {
 		body:uranio.types.Hook.Body<'request', 'insert'>,
 		parameters?:uranio.types.Hook.Arguments<'request', 'insert', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'request', 'insert', D>>  => {
+	):uranio.types.Hook.Response<'request', 'insert', D>  => {
 		const args:uranio.types.Hook.Arguments<'request', 'insert', D> = {
 			body: body,
 			...parameters
@@ -1347,7 +1347,7 @@ uranio.hooks['requests'] = {
 		body:uranio.types.Hook.Body<'request', 'update'>,
 		parameters?:uranio.types.Hook.Arguments<'request', 'update', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'request', 'update', D>>  => {
+	):uranio.types.Hook.Response<'request', 'update', D>  => {
 		const args:uranio.types.Hook.Arguments<'request', 'update', D> = {
 			params: {
 				id: id,
@@ -1369,7 +1369,7 @@ uranio.hooks['requests'] = {
 		id:string,
 		parameters?:uranio.types.Hook.Arguments<'request', 'delete', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'request', 'delete', D>>  => {
+	):uranio.types.Hook.Response<'request', 'delete', D>  => {
 		const args:uranio.types.Hook.Arguments<'request', 'delete', D> = {
 			params: {
 				id: id,
@@ -1390,7 +1390,7 @@ uranio.hooks['requests'] = {
 		body:uranio.types.Hook.Body<'request', 'insert_multiple'>,
 		parameters?:uranio.types.Hook.Arguments<'request', 'insert_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'request', 'insert_multiple', D>>  => {
+	):uranio.types.Hook.Response<'request', 'insert_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'request', 'insert_multiple', D> = {
 			body: body,
 			...parameters
@@ -1410,7 +1410,7 @@ uranio.hooks['requests'] = {
 		body:uranio.types.Hook.Body<'request', 'update_multiple'>,
 		parameters?:uranio.types.Hook.Arguments<'request', 'update_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'request', 'update_multiple', D>>  => {
+	):uranio.types.Hook.Response<'request', 'update_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'request', 'update_multiple', D> = {
 			params: {
 				ids: ids,
@@ -1432,7 +1432,7 @@ uranio.hooks['requests'] = {
 		ids:string,
 		parameters?:uranio.types.Hook.Arguments<'request', 'delete_multiple', D>,
 		token?:string
-	):Promise<uranio.types.Hook.Response<'request', 'delete_multiple', D>>  => {
+	):uranio.types.Hook.Response<'request', 'delete_multiple', D>  => {
 		const args:uranio.types.Hook.Arguments<'request', 'delete_multiple', D> = {
 			params: {
 				ids: ids,
