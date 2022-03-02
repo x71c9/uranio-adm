@@ -71,10 +71,10 @@
 		"dotenv": "^16.0.0",
 		"nuxt": "^2.15.8",
 		"saslprep": "^1.0.3",
-		"uranio-api": "git+ssh://git@github.com/nbl7/uranio-api.git#new",
-		"uranio-core": "git+ssh://git@github.com/nbl7/uranio-core.git#new",
+		"uranio-api": "git+ssh://git@github.com/nbl7/uranio-api.git#update-modules",
+		"uranio-core": "git+ssh://git@github.com/nbl7/uranio-core.git#update-modules",
 		"uranio-schema": "ssh://git@github.com/nbl7/uranio-schema.git",
-		"uranio-trx": "git+ssh://git@github.com/nbl7/uranio-trx.git#new",
+		"uranio-trx": "git+ssh://git@github.com/nbl7/uranio-trx.git#update-modules",
 		"urn-lib": "git+ssh://git@github.com/nbl7/uranio-lib.git#new",
 		"vuedraggable": "^2.24.3"
 	}
