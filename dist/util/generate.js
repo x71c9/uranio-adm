@@ -57,7 +57,7 @@ exports.hooks_and_save = hooks_and_save;
 function save_hooks(text) {
     const output = `${exports.process_params.urn_output_dir}/__urn_hooks.ts`;
     fs_1.default.writeFileSync(output, text);
-    urn_lib_1.urn_log.debug(`Hooks saved in [${output}.`);
+    urn_lib_1.urn_log.debug(`Hooks saved in [${output}].`);
 }
 exports.save_hooks = save_hooks;
 function hook_types() {
