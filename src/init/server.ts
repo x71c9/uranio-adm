@@ -10,7 +10,7 @@ import trx from 'uranio-trx';
 
 import {adm_config} from '../conf/defaults';
 
-import {register} from '../reg/server';
+import * as register from '../reg/server';
 
 import {atom_book} from '../atoms';
 
@@ -45,6 +45,6 @@ export function init(config?:types.Configuration)
 
 function _register_required_atoms(){
 	for(const [atom_name, atom_def] of Object.entries(atom_book)){
-		register(atom_def as any, atom_name as any);
+		register.atom(atom_def as any, atom_name as any);
 	}
 }

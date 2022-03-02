@@ -6,7 +6,11 @@
  */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -31,7 +35,7 @@ exports.init = void 0;
 const urn_lib_1 = require("urn-lib");
 const uranio_trx_1 = __importDefault(require("uranio-trx"));
 const defaults_1 = require("../conf/defaults");
-const server_1 = require("../reg/server");
+const register = __importStar(require("../reg/server"));
 const atoms_1 = require("../atoms");
 const conf = __importStar(require("../conf/server"));
 const log = __importStar(require("../log/server"));
@@ -55,7 +59,7 @@ function init(config) {
 exports.init = init;
 function _register_required_atoms() {
     for (const [atom_name, atom_def] of Object.entries(atoms_1.atom_book)) {
-        (0, server_1.register)(atom_def, atom_name);
+        register.atom(atom_def, atom_name);
     }
 }
 //# sourceMappingURL=server.js.map
