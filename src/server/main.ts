@@ -23,6 +23,8 @@ import * as util from '../util/server';
 
 import * as register from '../reg/server';
 
+import * as required from '../req/server';
+
 import * as types from './types';
 
 export * from '../init/server';
@@ -37,5 +39,6 @@ export {
 	conf,
 	util,
 	register,
+	required,
 	types,
 };

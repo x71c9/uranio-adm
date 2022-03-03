@@ -4,4 +4,4 @@
  * @packageDocumentation
  */
 import * as types from '../client/types';
-export declare function init(config?: types.ClientConfiguration): void;
+export declare function init(config?: types.ClientConfiguration, register_required?: boolean): void;

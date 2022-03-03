@@ -6,13 +6,17 @@
 
 import {urn_log} from 'urn-lib';
 urn_log.init({
-	log_level: urn_log.LogLevel.FUNCTION_DEBUG
+	log_level: urn_log.LogLevel.FUNCTION_DEBUG,
+	debug_info: false
 });
 
 export * from './server/hooks';
 
 import uranio from './server';
 uranio.init();
+
+// const atom_book = uranio.book.get_all_definitions();
+// console.log(atom_book.media?.dock?.routes);
 
 const service = uranio.api.service.create();
 service.listen(async () => {

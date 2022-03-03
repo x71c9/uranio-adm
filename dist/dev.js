@@ -24,11 +24,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const urn_lib_1 = require("urn-lib");
 urn_lib_1.urn_log.init({
-    log_level: urn_lib_1.urn_log.LogLevel.FUNCTION_DEBUG
+    log_level: urn_lib_1.urn_log.LogLevel.FUNCTION_DEBUG,
+    debug_info: false
 });
 __exportStar(require("./server/hooks"), exports);
 const server_1 = __importDefault(require("./server"));
 server_1.default.init();
+// const atom_book = uranio.book.get_all_definitions();
+// console.log(atom_book.media?.dock?.routes);
 const service = server_1.default.api.service.create();
 service.listen(async () => {
     urn_lib_1.urn_log.debug(`Listening on port ${server_1.default.conf.get(`service_port`)}...`);

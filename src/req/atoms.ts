@@ -4,9 +4,9 @@
  * @packageDocumentation
  */
 
-import * as types from './client/types';
+import * as types from '../client/types';
 
-export const atom_book = {
+export const required_atoms = {
 	setting:{
 		plural: 'settings',
 		security: {

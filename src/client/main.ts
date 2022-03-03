@@ -20,6 +20,8 @@ import * as log from '../log/client';
 
 import * as register from '../reg/client';
 
+import * as required from '../req/server';
+
 import * as types from './types';
 
 export * from '../init/client';
@@ -33,5 +35,6 @@ export {
 	book,
 	conf,
 	register,
+	required,
 	types
 };

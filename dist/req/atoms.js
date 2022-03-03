@@ -29,7 +29,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.required_atoms = void 0;
-const types = __importStar(require("./client/types"));
+const types = __importStar(require("../client/types"));
 exports.required_atoms = {
     setting: {
         plural: 'settings',
