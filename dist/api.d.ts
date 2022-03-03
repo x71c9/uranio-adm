@@ -4,4 +4,4 @@
  *
  * @packageDocumentation
  */
-export {};
+export * from './server/register';

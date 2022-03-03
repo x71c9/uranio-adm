@@ -20,6 +20,8 @@ urn_log.init({
 	color: true
 });
 
+export * from './server/register';
+
 import uranio from './server';
 uranio.init();
 
