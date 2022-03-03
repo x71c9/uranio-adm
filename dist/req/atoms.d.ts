@@ -3,7 +3,7 @@
  *
  * @packageDocumentation
  */
-import * as types from './client/types';
+import * as types from '../client/types';
 export declare const required_atoms: {
     readonly setting: {
         readonly plural: "settings";

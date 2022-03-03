@@ -12,7 +12,7 @@ import {adm_config} from '../conf/defaults';
 
 import * as register from '../reg/server';
 
-import {atom_book} from '../atoms';
+import * as required from '../req/server';
 
 import * as types from '../server/types';
 
@@ -20,19 +20,12 @@ import * as conf from '../conf/server';
 
 import * as log from '../log/server';
 
-export function init(config?:types.Configuration)
+export function init(config?:types.Configuration, register_required=true)
 		:void{
 	
 	log.init(urn_log.defaults);
 	
-	/**
-	 * Register required atoms must go before trx.init
-	 * so that api.init can add the routes also to adm required
-	 * atoms.
-	 */
-	_register_required_atoms();
-	
-	trx.init(config);
+	trx.init(config, false);
 	
 	if(typeof config === 'undefined'){
 		trx.conf.set_from_env(adm_config);
@@ -40,11 +33,19 @@ export function init(config?:types.Configuration)
 		trx.conf.set(adm_config, config);
 	}
 	
+	if(register_required){
+		_register_required_atoms();
+	}
+	
 	conf.set_initialize(true);
+	
+	urn_log.defaults.log_level = conf.get(`log_level`);
+	
 }
 
 function _register_required_atoms(){
-	for(const [atom_name, atom_def] of Object.entries(atom_book)){
-		register.atom(atom_def as any, atom_name as any);
+	const required_atoms = required.get();
+	for(const [atom_name, atom_def] of Object.entries(required_atoms)){
+		register.atom(atom_def as any, atom_name);
 	}
 }
