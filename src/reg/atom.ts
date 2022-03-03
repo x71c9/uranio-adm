@@ -11,11 +11,9 @@ import trx from 'uranio-trx';
  */
 import * as types from '../client/types';
 
-import {schema} from '../sch/server';
-
-export function atom<A extends schema.AtomName>(
-	atom_definition:types.Book.Definition,
-	atom_name?:A
+export function atom(
+	atom_definition: types.Book.Definition,
+	atom_name?: string
 ):string{
 	const final_atom_name = trx.register.atom(atom_definition, atom_name);
 	return final_atom_name;
