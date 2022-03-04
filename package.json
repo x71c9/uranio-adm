@@ -75,7 +75,7 @@
 		"uranio-core": "git+ssh://git@github.com/nbl7/uranio-core.git#update-modules",
 		"uranio-schema": "ssh://git@github.com/nbl7/uranio-schema.git",
 		"uranio-trx": "git+ssh://git@github.com/nbl7/uranio-trx.git#update-modules",
-		"urn-lib": "git+ssh://git@github.com/nbl7/uranio-lib.git#new",
+		"urn-lib": "git+ssh://git@github.com/nbl7/uranio-lib.git#update-modules",
 		"vuedraggable": "^2.24.3"
 	}
 }

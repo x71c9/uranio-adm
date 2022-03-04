@@ -850,206 +850,6 @@ uranio.hooks['media'] = {
 		return await uranio.base.create('media',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
 	},
 }
-uranio.hooks['settings'] = {
-	count: async <D extends uranio.schema.Depth>(
-		parameters?:uranio.types.Hook.Arguments<'setting', 'count', D>,
-		token?:string
-	):uranio.types.Hook.Response<'setting', 'count', D>  => {
-		const args:uranio.types.Hook.Arguments<'setting', 'count', D> = {
-			...parameters
-		};
-		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
-		if(typeof hook_token === 'string' && hook_token !== ''){
-			current_token = hook_token;
-		}
-		if(typeof token === 'string' && token !== ''){
-			current_token = token;
-		}
-		return await uranio.base.create('setting',current_token).hook<'count',D>('count')(args);
-	},
-	find_one: async <D extends uranio.schema.Depth>(
-		parameters?:uranio.types.Hook.Arguments<'setting', 'find_one', D>,
-		token?:string
-	):uranio.types.Hook.Response<'setting', 'find_one', D>  => {
-		const args:uranio.types.Hook.Arguments<'setting', 'find_one', D> = {
-			...parameters
-		};
-		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
-		if(typeof hook_token === 'string' && hook_token !== ''){
-			current_token = hook_token;
-		}
-		if(typeof token === 'string' && token !== ''){
-			current_token = token;
-		}
-		return await uranio.base.create('setting',current_token).hook<'find_one',D>('find_one')(args);
-	},
-	find: async <D extends uranio.schema.Depth>(
-		parameters?:uranio.types.Hook.Arguments<'setting', 'find', D>,
-		token?:string
-	):uranio.types.Hook.Response<'setting', 'find', D>  => {
-		const args:uranio.types.Hook.Arguments<'setting', 'find', D> = {
-			...parameters
-		};
-		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
-		if(typeof hook_token === 'string' && hook_token !== ''){
-			current_token = hook_token;
-		}
-		if(typeof token === 'string' && token !== ''){
-			current_token = token;
-		}
-		return await uranio.base.create('setting',current_token).hook<'find',D>('find')(args);
-	},
-	find_id: async <D extends uranio.schema.Depth>(
-		id:string,
-		parameters?:uranio.types.Hook.Arguments<'setting', 'find_id', D>,
-		token?:string
-	):uranio.types.Hook.Response<'setting', 'find_id', D>  => {
-		const args:uranio.types.Hook.Arguments<'setting', 'find_id', D> = {
-			params: {
-				id: id,
-			},
-			...parameters
-		};
-		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
-		if(typeof hook_token === 'string' && hook_token !== ''){
-			current_token = hook_token;
-		}
-		if(typeof token === 'string' && token !== ''){
-			current_token = token;
-		}
-		return await uranio.base.create('setting',current_token).hook<'find_id',D>('find_id')(args);
-	},
-	insert: async <D extends uranio.schema.Depth>(
-		body:uranio.types.Hook.Body<'setting', 'insert'>,
-		parameters?:uranio.types.Hook.Arguments<'setting', 'insert', D>,
-		token?:string
-	):uranio.types.Hook.Response<'setting', 'insert', D>  => {
-		const args:uranio.types.Hook.Arguments<'setting', 'insert', D> = {
-			body: body,
-			...parameters
-		};
-		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
-		if(typeof hook_token === 'string' && hook_token !== ''){
-			current_token = hook_token;
-		}
-		if(typeof token === 'string' && token !== ''){
-			current_token = token;
-		}
-		return await uranio.base.create('setting',current_token).hook<'insert',D>('insert')(args);
-	},
-	update: async <D extends uranio.schema.Depth>(
-		id:string,
-		body:uranio.types.Hook.Body<'setting', 'update'>,
-		parameters?:uranio.types.Hook.Arguments<'setting', 'update', D>,
-		token?:string
-	):uranio.types.Hook.Response<'setting', 'update', D>  => {
-		const args:uranio.types.Hook.Arguments<'setting', 'update', D> = {
-			params: {
-				id: id,
-			},
-			body: body,
-			...parameters
-		};
-		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
-		if(typeof hook_token === 'string' && hook_token !== ''){
-			current_token = hook_token;
-		}
-		if(typeof token === 'string' && token !== ''){
-			current_token = token;
-		}
-		return await uranio.base.create('setting',current_token).hook<'update',D>('update')(args);
-	},
-	delete: async <D extends uranio.schema.Depth>(
-		id:string,
-		parameters?:uranio.types.Hook.Arguments<'setting', 'delete', D>,
-		token?:string
-	):uranio.types.Hook.Response<'setting', 'delete', D>  => {
-		const args:uranio.types.Hook.Arguments<'setting', 'delete', D> = {
-			params: {
-				id: id,
-			},
-			...parameters
-		};
-		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
-		if(typeof hook_token === 'string' && hook_token !== ''){
-			current_token = hook_token;
-		}
-		if(typeof token === 'string' && token !== ''){
-			current_token = token;
-		}
-		return await uranio.base.create('setting',current_token).hook<'delete',D>('delete')(args);
-	},
-	insert_multiple: async <D extends uranio.schema.Depth>(
-		body:uranio.types.Hook.Body<'setting', 'insert_multiple'>,
-		parameters?:uranio.types.Hook.Arguments<'setting', 'insert_multiple', D>,
-		token?:string
-	):uranio.types.Hook.Response<'setting', 'insert_multiple', D>  => {
-		const args:uranio.types.Hook.Arguments<'setting', 'insert_multiple', D> = {
-			body: body,
-			...parameters
-		};
-		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
-		if(typeof hook_token === 'string' && hook_token !== ''){
-			current_token = hook_token;
-		}
-		if(typeof token === 'string' && token !== ''){
-			current_token = token;
-		}
-		return await uranio.base.create('setting',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
-	},
-	update_multiple: async <D extends uranio.schema.Depth>(
-		ids:string,
-		body:uranio.types.Hook.Body<'setting', 'update_multiple'>,
-		parameters?:uranio.types.Hook.Arguments<'setting', 'update_multiple', D>,
-		token?:string
-	):uranio.types.Hook.Response<'setting', 'update_multiple', D>  => {
-		const args:uranio.types.Hook.Arguments<'setting', 'update_multiple', D> = {
-			params: {
-				ids: ids,
-			},
-			body: body,
-			...parameters
-		};
-		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
-		if(typeof hook_token === 'string' && hook_token !== ''){
-			current_token = hook_token;
-		}
-		if(typeof token === 'string' && token !== ''){
-			current_token = token;
-		}
-		return await uranio.base.create('setting',current_token).hook<'update_multiple',D>('update_multiple')(args);
-	},
-	delete_multiple: async <D extends uranio.schema.Depth>(
-		ids:string,
-		parameters?:uranio.types.Hook.Arguments<'setting', 'delete_multiple', D>,
-		token?:string
-	):uranio.types.Hook.Response<'setting', 'delete_multiple', D>  => {
-		const args:uranio.types.Hook.Arguments<'setting', 'delete_multiple', D> = {
-			params: {
-				ids: ids,
-			},
-			...parameters
-		};
-		let current_token:string|undefined;
-		const hook_token = uranio.hooks.get_token();
-		if(typeof hook_token === 'string' && hook_token !== ''){
-			current_token = hook_token;
-		}
-		if(typeof token === 'string' && token !== ''){
-			current_token = token;
-		}
-		return await uranio.base.create('setting',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
-	},
-}
 uranio.hooks['errors'] = {
 	count: async <D extends uranio.schema.Depth>(
 		parameters?:uranio.types.Hook.Arguments<'error', 'count', D>,
@@ -1448,5 +1248,205 @@ uranio.hooks['requests'] = {
 			current_token = token;
 		}
 		return await uranio.base.create('request',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
+	},
+}
+uranio.hooks['settings'] = {
+	count: async <D extends uranio.schema.Depth>(
+		parameters?:uranio.types.Hook.Arguments<'setting', 'count', D>,
+		token?:string
+	):uranio.types.Hook.Response<'setting', 'count', D>  => {
+		const args:uranio.types.Hook.Arguments<'setting', 'count', D> = {
+			...parameters
+		};
+		let current_token:string|undefined;
+		const hook_token = uranio.hooks.get_token();
+		if(typeof hook_token === 'string' && hook_token !== ''){
+			current_token = hook_token;
+		}
+		if(typeof token === 'string' && token !== ''){
+			current_token = token;
+		}
+		return await uranio.base.create('setting',current_token).hook<'count',D>('count')(args);
+	},
+	find_one: async <D extends uranio.schema.Depth>(
+		parameters?:uranio.types.Hook.Arguments<'setting', 'find_one', D>,
+		token?:string
+	):uranio.types.Hook.Response<'setting', 'find_one', D>  => {
+		const args:uranio.types.Hook.Arguments<'setting', 'find_one', D> = {
+			...parameters
+		};
+		let current_token:string|undefined;
+		const hook_token = uranio.hooks.get_token();
+		if(typeof hook_token === 'string' && hook_token !== ''){
+			current_token = hook_token;
+		}
+		if(typeof token === 'string' && token !== ''){
+			current_token = token;
+		}
+		return await uranio.base.create('setting',current_token).hook<'find_one',D>('find_one')(args);
+	},
+	find: async <D extends uranio.schema.Depth>(
+		parameters?:uranio.types.Hook.Arguments<'setting', 'find', D>,
+		token?:string
+	):uranio.types.Hook.Response<'setting', 'find', D>  => {
+		const args:uranio.types.Hook.Arguments<'setting', 'find', D> = {
+			...parameters
+		};
+		let current_token:string|undefined;
+		const hook_token = uranio.hooks.get_token();
+		if(typeof hook_token === 'string' && hook_token !== ''){
+			current_token = hook_token;
+		}
+		if(typeof token === 'string' && token !== ''){
+			current_token = token;
+		}
+		return await uranio.base.create('setting',current_token).hook<'find',D>('find')(args);
+	},
+	find_id: async <D extends uranio.schema.Depth>(
+		id:string,
+		parameters?:uranio.types.Hook.Arguments<'setting', 'find_id', D>,
+		token?:string
+	):uranio.types.Hook.Response<'setting', 'find_id', D>  => {
+		const args:uranio.types.Hook.Arguments<'setting', 'find_id', D> = {
+			params: {
+				id: id,
+			},
+			...parameters
+		};
+		let current_token:string|undefined;
+		const hook_token = uranio.hooks.get_token();
+		if(typeof hook_token === 'string' && hook_token !== ''){
+			current_token = hook_token;
+		}
+		if(typeof token === 'string' && token !== ''){
+			current_token = token;
+		}
+		return await uranio.base.create('setting',current_token).hook<'find_id',D>('find_id')(args);
+	},
+	insert: async <D extends uranio.schema.Depth>(
+		body:uranio.types.Hook.Body<'setting', 'insert'>,
+		parameters?:uranio.types.Hook.Arguments<'setting', 'insert', D>,
+		token?:string
+	):uranio.types.Hook.Response<'setting', 'insert', D>  => {
+		const args:uranio.types.Hook.Arguments<'setting', 'insert', D> = {
+			body: body,
+			...parameters
+		};
+		let current_token:string|undefined;
+		const hook_token = uranio.hooks.get_token();
+		if(typeof hook_token === 'string' && hook_token !== ''){
+			current_token = hook_token;
+		}
+		if(typeof token === 'string' && token !== ''){
+			current_token = token;
+		}
+		return await uranio.base.create('setting',current_token).hook<'insert',D>('insert')(args);
+	},
+	update: async <D extends uranio.schema.Depth>(
+		id:string,
+		body:uranio.types.Hook.Body<'setting', 'update'>,
+		parameters?:uranio.types.Hook.Arguments<'setting', 'update', D>,
+		token?:string
+	):uranio.types.Hook.Response<'setting', 'update', D>  => {
+		const args:uranio.types.Hook.Arguments<'setting', 'update', D> = {
+			params: {
+				id: id,
+			},
+			body: body,
+			...parameters
+		};
+		let current_token:string|undefined;
+		const hook_token = uranio.hooks.get_token();
+		if(typeof hook_token === 'string' && hook_token !== ''){
+			current_token = hook_token;
+		}
+		if(typeof token === 'string' && token !== ''){
+			current_token = token;
+		}
+		return await uranio.base.create('setting',current_token).hook<'update',D>('update')(args);
+	},
+	delete: async <D extends uranio.schema.Depth>(
+		id:string,
+		parameters?:uranio.types.Hook.Arguments<'setting', 'delete', D>,
+		token?:string
+	):uranio.types.Hook.Response<'setting', 'delete', D>  => {
+		const args:uranio.types.Hook.Arguments<'setting', 'delete', D> = {
+			params: {
+				id: id,
+			},
+			...parameters
+		};
+		let current_token:string|undefined;
+		const hook_token = uranio.hooks.get_token();
+		if(typeof hook_token === 'string' && hook_token !== ''){
+			current_token = hook_token;
+		}
+		if(typeof token === 'string' && token !== ''){
+			current_token = token;
+		}
+		return await uranio.base.create('setting',current_token).hook<'delete',D>('delete')(args);
+	},
+	insert_multiple: async <D extends uranio.schema.Depth>(
+		body:uranio.types.Hook.Body<'setting', 'insert_multiple'>,
+		parameters?:uranio.types.Hook.Arguments<'setting', 'insert_multiple', D>,
+		token?:string
+	):uranio.types.Hook.Response<'setting', 'insert_multiple', D>  => {
+		const args:uranio.types.Hook.Arguments<'setting', 'insert_multiple', D> = {
+			body: body,
+			...parameters
+		};
+		let current_token:string|undefined;
+		const hook_token = uranio.hooks.get_token();
+		if(typeof hook_token === 'string' && hook_token !== ''){
+			current_token = hook_token;
+		}
+		if(typeof token === 'string' && token !== ''){
+			current_token = token;
+		}
+		return await uranio.base.create('setting',current_token).hook<'insert_multiple',D>('insert_multiple')(args);
+	},
+	update_multiple: async <D extends uranio.schema.Depth>(
+		ids:string,
+		body:uranio.types.Hook.Body<'setting', 'update_multiple'>,
+		parameters?:uranio.types.Hook.Arguments<'setting', 'update_multiple', D>,
+		token?:string
+	):uranio.types.Hook.Response<'setting', 'update_multiple', D>  => {
+		const args:uranio.types.Hook.Arguments<'setting', 'update_multiple', D> = {
+			params: {
+				ids: ids,
+			},
+			body: body,
+			...parameters
+		};
+		let current_token:string|undefined;
+		const hook_token = uranio.hooks.get_token();
+		if(typeof hook_token === 'string' && hook_token !== ''){
+			current_token = hook_token;
+		}
+		if(typeof token === 'string' && token !== ''){
+			current_token = token;
+		}
+		return await uranio.base.create('setting',current_token).hook<'update_multiple',D>('update_multiple')(args);
+	},
+	delete_multiple: async <D extends uranio.schema.Depth>(
+		ids:string,
+		parameters?:uranio.types.Hook.Arguments<'setting', 'delete_multiple', D>,
+		token?:string
+	):uranio.types.Hook.Response<'setting', 'delete_multiple', D>  => {
+		const args:uranio.types.Hook.Arguments<'setting', 'delete_multiple', D> = {
+			params: {
+				ids: ids,
+			},
+			...parameters
+		};
+		let current_token:string|undefined;
+		const hook_token = uranio.hooks.get_token();
+		if(typeof hook_token === 'string' && hook_token !== ''){
+			current_token = hook_token;
+		}
+		if(typeof token === 'string' && token !== ''){
+			current_token = token;
+		}
+		return await uranio.base.create('setting',current_token).hook<'delete_multiple',D>('delete_multiple')(args);
 	},
 }
