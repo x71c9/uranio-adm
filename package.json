@@ -55,7 +55,7 @@
 		"sass": "^1.49.8",
 		"sass-loader": "^10.1.1",
 		"ts-loader": "^8.2.0",
-		"uranio-dev": "git+ssh://git@github.com/nbl7/uranio-dev.git",
+		"uranio-dev": "git+ssh://git@github.com/nbl7/uranio-dev.git#master",
 		"vue-typed-mixins": "^0.2.0"
 	},
 	"dependencies": {
@@ -71,11 +71,11 @@
 		"dotenv": "^16.0.0",
 		"nuxt": "^2.15.8",
 		"saslprep": "^1.0.3",
-		"uranio-api": "git+ssh://git@github.com/nbl7/uranio-api.git#update-modules",
-		"uranio-core": "git+ssh://git@github.com/nbl7/uranio-core.git#update-modules",
-		"uranio-schema": "ssh://git@github.com/nbl7/uranio-schema.git",
-		"uranio-trx": "git+ssh://git@github.com/nbl7/uranio-trx.git#update-modules",
-		"urn-lib": "git+ssh://git@github.com/nbl7/uranio-lib.git#update-modules",
+		"uranio-api": "git+ssh://git@github.com/nbl7/uranio-api.git#master",
+		"uranio-core": "git+ssh://git@github.com/nbl7/uranio-core.git#master",
+		"uranio-schema": "ssh://git@github.com/nbl7/uranio-schema.git#master",
+		"uranio-trx": "git+ssh://git@github.com/nbl7/uranio-trx.git#master",
+		"urn-lib": "git+ssh://git@github.com/nbl7/uranio-lib.git#master",
 		"vuedraggable": "^2.24.3"
 	}
 }
