@@ -42,11 +42,9 @@ const log = __importStar(require("../log/server"));
 function init(config, register_required = true) {
     log.init(urn_lib_1.urn_log.defaults);
     uranio_trx_1.default.init(config, false);
-    if (typeof config === 'undefined') {
-        uranio_trx_1.default.conf.set_from_env(defaults_1.adm_config);
-    }
-    else {
-        uranio_trx_1.default.conf.set(defaults_1.adm_config, config);
+    conf.set_from_env(defaults_1.adm_config);
+    if (config) {
+        conf.set(defaults_1.adm_config, config);
     }
     if (register_required) {
         _register_required_atoms();

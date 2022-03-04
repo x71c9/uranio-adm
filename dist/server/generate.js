@@ -47,7 +47,10 @@ urn_lib_1.urn_log.init({
 });
 __exportStar(require("./register"), exports);
 const uranio = __importStar(require("./main"));
-uranio.init();
+uranio.init({
+    connect_on_init: false,
+    superuser_create_on_init: false
+});
 const util = __importStar(require("../util/server"));
 let urn_command = 'all';
 for (const argv of process.argv) {

@@ -42,10 +42,8 @@ const log = __importStar(require("../log/client"));
 function init(config, register_required = true) {
     log.init(urn_lib_1.urn_log.defaults);
     client_1.default.init(config, false);
-    if (typeof config === 'undefined') {
-        client_1.default.conf.set_from_env(defaults_1.adm_client_config);
-    }
-    else {
+    client_1.default.conf.set_from_env(defaults_1.adm_client_config);
+    if (config) {
         client_1.default.conf.set(defaults_1.adm_client_config, config);
     }
     if (process.env.NETLIFY_DEV) {

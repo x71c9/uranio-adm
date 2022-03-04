@@ -20,17 +20,18 @@ import * as conf from '../conf/server';
 
 import * as log from '../log/server';
 
-export function init(config?:types.Configuration, register_required=true)
-		:void{
+export function init(
+	config?: Partial<types.Configuration>,
+	register_required=true
+):void{
 	
 	log.init(urn_log.defaults);
 	
 	trx.init(config, false);
 	
-	if(typeof config === 'undefined'){
-		trx.conf.set_from_env(adm_config);
-	}else{
-		trx.conf.set(adm_config, config);
+	conf.set_from_env(adm_config);
+	if(config){
+		conf.set(adm_config, config);
 	}
 	
 	if(register_required){

@@ -33,8 +33,10 @@ export function set_initialize(is_initialized:boolean):void{
 	_is_client_adm_initialized = is_initialized;
 }
 
-export function set(repo_config:Required<types.ClientConfiguration>, config:types.ClientConfiguration)
-		:void{
+export function set(
+	repo_config: Required<types.ClientConfiguration>,
+	config: Partial<types.ClientConfiguration>
+):void{
 	return trx_client.conf.set(repo_config, config);
 }
 

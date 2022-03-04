@@ -38,8 +38,10 @@ export function set_from_env(repo_config:Required<types.Configuration>)
 	return trx.conf.set_from_env(repo_config);
 }
 
-export function set(repo_config:Required<types.Configuration>, config:types.Configuration)
-		:void{
+export function set(
+	repo_config: Required<types.Configuration>,
+	config: Partial<types.Configuration>
+):void{
 	return trx.conf.set(repo_config, config);
 }
 

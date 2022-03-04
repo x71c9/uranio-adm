@@ -22,7 +22,10 @@ urn_log.init({
 export * from './register';
 
 import * as uranio from './main';
-uranio.init();
+uranio.init({
+	connect_on_init: false,
+	superuser_create_on_init: false
+});
 
 import * as util from '../util/server';
 

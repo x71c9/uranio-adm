@@ -20,16 +20,17 @@ import * as conf from '../conf/client';
 
 import * as log from '../log/client';
 
-export function init(config?:types.ClientConfiguration, register_required=true)
-		:void{
+export function init(
+	config?:Partial<types.ClientConfiguration>,
+	register_required=true
+):void{
 	
 	log.init(urn_log.defaults);
 	
 	trx_client.init(config, false);
 	
-	if(typeof config === 'undefined'){
-		trx_client.conf.set_from_env(adm_client_config);
-	}else{
+	trx_client.conf.set_from_env(adm_client_config);
+	if(config){
 		trx_client.conf.set(adm_client_config, config);
 	}
 	
