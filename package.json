@@ -33,11 +33,11 @@
 	"author": "Andrea Reni <mail@nbl7.net>",
 	"scripts": {
 		"build": "yarn tsc -b",
-		"generate:compile": "npx esbuild ./src/server/generate.ts --outfile=./generate/_generate_bundled.js --bundle --platform=node",
-		"generate:run": "yarn generate:compile && node -r dotenv/config ./generate/_generate_bundled.js urn_output_dir=./generate urn_repo=adm",
-		"generate:schema": "yarn generate:compile && node -r dotenv/config ./generate/_generate_bundled.js urn_repo=adm urn_command=schema",
-		"generate:hooks": "yarn generate:compile && node -r dotenv/config ./generate/_generate_bundled.js urn_output_dir=./generate urn_repo=adm urn_command=hooks",
-		"generate:hook-types": "yarn generate:compile && node -r dotenv/config ./generate/_generate_bundled.js urn_repo=adm urn_command=hook-types",
+		"plain:generate": "node -r source-map-support/register -r dotenv/config ./dist/server/generate.js",
+		"generate": "yarn plain:generate urn_schema_repo_path=node_modules/uranio-schema urn_trx_repo_path=node_modules/uranio-trx",
+		"generate:schema": "yarn generate urn_command=schema",
+		"generate:hooks": "yarn generate urn_command=hooks",
+		"generate:hook-types": "yarn generate urn_command=hook-types",
 		"dev:server": "yarn tsc-watch --onSuccess \"node -r source-map-support/register -r dotenv/config ./dist/dev.js\"",
 		"dev:client": "yarn nuxt dev",
 		"dev": "yarn concurrently \"yarn dev:server\" \"yarn dev:client\""
