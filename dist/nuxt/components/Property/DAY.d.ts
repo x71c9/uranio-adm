@@ -23,6 +23,8 @@ declare const _default: import("vue/types/vue").ExtendedVue<{
         width?: number | undefined;
         height?: number | undefined;
     }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
+        name: string;
+    }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
         status: number;
         msg: string;
         error_code: string;
@@ -45,8 +47,6 @@ declare const _default: import("vue/types/vue").ExtendedVue<{
         ip?: string | undefined;
         is_auth?: boolean | undefined;
         auth_action?: string | undefined;
-    }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
-        name: string;
     });
     atom_name: import("uranio-schema/dist/typ").AtomName;
     prop_name: "_id" | "_date" | "_r" | "_w" | "_from";
