@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 "use strict";
 /**
- * Admin binary entrypoint for uranio-api command
+ * Admin binary for uranio-api web service
  *
  * @packageDocumentation
  */
@@ -34,11 +34,11 @@ urn_lib_1.urn_log.init({
     debug_info: false,
     color: true
 });
-__exportStar(require("./server/register"), exports);
-const server_1 = __importDefault(require("./server"));
+__exportStar(require("../server/register"), exports);
+const server_1 = __importDefault(require("../server"));
 server_1.default.init();
 const service = server_1.default.api.service.create();
 service.listen(() => {
     urn_lib_1.urn_log.debug(`Uranio service listening on port ${server_1.default.conf.get(`service_port`)}...`);
 });
-//# sourceMappingURL=api.js.map
+//# sourceMappingURL=ws.js.map

@@ -4,8 +4,9 @@
 	"description": "Uranio Admin",
 	"main": "dist/index.js",
 	"bin": {
-		"uranio-adm-generate": "dist/server/generate.js",
-		"uranio-api": "dist/api.js"
+		"uranio-generate-adm": "dist/server/generate.js",
+		"uranio-webservice-adm": "dist/service/ws.js",
+		"uranio-panel-adm": "dist/panel/admin.js"
 	},
 	"exports": {
 		".": "./dist/server.js",

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Admin binary entrypoint for uranio-api command
+ * Admin binary entrypoint for uranio-adm Panel
  *
  * @packageDocumentation
  */
@@ -20,12 +20,7 @@ urn_log.init({
 	color: true
 });
 
-export * from './server/register';
+export * from '../client/register';
 
-import uranio from './server';
+import uranio from '../client';
 uranio.init();
-
-const service = uranio.api.service.create();
-service.listen(() => {
-	urn_log.debug(`Uranio service listening on port ${uranio.conf.get(`service_port`)}...`);
-});
