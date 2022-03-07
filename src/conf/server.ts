@@ -33,10 +33,10 @@ export function set_initialize(is_initialized:boolean):void{
 	_is_adm_initialized = is_initialized;
 }
 
-export function set_from_env(repo_config:Required<types.Configuration>)
-		:void{
-	return trx.conf.set_from_env(repo_config);
-}
+// export function set_from_env(repo_config:Required<types.Configuration>)
+//     :void{
+//   return trx.conf.set_from_env(repo_config);
+// }
 
 export function set(
 	repo_config: Required<types.Configuration>,

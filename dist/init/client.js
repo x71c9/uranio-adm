@@ -34,31 +34,34 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.init = void 0;
 const urn_lib_1 = require("urn-lib");
 const client_1 = __importDefault(require("uranio-trx/client"));
-const defaults_1 = require("../client/defaults");
+const default_conf_1 = require("../client/default_conf");
+const default_env_1 = require("../client/default_env");
 const register = __importStar(require("../reg/client"));
 const required = __importStar(require("../req/client"));
 const conf = __importStar(require("../conf/client"));
+const env = __importStar(require("../env/client"));
 const log = __importStar(require("../log/client"));
 function init(config, register_required = true) {
     log.init(urn_lib_1.urn_log.defaults);
     client_1.default.init(config, false);
-    client_1.default.conf.set_from_env(defaults_1.adm_client_config);
+    env.set_from_env(default_env_1.adm_client_env);
+    client_1.default.api.core.conf.set_from_file();
     if (config) {
-        client_1.default.conf.set(defaults_1.adm_client_config, config);
+        conf.set(default_conf_1.adm_client_config, config);
     }
-    if (process.env.NETLIFY_DEV) {
-        client_1.default.conf.defaults.service_url = `http://localhost:7777/uranio/api`;
-    }
-    else if (process.env.NETLIFY) {
-        client_1.default.conf.defaults.service_url = `${process.env.URL}/uranio/api`;
-    }
+    // if(process.env.NETLIFY_DEV){
+    //   trx_client.conf.defaults.service_url = `http://localhost:7777/uranio/api`;
+    // }else if(process.env.NETLIFY){
+    //   trx_client.conf.defaults.service_url = `${process.env.URL}/uranio/api`;
+    // }
     if (register_required) {
         _register_required_atoms();
     }
     _validate_adm_client_variables();
     _validate_adm_client_book();
     conf.set_initialize(true);
-    urn_lib_1.urn_log.defaults.log_level = conf.get(`log_level`);
+    env.set_initialize(true);
+    urn_lib_1.urn_log.defaults.log_level = env.get(`log_level`);
 }
 exports.init = init;
 function _register_required_atoms() {

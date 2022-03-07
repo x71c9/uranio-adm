@@ -8,7 +8,9 @@ import {urn_log} from 'urn-lib';
 
 import trx_client from 'uranio-trx/client';
 
-import {adm_client_config} from '../client/defaults';
+import {adm_client_config} from '../client/default_conf';
+
+import {adm_client_env} from '../client/default_env';
 
 import * as register from '../reg/client';
 
@@ -17,6 +19,8 @@ import * as required from '../req/client';
 import * as types from '../client/types';
 
 import * as conf from '../conf/client';
+
+import * as env from '../env/client';
 
 import * as log from '../log/client';
 
@@ -29,20 +33,23 @@ export function init(
 	
 	trx_client.init(config, false);
 	
-	trx_client.conf.set_from_env(adm_client_config);
+	env.set_from_env(adm_client_env);
+	
+	trx_client.api.core.conf.set_from_file();
+	
 	if(config){
-		trx_client.conf.set(adm_client_config, config);
+		conf.set(adm_client_config, config);
 	}
 	
-	if(process.env.NETLIFY_DEV){
+	// if(process.env.NETLIFY_DEV){
 		
-		trx_client.conf.defaults.service_url = `http://localhost:7777/uranio/api`;
+	//   trx_client.conf.defaults.service_url = `http://localhost:7777/uranio/api`;
 		
-	}else if(process.env.NETLIFY){
+	// }else if(process.env.NETLIFY){
 		
-		trx_client.conf.defaults.service_url = `${process.env.URL}/uranio/api`;
+	//   trx_client.conf.defaults.service_url = `${process.env.URL}/uranio/api`;
 		
-	}
+	// }
 	
 	if(register_required){
 		_register_required_atoms();
@@ -52,8 +59,9 @@ export function init(
 	_validate_adm_client_book();
 	
 	conf.set_initialize(true);
+	env.set_initialize(true);
 	
-	urn_log.defaults.log_level = conf.get(`log_level`);
+	urn_log.defaults.log_level = env.get(`log_level`);
 	
 }
 

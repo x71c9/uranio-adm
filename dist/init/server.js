@@ -35,14 +35,17 @@ exports.init = void 0;
 const urn_lib_1 = require("urn-lib");
 const uranio_trx_1 = __importDefault(require("uranio-trx"));
 const defaults_1 = require("../conf/defaults");
+const defaults_2 = require("../env/defaults");
 const register = __importStar(require("../reg/server"));
 const required = __importStar(require("../req/server"));
 const conf = __importStar(require("../conf/server"));
+const env = __importStar(require("../env/server"));
 const log = __importStar(require("../log/server"));
 function init(config, register_required = true) {
     log.init(urn_lib_1.urn_log.defaults);
     uranio_trx_1.default.init(config, false);
-    conf.set_from_env(defaults_1.adm_config);
+    env.set_from_env(defaults_2.adm_env);
+    uranio_trx_1.default.api.core.conf.set_from_file();
     if (config) {
         conf.set(defaults_1.adm_config, config);
     }
@@ -50,7 +53,8 @@ function init(config, register_required = true) {
         _register_required_atoms();
     }
     conf.set_initialize(true);
-    urn_lib_1.urn_log.defaults.log_level = conf.get(`log_level`);
+    env.set_initialize(true);
+    urn_lib_1.urn_log.defaults.log_level = env.get(`log_level`);
 }
 exports.init = init;
 function _register_required_atoms() {

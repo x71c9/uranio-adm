@@ -3,7 +3,7 @@
  *
  * @packageDocumentation
  */
-import { adm_client_config } from '../client/defaults';
+import { adm_client_config } from '../client/default_conf';
 export { adm_client_config as defaults };
 import * as types from '../client/types';
 export declare function get<k extends keyof types.ClientConfiguration>(param_name: k): typeof adm_client_config[k];

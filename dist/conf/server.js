@@ -8,7 +8,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.set = exports.set_from_env = exports.set_initialize = exports.is_initialized = exports.get = exports.defaults = void 0;
+exports.set = exports.set_initialize = exports.is_initialized = exports.get = exports.defaults = void 0;
 const urn_lib_1 = require("urn-lib");
 const urn_exc = urn_lib_1.urn_exception.init('CONF_ADM_MODULE', `Admin configuration module`);
 const uranio_trx_1 = __importDefault(require("uranio-trx"));
@@ -29,10 +29,10 @@ function set_initialize(is_initialized) {
     _is_adm_initialized = is_initialized;
 }
 exports.set_initialize = set_initialize;
-function set_from_env(repo_config) {
-    return uranio_trx_1.default.conf.set_from_env(repo_config);
-}
-exports.set_from_env = set_from_env;
+// export function set_from_env(repo_config:Required<types.Configuration>)
+//     :void{
+//   return trx.conf.set_from_env(repo_config);
+// }
 function set(repo_config, config) {
     return uranio_trx_1.default.conf.set(repo_config, config);
 }

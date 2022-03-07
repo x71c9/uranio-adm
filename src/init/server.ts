@@ -10,6 +10,8 @@ import trx from 'uranio-trx';
 
 import {adm_config} from '../conf/defaults';
 
+import {adm_env} from '../env/defaults';
+
 import * as register from '../reg/server';
 
 import * as required from '../req/server';
@@ -17,6 +19,8 @@ import * as required from '../req/server';
 import * as types from '../server/types';
 
 import * as conf from '../conf/server';
+
+import * as env from '../env/server';
 
 import * as log from '../log/server';
 
@@ -29,7 +33,10 @@ export function init(
 	
 	trx.init(config, false);
 	
-	conf.set_from_env(adm_config);
+	env.set_from_env(adm_env);
+	
+	trx.api.core.conf.set_from_file();
+	
 	if(config){
 		conf.set(adm_config, config);
 	}
@@ -39,8 +46,10 @@ export function init(
 	}
 	
 	conf.set_initialize(true);
+	env.set_initialize(true);
 	
-	urn_log.defaults.log_level = conf.get(`log_level`);
+	
+	urn_log.defaults.log_level = env.get(`log_level`);
 	
 }
 

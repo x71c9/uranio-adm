@@ -3,8 +3,8 @@
  *
  * @packageDocumentation
  */
-import { ClientConfiguration as TrxClientConfiguration } from 'uranio-trx/client/types';
+import trx_client from 'uranio-trx/client';
 declare type RequiredClientConfigParams = {};
 declare type OptionalClientConfigParam = {};
-export declare type ClientConfiguration = TrxClientConfiguration & RequiredClientConfigParams & Partial<OptionalClientConfigParam>;
+export declare type ClientConfiguration = trx_client.types.ClientConfiguration & RequiredClientConfigParams & Partial<OptionalClientConfigParam>;
 export {};

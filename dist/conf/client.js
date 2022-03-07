@@ -12,13 +12,13 @@ exports.set = exports.set_initialize = exports.is_initialized = exports.get = ex
 const urn_lib_1 = require("urn-lib");
 const urn_exc = urn_lib_1.urn_exception.init('CONF_ADM_CLIENT_MODULE', `Admin client configuration module`);
 const client_1 = __importDefault(require("uranio-trx/client"));
-const defaults_1 = require("../client/defaults");
-Object.defineProperty(exports, "defaults", { enumerable: true, get: function () { return defaults_1.adm_client_config; } });
+const default_conf_1 = require("../client/default_conf");
+Object.defineProperty(exports, "defaults", { enumerable: true, get: function () { return default_conf_1.adm_client_config; } });
 let _is_client_adm_initialized = false;
 function get(param_name) {
     _check_if_uranio_was_initialized();
     _check_if_param_exists(param_name);
-    return defaults_1.adm_client_config[param_name];
+    return default_conf_1.adm_client_config[param_name];
 }
 exports.get = get;
 function is_initialized() {
@@ -34,7 +34,7 @@ function set(repo_config, config) {
 }
 exports.set = set;
 function _check_if_param_exists(param_name) {
-    return urn_lib_1.urn_util.object.has_key(defaults_1.adm_client_config, param_name);
+    return urn_lib_1.urn_util.object.has_key(default_conf_1.adm_client_config, param_name);
 }
 function _check_if_uranio_was_initialized() {
     if (is_initialized() === false) {

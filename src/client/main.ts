@@ -16,6 +16,8 @@ import * as book from '../book/client';
 
 import * as conf from '../conf/client';
 
+import * as env from '../env/client';
+
 import * as log from '../log/client';
 
 import * as register from '../reg/client';
@@ -34,6 +36,7 @@ export {
 	schema,
 	book,
 	conf,
+	env,
 	register,
 	required,
 	types

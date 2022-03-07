@@ -22,4 +22,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("../typ/trx"), exports);
 __exportStar(require("../typ/book"), exports);
 __exportStar(require("../typ/conf"), exports);
+__exportStar(require("../typ/env"), exports);
 //# sourceMappingURL=types.js.map

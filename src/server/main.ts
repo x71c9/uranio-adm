@@ -17,6 +17,8 @@ import * as book from '../book/server';
 
 import * as conf from '../conf/server';
 
+import * as env from '../env/server';
+
 import * as log from '../log/server';
 
 import * as util from '../util/server';
@@ -37,6 +39,7 @@ export {
 	log,
 	book,
 	conf,
+	env,
 	util,
 	register,
 	required,

@@ -3,8 +3,8 @@
  *
  * @packageDocumentation
  */
-import { Configuration as TrxConfiguration } from 'uranio-trx/types';
+import trx from 'uranio-trx';
 declare type RequiredConfigParams = {};
 declare type OptionalConfigParam = {};
-export declare type Configuration = TrxConfiguration & RequiredConfigParams & Partial<OptionalConfigParam>;
+export declare type Configuration = trx.types.Configuration & RequiredConfigParams & Partial<OptionalConfigParam>;
 export {};
