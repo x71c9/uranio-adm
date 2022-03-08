@@ -8,7 +8,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.set = exports.set_from_env = exports.set_initialize = exports.is_initialized = exports.get = exports.defaults = void 0;
+exports.is_production = exports.set = exports.set_from_env = exports.set_initialize = exports.is_initialized = exports.get = exports.defaults = void 0;
 const urn_lib_1 = require("urn-lib");
 const urn_exc = urn_lib_1.urn_exception.init('ADM_ENV_MODULE', `Admin environment module`);
 const uranio_trx_1 = __importDefault(require("uranio-trx"));
@@ -37,6 +37,10 @@ function set(repo_env, config) {
     return uranio_trx_1.default.env.set(repo_env, config);
 }
 exports.set = set;
+function is_production() {
+    return uranio_trx_1.default.env.is_production();
+}
+exports.is_production = is_production;
 function _check_if_param_exists(param_name) {
     return urn_lib_1.urn_util.object.has_key(defaults_1.adm_env, param_name);
 }

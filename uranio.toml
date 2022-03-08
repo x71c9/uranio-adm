@@ -1,11 +1,25 @@
 ## TOML Uranio
-
 db = "mongo"
-
 encryption_rounds = 12
-
 max_password_length = 58
-
 storage = 'aws'
-
 connect_on_init = true
+prefix_api = '/uranio/api'
+lambda = 'netlify'
+fetch = 'axios'
+[service]
+	platform = 'express'
+	protocol = 'http'
+	domain = 'localhost'
+	port = 7777
+	[dev]
+		protocol = 'http'
+		domain = 'localhost'
+		port = 7777
+[log]
+	debug_info = true
+	color = true
+	time_format = "yyyy-mm-dd'T'HH:MM:ss:l"
+	max_str_length = 174
+	prefix = ''
+	prefix_type = false

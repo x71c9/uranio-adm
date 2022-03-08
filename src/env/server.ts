@@ -45,6 +45,10 @@ export function set(
 	return trx.env.set(repo_env, config);
 }
 
+export function is_production():boolean{
+	return trx.env.is_production();
+}
+
 function _check_if_param_exists(param_name:string){
 	return urn_util.object.has_key(adm_env, param_name);
 }
