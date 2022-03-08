@@ -8,7 +8,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.set = exports.set_from_env = exports.set_initialize = exports.is_initialized = exports.get = exports.defaults = void 0;
+exports.is_production = exports.set = exports.set_from_env = exports.set_initialize = exports.is_initialized = exports.get_current = exports.get = exports.defaults = void 0;
 const urn_lib_1 = require("urn-lib");
 const urn_exc = urn_lib_1.urn_exception.init('ADM_ENV_CLIENT_MODULE', `Admin client environment module`);
 const client_1 = __importDefault(require("uranio-trx/client"));
@@ -21,6 +21,10 @@ function get(param_name) {
     return default_env_1.adm_client_env[param_name];
 }
 exports.get = get;
+function get_current(param_name) {
+    return client_1.default.env.get_current(param_name);
+}
+exports.get_current = get_current;
 function is_initialized() {
     return client_1.default.env.is_initialized() && _is_client_adm_initialized;
 }
@@ -37,6 +41,10 @@ function set(repo_env, config) {
     return client_1.default.env.set(repo_env, config);
 }
 exports.set = set;
+function is_production() {
+    return client_1.default.env.is_production();
+}
+exports.is_production = is_production;
 function _check_if_param_exists(param_name) {
     return urn_lib_1.urn_util.object.has_key(default_env_1.adm_client_env, param_name);
 }

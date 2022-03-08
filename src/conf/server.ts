@@ -25,6 +25,11 @@ export function get<k extends keyof types.Configuration>(param_name:k)
 	return adm_config[param_name];
 }
 
+export function get_current<k extends keyof types.Configuration>(param_name:k)
+		:typeof adm_config[k]{
+	return trx.conf.get_current(param_name as keyof trx.types.Configuration) as typeof adm_config[k];
+}
+
 export function is_initialized():boolean{
 	return trx.conf.is_initialized() && _is_adm_initialized;
 }

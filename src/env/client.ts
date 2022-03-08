@@ -25,6 +25,11 @@ export function get<k extends keyof types.ClientEnvironment>(param_name:k)
 	return adm_client_env[param_name];
 }
 
+export function get_current<k extends keyof types.ClientEnvironment>(param_name:k)
+		:typeof adm_client_env[k]{
+	return trx_client.env.get_current(param_name);
+}
+
 export function is_initialized():boolean{
 	return trx_client.env.is_initialized() && _is_client_adm_initialized;
 }
@@ -44,6 +49,10 @@ export function set(
 	config: Partial<types.ClientEnvironment>
 ):void{
 	return trx_client.env.set(repo_env, config);
+}
+
+export function is_production():boolean{
+	return trx_client.env.is_production();
 }
 
 function _check_if_param_exists(param_name:string){

@@ -3,4 +3,4 @@
  *
  * @packageDocumentation
  */
-export * from './server/hooks';
+export {};

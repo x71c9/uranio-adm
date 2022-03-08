@@ -29,8 +29,6 @@ export function init(
 	register_required=true
 ):void{
 	
-	log.init(urn_log.defaults);
-	
 	trx.init(config, false);
 	
 	env.set_from_env(adm_env);
@@ -48,8 +46,9 @@ export function init(
 	conf.set_initialize(true);
 	env.set_initialize(true);
 	
+	log.init(urn_log);
 	
-	urn_log.defaults.log_level = env.get(`log_level`);
+	urn_log.debug(`Uranio adm initialization completed.`);
 	
 }
 

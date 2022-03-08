@@ -5,6 +5,7 @@ max_password_length = 58
 storage = 'aws'
 connect_on_init = true
 prefix_api = '/uranio/api'
+prefix_log = '/logs'
 lambda = 'netlify'
 fetch = 'axios'
 [service]
@@ -12,12 +13,21 @@ fetch = 'axios'
 	protocol = 'http'
 	domain = 'localhost'
 	port = 7777
-	[dev]
-		protocol = 'http'
-		domain = 'localhost'
-		port = 7777
+	url = 'http://localhost:7777/uranio/api'
+[service.dev]
+	protocol = 'http'
+	domain = 'localhost'
+	port = 7777
+	url = 'http://localhost:7777/uranio/api'
 [log]
 	debug_info = true
+	color = true
+	time_format = "yyyy-mm-dd'T'HH:MM:ss:l"
+	max_str_length = 174
+	prefix = ''
+	prefix_type = false
+[log.dev]
+	debug_info = false
 	color = true
 	time_format = "yyyy-mm-dd'T'HH:MM:ss:l"
 	max_str_length = 174

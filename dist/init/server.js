@@ -42,7 +42,6 @@ const conf = __importStar(require("../conf/server"));
 const env = __importStar(require("../env/server"));
 const log = __importStar(require("../log/server"));
 function init(config, register_required = true) {
-    log.init(urn_lib_1.urn_log.defaults);
     uranio_trx_1.default.init(config, false);
     env.set_from_env(defaults_2.adm_env);
     uranio_trx_1.default.api.core.conf.set_from_file();
@@ -54,7 +53,8 @@ function init(config, register_required = true) {
     }
     conf.set_initialize(true);
     env.set_initialize(true);
-    urn_lib_1.urn_log.defaults.log_level = env.get(`log_level`);
+    log.init(urn_lib_1.urn_log);
+    urn_lib_1.urn_log.debug(`Uranio adm initialization completed.`);
 }
 exports.init = init;
 function _register_required_atoms() {

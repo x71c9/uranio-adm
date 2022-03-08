@@ -42,7 +42,6 @@ const conf = __importStar(require("../conf/client"));
 const env = __importStar(require("../env/client"));
 const log = __importStar(require("../log/client"));
 function init(config, register_required = true) {
-    log.init(urn_lib_1.urn_log.defaults);
     client_1.default.init(config, false);
     env.set_from_env(default_env_1.adm_client_env);
     client_1.default.api.core.conf.set_from_file();
@@ -61,7 +60,8 @@ function init(config, register_required = true) {
     _validate_adm_client_book();
     conf.set_initialize(true);
     env.set_initialize(true);
-    urn_lib_1.urn_log.defaults.log_level = env.get(`log_level`);
+    log.init(urn_lib_1.urn_log);
+    urn_lib_1.urn_log.debug(`Uranio adm client initialization completed.`);
 }
 exports.init = init;
 function _register_required_atoms() {

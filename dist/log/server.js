@@ -9,21 +9,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.init = void 0;
-const urn_lib_1 = require("urn-lib");
 const uranio_trx_1 = __importDefault(require("uranio-trx"));
-function init(log_config) {
-    /**
-     * This "if else" is needed otherwise Typescript will complain
-     * the overloads don't match.
-     */
-    if (typeof log_config === 'number') {
-        uranio_trx_1.default.log.init(log_config);
-        urn_lib_1.urn_log.init(log_config);
-    }
-    else {
-        uranio_trx_1.default.log.init(log_config);
-        urn_lib_1.urn_log.init(log_config);
-    }
+function init(urn_log_lib) {
+    return uranio_trx_1.default.log.init(urn_log_lib);
 }
 exports.init = init;
+// export function init(log_config?: urn_log.LogLevel):void
+// export function init(log_config?: urn_log.LogConfig):void
+// export function init(log_config?: urn_log.LogConfig | urn_log.LogLevel):void{
+//   /**
+//    * This "if else" is needed otherwise Typescript will complain
+//    * the overloads don't match.
+//    */
+//   if(typeof log_config === 'number'){
+//     trx.log.init(log_config);
+//     urn_log.init(log_config);
+//   }else{
+//     trx.log.init(log_config);
+//     urn_log.init(log_config);
+//   }
+// }
 //# sourceMappingURL=server.js.map

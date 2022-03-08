@@ -4,5 +4,4 @@
  * @packageDocumentation
  */
 import { urn_log } from 'urn-lib';
-export declare function init(log_config?: urn_log.LogLevel): void;
-export declare function init(log_config?: urn_log.LogConfig): void;
+export declare function init(urn_log_lib: typeof urn_log): void;

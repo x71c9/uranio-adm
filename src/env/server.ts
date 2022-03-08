@@ -25,6 +25,11 @@ export function get<k extends keyof types.Environment>(param_name:k)
 	return adm_env[param_name];
 }
 
+export function get_current<k extends keyof types.Environment>(param_name:k)
+		:typeof adm_env[k]{
+	return trx.env.get_current(param_name);
+}
+
 export function is_initialized():boolean{
 	return trx.env.is_initialized() && _is_adm_initialized;
 }
