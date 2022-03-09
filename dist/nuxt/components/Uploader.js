@@ -21,7 +21,7 @@ require("@uppy/webcam/dist/style.css");
 require("@uppy/image-editor/dist/style.css");
 exports.default = vue_1.default.extend({
     data() {
-        const target = client_1.default.conf.get('service_url') + `/media/upload`;
+        const target = client_1.default.conf.get_current('service_url') + `/media/upload`;
         const uppy_xhr_options = {
             endpoint: target,
             fieldName: 'file',

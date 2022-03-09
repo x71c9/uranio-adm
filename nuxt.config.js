@@ -38,10 +38,10 @@ export default {
 		subFolders: false,
 		exclude: ['/urn-admin'],
 	},
-	// server: {
-	//   host: "0.0.0.0",
-	//   port: 5454
-	// },
+	server: {
+		host: "0.0.0.0",
+		port: 5454
+	},
 	modules:[
 		'@nuxtjs/proxy'
 	],
@@ -49,14 +49,14 @@ export default {
 		'@nuxt/typescript-build',
 		'@nuxtjs/style-resources'
 	],
-	// proxy: {
-	//   '/uranio/api': {
-	//     target: "http://localhost:9794/uranio/api",
-	//     pathRewrite: {
-	//       "^/uranio/api": ""
-	//     }
-	//   }
-	// },
+	proxy: {
+		'/uranio/api': {
+			target: "http://localhost:7773/uranio/api",
+			pathRewrite: {
+				"^/uranio/api": ""
+			}
+		}
+	},
 	typescript: {
 		typeCheck: true
 	},

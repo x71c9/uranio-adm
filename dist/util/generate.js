@@ -8,7 +8,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.init = exports.save_hook_types = exports.hook_types_and_save = exports.hook_types = exports.save_hooks_client = exports.save_hooks_server = exports.hooks_and_save = exports.hooks_client = exports.hooks_server = exports.save_schema = exports.schema_and_save = exports.schema = exports.process_params = void 0;
+exports.init = exports.save_client_config = exports.client_config_and_save = exports.client_config = exports.save_hook_types = exports.hook_types_and_save = exports.hook_types = exports.save_hooks_client = exports.save_hooks_server = exports.hooks_and_save = exports.hooks_client = exports.hooks_server = exports.save_schema = exports.schema_and_save = exports.schema = exports.process_params = void 0;
 // import fs from 'fs';
 const uranio_trx_1 = __importDefault(require("uranio-trx"));
 const urn_lib_1 = require("urn-lib");
@@ -93,6 +93,24 @@ function save_hook_types(text) {
     // urn_log.debug(`Types saved in [${output}].`);
 }
 exports.save_hook_types = save_hook_types;
+function client_config(server_config) {
+    urn_lib_1.urn_log.debug('Started generating uranio core client config...');
+    init();
+    const text = uranio_trx_1.default.util.generate.client_config(server_config);
+    urn_lib_1.urn_log.debug(`ADM client config generated.`);
+    return text;
+}
+exports.client_config = client_config;
+function client_config_and_save(server_config) {
+    const text = client_config(server_config);
+    save_client_config(text);
+    urn_lib_1.urn_log.debug(`ADM Client config generated and saved.`);
+}
+exports.client_config_and_save = client_config_and_save;
+function save_client_config(text) {
+    uranio_trx_1.default.util.generate.save_client_config(text);
+}
+exports.save_client_config = save_client_config;
 function init() {
     uranio_trx_1.default.util.generate.init();
     // process_params.urn_base_schema = trx.util.generate.process_params.urn_base_schema;

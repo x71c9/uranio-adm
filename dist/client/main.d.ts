@@ -12,7 +12,7 @@ import * as conf from '../conf/client';
 import * as env from '../env/client';
 import * as log from '../log/client';
 import * as register from '../reg/client';
-import * as required from '../req/server';
+import * as required from '../req/client';
 import * as types from './types';
 export * from '../init/client';
 export { core, api, trx, log, schema, book, conf, env, register, required, types };

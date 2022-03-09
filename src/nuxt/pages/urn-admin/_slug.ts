@@ -116,7 +116,9 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 				return this.fail();
 			}
 			
-			const deleted_ids = urn_res.payload.map(a => a._from);
+			const deleted_ids = urn_res.payload.map((a:uranio.schema.Atom<uranio.schema.AtomName>) => {
+				return a._from;
+			});
 			
 			let count = 0;
 			for(const id of deleted_ids){

@@ -33,3 +33,21 @@ fetch = 'axios'
 	max_str_length = 174
 	prefix = ''
 	prefix_type = false
+[client.service]
+	url = 'http://localhost:7777/uranio/api'
+[client.service.dev]
+	url = 'http://localhost:7773/uranio/api'
+[client.log]
+	debug_info = false
+	color = false
+	time_format = "yyyy-mm-dd'T'HH:MM:ss:l"
+	max_str_length = 174
+	prefix = ''
+	prefix_type = false
+[client.log.dev]
+	debug_info = false
+	color = false
+	time_format = "yyyy-mm-dd'T'HH:MM:ss:l"
+	max_str_length = 174
+	prefix = ''
+	prefix_type = false

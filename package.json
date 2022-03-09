@@ -34,16 +34,18 @@
 	"author": "Andrea Reni <mail@nbl7.net>",
 	"scripts": {
 		"build": "yarn tsc -b",
+		"dev:server": "yarn tsc-watch --onSuccess \"node -r source-map-support/register -r dotenv/config ./dist/dev.js\"",
+		"dev:client": "yarn nuxt dev",
+		"dev": "yarn concurrently \"yarn dev:server\" \"yarn dev:client\"",
 		"pre:build": "yarn esbuild src/server/generate.ts --bundle --platform=node --format=cjs --outfile=.generate/bundled_generate.js",
 		"pre:generate": "node .generate/bundled_generate.js",
 		"plain:generate": "node -r source-map-support/register -r dotenv/config ./dist/server/generate.js",
-		"generate": "yarn plain:generate urn_schema_repo_path=node_modules/uranio-schema urn_trx_repo_path=node_modules/uranio-trx",
+		"generate": "yarn plain:generate urn_schema_repo_path=.generate/uranio-schema urn_trx_repo_path=.generate/uranio-trx urn_repo_path=.generate",
+		"generate:replace": "yarn plain:generate urn_schema_repo_path=node_modules/uranio-schema urn_trx_repo_path=node_modules/uranio-trx urn_repo_path=.",
 		"generate:schema": "yarn generate urn_command=schema",
 		"generate:hooks": "yarn generate urn_command=hooks",
 		"generate:hook-types": "yarn generate urn_command=hook-types",
-		"dev:server": "yarn tsc-watch --onSuccess \"node -r source-map-support/register -r dotenv/config ./dist/dev.js\"",
-		"dev:client": "yarn nuxt dev",
-		"dev": "yarn concurrently \"yarn dev:server\" \"yarn dev:client\""
+		"generate:client-config": "yarn generate urn_command=client-config"
 	},
 	"devDependencies": {
 		"@nuxt/types": "^2.15.8",

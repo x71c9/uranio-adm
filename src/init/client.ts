@@ -24,6 +24,8 @@ import * as env from '../env/client';
 
 import * as log from '../log/client';
 
+import {client_toml} from '../client/toml';
+
 export function init(
 	config?:Partial<types.ClientConfiguration>,
 	register_required=true
@@ -34,6 +36,8 @@ export function init(
 	env.set_from_env(adm_client_env);
 	
 	// trx_client.api.core.conf.set_from_file(adm_client_config);
+	
+	conf.set(adm_client_config, client_toml);
 	
 	if(config){
 		conf.set(adm_client_config, config);

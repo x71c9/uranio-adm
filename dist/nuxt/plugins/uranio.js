@@ -12,6 +12,7 @@ urn_lib_1.urn_log.init({
 // export * from './__urn_hooks';
 const client_1 = __importDefault(require("uranio/client"));
 client_1.default.init();
+console.log(client_1.default.conf.defaults);
 const vue_1 = __importDefault(require("vue"));
 vue_1.default.prototype.$uranio = client_1.default;
 //# sourceMappingURL=uranio.js.map

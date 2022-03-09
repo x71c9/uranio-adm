@@ -12,6 +12,8 @@ urn_log.init({
 import uranio from 'uranio/client';
 uranio.init();
 
+console.log(uranio.conf.defaults);
+
 import Vue from 'vue';
 
 declare module 'vue/types/vue' {
