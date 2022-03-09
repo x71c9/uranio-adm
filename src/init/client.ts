@@ -33,7 +33,7 @@ export function init(
 	
 	env.set_from_env(adm_client_env);
 	
-	trx_client.api.core.conf.set_from_file();
+	// trx_client.api.core.conf.set_from_file(adm_client_config);
 	
 	if(config){
 		conf.set(adm_client_config, config);

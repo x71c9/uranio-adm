@@ -34,6 +34,8 @@
 	"author": "Andrea Reni <mail@nbl7.net>",
 	"scripts": {
 		"build": "yarn tsc -b",
+		"pre:build": "yarn esbuild src/server/generate.ts --bundle --platform=node --format=cjs --outfile=.generate/bundled_generate.js",
+		"pre:generate": "node .generate/bundled_generate.js",
 		"plain:generate": "node -r source-map-support/register -r dotenv/config ./dist/server/generate.js",
 		"generate": "yarn plain:generate urn_schema_repo_path=node_modules/uranio-schema urn_trx_repo_path=node_modules/uranio-trx",
 		"generate:schema": "yarn generate urn_command=schema",

@@ -260,7 +260,7 @@ async function _find_atoms<A extends uranio.schema.AtomName, D extends uranio.sc
 	skip: number,
 	depth?:D
 ):Promise<uranio.schema.Molecule<A,D>[]>{
-			
+	
 	const trx_base = uranio.trx.base.create(atom_name);
 	const trx_hook_find = trx_base.hook<'find', D>('find');
 	

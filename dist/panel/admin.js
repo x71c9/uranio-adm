@@ -28,12 +28,6 @@ const result = dotenv_1.default.config();
 if (result.error) {
     throw result.error;
 }
-const urn_lib_1 = require("urn-lib");
-urn_lib_1.urn_log.init({
-    log_level: urn_lib_1.urn_log.LogLevel.FUNCTION_DEBUG,
-    debug_info: false,
-    color: true
-});
 __exportStar(require("../client/register"), exports);
 const client_1 = __importDefault(require("../client"));
 client_1.default.init();

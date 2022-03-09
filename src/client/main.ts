@@ -22,7 +22,7 @@ import * as log from '../log/client';
 
 import * as register from '../reg/client';
 
-import * as required from '../req/server';
+import * as required from '../req/client';
 
 import * as types from './types';
 

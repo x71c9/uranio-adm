@@ -11,11 +11,11 @@ export default {
 		'uranio-core/client/types': resolve(__dirname, './node_modules/uranio-core/dist/client/types'),
 	},
 	env: {
-		URN_CLIENT_FETCH: process.env.URN_CLIENT_FETCH || 'axios',
-		URN_CLIENT_PROTOCOL: process.env.URN_CLIENT_PROTOCOL || 'http',
-		URN_CLIENT_DOMAIN: process.env.URN_CLIENT_DOMAIN || 'localhost',
-		URN_CLIENT_PORT: Number(process.env.URN_CLIENT_PORT) || 4444,
-		URN_CLIENT_PREFIX_LOG: process.env.URN_PREFIX_LOG || '/log',
+		// URN_CLIENT_FETCH: process.env.URN_CLIENT_FETCH || 'axios',
+		// URN_CLIENT_PROTOCOL: process.env.URN_CLIENT_PROTOCOL || 'http',
+		// URN_CLIENT_DOMAIN: process.env.URN_CLIENT_DOMAIN || 'localhost',
+		// URN_CLIENT_PORT: Number(process.env.URN_CLIENT_PORT) || 4444,
+		// URN_CLIENT_PREFIX_LOG: process.env.URN_PREFIX_LOG || '/log',
 	},
 	components: [
 		{
@@ -38,10 +38,10 @@ export default {
 		subFolders: false,
 		exclude: ['/urn-admin'],
 	},
-	server: {
-		host: "0.0.0.0",
-		port: 5454
-	},
+	// server: {
+	//   host: "0.0.0.0",
+	//   port: 5454
+	// },
 	modules:[
 		'@nuxtjs/proxy'
 	],
@@ -49,14 +49,14 @@ export default {
 		'@nuxt/typescript-build',
 		'@nuxtjs/style-resources'
 	],
-	proxy: {
-		'/uranio/api': {
-			target: "http://localhost:9794/uranio/api",
-			pathRewrite: {
-				"^/uranio/api": ""
-			}
-		}
-	},
+	// proxy: {
+	//   '/uranio/api': {
+	//     target: "http://localhost:9794/uranio/api",
+	//     pathRewrite: {
+	//       "^/uranio/api": ""
+	//     }
+	//   }
+	// },
 	typescript: {
 		typeCheck: true
 	},
@@ -99,11 +99,11 @@ export default {
 				// console.log('BEFORE COMPILE');
 			},
 			compiled(){
-				console.log('╭────────────────────────────────────────────╮');
-				console.log('│                                            │');
-				console.log('│ Client listening on http://localhost:5454  │');
-				console.log('│                                            │');
-				console.log('╰────────────────────────────────────────────╯');
+				// console.log('╭────────────────────────────────────────────╮');
+				// console.log('│                                            │');
+				// console.log('│ Client listening on http://localhost:5454  │');
+				// console.log('│                                            │');
+				// console.log('╰────────────────────────────────────────────╯');
 			}
 		}
 	}
