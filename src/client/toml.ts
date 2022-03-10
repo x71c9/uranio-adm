@@ -12,7 +12,7 @@ import {ClientConfiguration} from './types';
 
 export const client_toml:Partial<ClientConfiguration> = {
 	service_url: "http://localhost:7777/uranio/api",
-	service_dev_url: "http://localhost:7772/uranio/api",
+	service_dev_url: "http://localhost:7773/uranio/api",
 	log_debug_info: false,
 	log_color: false,
 	log_time_format: "yyyy-mm-dd'T'HH:MM:ss:l",

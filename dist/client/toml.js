@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.client_toml = void 0;
 exports.client_toml = {
     service_url: "http://localhost:7777/uranio/api",
-    service_dev_url: "http://localhost:7772/uranio/api",
+    service_dev_url: "http://localhost:7773/uranio/api",
     log_debug_info: false,
     log_color: false,
     log_time_format: "yyyy-mm-dd'T'HH:MM:ss:l",
