@@ -1,18 +1,8 @@
 
-import { urn_log } from 'urn-lib';
-
-urn_log.init({
-	log_level: urn_log.LogLevel.FUNCTION_DEBUG,
-	context: urn_log.LogContext.BROWSER,
-	prefix: '[URANIO]'
-});
-
-// export * from './__urn_hooks';
-
 import uranio from 'uranio/client';
 uranio.init();
 
-console.log(uranio.conf.defaults);
+console.log(uranio.conf.get_all());
 
 import Vue from 'vue';
 

@@ -17,6 +17,6 @@ import {ClientEnvironment} from './types';
  */
 export const adm_client_env:Required<ClientEnvironment> = {
 	
-	...trx_client.env.defaults
+	...trx_client.env.get_all()
 	
 };

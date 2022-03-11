@@ -8,10 +8,6 @@ import {urn_log} from 'urn-lib';
 
 import trx from 'uranio-trx';
 
-import {adm_config} from '../conf/defaults';
-
-import {adm_env} from '../env/defaults';
-
 import * as register from '../reg/server';
 
 import * as required from '../req/server';
@@ -31,22 +27,22 @@ export function init(
 	
 	trx.init(config, false);
 	
-	env.set_from_env(adm_env);
+	conf.set(trx.api.core.util.toml.read());
 	
-	trx.api.core.conf.set_from_file(adm_config);
+	env.set_env();
+	
+	log.init(urn_log);
 	
 	if(config){
-		conf.set(adm_config, config);
+		conf.set(config);
 	}
 	
 	if(register_required){
 		_register_required_atoms();
 	}
 	
-	conf.set_initialize(true);
-	env.set_initialize(true);
-	
-	log.init(urn_log);
+	_validate_adm_variables();
+	_validate_adm_book();
 	
 	urn_log.debug(`Uranio adm initialization completed.`);
 	
@@ -57,4 +53,16 @@ function _register_required_atoms(){
 	for(const [atom_name, atom_def] of Object.entries(required_atoms)){
 		register.atom(atom_def as any, atom_name);
 	}
+}
+
+/**
+ * NOTE:
+ * Maybe this should be before compilation and not at runtime?
+ */
+function _validate_adm_book(){
+	// NOTHING TO DO YET
+}
+
+function _validate_adm_variables(){
+	// NOTHING TO DO YET
 }

@@ -8,10 +8,6 @@ import {urn_log} from 'urn-lib';
 
 import trx_client from 'uranio-trx/client';
 
-import {adm_client_config} from '../client/default_conf';
-
-import {adm_client_env} from '../client/default_env';
-
 import * as register from '../reg/client';
 
 import * as required from '../req/client';
@@ -33,14 +29,13 @@ export function init(
 	
 	trx_client.init(config, false);
 	
-	env.set_from_env(adm_client_env);
+	conf.set(client_toml);
+	trx_client.conf.set(client_toml);
 	
-	// trx_client.api.core.conf.set_from_file(adm_client_config);
-	
-	conf.set(adm_client_config, client_toml);
+	env.set_env();
 	
 	if(config){
-		conf.set(adm_client_config, config);
+		conf.set(config);
 	}
 	
 	// if(process.env.NETLIFY_DEV){
@@ -59,9 +54,6 @@ export function init(
 	
 	_validate_adm_client_variables();
 	_validate_adm_client_book();
-	
-	conf.set_initialize(true);
-	env.set_initialize(true);
 	
 	log.init(urn_log);
 	

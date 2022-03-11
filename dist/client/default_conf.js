@@ -18,6 +18,6 @@ const client_1 = __importDefault(require("uranio-trx/client"));
  * properties, like process.env[var_name] where `var_name` is a variable.
  */
 exports.adm_client_config = {
-    ...client_1.default.conf.defaults
+    ...client_1.default.conf.get_all()
 };
 //# sourceMappingURL=default_conf.js.map

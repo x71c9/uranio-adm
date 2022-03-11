@@ -17,6 +17,6 @@ import {ClientConfiguration} from './types';
  */
 export const adm_client_config:Required<ClientConfiguration> = {
 	
-	...trx_client.conf.defaults
+	...trx_client.conf.get_all()
 	
 };

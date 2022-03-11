@@ -94,7 +94,7 @@ function save_hook_types(text) {
 }
 exports.save_hook_types = save_hook_types;
 function client_config(server_config) {
-    urn_lib_1.urn_log.debug('Started generating uranio core client config...');
+    urn_lib_1.urn_log.debug('Started generating uranio adm client config...');
     init();
     const text = uranio_trx_1.default.util.generate.client_config(server_config);
     urn_lib_1.urn_log.debug(`ADM client config generated.`);

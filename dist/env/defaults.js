@@ -11,6 +11,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.adm_env = void 0;
 const uranio_trx_1 = __importDefault(require("uranio-trx"));
 exports.adm_env = {
-    ...uranio_trx_1.default.env.defaults,
+    ...uranio_trx_1.default.env.get_all(),
 };
 //# sourceMappingURL=defaults.js.map

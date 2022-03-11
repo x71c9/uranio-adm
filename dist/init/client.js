@@ -34,8 +34,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.init = void 0;
 const urn_lib_1 = require("urn-lib");
 const client_1 = __importDefault(require("uranio-trx/client"));
-const default_conf_1 = require("../client/default_conf");
-const default_env_1 = require("../client/default_env");
 const register = __importStar(require("../reg/client"));
 const required = __importStar(require("../req/client"));
 const conf = __importStar(require("../conf/client"));
@@ -44,11 +42,11 @@ const log = __importStar(require("../log/client"));
 const toml_1 = require("../client/toml");
 function init(config, register_required = true) {
     client_1.default.init(config, false);
-    env.set_from_env(default_env_1.adm_client_env);
-    // trx_client.api.core.conf.set_from_file(adm_client_config);
-    conf.set(default_conf_1.adm_client_config, toml_1.client_toml);
+    conf.set(toml_1.client_toml);
+    client_1.default.conf.set(toml_1.client_toml);
+    env.set_env();
     if (config) {
-        conf.set(default_conf_1.adm_client_config, config);
+        conf.set(config);
     }
     // if(process.env.NETLIFY_DEV){
     //   trx_client.conf.defaults.service_url = `http://localhost:7777/uranio/api`;
@@ -60,8 +58,6 @@ function init(config, register_required = true) {
     }
     _validate_adm_client_variables();
     _validate_adm_client_book();
-    conf.set_initialize(true);
-    env.set_initialize(true);
     log.init(urn_lib_1.urn_log);
     urn_lib_1.urn_log.debug(`Uranio adm client initialization completed.`);
 }

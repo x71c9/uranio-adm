@@ -95,7 +95,7 @@ export function save_hook_types(text:string):void{
 }
 
 export function client_config(server_config:types.Configuration):string{
-	urn_log.debug('Started generating uranio core client config...');
+	urn_log.debug('Started generating uranio adm client config...');
 	init();
 	const text = trx.util.generate.client_config(server_config);
 	urn_log.debug(`ADM client config generated.`);

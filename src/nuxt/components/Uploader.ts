@@ -51,7 +51,7 @@ type UppyFiles = {
 export default Vue.extend<Data, Methods, Computed, Props>({
 	data():Data{
 		
-		const target =  uranio.conf.get_current('service_url') + `/media/upload`;
+		const target =  uranio.conf.get('service_url') + `/media/upload`;
 		
 		const uppy_xhr_options = {
 			endpoint: target,

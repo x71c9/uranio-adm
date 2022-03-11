@@ -40,11 +40,6 @@ const result = dotenv_1.default.config();
 if (result.error) {
     throw result.error;
 }
-const urn_lib_1 = require("urn-lib");
-urn_lib_1.urn_log.init({
-    log_level: urn_lib_1.urn_log.LogLevel.FUNCTION_DEBUG,
-    debug_info: false
-});
 __exportStar(require("./register"), exports);
 const uranio = __importStar(require("./main"));
 uranio.init({
@@ -76,14 +71,14 @@ switch (urn_command) {
         break;
     }
     case 'client-config': {
-        util.generate.client_config_and_save(uranio.conf.object());
+        util.generate.client_config_and_save(uranio.conf.get_all());
         break;
     }
     default: {
         util.generate.schema_and_save();
         util.generate.hooks_and_save();
         util.generate.hook_types_and_save();
-        util.generate.client_config_and_save(uranio.conf.object());
+        util.generate.client_config_and_save(uranio.conf.get_all());
         break;
     }
 }

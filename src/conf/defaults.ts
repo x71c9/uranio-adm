@@ -10,6 +10,6 @@ import trx from 'uranio-trx';
 
 export const adm_config:Required<Configuration> = {
 	
-	...trx.conf.defaults,
+	...trx.conf.get_all(),
 	
 };
