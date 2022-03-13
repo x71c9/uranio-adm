@@ -6,7 +6,7 @@
 	"bin": {
 		"uranio-generate-adm": "dist/server/generate.js",
 		"uranio-webservice-adm": "dist/service/ws.js",
-		"uranio-panel-adm": "dist/panel/admin.js"
+		"uranio-panel-adm": "dist/panel/sh.js"
 	},
 	"exports": {
 		".": "./dist/server.js",
@@ -36,6 +36,11 @@
 		"build": "yarn tsc -b",
 		"dev:server": "yarn tsc-watch --onSuccess \"node -r source-map-support/register -r dotenv/config ./dist/dev.js\"",
 		"dev:client": "yarn nuxt dev",
+		"dev:panel": "yarn tsc-watch --onSuccess \"ts-node ./src/panel/index.ts\"",
+		"dev:panel:dev": "yarn tsc-watch --onSuccess \"ts-node ./src/panel/index.ts dev\"",
+		"dev:panel:build": "yarn tsc-watch --onSuccess \"ts-node ./src/panel/index.ts build\"",
+		"dev:panel:generate": "yarn tsc-watch --onSuccess \"ts-node ./src/panel/index.ts generate\"",
+		"dev:panel:start": "yarn tsc-watch --onSuccess \"ts-node ./src/panel/index.ts start\"",
 		"dev": "yarn concurrently \"yarn dev:server\" \"yarn dev:client\"",
 		"pre:build": "yarn esbuild src/server/generate.ts --bundle --platform=node --format=cjs --outfile=.generate/bundled_generate.js",
 		"pre:generate": "node .generate/bundled_generate.js",
@@ -50,7 +55,10 @@
 	"devDependencies": {
 		"@nuxt/types": "^2.15.8",
 		"@nuxt/typescript-build": "^2.1.0",
+		"@nuxt/typescript-runtime": "^2.1.0",
+		"@nuxtjs/eslint-config-typescript": "^8.0.0",
 		"@nuxtjs/style-resources": "^1.2.1",
+		"@types/minimist": "^1.2.2",
 		"@typescript-eslint/eslint-plugin": "^5.12.0",
 		"@typescript-eslint/parser": "^5.12.0",
 		"concurrently": "^7.0.0",
@@ -63,6 +71,7 @@
 		"vue-typed-mixins": "^0.2.0"
 	},
 	"dependencies": {
+		"@nuxt/cli": "^2.15.8",
 		"@nuxtjs/proxy": "^2.1.0",
 		"@uppy/audio": "^0.2.1",
 		"@uppy/aws-s3": "^2.0.7",
@@ -74,6 +83,7 @@
 		"@uppy/xhr-upload": "^2.0.7",
 		"dotenv": "^16.0.0",
 		"esbuild": "^0.14.25",
+		"minimist": "^1.2.5",
 		"nuxt": "^2.15.8",
 		"saslprep": "^1.0.3",
 		"uranio-api": "git+ssh://git@github.com/nbl7/uranio-api.git#master",

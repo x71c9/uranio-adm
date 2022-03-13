@@ -8,7 +8,7 @@ const vue_typed_mixins_1 = __importDefault(require("vue-typed-mixins"));
 const client_1 = __importDefault(require("uranio/client"));
 const Shared_1 = __importDefault(require("./Shared"));
 const Sortable_1 = __importDefault(require("./Sortable"));
-exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default, Sortable_1.default).extend({
+exports.default = vue_typed_mixins_1.default(Shared_1.default, Sortable_1.default).extend({
     mixins: [Shared_1.default, Sortable_1.default],
     data() {
         // const atom_def = atom_book[

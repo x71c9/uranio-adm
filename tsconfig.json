@@ -23,6 +23,7 @@
 		"outDir": "./dist",
 		"rootDir": "./src",
 		"paths": {
+			"nuxt": ["./src/panel/types/nuxt-shim.d.ts"],
 			"uranio": ["./src/server.ts"],
 			"uranio/types": ["./src/server/types.ts"],
 			"uranio/client": ["./src/client.ts"],

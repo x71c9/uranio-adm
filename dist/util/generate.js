@@ -57,7 +57,10 @@ function hooks_client() {
 }
 exports.hooks_client = hooks_client;
 function hooks_and_save() {
-    uranio_trx_1.default.util.generate.hooks_and_save();
+    const hooks_text_server = hooks_server();
+    const hooks_text_client = hooks_client();
+    save_hooks_server(hooks_text_server);
+    save_hooks_client(hooks_text_client);
     urn_lib_1.urn_log.debug(`ADM Hooks generated and saved.`);
 }
 exports.hooks_and_save = hooks_and_save;

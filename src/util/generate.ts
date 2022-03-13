@@ -58,7 +58,10 @@ export function hooks_client():string{
 }
 
 export function hooks_and_save():void{
-	trx.util.generate.hooks_and_save();
+	const hooks_text_server = hooks_server();
+	const hooks_text_client = hooks_client();
+	save_hooks_server(hooks_text_server);
+	save_hooks_client(hooks_text_client);
 	urn_log.debug(`ADM Hooks generated and saved.`);
 }
 

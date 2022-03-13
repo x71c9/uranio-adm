@@ -7,11 +7,7 @@
  */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -44,7 +40,9 @@ __exportStar(require("./register"), exports);
 const uranio = __importStar(require("./main"));
 uranio.init({
     connect_on_init: false,
-    superuser_create_on_init: false
+    superuser_create_on_init: false,
+    log_debug_info: false,
+    dev_log_debug_info: false
 });
 const util = __importStar(require("../util/server"));
 let urn_command = 'all';
@@ -72,6 +70,12 @@ switch (urn_command) {
     }
     case 'client-config': {
         util.generate.client_config_and_save(uranio.conf.get_all());
+        break;
+    }
+    case 'atoms': {
+        util.generate.schema_and_save();
+        util.generate.hooks_and_save();
+        util.generate.hook_types_and_save();
         break;
     }
     default: {

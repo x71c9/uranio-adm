@@ -9,7 +9,7 @@ const Shared_1 = __importDefault(require("./Shared"));
 // type SimpleAtom = {
 //   [k:string]: any
 // }
-exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default).extend({
+exports.default = vue_typed_mixins_1.default(Shared_1.default).extend({
     mixins: [Shared_1.default],
     data() {
         const prop_def = client_1.default.book.get_property_definition(this.atom_name, this.prop_name);

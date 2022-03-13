@@ -18,7 +18,9 @@ export * from './register';
 import * as uranio from './main';
 uranio.init({
 	connect_on_init: false,
-	superuser_create_on_init: false
+	superuser_create_on_init: false,
+	log_debug_info: false,
+	dev_log_debug_info: false
 });
 
 import * as util from '../util/server';
@@ -52,6 +54,12 @@ switch(urn_command){
 	}
 	case 'client-config':{
 		util.generate.client_config_and_save(uranio.conf.get_all());
+		break;
+	}
+	case 'atoms':{
+		util.generate.schema_and_save();
+		util.generate.hooks_and_save();
+		util.generate.hook_types_and_save();
 		break;
 	}
 	default:{

@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const vue_typed_mixins_1 = __importDefault(require("vue-typed-mixins"));
 const Shared_1 = __importDefault(require("./Shared"));
-exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default).extend({
+exports.default = vue_typed_mixins_1.default(Shared_1.default).extend({
     mixins: [Shared_1.default],
     methods: {
         select(value) {

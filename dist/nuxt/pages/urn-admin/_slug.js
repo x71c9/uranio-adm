@@ -8,7 +8,7 @@ const client_1 = __importDefault(require("uranio/client"));
 const urn_lib_1 = require("urn-lib");
 const shared_1 = __importDefault(require("./shared"));
 const notification_1 = require("../../store/notification");
-exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
+exports.default = vue_typed_mixins_1.default(shared_1.default).extend({
     layout() {
         return "urn-admin";
     },

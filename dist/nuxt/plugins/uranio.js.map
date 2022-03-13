@@ -1,1 +1,1 @@
-{"version":3,"file":"uranio.js","sourceRoot":"","sources":["../../../src/nuxt/plugins/uranio.ts"],"names":[],"mappings":";;;;;AACA,2DAAmC;AACnC,gBAAM,CAAC,IAAI,EAAE,CAAC;AAEd,OAAO,CAAC,GAAG,CAAC,gBAAM,CAAC,IAAI,CAAC,OAAO,EAAE,CAAC,CAAC;AAEnC,8CAAsB;AAQtB,aAAG,CAAC,SAAS,CAAC,OAAO,GAAG,gBAAM,CAAC"}
+{"version":3,"file":"uranio.js","sourceRoot":"","sources":["../../../src/nuxt/plugins/uranio.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;AACA,wDAAsC;AAEtC,2DAAmC;AACnC,gBAAM,CAAC,IAAI,EAAE,CAAC;AAEd,8CAAsB;AAQtB,aAAG,CAAC,SAAS,CAAC,OAAO,GAAG,gBAAM,CAAC"}

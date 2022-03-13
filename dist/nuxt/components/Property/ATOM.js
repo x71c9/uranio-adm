@@ -8,7 +8,7 @@ const urn_lib_1 = require("urn-lib");
 // import { atom_book } from "uranio-books/atom";
 const client_1 = __importDefault(require("uranio/client"));
 const Shared_1 = __importDefault(require("./Shared"));
-exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default).extend({
+exports.default = vue_typed_mixins_1.default(Shared_1.default).extend({
     mixins: [Shared_1.default],
     data() {
         // const prop_name = this.prop_name;
