@@ -7,7 +7,7 @@ const vue_typed_mixins_1 = __importDefault(require("vue-typed-mixins"));
 const client_1 = __importDefault(require("uranio/client"));
 // import {atom_book} from 'uranio-books/atom';
 const Shared_1 = __importDefault(require("./Shared"));
-exports.default = vue_typed_mixins_1.default(Shared_1.default).extend({
+exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default).extend({
     mixins: [Shared_1.default],
     data() {
         // const atom_name = this.atom_name as uranio.types.AtomName;

@@ -15,7 +15,11 @@
  */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -43,7 +47,7 @@ urn_lib_1.urn_log.init({
     log_level: urn_lib_1.urn_log.LogLevel.DEBUG,
     debug_info: false
 });
-const args = minimist_1.default(process.argv.slice(2));
+const args = (0, minimist_1.default)(process.argv.slice(2));
 const cmd = `yarn ts-node ./src/panel/index.ts ${args._.join(' ')}`;
 const child = cp.spawn(cmd, { shell: true, detached: true, stdio: "inherit" });
 // cp.execSync(cmd);
