@@ -18,6 +18,7 @@ const nuxt_config_1 = __importDefault(require("./nuxt.config"));
 const nuxt = new nuxt_1.Nuxt(nuxt_config_1.default);
 async function build() {
     urn_lib_1.urn_log.debug(`Uranio panel building started...`);
+    await nuxt.ready();
     const builder = new nuxt_1.Builder(nuxt);
     await builder.build();
     urn_lib_1.urn_log.debug(`Uranio panel build completed.`);
@@ -26,6 +27,7 @@ async function build() {
 exports.build = build;
 async function generate() {
     urn_lib_1.urn_log.debug(`Uranio panel generating started...`);
+    await nuxt.ready();
     const builder = new nuxt_1.Builder(nuxt);
     const generator = new nuxt_1.Generator(nuxt, builder);
     await generator.generate({ build: true, init: false });

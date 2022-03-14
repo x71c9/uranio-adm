@@ -33,7 +33,17 @@ declare namespace _default {
         const port: number;
     }
     const modules: string[];
-    const buildModules: string[];
+    const buildModules: (string | (string | {
+        loaders: {
+            ts: {
+                configFile: string;
+            };
+        };
+    })[])[];
+    namespace typescript {
+        const configFile: string;
+        const typeCheck: boolean;
+    }
     const proxy: {
         '/uranio/api': {
             target: string;
@@ -42,9 +52,6 @@ declare namespace _default {
             };
         };
     };
-    namespace typescript {
-        const typeCheck: boolean;
-    }
     namespace router {
         const trailingSlash: boolean;
         const linkActiveClass: string;

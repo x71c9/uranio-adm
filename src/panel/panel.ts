@@ -22,6 +22,8 @@ export async function build():Promise<typeof Builder>{
 	
 	urn_log.debug(`Uranio panel building started...`);
 	
+	await nuxt.ready();
+	
 	const builder = new Builder(nuxt);
 	await builder.build();
 	
@@ -34,6 +36,7 @@ export async function generate(){
 	
 	urn_log.debug(`Uranio panel generating started...`);
 	
+	await nuxt.ready();
 	const builder = new Builder(nuxt);
 	const generator = new Generator(nuxt, builder);
 	await generator.generate({ build: true, init: false });
@@ -51,7 +54,7 @@ export async function dev(){
 	await start();
 	
 	const watch_paths:string[] = [
-		path.resolve(__dirname, '../nuxt')
+		path.resolve(__dirname, '../../src/nuxt')
 	];
 	
 	chokidar.watch(watch_paths, {ignoreInitial: true})

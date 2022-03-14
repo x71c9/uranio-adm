@@ -13,6 +13,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = require("path");
 const is_production = process.env.NODE_ENV === 'production';
+console.log('AAAAAAAAAAAAAAAAAAAAAAAAAA', __dirname);
 exports.default = {
     dev: !is_production,
     telemetry: false,
@@ -61,9 +62,17 @@ exports.default = {
         '@nuxtjs/proxy'
     ],
     buildModules: [
-        '@nuxt/typescript-build',
-        '@nuxtjs/style-resources'
+        '@nuxtjs/style-resources',
+        ['@nuxt/typescript-build', {
+                loaders: {
+                    ts: { configFile: path_1.resolve(__dirname, `../tsconfig.json`) }
+                }
+            }],
     ],
+    typescript: {
+        configFile: path_1.resolve(__dirname, '../tsconfig.json'),
+        typeCheck: true
+    },
     proxy: {
         '/uranio/api': {
             target: "http://localhost:7773/uranio/api",
@@ -71,9 +80,6 @@ exports.default = {
                 "^/uranio/api": ""
             }
         }
-    },
-    typescript: {
-        typeCheck: true
     },
     router: {
         trailingSlash: false,
