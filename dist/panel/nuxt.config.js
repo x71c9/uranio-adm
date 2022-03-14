@@ -1,7 +1,18 @@
 "use strict";
+/**
+ * Nuxt configuration file for programmatically use Nuxt.
+ *
+ * This file is compiled to dist/panel/nuxt.config.js
+ * but must point the srcDir to the typescript folder
+ * because the compilation of all the Nuxt modules
+ * must be done by the Nuxt buildModule:
+ * @nuxt/typescript-build
+ *
+ * @packageDocumentation
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = require("path");
-const is_production = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'PRODUCTION';
+const is_production = process.env.NODE_ENV === 'production';
 exports.default = {
     dev: !is_production,
     telemetry: false,
@@ -13,13 +24,6 @@ exports.default = {
         'uranio-api/client/types': path_1.resolve(__dirname, '../../node_modules/uranio-api/dist/client/types'),
         'uranio-core/client': path_1.resolve(__dirname, '../../node_modules/uranio-core/dist/client'),
         'uranio-core/client/types': path_1.resolve(__dirname, '../../node_modules/uranio-core/dist/client/types'),
-        // 'uranio/client': resolve(__dirname, '../../src/client'),
-        // 'uranio-trx/client': resolve(__dirname, '../../uranio-trx/dist/client'),
-        // 'uranio-trx/client/types': resolve(__dirname, '../../uranio-trx/dist/client/types'),
-        // 'uranio-api/client': resolve(__dirname, '../../uranio-api/dist/client'),
-        // 'uranio-api/client/types': resolve(__dirname, '../../uranio-api/dist/client/types'),
-        // 'uranio-core/client': resolve(__dirname, '../../uranio-core/dist/client'),
-        // 'uranio-core/client/types': resolve(__dirname, '../../uranio-core/dist/client/types'),
     },
     env: {
     // URN_CLIENT_FETCH: process.env.URN_CLIENT_FETCH || 'axios',
