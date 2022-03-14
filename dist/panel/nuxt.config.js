@@ -18,7 +18,7 @@ const toml_1 = require("../client/toml");
 const is_production = process.env.NODE_ENV === 'production';
 const server_host = (is_production) ? toml_1.client_toml.panel_domain : toml_1.client_toml.dev_panel_domain;
 const server_port = (is_production) ? toml_1.client_toml.panel_port : toml_1.client_toml.dev_panel_port;
-const target = (is_production) ? toml_1.client_toml.__server_service_url : toml_1.client_toml.__server_dev_service_url;
+const target = (is_production) ? toml_1.client_toml.service_url : toml_1.client_toml.dev_service_url;
 exports.default = {
     dev: !is_production,
     buildDir: (0, path_1.resolve)(__dirname, './.nuxt'),

@@ -16,7 +16,7 @@ declare namespace _default {
     }
     const proxy: {
         '/uranio/api': {
-            target: any;
+            target: string | undefined;
             pathRewrite: {
                 "^/uranio/api": string;
             };

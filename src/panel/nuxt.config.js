@@ -20,7 +20,7 @@ const is_production = process.env.NODE_ENV === 'production';
 
 const server_host = (is_production) ? client_toml.panel_domain : client_toml.dev_panel_domain;
 const server_port = (is_production) ? client_toml.panel_port : client_toml.dev_panel_port;
-const target = (is_production) ? client_toml.__server_service_url : client_toml.__server_dev_service_url;
+const target = (is_production) ? client_toml.service_url : client_toml.dev_service_url;
 
 export default {
 	dev: !is_production,
