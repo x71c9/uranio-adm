@@ -12,6 +12,8 @@ import {urn_log} from 'urn-lib';
 
 // import * as types from '../server/types';
 
+import {Configuration} from '../typ/conf';
+
 import {ClientConfiguration} from '../typ/conf_cln';
 
 export const process_params = {
@@ -21,6 +23,11 @@ export const process_params = {
 	// urn_output_dir: `.`,
 	// urn_repo: 'adm'
 };
+
+import * as conf from '../conf/server';
+
+const required_server_config_client:Array<keyof Configuration> = [
+];
 
 export function schema():string{
 	urn_log.debug('Started generating uranio adm schema...');
@@ -102,6 +109,12 @@ export function save_hook_types(text:string):void{
 export function client_config(client_default:Required<ClientConfiguration>):string{
 	urn_log.debug('Started generating uranio adm client config...');
 	init();
+	
+	const all_server_conf = conf.get_all();
+	for(const reqkey of required_server_config_client){
+		(client_config as any)[`__server_${reqkey}`] = all_server_conf[reqkey];
+	}
+	
 	const text = trx.util.generate.client_config(client_default);
 	urn_log.debug(`ADM client config generated.`);
 	return text;
