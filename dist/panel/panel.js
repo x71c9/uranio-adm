@@ -40,7 +40,7 @@ async function dev() {
     const builder = await build();
     await start();
     const watch_paths = [
-        path_1.default.resolve(__dirname, '../nuxt')
+        path_1.default.resolve(__dirname, '../../src/nuxt')
     ];
     chokidar_1.default.watch(watch_paths, { ignoreInitial: true })
         .on('ready', () => {
