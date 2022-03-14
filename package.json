@@ -33,6 +33,7 @@
 	"repository": "git@github.com:nbl7/uranio-adm.git",
 	"author": "Andrea Reni <mail@nbl7.net>",
 	"scripts": {
+		"postinstall": "patch-package",
 		"build": "yarn tsc -b",
 		"dev:server": "yarn tsc-watch --onSuccess \"node -r source-map-support/register -r dotenv/config ./dist/dev.js\"",
 		"dev:client": "yarn nuxt dev",
@@ -72,6 +73,7 @@
 		"esbuild": "^0.14.25",
 		"minimist": "^1.2.5",
 		"nuxt": "^2.15.8",
+		"postinstall-postinstall": "^2.1.0",
 		"saslprep": "^1.0.3",
 		"uranio-api": "git+ssh://git@github.com/nbl7/uranio-api.git#master",
 		"uranio-core": "git+ssh://git@github.com/nbl7/uranio-core.git#master",
