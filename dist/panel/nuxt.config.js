@@ -12,6 +12,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = require("path");
+const toml_1 = require("../client/toml");
 const is_production = process.env.NODE_ENV === 'production';
 exports.default = {
     dev: !is_production,
@@ -54,8 +55,8 @@ exports.default = {
         exclude: ['/urn-admin'],
     },
     server: {
-        host: "0.0.0.0",
-        port: 5454
+        host: toml_1.client_toml.panel_domain || "0.0.0.0",
+        port: toml_1.client_toml.panel_port || 5454
     },
     modules: [
         '@nuxtjs/proxy'

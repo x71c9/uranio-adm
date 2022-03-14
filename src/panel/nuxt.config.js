@@ -12,6 +12,8 @@
 
 import { resolve } from 'path';
 
+import {client_toml} from '../client/toml';
+
 const is_production = process.env.NODE_ENV === 'production';
 
 export default {
@@ -55,8 +57,8 @@ export default {
 		exclude: ['/urn-admin'],
 	},
 	server: {
-		host: "0.0.0.0",
-		port: 5454
+		host: client_toml.panel_domain || "0.0.0.0",
+		port: client_toml.panel_port || 5454
 	},
 	modules:[
 		'@nuxtjs/proxy'

@@ -17,6 +17,18 @@ import {ClientConfiguration} from './types';
  */
 export const adm_client_config:Required<ClientConfiguration> = {
 	
-	...trx_client.conf.get_all()
+	...trx_client.conf.get_all(),
+	
+	panel_protocol: 'http',
+	
+	panel_domain: 'localhost',
+	
+	panel_port: 5454,
+	
+	dev_panel_protocol: 'http',
+	
+	dev_panel_domain: 'localhost',
+	
+	dev_panel_port: 5454,
 	
 };

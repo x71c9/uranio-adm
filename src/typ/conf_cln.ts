@@ -10,6 +10,12 @@ type RequiredClientConfigParams = {
 }
 
 type OptionalClientConfigParam = {
+	panel_protocol: string
+	panel_domain: string
+	panel_port: number
+	dev_panel_protocol: string
+	dev_panel_domain: string
+	dev_panel_port: number
 }
 
 export type ClientConfiguration =
