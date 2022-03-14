@@ -14,8 +14,6 @@ import { resolve } from 'path';
 
 const is_production = process.env.NODE_ENV === 'production';
 
-console.log('AAAAAAAAAAAAAAAAAAAAAAAAAA', __dirname);
-
 export default {
 	dev: !is_production,
 	telemetry: false,
@@ -65,14 +63,10 @@ export default {
 	],
 	buildModules: [
 		'@nuxtjs/style-resources',
-		['@nuxt/typescript-build', {
-			loaders: {
-				ts: { configFile: resolve(__dirname, `../tsconfig.json`) }
-			}
-		}],
+		'@nuxt/typescript-build',
 	],
 	typescript: {
-		configFile: resolve(__dirname, '../tsconfig.json'),
+		configFile: resolve(__dirname, '../../tsconfig.json'),
 		typeCheck: true
 	},
 	proxy: {
