@@ -13,7 +13,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = require("path");
 const is_production = process.env.NODE_ENV === 'production';
-console.log('AAAAAAAAAAAAAAAAAAAAAAAAAA', __dirname);
 exports.default = {
     dev: !is_production,
     telemetry: false,
@@ -63,14 +62,10 @@ exports.default = {
     ],
     buildModules: [
         '@nuxtjs/style-resources',
-        ['@nuxt/typescript-build', {
-                loaders: {
-                    ts: { configFile: path_1.resolve(__dirname, `../tsconfig.json`) }
-                }
-            }],
+        '@nuxt/typescript-build',
     ],
     typescript: {
-        configFile: path_1.resolve(__dirname, '../tsconfig.json'),
+        configFile: path_1.resolve(__dirname, '../../tsconfig.json'),
         typeCheck: true
     },
     proxy: {

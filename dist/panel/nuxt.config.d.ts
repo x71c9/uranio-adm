@@ -33,13 +33,7 @@ declare namespace _default {
         const port: number;
     }
     const modules: string[];
-    const buildModules: (string | (string | {
-        loaders: {
-            ts: {
-                configFile: string;
-            };
-        };
-    })[])[];
+    const buildModules: string[];
     namespace typescript {
         const configFile: string;
         const typeCheck: boolean;
