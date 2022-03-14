@@ -8,14 +8,57 @@
  * must be done by the Nuxt buildModule:
  * @nuxt/typescript-build
  *
+ * srcDir: resolve(__dirname,'../../src/nuxt/')
+ *
  * @packageDocumentation
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = require("path");
 const toml_1 = require("../client/toml");
 const is_production = process.env.NODE_ENV === 'production';
+const server_host = (is_production) ? toml_1.client_toml.panel_domain : toml_1.client_toml.dev_panel_domain;
+const server_port = (is_production) ? toml_1.client_toml.panel_port : toml_1.client_toml.dev_panel_port;
+const target = (is_production) ? toml_1.client_toml.service_url : toml_1.client_toml.dev_service_url;
 exports.default = {
     dev: !is_production,
+    buildDir: (0, path_1.resolve)(__dirname, './.nuxt'),
+    srcDir: (0, path_1.resolve)(__dirname, '../../src/nuxt/'),
+    target: 'static',
+    ssr: false,
+    generate: {
+        dir: (0, path_1.resolve)(__dirname, '../_admin'),
+        fallback: '404.html',
+        subFolders: false,
+        exclude: ['/urn-admin'],
+    },
+    server: {
+        host: server_host || "0.0.0.0",
+        port: server_port || 5454
+    },
+    proxy: {
+        '/uranio/api': {
+            target: target,
+            pathRewrite: {
+                "^/uranio/api": ""
+            }
+        }
+    },
+    modules: [
+        '@nuxtjs/proxy'
+    ],
+    buildModules: [
+        '@nuxtjs/style-resources',
+        '@nuxt/typescript-build',
+    ],
+    typescript: {
+        configFile: (0, path_1.resolve)(__dirname, '../../tsconfig.json'),
+        typeCheck: true
+    },
+    plugins: [
+        {
+            src: '~/plugins/uranio'
+        }
+    ],
     telemetry: false,
     alias: {
         'uranio/client': (0, path_1.resolve)(__dirname, '../../src/client'),
@@ -39,44 +82,6 @@ exports.default = {
             extensions: ['vue']
         }
     ],
-    plugins: [
-        {
-            src: '~/plugins/uranio'
-        }
-    ],
-    buildDir: (0, path_1.resolve)(__dirname, './.nuxt'),
-    srcDir: (0, path_1.resolve)(__dirname, '../../src/nuxt/'),
-    target: 'static',
-    ssr: false,
-    generate: {
-        dir: (0, path_1.resolve)(__dirname, '../_admin'),
-        fallback: '404.html',
-        subFolders: false,
-        exclude: ['/urn-admin'],
-    },
-    server: {
-        host: toml_1.client_toml.panel_domain || "0.0.0.0",
-        port: toml_1.client_toml.panel_port || 5454
-    },
-    modules: [
-        '@nuxtjs/proxy'
-    ],
-    buildModules: [
-        '@nuxtjs/style-resources',
-        '@nuxt/typescript-build',
-    ],
-    typescript: {
-        configFile: (0, path_1.resolve)(__dirname, '../../tsconfig.json'),
-        typeCheck: true
-    },
-    proxy: {
-        '/uranio/api': {
-            target: "http://localhost:7773/uranio/api",
-            pathRewrite: {
-                "^/uranio/api": ""
-            }
-        }
-    },
     router: {
         trailingSlash: false,
         linkActiveClass: 'urn-active-link',

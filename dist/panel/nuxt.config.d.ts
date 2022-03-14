@@ -1,5 +1,36 @@
 declare namespace _default {
     const dev: boolean;
+    const buildDir: string;
+    const srcDir: string;
+    const target: string;
+    const ssr: boolean;
+    namespace generate {
+        const dir: string;
+        const fallback: string;
+        const subFolders: boolean;
+        const exclude: string[];
+    }
+    namespace server {
+        const host: string;
+        const port: number;
+    }
+    const proxy: {
+        '/uranio/api': {
+            target: string | undefined;
+            pathRewrite: {
+                "^/uranio/api": string;
+            };
+        };
+    };
+    const modules: string[];
+    const buildModules: string[];
+    namespace typescript {
+        const configFile: string;
+        const typeCheck: boolean;
+    }
+    const plugins: {
+        src: string;
+    }[];
     const telemetry: boolean;
     const alias: {
         'uranio/client': string;
@@ -15,37 +46,6 @@ declare namespace _default {
         path: string;
         extensions: string[];
     }[];
-    const plugins: {
-        src: string;
-    }[];
-    const buildDir: string;
-    const srcDir: string;
-    const target: string;
-    const ssr: boolean;
-    namespace generate {
-        const dir: string;
-        const fallback: string;
-        const subFolders: boolean;
-        const exclude: string[];
-    }
-    namespace server {
-        const host: string;
-        const port: number;
-    }
-    const modules: string[];
-    const buildModules: string[];
-    namespace typescript {
-        const configFile: string;
-        const typeCheck: boolean;
-    }
-    const proxy: {
-        '/uranio/api': {
-            target: string;
-            pathRewrite: {
-                "^/uranio/api": string;
-            };
-        };
-    };
     namespace router {
         const trailingSlash: boolean;
         const linkActiveClass: string;

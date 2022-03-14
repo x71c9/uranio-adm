@@ -49,6 +49,7 @@ uranio.init({
     dev_log_debug_info: false
 });
 const util = __importStar(require("../util/server"));
+const default_conf_1 = require("../client/default_conf");
 let urn_command = 'all';
 for (const argv of process.argv) {
     const splitted = argv.split('=');
@@ -73,7 +74,7 @@ switch (urn_command) {
         break;
     }
     case 'client-config': {
-        util.generate.client_config_and_save(uranio.conf.get_all());
+        util.generate.client_config_and_save(default_conf_1.adm_client_config);
         break;
     }
     case 'atoms': {
@@ -86,7 +87,7 @@ switch (urn_command) {
         util.generate.schema_and_save();
         util.generate.hooks_and_save();
         util.generate.hook_types_and_save();
-        util.generate.client_config_and_save(uranio.conf.get_all());
+        util.generate.client_config_and_save(default_conf_1.adm_client_config);
         break;
     }
 }

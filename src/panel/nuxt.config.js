@@ -7,6 +7,8 @@
  * must be done by the Nuxt buildModule:
  * @nuxt/typescript-build
  *
+ * srcDir: resolve(__dirname,'../../src/nuxt/')
+ *
  * @packageDocumentation
  */
 
@@ -16,8 +18,50 @@ import {client_toml} from '../client/toml';
 
 const is_production = process.env.NODE_ENV === 'production';
 
+const server_host = (is_production) ? client_toml.panel_domain : client_toml.dev_panel_domain;
+const server_port = (is_production) ? client_toml.panel_port : client_toml.dev_panel_port;
+const target = (is_production) ? client_toml.service_url : client_toml.dev_service_url;
+
 export default {
 	dev: !is_production,
+	buildDir: resolve(__dirname,'./.nuxt'),
+	srcDir: resolve(__dirname,'../../src/nuxt/'),
+	target: 'static',
+	ssr: false,
+	generate: {
+		dir: resolve(__dirname,'../_admin'),
+		fallback: '404.html',
+		subFolders: false,
+		exclude: ['/urn-admin'],
+	},
+	server: {
+		host: server_host || "0.0.0.0",
+		port: server_port || 5454
+	},
+	proxy: {
+		'/uranio/api': {
+			target: target,
+			pathRewrite: {
+				"^/uranio/api": ""
+			}
+		}
+	},
+	modules:[
+		'@nuxtjs/proxy'
+	],
+	buildModules: [
+		'@nuxtjs/style-resources',
+		'@nuxt/typescript-build',
+	],
+	typescript: {
+		configFile: resolve(__dirname, '../../tsconfig.json'),
+		typeCheck: true
+	},
+	plugins: [
+		{
+			src: '~/plugins/uranio'
+		}
+	],
 	telemetry: false,
 	alias: {
 		'uranio/client': resolve(__dirname, '../../src/client'),
@@ -41,44 +85,6 @@ export default {
 			extensions: ['vue']
 		}
 	],
-	plugins: [
-		{
-			src: '~/plugins/uranio'
-		}
-	],
-	buildDir: resolve(__dirname,'./.nuxt'),
-	srcDir: resolve(__dirname,'../../src/nuxt/'),
-	target: 'static',
-	ssr: false,
-	generate: {
-		dir: resolve(__dirname,'../_admin'),
-		fallback: '404.html',
-		subFolders: false,
-		exclude: ['/urn-admin'],
-	},
-	server: {
-		host: client_toml.panel_domain || "0.0.0.0",
-		port: client_toml.panel_port || 5454
-	},
-	modules:[
-		'@nuxtjs/proxy'
-	],
-	buildModules: [
-		'@nuxtjs/style-resources',
-		'@nuxt/typescript-build',
-	],
-	typescript: {
-		configFile: resolve(__dirname, '../../tsconfig.json'),
-		typeCheck: true
-	},
-	proxy: {
-		'/uranio/api': {
-			target: "http://localhost:7773/uranio/api",
-			pathRewrite: {
-				"^/uranio/api": ""
-			}
-		}
-	},
 	router: {
 		trailingSlash: false,
 		linkActiveClass: 'urn-active-link',

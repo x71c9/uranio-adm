@@ -96,16 +96,16 @@ function save_hook_types(text) {
     // urn_log.debug(`Types saved in [${output}].`);
 }
 exports.save_hook_types = save_hook_types;
-function client_config(server_config) {
+function client_config(client_default) {
     urn_lib_1.urn_log.debug('Started generating uranio adm client config...');
     init();
-    const text = uranio_trx_1.default.util.generate.client_config(server_config);
+    const text = uranio_trx_1.default.util.generate.client_config(client_default);
     urn_lib_1.urn_log.debug(`ADM client config generated.`);
     return text;
 }
 exports.client_config = client_config;
-function client_config_and_save(server_config) {
-    const text = client_config(server_config);
+function client_config_and_save(client_default) {
+    const text = client_config(client_default);
     save_client_config(text);
     urn_lib_1.urn_log.debug(`ADM Client config generated and saved.`);
 }

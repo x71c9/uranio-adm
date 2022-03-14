@@ -10,7 +10,9 @@ import trx from 'uranio-trx';
 
 import {urn_log} from 'urn-lib';
 
-import * as types from '../server/types';
+// import * as types from '../server/types';
+
+import {ClientConfiguration} from '../typ/conf_cln';
 
 export const process_params = {
 	urn_command: `schema`,
@@ -97,16 +99,16 @@ export function save_hook_types(text:string):void{
 	// urn_log.debug(`Types saved in [${output}].`);
 }
 
-export function client_config(server_config:types.Configuration):string{
+export function client_config(client_default:Required<ClientConfiguration>):string{
 	urn_log.debug('Started generating uranio adm client config...');
 	init();
-	const text = trx.util.generate.client_config(server_config);
+	const text = trx.util.generate.client_config(client_default);
 	urn_log.debug(`ADM client config generated.`);
 	return text;
 }
 
-export function client_config_and_save(server_config:types.Configuration):void{
-	const text = client_config(server_config);
+export function client_config_and_save(client_default:Required<ClientConfiguration>):void{
+	const text = client_config(client_default);
 	save_client_config(text);
 	urn_log.debug(`ADM Client config generated and saved.`);
 }

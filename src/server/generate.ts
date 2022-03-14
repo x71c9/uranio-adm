@@ -25,6 +25,8 @@ uranio.init({
 
 import * as util from '../util/server';
 
+import {adm_client_config} from '../client/default_conf';
+
 let urn_command = 'all';
 
 for(const argv of process.argv){
@@ -53,7 +55,7 @@ switch(urn_command){
 		break;
 	}
 	case 'client-config':{
-		util.generate.client_config_and_save(uranio.conf.get_all());
+		util.generate.client_config_and_save(adm_client_config);
 		break;
 	}
 	case 'atoms':{
@@ -66,7 +68,7 @@ switch(urn_command){
 		util.generate.schema_and_save();
 		util.generate.hooks_and_save();
 		util.generate.hook_types_and_save();
-		util.generate.client_config_and_save(uranio.conf.get_all());
+		util.generate.client_config_and_save(adm_client_config);
 		break;
 	}
 }
