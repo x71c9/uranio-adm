@@ -126,7 +126,7 @@ function client_config(client_default) {
     init();
     const all_server_conf = conf.get_all();
     for (const reqkey of required_server_config_client) {
-        client_config[`__server_${reqkey}`] = all_server_conf[reqkey];
+        client_default[`__server_${reqkey}`] = all_server_conf[reqkey];
     }
     const text = uranio_trx_1.default.util.generate.client_config(client_default);
     urn_lib_1.urn_log.debug(`ADM client config generated.`);
