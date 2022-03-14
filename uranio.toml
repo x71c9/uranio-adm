@@ -3,7 +3,7 @@ db = "mongo"
 encryption_rounds = 12
 max_password_length = 58
 storage = 'aws'
-connect_on_init = true
+connect_on_init = false
 prefix_api = '/uranio/api'
 prefix_log = '/logs'
 lambda = 'netlify'
@@ -12,13 +12,25 @@ fetch = 'axios'
 	platform = 'express'
 	protocol = 'http'
 	domain = 'localhost'
-	port = 7774
-	url = 'http://localhost:7774/uranio/api'
+	port = 7775
+	url = 'http://localhost:7775/uranio/api'
 [dev.service]
 	protocol = 'http'
 	domain = 'localhost'
-	port = 7773
-	url = 'http://localhost:7773/uranio/api'
+	port = 7775
+	url = 'http://localhost:7775/uranio/api'
+[client.panel]
+	protocol = 'http'
+	domain = 'localhost'
+	port = 5454
+[client.dev.panel]
+	protocol = 'http'
+	domain = 'localhost'
+	port = 4477
+[client.fetch]
+	url = 'http://localhost:5454/uranio/api'
+[client.dev.fetch]
+	url = 'http://localhost:4477/uranio/api'
 [log]
 	debug_info = true
 	color = true
@@ -33,22 +45,10 @@ fetch = 'axios'
 	max_str_length = 174
 	prefix = ''
 	prefix_type = false
-[client.service]
-	url = 'http://localhost:7774/uranio/api'
-[client.dev.service]
-	url = 'http://localhost:5454/uranio/api'
-[client.panel]
-	protocol = 'http'
-	domain = 'localhost'
-	port = 5454
-[client.dev.panel]
-	protocol = 'http'
-	domain = 'localhost'
-	port = 5454
 [client.log]
 	debug_info = false
 	color = false
-	time_format = "yyyy-mm-dd'T'HH:MM:ss:l"
+	time_format = "HH:MM:ss:l"
 	max_str_length = 174
 	prefix = ''
 	prefix_type = false
