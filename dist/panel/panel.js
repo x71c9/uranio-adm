@@ -53,7 +53,7 @@ exports.dev = dev;
 async function start() {
     urn_lib_1.urn_log.debug(`Uranio panel starting...`);
     await nuxt.ready();
-    const app = (0, express_1.default)();
+    const app = express_1.default();
     app.use(nuxt.render);
     app.listen(nuxt_config_1.default.server.port, nuxt_config_1.default.server.host, () => {
         urn_lib_1.urn_log.debug(`Server listening on port ${nuxt_config_1.default.server.port}...`);

@@ -1,3 +1,9 @@
+/**
+ * Nuxt configuration file for testing Nuxt in urn-adm
+ *
+ * @packageDocumentation
+ */
+
 import { resolve } from 'path';
 
 export default {

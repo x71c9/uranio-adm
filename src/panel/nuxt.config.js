@@ -1,25 +1,30 @@
+/**
+ * Nuxt configuration file for programmatically use Nuxt.
+ *
+ * This file is compiled to dist/panel/nuxt.config.js
+ * but must point the srcDir to the typescript folder
+ * because the compilation of all the Nuxt modules
+ * must be done by the Nuxt buildModule:
+ * @nuxt/typescript-build
+ *
+ * @packageDocumentation
+ */
+
 import { resolve } from 'path';
 
-const is_production = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'PRODUCTION';
+const is_production = process.env.NODE_ENV === 'production';
 
 export default {
 	dev: !is_production,
 	telemetry: false,
 	alias: {
-		'uranio/client': resolve(__dirname, '../client'),
+		'uranio/client': resolve(__dirname, '../../src/client'),
 		'uranio-trx/client': resolve(__dirname, '../../node_modules/uranio-trx/dist/client'),
 		'uranio-trx/client/types': resolve(__dirname, '../../node_modules/uranio-trx/dist/client/types'),
 		'uranio-api/client': resolve(__dirname, '../../node_modules/uranio-api/dist/client'),
 		'uranio-api/client/types': resolve(__dirname, '../../node_modules/uranio-api/dist/client/types'),
 		'uranio-core/client': resolve(__dirname, '../../node_modules/uranio-core/dist/client'),
 		'uranio-core/client/types': resolve(__dirname, '../../node_modules/uranio-core/dist/client/types'),
-		// 'uranio/client': resolve(__dirname, '../../src/client'),
-		// 'uranio-trx/client': resolve(__dirname, '../../uranio-trx/dist/client'),
-		// 'uranio-trx/client/types': resolve(__dirname, '../../uranio-trx/dist/client/types'),
-		// 'uranio-api/client': resolve(__dirname, '../../uranio-api/dist/client'),
-		// 'uranio-api/client/types': resolve(__dirname, '../../uranio-api/dist/client/types'),
-		// 'uranio-core/client': resolve(__dirname, '../../uranio-core/dist/client'),
-		// 'uranio-core/client/types': resolve(__dirname, '../../uranio-core/dist/client/types'),
 	},
 	env: {
 		// URN_CLIENT_FETCH: process.env.URN_CLIENT_FETCH || 'axios',
@@ -40,11 +45,11 @@ export default {
 		}
 	],
 	buildDir: resolve(__dirname,'./.nuxt'),
-	srcDir: resolve(__dirname,'../nuxt/'),
+	srcDir: resolve(__dirname,'../../src/nuxt/'),
 	target: 'static',
 	ssr: false,
 	generate: {
-		dir: resolve(__dirname,'../../dist/admin'),
+		dir: resolve(__dirname,'../_admin'),
 		fallback: '404.html',
 		subFolders: false,
 		exclude: ['/urn-admin'],

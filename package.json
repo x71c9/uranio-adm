@@ -6,7 +6,7 @@
 	"bin": {
 		"uranio-generate-adm": "dist/server/generate.js",
 		"uranio-webservice-adm": "dist/service/ws.js",
-		"uranio-panel-adm": "dist/panel/sh.js"
+		"uranio-panel-adm": "dist/panel/index.js"
 	},
 	"exports": {
 		".": "./dist/server.js",
