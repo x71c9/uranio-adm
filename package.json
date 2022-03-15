@@ -55,8 +55,6 @@
 	},
 	"devDependencies": {
 		"concurrently": "^7.0.0",
-		"patch-package": "^6.4.7",
-		"postinstall-postinstall": "^2.1.0",
 		"uranio-adm-dep-dev": "git+ssh://git@github.com/nbl7/uranio-adm-dep-dev.git#master"
 	},
 	"dependencies": {
