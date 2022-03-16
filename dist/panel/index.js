@@ -54,7 +54,7 @@ urn_lib_1.urn_log.init({
     log_level: 4,
     debug_info: false
 });
-urn_lib_1.urn_log.defaults.prefix_type = false;
+// urn_log.defaults.prefix_type = false;
 const panel = __importStar(require("./panel"));
 const args = (0, minimist_1.default)(process.argv.slice(2));
 switch (args._[0]) {
