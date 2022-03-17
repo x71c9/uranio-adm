@@ -110,6 +110,9 @@ export default {
 		duration: 2000,
 		continuous: true
 	},
+	watch: [
+		resolve(__dirname, '../../../uranio-schema/dist')
+	],
 	// watchers: {
 	//   webpack: {
 	//     ignored: [

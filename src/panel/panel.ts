@@ -54,14 +54,15 @@ export async function dev(){
 	await start();
 	
 	const watch_paths:string[] = [
-		path.resolve(__dirname, '../../src/nuxt')
+		path.resolve(__dirname, '../../src/nuxt'),
+		// path.resolve(__dirname, '../../../uranio-schema')
 	];
 	
 	chokidar.watch(watch_paths, {ignoreInitial: true})
 		.on('ready', () => {
 			urn_log.debug(`Uranio panel dev watching ready...`);
 		})
-		.on('all', async (_path:string, _event:string) => {
+		.on('all', async (_event:string, _path:string) => {
 			urn_log.debug(`Uranio panel dev watching [${_event}] [${_path}]`);
 			builder.build();
 		});
