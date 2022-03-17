@@ -1,0 +1,86 @@
+diff --git a/node_modules/@uppy/vue/lib/dashboard-modal.js b/node_modules/@uppy/vue/lib/dashboard-modal.js
+index 2e02577..ff838f7 100644
+--- a/node_modules/@uppy/vue/lib/dashboard-modal.js
++++ b/node_modules/@uppy/vue/lib/dashboard-modal.js
+@@ -104,9 +104,11 @@ export default {
+     } // Otherwise, we use the `h` function from the Vue package (in Vue 3 fashion)
+ 
+ 
+-    return Vue.h('div', {
++    return Vue[H()]('div', {
+       ref: 'container'
+     });
+   }
+ 
+ };
++
++const H = () => 'h';
+diff --git a/node_modules/@uppy/vue/lib/dashboard.js b/node_modules/@uppy/vue/lib/dashboard.js
+index d27ff8b..333e61b 100644
+--- a/node_modules/@uppy/vue/lib/dashboard.js
++++ b/node_modules/@uppy/vue/lib/dashboard.js
+@@ -87,10 +87,11 @@ export default {
+       });
+     } // Otherwise, we use the `h` function from the Vue package (in Vue 3 fashion)
+ 
+-
+-    return Vue.h('div', {
++    return Vue[H()]('div', {
+       ref: 'container'
+     });
+   }
+ 
+ };
++
++const H = () => 'h';
+diff --git a/node_modules/@uppy/vue/lib/drag-drop.js b/node_modules/@uppy/vue/lib/drag-drop.js
+index a7445d1..a6965cd 100644
+--- a/node_modules/@uppy/vue/lib/drag-drop.js
++++ b/node_modules/@uppy/vue/lib/drag-drop.js
+@@ -83,9 +83,11 @@ export default {
+     } // Otherwise, we import the `h` function from the Vue package (in Vue 3 fashion)
+ 
+ 
+-    return Vue.h('div', {
++    return Vue[H()]('div', {
+       ref: 'container'
+     });
+   }
+ 
+ };
++
++const H = () => 'h';
+diff --git a/node_modules/@uppy/vue/lib/progress-bar.js b/node_modules/@uppy/vue/lib/progress-bar.js
+index 0dea165..6186049 100644
+--- a/node_modules/@uppy/vue/lib/progress-bar.js
++++ b/node_modules/@uppy/vue/lib/progress-bar.js
+@@ -79,9 +79,11 @@ export default {
+     } // Otherwise, we import the `h` function from the Vue package (in Vue 3 fashion)
+ 
+ 
+-    return Vue.h('div', {
++    return Vue[H()]('div', {
+       ref: 'container'
+     });
+   }
+ 
+ };
++
++const H = () => 'h';
+diff --git a/node_modules/@uppy/vue/lib/status-bar.js b/node_modules/@uppy/vue/lib/status-bar.js
+index 254ed50..ce96822 100644
+--- a/node_modules/@uppy/vue/lib/status-bar.js
++++ b/node_modules/@uppy/vue/lib/status-bar.js
+@@ -83,9 +83,11 @@ export default {
+     } // Other wise, we import the `h` function from the Vue package (in Vue 3 fashion)
+ 
+ 
+-    return Vue.h('div', {
++    return Vue[H()]('div', {
+       ref: 'container'
+     });
+   }
+ 
+ };
++
++const H = () => 'h';

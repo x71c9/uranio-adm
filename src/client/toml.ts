@@ -33,6 +33,6 @@ export const client_toml:Partial<ClientConfiguration> = {
 	log_prefix_type: false,
 	prefix_log: "/logs",
 	fetch: "axios",
-	service_url: "http://localhost:7777/uranio/api",
-	dev_service_url: "http://localhost:7777/uranio/api",
+	service_url: "http://localhost:7775/uranio/api",
+	dev_service_url: "http://localhost:7775/uranio/api",
 };
