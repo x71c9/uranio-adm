@@ -33,6 +33,7 @@
 	"repository": "git@github.com:nbl7/uranio-adm.git",
 	"author": "Andrea Reni <mail@nbl7.net>",
 	"scripts": {
+		"restart": "yarn generate:replace && yarn patch",
 		"patch": "yarn patch-package",
 		"build": "yarn tsc -b",
 		"dev:nuxt": "yarn nuxt dev",
