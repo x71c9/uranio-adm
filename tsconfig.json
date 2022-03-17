@@ -29,7 +29,7 @@
 			"uranio/client": ["./src/client.ts"],
 			"uranio/client/types": ["./src/client/types.ts"]
 		},
-		"skipLibCheck": true,
+		"skipLibCheck": false,
 		"sourceMap": true,
 		"strict": true,
 		"strictNullChecks": true,
