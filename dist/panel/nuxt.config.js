@@ -52,7 +52,7 @@ exports.default = {
     ],
     typescript: {
         configFile: (0, path_1.resolve)(__dirname, '../../tsconfig.json'),
-        // typeCheck: true
+        typeCheck: false
     },
     plugins: [
         {

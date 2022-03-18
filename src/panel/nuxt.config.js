@@ -55,7 +55,7 @@ export default {
 	],
 	typescript: {
 		configFile: resolve(__dirname, '../../tsconfig.json'),
-		// typeCheck: true
+		typeCheck: false
 	},
 	plugins: [
 		{
