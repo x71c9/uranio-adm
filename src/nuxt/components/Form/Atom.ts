@@ -258,7 +258,7 @@ function _is_property_empty<A extends uranio.schema.AtomName>(
 		}else{
 			switch(prop_def.type){
 				case uranio.types.PropertyType.ATOM:{
-					if(atom[k] === {} || (atom[k] as unknown) === ''){
+					if((atom[k] as unknown) == {} || (atom[k] as unknown) === ''){
 						is_empty = true;
 					}
 					break;

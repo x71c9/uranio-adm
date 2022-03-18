@@ -39,7 +39,7 @@ export default {
 	target: 'static',
 	ssr: false,
 	generate: {
-		dir: './dist/admin',
+		dir: './dist/_admin',
 		fallback: '404.html',
 		subFolders: false,
 		exclude: ['/urn-admin'],
@@ -52,8 +52,9 @@ export default {
 		'@nuxtjs/proxy'
 	],
 	buildModules: [
-		'@nuxt/typescript-build',
-		'@nuxtjs/style-resources'
+		// '@nuxt/typescript-build',
+		'@nuxtjs/style-resources',
+		'nuxt-vite'
 	],
 	proxy: {
 		'/uranio/api': {
@@ -63,9 +64,9 @@ export default {
 			}
 		}
 	},
-	typescript: {
-		typeCheck: true
-	},
+	// typescript: {
+	//   typeCheck: true
+	// },
 	router: {
 		trailingSlash: false,
 		linkActiveClass: 'urn-active-link',

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Uploader />
+		<!-- <Uploader /> -->
 	</div>
 </template>
-<script lang="ts" src="./medias.ts"></script>
+<!-- <script lang="ts" src="./medias.ts"></script> -->

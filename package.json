@@ -56,6 +56,8 @@
 	},
 	"devDependencies": {
 		"concurrently": "^7.0.0",
+		"nuxt-vite": "^0.3.5",
+		"postcss-preset-env": "7",
 		"uranio-adm-dep-dev": "git+ssh://git@github.com/nbl7/uranio-adm-dep-dev.git#master"
 	},
 	"dependencies": {
