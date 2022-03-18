@@ -52,7 +52,7 @@ exports.default = {
     ],
     typescript: {
         configFile: (0, path_1.resolve)(__dirname, '../../tsconfig.json'),
-        typeCheck: true
+        // typeCheck: true
     },
     plugins: [
         {
@@ -107,6 +107,9 @@ exports.default = {
         duration: 2000,
         continuous: true
     },
+    watch: [
+        (0, path_1.resolve)(__dirname, '../../../uranio-schema/dist')
+    ],
     // watchers: {
     //   webpack: {
     //     ignored: [
