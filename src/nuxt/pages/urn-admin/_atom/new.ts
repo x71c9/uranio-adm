@@ -62,12 +62,6 @@ export default Vue.extend<Data, Methods, Props, Props>({
 	
 	layout: "urn-admin",
 	
-	head: {
-		bodyAttrs: {
-			class: 'urn-single-page'
-		}
-	},
-	
 	provide():Provide{
 		return {
 			atom: this.atom,

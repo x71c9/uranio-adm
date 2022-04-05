@@ -8,14 +8,13 @@ exports.default = vue_1.default.extend({
     head() {
         return {
             bodyAttrs: {
-                class: 'uranio layout-urn-admin'
+                class: 'uranio layout-auth'
             }
         };
     },
     data() {
         return {};
     },
-    middleware: 'auth',
     methods: {}
 });
-//# sourceMappingURL=urn-admin.js.map
+//# sourceMappingURL=auth.js.map

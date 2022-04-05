@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="urn-single-page">
 		<div class="flex-row-3">
 			<h1 class="ui-flex-row-3-el today inter-medium-white-36px">
 				<span class="inter-medium-white-36px">New {{ atom_name }}</span>

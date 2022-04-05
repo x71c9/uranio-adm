@@ -1,0 +1,1 @@
+{"version":3,"file":"auth.js","sourceRoot":"","sources":["../../../src/nuxt/layouts/auth.ts"],"names":[],"mappings":";;;;;AAAA,8CAAsB;AAWtB,kBAAe,aAAG,CAAC,MAAM,CAAiC;IACzD,IAAI;QACH,OAAO;YACN,SAAS,EAAE;gBACV,KAAK,EAAE,oBAAoB;aAC3B;SACD,CAAC;IACH,CAAC;IACD,IAAI;QACH,OAAO,EACN,CAAC;IACH,CAAC;IACD,OAAO,EAAE,EACR;CACD,CAAC,CAAC"}

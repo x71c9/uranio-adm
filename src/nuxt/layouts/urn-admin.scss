@@ -896,15 +896,16 @@ body.layout-urn-admin {
 	.ui-single-footer .right button {
 		margin-left: var(--padx1);
 	}
-
-	// body.urn-single-page .ui-main-nuxt {
-	// 	max-width: 1080px;
-	// 	margin: 0 auto;
-	// }
+	
+	.urn-single-page.ui-main-nuxt {
+		max-width: 1080px;
+		margin: 0 auto;
+	}
+	
 	.ui-PropertyReadOnly {
 		color: var(--white-2);
 	}
-
+	
 	.urn-full-width {
 		width: 100%;
 	}
@@ -916,9 +917,9 @@ body.layout-urn-admin {
 	.urn-full-width.ui-property select {
 		/* width: calc(50% - var(--padx1)); */
 	}
-
+	
 	/* MODAL ATOM */
-
+	
 	.urn-modal-atom {
 		position: fixed;
 		background-color: var(--licorice);

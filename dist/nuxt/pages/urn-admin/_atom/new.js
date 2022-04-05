@@ -24,11 +24,6 @@ function _process_atom(atom_name, partial_atom) {
 }
 exports.default = vue_1.default.extend({
     layout: "urn-admin",
-    head: {
-        bodyAttrs: {
-            class: 'urn-single-page'
-        }
-    },
     provide() {
         return {
             atom: this.atom,

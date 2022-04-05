@@ -3,7 +3,7 @@
 		<UISectionHeader />
 		<div class="main-flex ui-main">
 			<UISectionSideBar class="main-flex ui-section-sidebar"/>
-			<Nuxtvclass="ui-main-nuxt" />
+			<Nuxt class="ui-main-nuxt" />
 		</div>
 		<UINotification />
 	</div>
