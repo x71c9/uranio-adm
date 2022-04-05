@@ -13,7 +13,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	head() {
 		return {
 			bodyAttrs: {
-				class: 'uranio layout-urn-admin'
+				class: 'uranio layout-auth'
 			}
 		};
 	},
@@ -21,7 +21,6 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		return {
 		};
 	},
-	middleware: 'auth',
 	methods: {
 	}
 });

@@ -43,7 +43,7 @@
 		"dev:panel:build": "yarn tsc-watch --onSuccess \"node ./dist/panel/index.js build\"",
 		"dev:panel:start": "yarn tsc-watch --onSuccess \"node ./dist/panel/index.js start\"",
 		"dev:panel:generate": "yarn tsc-watch --onSuccess \"node ./dist/panel/index.js generate\"",
-		"dev": "yarn concurrently \"yarn dev:server\" \"yarn dev:panel\"",
+		"dev": "yarn concurrently \"yarn dev:server\" \"yarn dev:panel:dev\"",
 		"pre:build": "yarn esbuild src/server/generate.ts --bundle --platform=node --format=cjs --outfile=.generate/bundled_generate.js",
 		"pre:generate": "node .generate/bundled_generate.js",
 		"plain:generate": "node -r source-map-support/register -r dotenv/config ./dist/server/generate.js",

@@ -34,7 +34,6 @@ export default {
 			src: '~/plugins/uranio.ts'
 		}
 	],
-	buildDir: './.nuxt',
 	srcDir: './src/nuxt/',
 	target: 'static',
 	ssr: false,
@@ -51,6 +50,13 @@ export default {
 	modules:[
 		'@nuxtjs/proxy'
 	],
+	build: {
+		splitChunks: {
+			layouts: true,
+			pages: true,
+		}
+	},
+	buildDir: './.nuxt',
 	buildModules: [
 		'@nuxt/typescript-build',
 		'@nuxtjs/style-resources'
@@ -85,6 +91,7 @@ export default {
 		duration: 2000,
 		continuous: true
 	},
+	telemetry: false,
 	// watchers: {
 	//   webpack: {
 	//     ignored: [

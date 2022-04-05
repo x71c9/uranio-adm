@@ -26,6 +26,7 @@ declare namespace _default {
     const buildModules: string[];
     namespace typescript {
         const configFile: string;
+        const typeCheck: boolean;
     }
     const plugins: {
         src: string;
