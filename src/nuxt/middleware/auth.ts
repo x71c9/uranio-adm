@@ -3,7 +3,6 @@ import { Middleware } from '@nuxt/types';
 const myMiddleware:Middleware = (context) => {
 	const login_path = `/urn-admin/login`;
 	if(context.store.state.auth.logged !== true && context.route.path !== login_path){
-		console.log(context.store.state.auth);
 		return context.redirect(login_path);
 	}
 };

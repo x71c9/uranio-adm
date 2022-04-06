@@ -8,11 +8,6 @@ const urn_lib_1 = require("urn-lib");
 const client_1 = __importDefault(require("uranio/client"));
 const notification_1 = require("../../../store/notification");
 exports.default = vue_1.default.extend({
-    head: {
-        bodyAttrs: {
-            class: 'urn-single-page'
-        }
-    },
     layout() {
         return "urn-admin";
     },

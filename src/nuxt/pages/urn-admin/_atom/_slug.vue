@@ -1,5 +1,5 @@
 <template>
-	<div class="ui-atom-slug">
+	<div class="ui-atom-slug urn-single-page">
 		<div v-if="success">
 			<div class="flex-row-3">
 				<h1

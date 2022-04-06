@@ -53,5 +53,10 @@ exports.actions = {
             };
         }
     },
+    async sign_out(context) {
+        context.commit('CHANGE_LOGGED', false);
+        context.commit('CHANGE_EMAIL', '');
+        return true;
+    }
 };
 //# sourceMappingURL=auth.js.map

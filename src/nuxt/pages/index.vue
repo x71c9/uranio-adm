@@ -1,8 +1,9 @@
 <template lang="pug">
 	#homepage
-		h1 {{name}}
-		br
-		br
-		NuxtLink(to='/urn-admin' class="home_go") Go to admin
+		.wrap
+			h1 {{name}}
+			NuxtLink(to='/urn-admin' class="go") Go to admin
 </template>
+<style lang="scss" src="../layouts/urn-admin-reset.scss"></style>
 <script lang="ts" src="./index.ts"></script>
+<style lang="scss" src="./index.scss"></style>

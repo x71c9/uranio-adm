@@ -36,19 +36,11 @@ type Methods<A extends uranio.schema.AtomName> = {
 	go_back: () => void
 }
 
-type Computed = {
-}
+type Computed = Record<string, never>
 
-type Props = {
-}
+type Props = Record<string, never>
 
 export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.AtomName>, Computed, Props>({
-	
-	head: {
-		bodyAttrs: {
-			class: 'urn-single-page'
-		}
-	},
 	
 	layout(): string {
 		return "urn-admin";

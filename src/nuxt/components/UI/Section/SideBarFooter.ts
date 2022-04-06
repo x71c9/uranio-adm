@@ -12,18 +12,16 @@ type Data = {
 };
 
 type Methods = {
+	sign_out():Promise<void>
 }
 
-type Computed = {
-}
+type Computed = Record<string, never>
 
-type Props = {
-}
+type Props = Record<string, never>
 
 export default Vue.extend<Data, Methods, Computed, Props>({
 	data():Data {
 		const items = [] as Entry[];
-		
 		for (const atom_name of uranio.book.get_names()) {
 			const atom_def = uranio.book.get_definition(atom_name as uranio.schema.AtomName);
 			let plural = `${atom_name}s`;
@@ -43,4 +41,10 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			items
 		};
 	},
+	methods: {
+		async sign_out():Promise<void>{
+			await this.$store.dispatch('auth/sign_out');
+			this.$router.push({path: '/urn-admin/login'});
+		}
+	}
 });

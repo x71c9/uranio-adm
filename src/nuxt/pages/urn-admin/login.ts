@@ -1,5 +1,7 @@
 import Vue from 'vue';
 
+import {urn_log} from 'urn-lib';
+
 import {AuthResponse} from '../../store/auth';
 
 type Data = {
@@ -74,6 +76,8 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 				'auth/authenticate',
 				{email: this.email, password: this.password}
 			);
+			console.log(urn_log.defaults.log_level);
+			urn_log.debug(auth_response);
 			if(auth_response.success){
 				this.general_message = auth_response.message;
 			}else{
@@ -83,7 +87,6 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 					$pwd.focus();
 				}
 			}
-			console.log('auth response: ', auth_response.success);
 			return auth_response.success;
 		}
 	}

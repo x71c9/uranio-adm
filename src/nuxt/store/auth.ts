@@ -72,5 +72,13 @@ export const actions: ActionTree<RootState, RootState> = {
 		}
 	},
 	
+	async sign_out(
+		context: ActionContext<ReturnState, RootState>
+	):Promise<boolean>{
+		context.commit('CHANGE_LOGGED', false);
+		context.commit('CHANGE_EMAIL', '');
+		return true;
+	}
+	
 };
 

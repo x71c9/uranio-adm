@@ -28,5 +28,11 @@ exports.default = vue_1.default.extend({
             items
         };
     },
+    methods: {
+        async sign_out() {
+            await this.$store.dispatch('auth/sign_out');
+            this.$router.push({ path: '/urn-admin/login' });
+        }
+    }
 });
 //# sourceMappingURL=SideBarFooter.js.map

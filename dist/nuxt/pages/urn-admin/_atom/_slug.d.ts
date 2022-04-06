@@ -27,7 +27,7 @@ declare type Methods<A extends uranio.schema.AtomName> = {
     delete_atom: () => Promise<void>;
     go_back: () => void;
 };
-declare type Computed = {};
-declare type Props = {};
+declare type Computed = Record<string, never>;
+declare type Props = Record<string, never>;
 declare const _default: import("vue/types/vue").ExtendedVue<Vue, Data<uranio.core.schema.AtomName>, Methods<uranio.core.schema.AtomName>, Computed, Props>;
 export default _default;
