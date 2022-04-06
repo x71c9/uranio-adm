@@ -67,4 +67,3 @@
 	</div>
 </template>
 <script lang="ts" src="./ObjectInspector.ts"></script>
-<style type="text/css" src="./ObjectInspector.css"></style>

@@ -13,4 +13,3 @@
 	</div>
 </template>
 <script lang="ts" src="./Checkbox.ts"></script>
-<style type="text/css" src="./Checkbox.css"></style>

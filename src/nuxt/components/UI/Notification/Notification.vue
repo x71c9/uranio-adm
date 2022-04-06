@@ -38,4 +38,3 @@
 	</transition>
 </template>
 <script lang="ts" src="./Notification.ts"></script>
-<style lang="scss" src="./Notification.scss"></style>

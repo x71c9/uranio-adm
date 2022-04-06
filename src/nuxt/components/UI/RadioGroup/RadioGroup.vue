@@ -15,4 +15,3 @@
 	</div>
 </template>
 <script lang="ts" src="./RadioGroup.ts"></script>
-<style lang="scss" src="./RadioGroup.scss"></style>

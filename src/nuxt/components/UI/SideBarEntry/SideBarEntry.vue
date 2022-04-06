@@ -19,4 +19,3 @@
 	</nuxt-link>
 </template>
 <script lang="ts" src="./SideBarEntry.ts"></script>
-<style type="text/css" src="./SideBarEntry.css"></style>

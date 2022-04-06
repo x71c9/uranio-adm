@@ -172,4 +172,3 @@
 	</div>
 </template>
 <script lang="ts" src="./Pagination.ts"></script>
-<style lang="scss" src="./Pagination.scss"></style>

@@ -13,4 +13,3 @@
 	</div>
 </template>
 <script lang="ts" src="./RadioButton.ts"></script>
-<style lang="scss" src="./RadioButton.scss"></style>

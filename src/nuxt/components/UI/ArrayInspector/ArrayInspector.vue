@@ -21,4 +21,3 @@
 	</div>
 </template>
 <script lang="ts" src="./ArrayInspector.ts"></script>
-<style type="text/css" src="./ArrayInspector.css"></style>

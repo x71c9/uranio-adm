@@ -6,4 +6,3 @@
 	</div>
 </template>
 <script lang="ts" src="./SideBarLabel.ts"></script>
-<style type="text/css" src="./SideBarLabel.css"></style>
