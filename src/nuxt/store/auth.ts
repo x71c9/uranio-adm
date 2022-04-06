@@ -2,48 +2,75 @@
 
 import { ActionTree, MutationTree, ActionContext } from 'vuex';
 
+import {urn_log} from 'urn-lib';
+
 import uranio from 'uranio/client';
 
 type ReturnState = {
 	logged: boolean
-	// token: string
+	email: string
+}
+
+export type AuthResponse = {
+	email: string
+	success: boolean
+	message: string
 }
 
 export const state = ():ReturnState => ({
 	logged: false,
-	// token: '',
+	email: '',
 });
 
 export type RootState = ReturnType<typeof state>
 
-// export const getters: GetterTree<RootState, RootState> = {
-//   is_open: state => state.is_open,
-// };
-
 export const mutations: MutationTree<RootState> = {
 	CHANGE_LOGGED: (state, logged:boolean) => (state.logged = logged),
-	// CHANGE_TOKEN: (state, token:string) => (state.token = token),
+	CHANGE_EMAIL: (state, email:string) => (state.email = email),
 };
 
 export const actions: ActionTree<RootState, RootState> = {
-	async authenticate(context:ActionContext<ReturnState, RootState>){
+	
+	async authenticate(
+		context:ActionContext<ReturnState, RootState>,
+		{email, password}
+	):Promise<AuthResponse>{
 		if(context.state.logged === true){
-			return;
+			return {
+				email: context.state.email,
+				success: true,
+				message: 'Already logged.'
+			};
 		}
 		try{
+			// 'uranio@uranio.xyz',
+			// 'kcXkaF3Ad7KC3G3t'
 			const response = await uranio.trx.hooks.superusers.authenticate(
-				'uranio@uranio.xyz',
-				'kcXkaF3Ad7KC3G3t'
+				email,
+				password
 			);
 			if(response.success){
-				// context.commit('CHANGE_TOKEN', response.payload.token);
 				context.commit('CHANGE_LOGGED', true);
+				context.commit('CHANGE_EMAIL', email);
 			}else{
-				console.error('Cannot authenticate', response);
+				urn_log.error('Cannot authenticate');
+				urn_log.error(response);
 			}
+			return {
+				email: context.state.email,
+				success: response.success,
+				message: (response.success !== true) ?
+					response.err_msg : (response.message || '')
+			};
 		}catch(e){
-			console.error(e);
+			const err = e as Error;
+			return {
+				email: context.state.email,
+				success: false,
+				message: err.message
+			};
 		}
 	},
+	
 };
 

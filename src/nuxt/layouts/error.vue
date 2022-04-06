@@ -20,6 +20,7 @@
 				message: 'An error occured.'
 			}
 		},
+		middleware: 'auth',
 		props: ['error'],
 	}
 </script>

@@ -10,6 +10,7 @@ body.layout-auth {
 		min-height: 100vh;
 		
 		div.auth_box {
+			
 			width: 100%;
 			// height: 100%;
 			max-width: 480px;
@@ -62,6 +63,10 @@ body.layout-auth {
 					
 					.head{
 						
+						.top{
+							min-height: 42px;
+						}
+						
 						label{
 							display: block;
 							margin-right: var(--padx2);
@@ -70,7 +75,6 @@ body.layout-auth {
 						}
 						
 						button{
-							margin-bottom: var(--padx2);
 							font-size: var(--font-size-s);
 							background-color: transparent;
 							padding: 0;
@@ -81,7 +85,6 @@ body.layout-auth {
 						.prop_data{
 							display: flex;
 							align-items: center;
-							margin-top: 8px;
 							font-size: var(--font-size-s);
 							color: var(--white-2);
 							
@@ -90,56 +93,93 @@ body.layout-auth {
 								margin-right: 6px;
 							}
 						}
+						
+						.info{
+							margin-top: var(--padx2);
+						}
 					}
 					
-					input{
-						border-radius: 4px;
-						background-color: transparent;
-						outline: 0;
-						color: var(--white);
-						display: block;
-						padding: 8px 12px;
-						width: 300px;
-						font: inherit;
-						border: 1px solid var(--white-5);
-						box-shadow: inset 1px 1px 1px 0px #171717;
+					.body {
 						
-						&[type=submit]{
-							width: 100%;
-							background-color: var(--azure-radiance);
-							border-width: 0;
+						display: flex;
+						flex-direction: column;
+						
+						input{
 							border-radius: 4px;
-							box-shadow: 0px 1px 1px #00000014, 0px 2px 1px #0000000f, 0px 1px 3px #0000001a;
-							cursor: pointer;
-							position: relative;
+							background-color: transparent;
+							outline: 0;
 							color: var(--white);
-							font-family: var(--font-family-inter);
-							font-weight: 500;
-							font-style: normal;
-							font-size: var(--font-size-m);
-							line-height: 24px;
-							min-height: 24px;
-							height: 34px;
-							padding: 0 16px;
-							white-space: nowrap;
-							text-align: center;
-							
-							&:hover{
-								background-color: var(--dodger-blue);
-							}
-							
-							&:not(.disabled):active{
-								box-shadow: 0;
-								top: 1px;
-							}
+							display: block;
+							padding: 8px 12px;
+							width: 300px;
+							font: inherit;
+							border: 1px solid var(--white-5);
+							box-shadow: inset 1px 1px 1px 0px #171717;
 							
 						}
 						
+						.log{
+							flex: 1;
+							display: flex;
+							flex-direction: column;
+							flex-flow: column-reverse;
+							// padding-left: var(--padx1);
+							
+							.error{
+								color: var(--alizarin-crimson);
+							}
+							
+							img{
+								height: 14px;
+								margin-right: 6px;
+								position: relative;
+								top: 2px;
+								// filter: invert(40%) sepia(91%) saturate(4160%) hue-rotate(343deg) brightness(91%) contrast(99%);
+							}
+						}
 					}
 					
+					&.error .body input:not([type=submit]){
+						border-color: var(--alizarin-crimson);
+					}
+					
+					& input[type=submit]{
+						width: 100%;
+						text-align: center;
+						align-items: center;
+						display: block;
+					}
 				}
 				
 			}
+			
+			.msg{
+				
+				display: flex;
+				justify-content: space-between;
+				padding: var(--padx1) 0 0;
+				font-size: var(--font-size-s);
+				color: var(--white-2);
+				
+				& > div{
+					height: 24px;
+					line-height: 24px;
+				}
+				
+				.error{
+					color: var(--alizarin-crimson);
+				}
+				
+				img{
+					height: 14px;
+					margin-right: 6px;
+					position: relative;
+					top: 2px;
+					// filter: invert(40%) sepia(91%) saturate(4160%) hue-rotate(343deg) brightness(91%) contrast(99%);
+				}
+				
+			}
+			
 		}
 		
 	}

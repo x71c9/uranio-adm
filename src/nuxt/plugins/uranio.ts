@@ -1,6 +1,12 @@
 
 export * from '../../client/register';
 
+import {urn_log} from 'urn-lib';
+urn_log.init({
+	context: urn_log.LogContext.BROWSER,
+	prefix: '[URANIO]'
+});
+
 import uranio from 'uranio/client';
 uranio.init();
 

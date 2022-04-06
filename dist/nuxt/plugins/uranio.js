@@ -18,6 +18,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("../../client/register"), exports);
+const urn_lib_1 = require("urn-lib");
+urn_lib_1.urn_log.init({
+    context: urn_lib_1.urn_log.LogContext.BROWSER,
+    prefix: '[URANIO]'
+});
 const client_1 = __importDefault(require("uranio/client"));
 client_1.default.init();
 const vue_1 = __importDefault(require("vue"));

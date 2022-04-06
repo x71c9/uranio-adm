@@ -45,7 +45,7 @@ export default {
 	},
 	server: {
 		host: "0.0.0.0",
-		port: 5454
+		port: 4477
 	},
 	modules:[
 		'@nuxtjs/proxy'
@@ -63,7 +63,7 @@ export default {
 	],
 	proxy: {
 		'/uranio/api': {
-			target: "http://localhost:7773/uranio/api",
+			target: "http://localhost:7775/uranio/api",
 			pathRewrite: {
 				"^/uranio/api": ""
 			}

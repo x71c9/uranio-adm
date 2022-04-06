@@ -5,36 +5,52 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.actions = exports.mutations = exports.state = void 0;
+const urn_lib_1 = require("urn-lib");
 const client_1 = __importDefault(require("uranio/client"));
 const state = () => ({
     logged: false,
-    // token: '',
+    email: '',
 });
 exports.state = state;
-// export const getters: GetterTree<RootState, RootState> = {
-//   is_open: state => state.is_open,
-// };
 exports.mutations = {
     CHANGE_LOGGED: (state, logged) => (state.logged = logged),
-    // CHANGE_TOKEN: (state, token:string) => (state.token = token),
+    CHANGE_EMAIL: (state, email) => (state.email = email),
 };
 exports.actions = {
-    async authenticate(context) {
+    async authenticate(context, { email, password }) {
         if (context.state.logged === true) {
-            return;
+            return {
+                email: context.state.email,
+                success: true,
+                message: 'Already logged.'
+            };
         }
         try {
-            const response = await client_1.default.trx.hooks.superusers.authenticate('uranio@uranio.xyz', 'kcXkaF3Ad7KC3G3t');
+            // 'uranio@uranio.xyz',
+            // 'kcXkaF3Ad7KC3G3t'
+            const response = await client_1.default.trx.hooks.superusers.authenticate(email, password);
             if (response.success) {
-                // context.commit('CHANGE_TOKEN', response.payload.token);
                 context.commit('CHANGE_LOGGED', true);
+                context.commit('CHANGE_EMAIL', email);
             }
             else {
-                console.error('Cannot authenticate', response);
+                urn_lib_1.urn_log.error('Cannot authenticate');
+                urn_lib_1.urn_log.error(response);
             }
+            return {
+                email: context.state.email,
+                success: response.success,
+                message: (response.success !== true) ?
+                    response.err_msg : (response.message || '')
+            };
         }
         catch (e) {
-            console.error(e);
+            const err = e;
+            return {
+                email: context.state.email,
+                success: false,
+                message: err.message
+            };
         }
     },
 };

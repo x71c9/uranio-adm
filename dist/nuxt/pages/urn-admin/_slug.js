@@ -110,7 +110,6 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
     },
     async asyncData(context) {
         urn_lib_1.urn_log.debug('AsyncData.context.params', context.params);
-        await context.store.dispatch('auth/authenticate');
         let success = false;
         const atom_name = context.params.slug;
         if (!client_1.default.book.validate_name(atom_name)) {

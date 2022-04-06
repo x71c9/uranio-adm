@@ -1,7 +1,91 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = {
-    // layout: "urn-admin",
-    layout: "auth",
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+const vue_1 = __importDefault(require("vue"));
+exports.default = vue_1.default.extend({
+    layout: "auth",
+    props: {},
+    data() {
+        return {
+            email: '',
+            password: '',
+            error_email: '',
+            error_password: '',
+            error_general: '',
+            general_message: ''
+        };
+    },
+    methods: {
+        async submit() {
+            if (this.validate() && await this.authenticate()) {
+                this.$router.push({ path: `/urn-admin` });
+            }
+        },
+        validate() {
+            let valid = true;
+            if (!_is_filled(this.email)) {
+                valid = false;
+                this.error_email = 'Please fill in the email.';
+            }
+            else {
+                this.error_email = '';
+                if (!_is_valid_email(this.email)) {
+                    valid = false;
+                    this.error_email = 'Invalid email';
+                }
+                else {
+                    this.error_email = '';
+                }
+            }
+            if (!_is_filled(this.password)) {
+                valid = false;
+                this.error_password = 'Please fill in the password.';
+            }
+            else {
+                this.error_password = '';
+                if (!_is_valid_password(this.password)) {
+                    valid = false;
+                    this.error_password = 'Invalid password.';
+                }
+                else {
+                    this.error_password = '';
+                }
+            }
+            return valid;
+        },
+        async authenticate() {
+            const auth_response = await this.$store.dispatch('auth/authenticate', { email: this.email, password: this.password });
+            if (auth_response.success) {
+                this.general_message = auth_response.message;
+            }
+            else {
+                this.error_general = auth_response.message;
+                const $pwd = this.$refs.password;
+                if ($pwd && typeof $pwd.focus === 'function') {
+                    $pwd.focus();
+                }
+            }
+            console.log('auth response: ', auth_response.success);
+            return auth_response.success;
+        }
+    }
+});
+function _is_filled(value) {
+    if (typeof value === 'string' && value != '') {
+        return true;
+    }
+    return false;
+}
+function _is_valid_email(value) {
+    return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(String(value).toLowerCase());
+    // return /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\    x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/.test(value);
+}
+function _is_valid_password(value) {
+    if (typeof value === 'string' && value.length > 4) {
+        return true;
+    }
+    return false;
+}
 //# sourceMappingURL=login.js.map
