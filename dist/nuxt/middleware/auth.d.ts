@@ -1,3 +1,3 @@
 import { Middleware } from '@nuxt/types';
-declare const myMiddleware: Middleware;
-export default myMiddleware;
+declare const auth_middleware: Middleware;
+export default auth_middleware;

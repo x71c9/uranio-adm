@@ -60,7 +60,10 @@ export const mutations: MutationTree<RootState> = {
 };
 
 export const actions: ActionTree<RootState, RootState> = {
-	open_modal(context:ActionContext<ReturnState, RootState>, { prop_name, prop_atom, multiple, replace }) {
+	open_modal(
+		context:ActionContext<ReturnState, RootState>,
+		{ prop_name, prop_atom, multiple, replace }
+	) {
 		// urn_log.debug('ACTION: $store.open_modal');
 		// urn_log.debug('Prop name: ', prop_name);
 		// urn_log.debug('Prop Atom: ', prop_atom);

@@ -58,8 +58,9 @@ exports.default = vue_1.default.extend({
         },
         async authenticate() {
             const auth_response = await this.$store.dispatch('auth/authenticate', { email: this.email, password: this.password });
-            console.log(urn_lib_1.urn_log.defaults.log_level);
+            // console.log(urn_log.defaults.log_level);
             urn_lib_1.urn_log.debug(auth_response);
+            console.log(auth_response);
             if (auth_response.success) {
                 this.general_message = auth_response.message;
             }

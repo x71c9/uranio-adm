@@ -35,6 +35,7 @@ export const actions: ActionTree<RootState, RootState> = {
 		context:ActionContext<ReturnState, RootState>,
 		{email, password}
 	):Promise<AuthResponse>{
+		console.log('STORE AUTH AUTHENTICATE');
 		if(context.state.logged === true){
 			return {
 				email: context.state.email,
@@ -50,8 +51,8 @@ export const actions: ActionTree<RootState, RootState> = {
 				password
 			);
 			if(response.success){
-				context.commit('CHANGE_LOGGED', true);
 				context.commit('CHANGE_EMAIL', email);
+				context.dispatch('update_logged', true);
 			}else{
 				urn_log.error('Cannot authenticate');
 				urn_log.error(response);
@@ -75,9 +76,16 @@ export const actions: ActionTree<RootState, RootState> = {
 	async sign_out(
 		context: ActionContext<ReturnState, RootState>
 	):Promise<boolean>{
-		context.commit('CHANGE_LOGGED', false);
+		console.log('STORE AUTH SIGNED OUT');
 		context.commit('CHANGE_EMAIL', '');
+		context.dispatch('update_logged', false);
 		return true;
+	},
+	
+	update_logged(context: ActionContext<ReturnState, RootState>, value:boolean):void{
+		console.log('STORE AUTH UPDATE LOGGED');
+		context.commit('CHANGE_LOGGED', value);
+		context.dispatch('localStorage/set', {key: 'logged', value: value}, {root:true});
 	}
 	
 };

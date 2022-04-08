@@ -76,8 +76,9 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 				'auth/authenticate',
 				{email: this.email, password: this.password}
 			);
-			console.log(urn_log.defaults.log_level);
+			// console.log(urn_log.defaults.log_level);
 			urn_log.debug(auth_response);
+			console.log(auth_response);
 			if(auth_response.success){
 				this.general_message = auth_response.message;
 			}else{
