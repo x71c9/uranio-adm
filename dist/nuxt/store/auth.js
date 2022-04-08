@@ -18,7 +18,6 @@ exports.mutations = {
 };
 exports.actions = {
     async authenticate(context, { email, password }) {
-        console.log('STORE AUTH AUTHENTICATE');
         if (context.state.logged === true) {
             return {
                 email: context.state.email,
@@ -55,15 +54,27 @@ exports.actions = {
         }
     },
     async sign_out(context) {
-        console.log('STORE AUTH SIGNED OUT');
         context.commit('CHANGE_EMAIL', '');
         context.dispatch('update_logged', false);
         return true;
     },
+    async check_logged(context) {
+        console.log('STORE AUTH CHECK LOGGED');
+        const response = await client_1.default.trx.hooks.superusers.count();
+        let is_authenticated = false;
+        if (response.success) {
+            context.dispatch('update_logged', true);
+            is_authenticated = true;
+        }
+        else {
+            context.dispatch('update_logged', false);
+        }
+        return is_authenticated;
+    },
     update_logged(context, value) {
-        console.log('STORE AUTH UPDATE LOGGED');
+        console.log('STORE UPDATE LOGGED. logged: ', value);
         context.commit('CHANGE_LOGGED', value);
-        context.dispatch('localStorage/set', { key: 'logged', value: value }, { root: true });
+        // context.dispatch('local_storage/set', {key: 'logged', value: value}, {root:true});
     }
 };
 //# sourceMappingURL=auth.js.map

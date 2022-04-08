@@ -185,11 +185,11 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 		modalAtomSelected()
 				:void{
 			
-			const atom_prop_name = this.$store.state.modalAtom.atom_prop_name;
+			const atom_prop_name = this.$store.state.modal_atom.atom_prop_name;
 			
-			const sel_atoms = this.$store.state.modalAtom.selected_atoms;
+			const sel_atoms = this.$store.state.modal_atom.selected_atoms;
 			
-			if(this.$store.state.modalAtom.multiple){
+			if(this.$store.state.modal_atom.multiple){
 				const ids = [];
 				for(const [id, is_selected] of Object.entries(sel_atoms)){
 					if(is_selected){

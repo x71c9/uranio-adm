@@ -31,7 +31,7 @@ exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default).extend({
             urn_lib_1.urn_log.debug(this.atom);
         },
         add() {
-            this.$store.dispatch('modalAtom/open_modal', {
+            this.$store.dispatch('modal_atom/open_modal', {
                 prop_name: this.prop_name,
                 prop_atom: this.prop_atom_name,
                 multiple: false,

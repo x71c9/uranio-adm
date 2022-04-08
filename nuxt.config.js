@@ -77,7 +77,7 @@ export default {
 		typeCheck: true
 	},
 	router: {
-		middleware: ['local'],
+		middleware: ['init'],
 		// trailingSlash: false,
 		linkActiveClass: 'urn-active-link',
 		linkExactActiveClass: 'urn-exact-active-link',

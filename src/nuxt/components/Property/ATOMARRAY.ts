@@ -65,7 +65,7 @@ export default mixins(shared, sortable).extend<Data, Methods, Computed, Props>({
 		},
 		
 		add():void{
-			this.$store.dispatch('modalAtom/open_modal', {
+			this.$store.dispatch('modal_atom/open_modal', {
 				prop_name: this.prop_name,
 				prop_atom: this.prop_atom_name,
 				multiple: true,

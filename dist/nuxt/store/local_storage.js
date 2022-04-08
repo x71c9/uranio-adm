@@ -40,4 +40,4 @@ exports.actions = {
     // 	return value;
     // },
 };
-//# sourceMappingURL=localStorage.js.map
+//# sourceMappingURL=local_storage.js.map

@@ -25,7 +25,7 @@ exports.default = vue_1.default.extend({
         // async get_atoms<A extends uranio.schema.AtomName>()
         //       :Promise<uranio.schema.Atom<any>[]>{
         //   urn_log.debug('GET_ATOMS');
-        //   const atom_name = this.$store.state.modalAtom.atom_prop_atom;
+        //   const atom_name = this.$store.state.modal_atom.atom_prop_atom;
         //   const trx_base = uranio.base.create(atom_name);
         //   const trx_response = await trx_base.hook(
         //     "find" as uranio.types.RouteName<A>
@@ -39,14 +39,14 @@ exports.default = vue_1.default.extend({
         // },
         submit() {
             this.$emit("atom_selected");
-            this.$store.dispatch('modalAtom/close_modal');
-            this.$store.dispatch('modalAtom/reset_atoms');
+            this.$store.dispatch('modal_atom/close_modal');
+            this.$store.dispatch('modal_atom/reset_atoms');
         },
         select(atom_id) {
-            this.$store.dispatch('modalAtom/select_atom', atom_id);
+            this.$store.dispatch('modal_atom/select_atom', atom_id);
         },
         close() {
-            this.$store.dispatch('modalAtom/close_modal');
+            this.$store.dispatch('modal_atom/close_modal');
         }
     }
 });
