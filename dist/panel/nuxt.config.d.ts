@@ -47,7 +47,7 @@ declare namespace _default {
         extensions: string[];
     }[];
     namespace router {
-        const trailingSlash: boolean;
+        const middleware: string[];
         const linkActiveClass: string;
         const linkExactActiveClass: string;
         function parseQuery(q: any): import("qs").ParsedQs;

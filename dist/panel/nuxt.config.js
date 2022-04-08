@@ -89,7 +89,7 @@ exports.default = {
         }
     ],
     router: {
-        trailingSlash: false,
+        middleware: ['init'],
         linkActiveClass: 'urn-active-link',
         linkExactActiveClass: 'urn-exact-active-link',
         parseQuery(q) {
