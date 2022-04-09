@@ -59,9 +59,7 @@ exports.actions = {
         return true;
     },
     async check_logged(context) {
-        console.log('STORE AUTH CHECK LOGGED');
         const response = await client_1.default.trx.hooks.superusers.count();
-        console.log(response);
         let is_authenticated = false;
         if (response.success) {
             context.dispatch('update_logged', true);
@@ -73,7 +71,6 @@ exports.actions = {
         return is_authenticated;
     },
     update_logged(context, value) {
-        console.log('STORE UPDATE LOGGED. logged: ', value);
         context.commit('CHANGE_LOGGED', value);
         // context.dispatch('local_storage/set', {key: 'logged', value: value}, {root:true});
     }

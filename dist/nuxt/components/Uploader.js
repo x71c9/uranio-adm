@@ -35,7 +35,6 @@ exports.default = vue_1.default.extend({
             // timeout: 60000, // 1 minute
             // companionUrl: 'https://uppy-companion.myapp.com/',
             getUploadParameters(file) {
-                console.log(file);
                 return client_1.default.trx.hooks.media.presigned(file.name, file.size, file.type)
                     .then((urn_res) => {
                     if (urn_res.success === false) {

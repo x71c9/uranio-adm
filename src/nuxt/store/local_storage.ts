@@ -2,7 +2,7 @@
 
 import { ActionTree, MutationTree, ActionContext } from 'vuex';
 
-// import {urn_log} from 'urn-lib';
+import {urn_log} from 'urn-lib';
 
 // import uranio from 'uranio/client';
 
@@ -23,7 +23,7 @@ export const actions: ActionTree<LocalStorageState, LocalStorageState> = {
 	async init(
 		_context: ActionContext<LocalStorageState, LocalStorageState>
 	){
-		console.log('STORE LOCAL STORAGE INIT');
+		urn_log.debug('Store local_storage init.');
 		// const local_storage_uranio = JSON.parse(localStorage.getItem('uranio') || '{}');
 		// const logged = (typeof local_storage_uranio['logged'] !== 'undefined') ?
 		// 	local_storage_uranio['logged'] : context.state.logged;
@@ -34,9 +34,8 @@ export const actions: ActionTree<LocalStorageState, LocalStorageState> = {
 	
 	set(
 		context: ActionContext<LocalStorageState, LocalStorageState>,
-		{key, value}
+		// {key, value}
 	):void{
-		console.log(`STORE LOCAL STORAGE SET. key: ${key} value: ${value}`);
 		// switch(key){
 		// 	case 'logged':{
 		// 		context.commit('CHANGE_LOCAL_STORAGE_LOGGED', value);

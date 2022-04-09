@@ -234,8 +234,6 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 				this.atom_name as A,
 				// this.$store.state.auth.token
 			);
-			const a:uranio.schema.RouteName<'media'> = 'find';
-			console.log(a);
 			const trx_hook = trx_base.hook('update');
 			const hook_params = {
 				params:{

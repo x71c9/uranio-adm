@@ -22,8 +22,6 @@ const urn_lib_1 = require("urn-lib");
 urn_lib_1.urn_log.init({
     context: urn_lib_1.urn_log.LogContext.BROWSER,
     prefix: '[URANIO]',
-    // log_level: (process.env.NODE_ENV == 'production') ?
-    // 	urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG
 });
 const client_1 = __importDefault(require("uranio/client"));
 client_1.default.init();

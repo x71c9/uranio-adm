@@ -148,8 +148,6 @@ exports.default = vue_1.default.extend({
         async update() {
             const cloned_atom = _clean_atom(this.atom_name, this.atom);
             const trx_base = client_1.default.trx.base.create(this.atom_name);
-            const a = 'find';
-            console.log(a);
             const trx_hook = trx_base.hook('update');
             const hook_params = {
                 params: {

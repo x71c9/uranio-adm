@@ -48,11 +48,6 @@ function init(config, register_required = true) {
     if (config) {
         conf.set(config);
     }
-    // if(process.env.NETLIFY_DEV){
-    //   trx_client.conf.defaults.service_url = `http://localhost:7777/uranio/api`;
-    // }else if(process.env.NETLIFY){
-    //   trx_client.conf.defaults.service_url = `${process.env.URL}/uranio/api`;
-    // }
     if (register_required) {
         _register_required_atoms();
     }

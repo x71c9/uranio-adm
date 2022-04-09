@@ -19,7 +19,7 @@ exports.client_toml = {
     dev_panel_port: 4477,
     dev_fetch_url: "http://localhost:4477/uranio/api",
     dev_log_debug_info: false,
-    dev_log_color: false,
+    dev_log_color: true,
     dev_log_time_format: "yyyy-mm-dd'T'HH:MM:ss:l",
     dev_log_max_str_length: 174,
     dev_log_prefix: "",

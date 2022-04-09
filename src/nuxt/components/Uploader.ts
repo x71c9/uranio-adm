@@ -68,8 +68,6 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			// companionUrl: 'https://uppy-companion.myapp.com/',
 			getUploadParameters (file:any) {
 				
-				console.log(file);
-				
 				return uranio.trx.hooks.media.presigned(file.name, file.size, file.type)
 					.then((urn_res) => {
 						if(urn_res.success === false){

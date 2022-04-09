@@ -2,6 +2,7 @@
 // import Vue from 'vue';
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.actions = exports.mutations = exports.state = void 0;
+const urn_lib_1 = require("urn-lib");
 const state = () => ({
 // logged: false
 });
@@ -11,7 +12,7 @@ exports.mutations = {
 };
 exports.actions = {
     async init(_context) {
-        console.log('STORE LOCAL STORAGE INIT');
+        urn_lib_1.urn_log.debug('Store local_storage init.');
         // const local_storage_uranio = JSON.parse(localStorage.getItem('uranio') || '{}');
         // const logged = (typeof local_storage_uranio['logged'] !== 'undefined') ?
         // 	local_storage_uranio['logged'] : context.state.logged;
@@ -19,8 +20,7 @@ exports.actions = {
         // context.commit('CHANGE_LOCAL_STORAGE_LOGGED', logged);
         // await context.dispatch('auth/check_logged', undefined, {root: true});
     },
-    set(context, { key, value }) {
-        console.log(`STORE LOCAL STORAGE SET. key: ${key} value: ${value}`);
+    set(context) {
         // switch(key){
         // 	case 'logged':{
         // 		context.commit('CHANGE_LOCAL_STORAGE_LOGGED', value);

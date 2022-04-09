@@ -81,9 +81,7 @@ export const actions: ActionTree<RootState, RootState> = {
 	},
 	
 	async check_logged(context: ActionContext<ReturnState, RootState>):Promise<boolean>{
-		console.log('STORE AUTH CHECK LOGGED');
 		const response = await uranio.trx.hooks.superusers.count();
-		console.log(response);
 		let is_authenticated = false;
 		if(response.success){
 			context.dispatch('update_logged', true);
@@ -95,7 +93,6 @@ export const actions: ActionTree<RootState, RootState> = {
 	},
 	
 	update_logged(context: ActionContext<ReturnState, RootState>, value:boolean):void{
-		console.log('STORE UPDATE LOGGED. logged: ', value);
 		context.commit('CHANGE_LOGGED', value);
 		// context.dispatch('local_storage/set', {key: 'logged', value: value}, {root:true});
 	}

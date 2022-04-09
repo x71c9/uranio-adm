@@ -37,8 +37,8 @@ export declare type UploadedFile = {
 declare const _default: import("vue/types/vue").ExtendedVue<{
     message: string;
     success: boolean;
-    error_object: urn_response.Fail<any>;
+    error_object: urn_response.Fail<any, any>;
 } & {
-    fail: (trx_response: urn_response.Fail<any>) => void;
+    fail: (trx_response: urn_response.Fail<any, any>) => void;
 } & import("vue").default, Data<uranio.core.schema.AtomName>, Methods, Computed, Props>;
 export default _default;
