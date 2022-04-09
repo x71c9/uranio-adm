@@ -61,6 +61,7 @@ exports.actions = {
     async check_logged(context) {
         console.log('STORE AUTH CHECK LOGGED');
         const response = await client_1.default.trx.hooks.superusers.count();
+        console.log(response);
         let is_authenticated = false;
         if (response.success) {
             context.dispatch('update_logged', true);

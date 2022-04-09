@@ -19,7 +19,13 @@ export default {
 		'uranio-core/client/types': resolve(__dirname, './node_modules/uranio-core/dist/client/types'),
 	},
 	env: {
-		URN_CLIENT_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
+		// URN_CLIENT_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
+		// 	urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG,
+		// URN_CLIENT_DEV_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
+		// 	urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG,
+		URN_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
+			urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG,
+		URN_DEV_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
 			urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG
 		// URN_CLIENT_FETCH: process.env.URN_CLIENT_FETCH || 'axios',
 		// URN_CLIENT_PROTOCOL: process.env.URN_CLIENT_PROTOCOL || 'http',

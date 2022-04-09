@@ -22,6 +22,7 @@
 							placeholder='Email'
 							v-model='email'
 							ref='email'
+							tabindex=1
 							)
 						.log
 							span.error(v-show="error_email")
@@ -31,7 +32,9 @@
 					.head
 						.top
 							label Password
-							button Forgot?
+							button(
+								tabindex=4
+							) Forgot?
 						.info
 							.prop_data.monospace
 								img(src='/img/icons/png/vpn_key.png')
@@ -42,6 +45,7 @@
 							placeholder='Password'
 							v-model='password'
 							ref='password'
+							tabindex=2
 							)
 						.log
 							span.error(v-show="error_password")
@@ -52,6 +56,7 @@
 						type='submit'
 						value="Submit"
 						@click.prevent="submit"
+						tabindex=3
 						)
 				.msg
 					.left

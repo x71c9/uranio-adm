@@ -44,7 +44,7 @@ function init(config, register_required = true) {
     client_1.default.init(config, false);
     conf.set(toml_1.client_toml);
     client_1.default.conf.set(toml_1.client_toml);
-    env.set_env();
+    env.set_client_env();
     if (config) {
         conf.set(config);
     }

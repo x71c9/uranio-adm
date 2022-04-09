@@ -83,6 +83,7 @@ export const actions: ActionTree<RootState, RootState> = {
 	async check_logged(context: ActionContext<ReturnState, RootState>):Promise<boolean>{
 		console.log('STORE AUTH CHECK LOGGED');
 		const response = await uranio.trx.hooks.superusers.count();
+		console.log(response);
 		let is_authenticated = false;
 		if(response.success){
 			context.dispatch('update_logged', true);
