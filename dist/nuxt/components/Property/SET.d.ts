@@ -11,6 +11,13 @@ declare type Computed = {};
 declare type Props = {};
 declare const _default: import("vue/types/vue").ExtendedVue<{
     atom: (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
+        status: number;
+        msg: string;
+        error_code: string;
+        error_msg: string;
+        request?: string | undefined;
+        stack?: string | undefined;
+    }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
         email: string;
         password: string;
         groups?: string[] | undefined;
@@ -27,13 +34,6 @@ declare const _default: import("vue/types/vue").ExtendedVue<{
         size: number;
         width?: number | undefined;
         height?: number | undefined;
-    }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
-        status: number;
-        msg: string;
-        error_code: string;
-        error_msg: string;
-        request?: string | undefined;
-        stack?: string | undefined;
     }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
         full_path: string;
         route_path?: string | undefined;

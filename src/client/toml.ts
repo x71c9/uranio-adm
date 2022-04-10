@@ -26,7 +26,7 @@ export const client_toml:Partial<ClientConfiguration> = {
 	dev_log_prefix_type: false,
 	fetch_url: "http://localhost:5454/uranio/api",
 	log_debug_info: false,
-	log_color: false,
+	log_color: true,
 	log_time_format: "HH:MM:ss:l",
 	log_max_str_length: 174,
 	log_prefix: "",
