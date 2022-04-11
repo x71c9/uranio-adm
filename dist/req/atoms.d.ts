@@ -14,6 +14,7 @@ export declare const required_atoms: {
         readonly properties: {
             readonly name: {
                 readonly type: types.PropertyType.TEXT;
+                readonly search: true;
                 readonly label: "Name";
             };
         };

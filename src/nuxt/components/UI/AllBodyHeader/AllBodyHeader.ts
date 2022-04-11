@@ -43,12 +43,14 @@ type Data = {
 	search_input_focused: boolean
 	sorted_by: string
 	sorted_direction: 1 | -1
+	search_value: string
 	// total_atom_count_format: string
 };
 type Methods = {
 	update_sort: () => void
 	on_sort_list_blur: () => void
 	toggle_sort_list: () => void
+	debounce_method: () => void
 };
 type Computed = {
 	total_atom_count_format: string
@@ -59,6 +61,9 @@ type Props = {
 	atoms: uranio.schema.Atom<uranio.schema.AtomName>[]
 	atom_name: uranio.schema.AtomName
 };
+
+let _debounce_time:ReturnType<typeof setTimeout>;
+
 export default Vue.extend<Data, Methods, Computed, Props>({
 	inject: [
 		"atoms",
@@ -188,8 +193,17 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			dock_url,
 			sorted_by,
 			sorted_direction,
+			search_value: ''
 			// total_atom_count_format
 		};
+	},
+	watch: {
+		search_value(new_value:string, old_value:string) {
+			if(new_value != old_value){
+				clearTimeout(_debounce_time);
+				_debounce_time = setTimeout(this.debounce_method, 477);
+			}
+		}
 	},
 	computed:{
 		total_atom_count_format(){
@@ -197,6 +211,9 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		}
 	},
 	methods:{
+		debounce_method():void{
+			this.$emit('search', this.search_value);
+		},
 		toggle_sort_list():void{
 			this.sort_list_visible = !this.sort_list_visible;
 			if(this.sort_list_visible === true){

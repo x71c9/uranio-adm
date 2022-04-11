@@ -10,8 +10,6 @@ export declare const process_params: {
 export declare function schema(): string;
 export declare function schema_and_save(): void;
 export declare function save_schema(text: string): void;
-export declare function hooks_server(): string;
-export declare function hooks_client(): string;
 export declare function hooks_and_save(): void;
 export declare function save_hooks_server(text: string): void;
 export declare function save_hooks_client(text: string): void;

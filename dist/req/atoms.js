@@ -40,6 +40,7 @@ exports.required_atoms = {
         properties: {
             name: {
                 type: types.PropertyType.TEXT,
+                search: true,
                 label: 'Name'
             }
         },

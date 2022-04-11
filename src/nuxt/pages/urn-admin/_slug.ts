@@ -51,14 +51,13 @@ type Methods = {
 	delete_atoms(ids: string[]): Promise<void>
 	delete_all_atoms(): Promise<void>
 	reload_atoms(): Promise<void>
+	search_atoms(q:string): Promise<void>
 	fail(): void
 }
 
-type Computed = {
-}
+type Computed = Record<string, never>
 
-type Props = {
-}
+type Props = Record<string, never>
 
 export type UploadedFile = {
 	id: string
@@ -169,6 +168,34 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 				this.error_object = err;
 				this.message = err.message || '[ERROR]';
 			}
+		},
+		async search_atoms(q:string){
+			try{
+				const query:PageQuery = {
+					page: Number(this.page.index) + 1, // index is -1 compared to query param
+					limit: Number(this.page.query_limit),
+					sort: this.page.sort_by
+				};
+				const loaded_data = await _search_data(q, this.atom_name, query, 0);
+				
+				for(const atom of loaded_data.atoms){
+					this.atoms.push(atom);
+				}
+				
+				(this.$refs.allTable as any)?.reset_check();
+				(this.$refs.allTable as any)?.reload_check();
+				
+				this.page.index = loaded_data.page.index;
+				this.page.query_limit = loaded_data.page.query_limit;
+				this.page.sort_by = loaded_data.page.sort_by;
+				this.page.total_atom_count = loaded_data.page.total_atom_count;
+				this.page.total_page_num = loaded_data.page.total_page_num;
+				
+			}catch(e){
+				const err = e as unknown as urn_response.Fail<any>;
+				this.error_object = err;
+				this.message = err.message || '[ERROR]';
+			}
 		}
 	},
 	
@@ -242,6 +269,17 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 	},
 });
 
+async function _search_count_atoms(atom_name:uranio.schema.AtomName, q:string)
+		:Promise<number>{
+	const trx_base = uranio.trx.base.create(atom_name);
+	const trx_hook_count = trx_base.hook('search_count');
+	const trx_res_count = await trx_hook_count({params: {q: q}});
+	if(!trx_res_count.success){
+		throw trx_res_count;
+	}
+	return trx_res_count.payload;
+}
+
 async function _count_atoms(atom_name:uranio.schema.AtomName)
 		:Promise<number>{
 	const trx_base = uranio.trx.base.create(atom_name);
@@ -276,6 +314,42 @@ async function _find_atoms<A extends uranio.schema.AtomName, D extends uranio.sc
 	} as unknown as uranio.types.Hook.Arguments<A, 'find', D>;
 	
 	const trx_res_find = await trx_hook_find(find_params);
+	
+	if(!trx_res_find.success){
+		throw trx_res_find;
+	}
+	
+	return trx_res_find.payload as unknown as uranio.schema.Molecule<A,D>[];
+	
+}
+	
+async function _search_atoms<A extends uranio.schema.AtomName, D extends uranio.schema.Depth>(
+	q: string,
+	atom_name: A,
+	query_limit: number,
+	sort_by: SortBy,
+	skip: number,
+	depth?:D
+):Promise<uranio.schema.Molecule<A,D>[]>{
+	
+	const trx_base = uranio.trx.base.create(atom_name);
+	const trx_hook_search = trx_base.hook<'search', D>('search');
+	
+	const search_params = {
+		params:{
+			q: q
+		},
+		query: {
+			options: {
+				limit: query_limit,
+				sort: sort_by,
+				skip: skip,
+				depth: depth
+			}
+		}
+	} as unknown as uranio.types.Hook.Arguments<A, 'search', D>;
+	
+	const trx_res_find = await trx_hook_search(search_params);
 	
 	if(!trx_res_find.success){
 		throw trx_res_find;
@@ -334,6 +408,71 @@ async function _load_data<A extends uranio.schema.AtomName, D extends uranio.sch
 	}
 	
 	const atoms = await _find_atoms(atom_name, query_limit, sort_by, skip, depth);
+	
+	const page:Page = {
+		total_page_num,
+		total_atom_count,
+		index,
+		query_limit,
+		sort_by
+	};
+		
+	return {
+		page,
+		atoms
+	};
+}
+
+async function _search_data<A extends uranio.schema.AtomName, D extends uranio.schema.Depth>(
+	q: string,
+	atom_name: A,
+	query: PageQuery,
+	depth?: D,
+):Promise<LoadedData<A,D>>{
+	
+	let index = 0;
+	let query_limit = 10;
+	let sort_by:SortBy = {_date: -1};
+	
+	if(query.page){
+		index = parseInt(query.page as any) - 1;
+	}
+	if(query.limit){
+		query_limit = parseInt(query.limit as any);
+		if(query_limit < 0){
+			query_limit = 1;
+		}else if(query_limit > 128){
+			query_limit = 128;
+		}
+	}
+	if(query.sort){
+		sort_by = query.sort;
+	}
+	
+	const total_atom_count = await _search_count_atoms(atom_name, q);
+	
+	let total_page_num = Math.floor(total_atom_count / query_limit);
+	const reminder = total_atom_count % query_limit;
+	if(reminder > 0){
+		total_page_num += 1;
+	}
+	if(total_page_num === 0){
+		total_page_num = 1;
+	}
+	
+	const skip = index * query_limit;
+	
+	if(index < 0 || index > total_page_num - 1){
+		const ret = urn_return.create();
+		throw ret.return_error(
+			400,
+			`Invalid index. Index greater than maximum.`,
+			`INVALID_INDEX`,
+			`Invalid index. Index greater than maximum.`
+		);
+	}
+	
+	const atoms = await _search_atoms(q, atom_name, query_limit, sort_by, skip, depth);
 	
 	const page:Page = {
 		total_page_num,

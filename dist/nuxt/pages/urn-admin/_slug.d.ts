@@ -25,10 +25,11 @@ declare type Methods = {
     delete_atoms(ids: string[]): Promise<void>;
     delete_all_atoms(): Promise<void>;
     reload_atoms(): Promise<void>;
+    search_atoms(q: string): Promise<void>;
     fail(): void;
 };
-declare type Computed = {};
-declare type Props = {};
+declare type Computed = Record<string, never>;
+declare type Props = Record<string, never>;
 export declare type UploadedFile = {
     id: string;
     name: string;

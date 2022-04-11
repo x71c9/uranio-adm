@@ -48,29 +48,30 @@ export function save_schema(text:string):void{
 	return trx.util.generate.save_schema(text);
 }
 
-export function hooks_server():string{
-	urn_log.debug('Started generating uranio adm server hooks...');
-	init();
-	const trx_hooks = trx.util.generate.hooks_server();
-	const text = _generate_hooks_text_server(trx_hooks);
-	urn_log.debug(`ADM Server Hooks generated.`);
-	return text;
-}
+// export function hooks_server():string{
+// 	urn_log.debug('Started generating uranio adm server hooks...');
+// 	init();
+// 	const trx_hooks = trx.util.generate.hooks_server();
+// 	const text = _generate_hooks_text_server(trx_hooks);
+// 	urn_log.debug(`ADM Server Hooks generated.`);
+// 	return text;
+// }
 
-export function hooks_client():string{
-	urn_log.debug('Started generating uranio adm client hooks...');
-	init();
-	const trx_hooks = trx.util.generate.hooks_client();
-	const text = _generate_hooks_text_client(trx_hooks);
-	urn_log.debug(`ADM Client Hooks generated.`);
-	return text;
-}
+// export function hooks_client():string{
+// 	urn_log.debug('Started generating uranio adm client hooks...');
+// 	init();
+// 	const trx_hooks = trx.util.generate.hooks_client();
+// 	const text = _generate_hooks_text_client(trx_hooks);
+// 	urn_log.debug(`ADM Client Hooks generated.`);
+// 	return text;
+// }
 
 export function hooks_and_save():void{
-	const hooks_text_server = hooks_server();
-	const hooks_text_client = hooks_client();
-	save_hooks_server(hooks_text_server);
-	save_hooks_client(hooks_text_client);
+	// const hooks_text_server = hooks_server();
+	// const hooks_text_client = hooks_client();
+	// save_hooks_server(hooks_text_server);
+	// save_hooks_client(hooks_text_client);
+	trx.util.generate.hooks_and_save();
 	urn_log.debug(`ADM Hooks generated and saved.`);
 }
 
@@ -174,14 +175,14 @@ function _generate_adm_schema_text(){
 	return txt;
 }
 
-function _generate_hooks_text_server(trx_hooks:string){
-	let text = '';
-	text += trx_hooks;
-	return text;
-}
-function _generate_hooks_text_client(trx_hooks:string){
-	let text = '';
-	text += trx_hooks;
-	return text;
-}
+// function _generate_hooks_text_server(trx_hooks:string){
+// 	let text = '';
+// 	text += trx_hooks;
+// 	return text;
+// }
+// function _generate_hooks_text_client(trx_hooks:string){
+// 	let text = '';
+// 	text += trx_hooks;
+// 	return text;
+// }
 

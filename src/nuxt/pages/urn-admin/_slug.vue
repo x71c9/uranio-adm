@@ -30,7 +30,9 @@
 			</div>
 			<div v-if="page.total_atom_count > 0">
 				<UIGroup>
-					<UIAllBodyHeader />
+					<UIAllBodyHeader
+						v-on:search="search_atoms"
+					/>
 					<div class="ui-all-body">
 						<UIAllTable
 							ref="allTable"

@@ -106,6 +106,32 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
                 this.error_object = err;
                 this.message = err.message || '[ERROR]';
             }
+        },
+        async search_atoms(q) {
+            var _a, _b;
+            try {
+                const query = {
+                    page: Number(this.page.index) + 1,
+                    limit: Number(this.page.query_limit),
+                    sort: this.page.sort_by
+                };
+                const loaded_data = await _search_data(q, this.atom_name, query, 0);
+                for (const atom of loaded_data.atoms) {
+                    this.atoms.push(atom);
+                }
+                (_a = this.$refs.allTable) === null || _a === void 0 ? void 0 : _a.reset_check();
+                (_b = this.$refs.allTable) === null || _b === void 0 ? void 0 : _b.reload_check();
+                this.page.index = loaded_data.page.index;
+                this.page.query_limit = loaded_data.page.query_limit;
+                this.page.sort_by = loaded_data.page.sort_by;
+                this.page.total_atom_count = loaded_data.page.total_atom_count;
+                this.page.total_page_num = loaded_data.page.total_page_num;
+            }
+            catch (e) {
+                const err = e;
+                this.error_object = err;
+                this.message = err.message || '[ERROR]';
+            }
         }
     },
     async asyncData(context) {
@@ -164,6 +190,15 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
         };
     },
 });
+async function _search_count_atoms(atom_name, q) {
+    const trx_base = client_1.default.trx.base.create(atom_name);
+    const trx_hook_count = trx_base.hook('search_count');
+    const trx_res_count = await trx_hook_count({ params: { q: q } });
+    if (!trx_res_count.success) {
+        throw trx_res_count;
+    }
+    return trx_res_count.payload;
+}
 async function _count_atoms(atom_name) {
     const trx_base = client_1.default.trx.base.create(atom_name);
     const trx_hook_count = trx_base.hook('count');
@@ -187,6 +222,28 @@ async function _find_atoms(atom_name, query_limit, sort_by, skip, depth) {
         }
     };
     const trx_res_find = await trx_hook_find(find_params);
+    if (!trx_res_find.success) {
+        throw trx_res_find;
+    }
+    return trx_res_find.payload;
+}
+async function _search_atoms(q, atom_name, query_limit, sort_by, skip, depth) {
+    const trx_base = client_1.default.trx.base.create(atom_name);
+    const trx_hook_search = trx_base.hook('search');
+    const search_params = {
+        params: {
+            q: q
+        },
+        query: {
+            options: {
+                limit: query_limit,
+                sort: sort_by,
+                skip: skip,
+                depth: depth
+            }
+        }
+    };
+    const trx_res_find = await trx_hook_search(search_params);
     if (!trx_res_find.success) {
         throw trx_res_find;
     }
@@ -226,6 +283,52 @@ async function _load_data(atom_name, query, depth) {
         throw ret.return_error(400, `Invalid index. Index greater than maximum.`, `INVALID_INDEX`, `Invalid index. Index greater than maximum.`);
     }
     const atoms = await _find_atoms(atom_name, query_limit, sort_by, skip, depth);
+    const page = {
+        total_page_num,
+        total_atom_count,
+        index,
+        query_limit,
+        sort_by
+    };
+    return {
+        page,
+        atoms
+    };
+}
+async function _search_data(q, atom_name, query, depth) {
+    let index = 0;
+    let query_limit = 10;
+    let sort_by = { _date: -1 };
+    if (query.page) {
+        index = parseInt(query.page) - 1;
+    }
+    if (query.limit) {
+        query_limit = parseInt(query.limit);
+        if (query_limit < 0) {
+            query_limit = 1;
+        }
+        else if (query_limit > 128) {
+            query_limit = 128;
+        }
+    }
+    if (query.sort) {
+        sort_by = query.sort;
+    }
+    const total_atom_count = await _search_count_atoms(atom_name, q);
+    let total_page_num = Math.floor(total_atom_count / query_limit);
+    const reminder = total_atom_count % query_limit;
+    if (reminder > 0) {
+        total_page_num += 1;
+    }
+    if (total_page_num === 0) {
+        total_page_num = 1;
+    }
+    const skip = index * query_limit;
+    if (index < 0 || index > total_page_num - 1) {
+        const ret = urn_lib_1.urn_return.create();
+        throw ret.return_error(400, `Invalid index. Index greater than maximum.`, `INVALID_INDEX`, `Invalid index. Index greater than maximum.`);
+    }
+    const atoms = await _search_atoms(q, atom_name, query_limit, sort_by, skip, depth);
     const page = {
         total_page_num,
         total_atom_count,

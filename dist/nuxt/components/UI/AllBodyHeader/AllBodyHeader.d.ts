@@ -19,11 +19,13 @@ declare type Data = {
     search_input_focused: boolean;
     sorted_by: string;
     sorted_direction: 1 | -1;
+    search_value: string;
 };
 declare type Methods = {
     update_sort: () => void;
     on_sort_list_blur: () => void;
     toggle_sort_list: () => void;
+    debounce_method: () => void;
 };
 declare type Computed = {
     total_atom_count_format: string;

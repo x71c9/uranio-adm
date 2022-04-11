@@ -5,6 +5,8 @@
 			:class="{focus: search_input_focused}"
 			>
 			<img class="icon-12" src="/img/icons/png/search.png">
+				<!-- @focus="search_input_focused = true" -->
+				<!-- @blur="search_input_focused = false" -->
 			<input
 				class="search-input inter-normal-white-16px-2"
 				type="text"
@@ -12,6 +14,7 @@
 				placeholder="Search"
 				@focus="search_input_focused = true"
 				@blur="search_input_focused = false"
+				v-model="search_value"
 				/>
 		</div>
 		<div class="ui-all-header-el ui-all-header-sort">

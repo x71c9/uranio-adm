@@ -25,6 +25,7 @@ var RealPropertyType;
     RealPropertyType["ATOM"] = "object";
     RealPropertyType["ATOM_ARRAY"] = "set";
 })(RealPropertyType || (RealPropertyType = {}));
+let _debounce_time;
 exports.default = vue_1.default.extend({
     inject: [
         "atoms",
@@ -135,8 +136,17 @@ exports.default = vue_1.default.extend({
             dock_url,
             sorted_by,
             sorted_direction,
+            search_value: ''
             // total_atom_count_format
         };
+    },
+    watch: {
+        search_value(new_value, old_value) {
+            if (new_value != old_value) {
+                clearTimeout(_debounce_time);
+                _debounce_time = setTimeout(this.debounce_method, 477);
+            }
+        }
     },
     computed: {
         total_atom_count_format() {
@@ -144,6 +154,9 @@ exports.default = vue_1.default.extend({
         }
     },
     methods: {
+        debounce_method() {
+            this.$emit('search', this.search_value);
+        },
         toggle_sort_list() {
             this.sort_list_visible = !this.sort_list_visible;
             if (this.sort_list_visible === true) {
