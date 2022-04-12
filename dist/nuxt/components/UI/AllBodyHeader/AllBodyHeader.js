@@ -136,7 +136,7 @@ exports.default = vue_1.default.extend({
             dock_url,
             sorted_by,
             sorted_direction,
-            search_value: ''
+            search_value: (this.page.search_query) || ''
             // total_atom_count_format
         };
     },
@@ -151,6 +151,9 @@ exports.default = vue_1.default.extend({
     computed: {
         total_atom_count_format() {
             return urn_lib_1.urn_util.number.format(this.page.total_atom_count, 2);
+        },
+        total_result_count_format() {
+            return urn_lib_1.urn_util.number.format(this.page.total_result_count, 2);
         }
     },
     methods: {
@@ -175,16 +178,25 @@ exports.default = vue_1.default.extend({
                     break;
                 }
             }
+            const query = {};
+            if (this.page.index) {
+                query.page = (this.page.index + 1).toString();
+            }
+            if (this.page.query_limit) {
+                query.limit = this.page.query_limit.toString();
+            }
+            if (this.page.sort_by) {
+                query.sort = this.page.sort_by;
+            }
+            if (this.page.search_query) {
+                query.q = this.page.search_query;
+            }
             this.$router.push({
                 name: 'urn-admin-slug',
                 params: {
                     slug: this.atom_name
                 },
-                query: {
-                    page: (this.page.index + 1).toString(),
-                    limit: this.page.query_limit.toString(),
-                    sort: this.page.sort_by
-                }
+                query
             });
         }
     },

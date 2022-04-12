@@ -39,12 +39,12 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
         fail() {
             //
         },
-        add_atoms(atoms) {
+        add_atom(atoms) {
             this.atoms.unshift(atoms);
             this.page.total_atom_count += 1;
         },
         async delete_all_atoms() {
-            //
+            return await this.delete_atoms(['*']);
         },
         async delete_atoms(ids) {
             var _a;
@@ -71,6 +71,7 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
                 this.$delete(this.atoms, index);
             }
             this.page.total_atom_count -= count;
+            this.page.total_result_count -= count;
             (_a = this.$refs.allTable) === null || _a === void 0 ? void 0 : _a.check_none();
             const not_label = (ids.length > 1) ? this.plural : this.atom_name;
             this.$store.dispatch('notification/show_notification', {
@@ -78,28 +79,28 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
                 message: `${not_label} deleted.`,
             });
             if (this.atoms.length === 0) {
-                this.reload_atoms();
+                this.load_atoms();
             }
         },
-        async reload_atoms() {
-            var _a, _b;
+        async load_atoms(q) {
             try {
                 const query = {
                     page: Number(this.page.index) + 1,
                     limit: Number(this.page.query_limit),
-                    sort: this.page.sort_by
+                    sort: this.page.sort_by,
+                    q: q || ''
                 };
-                const loaded_data = await _load_data(this.atom_name, query, 0);
+                // This replace the URL without reloading the page.
+                // Vue.router replace will reload and lose focust for the search.
+                history.replaceState({}, '', this.$route.path + `?${urn_lib_1.urn_util.url.encode_params(query)}`);
+                const loaded_data = await _load_data(this.atom_name, query, 0, q);
+                urn_lib_1.urn_log.debug(loaded_data);
+                this.atoms.splice(0);
                 for (const atom of loaded_data.atoms) {
                     this.atoms.push(atom);
                 }
-                (_a = this.$refs.allTable) === null || _a === void 0 ? void 0 : _a.reset_check();
-                (_b = this.$refs.allTable) === null || _b === void 0 ? void 0 : _b.reload_check();
-                this.page.index = loaded_data.page.index;
-                this.page.query_limit = loaded_data.page.query_limit;
-                this.page.sort_by = loaded_data.page.sort_by;
-                this.page.total_atom_count = loaded_data.page.total_atom_count;
-                this.page.total_page_num = loaded_data.page.total_page_num;
+                _reset_checkbox(this.$refs.allTable);
+                _set_page_data_from_loaded_data(this.page, loaded_data.page);
             }
             catch (e) {
                 const err = e;
@@ -107,32 +108,6 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
                 this.message = err.message || '[ERROR]';
             }
         },
-        async search_atoms(q) {
-            var _a, _b;
-            try {
-                const query = {
-                    page: Number(this.page.index) + 1,
-                    limit: Number(this.page.query_limit),
-                    sort: this.page.sort_by
-                };
-                const loaded_data = await _search_data(q, this.atom_name, query, 0);
-                for (const atom of loaded_data.atoms) {
-                    this.atoms.push(atom);
-                }
-                (_a = this.$refs.allTable) === null || _a === void 0 ? void 0 : _a.reset_check();
-                (_b = this.$refs.allTable) === null || _b === void 0 ? void 0 : _b.reload_check();
-                this.page.index = loaded_data.page.index;
-                this.page.query_limit = loaded_data.page.query_limit;
-                this.page.sort_by = loaded_data.page.sort_by;
-                this.page.total_atom_count = loaded_data.page.total_atom_count;
-                this.page.total_page_num = loaded_data.page.total_page_num;
-            }
-            catch (e) {
-                const err = e;
-                this.error_object = err;
-                this.message = err.message || '[ERROR]';
-            }
-        }
     },
     async asyncData(context) {
         urn_lib_1.urn_log.debug('AsyncData.context.params', context.params);
@@ -156,15 +131,19 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
         const query = {
             page: Number(context.query.page),
             limit: Number(context.query.limit),
-            sort: context.query.sort
+            sort: context.query.sort,
+            q: String(context.query.q || '')
         };
         let atoms = [];
         let page = {
             index: 0,
             total_page_num: 0,
             total_atom_count: 0,
+            total_result_count: 0,
             query_limit: 0,
-            sort_by: { _date: -1 }
+            sort_by: { _date: -1 },
+            search_query: '',
+            empty_relation: false
         };
         try {
             const loaded_data = await _load_data(atom_name, query, 0);
@@ -217,7 +196,7 @@ async function _find_atoms(atom_name, query_limit, sort_by, skip, depth) {
                 limit: query_limit,
                 sort: sort_by,
                 skip: skip,
-                depth: depth
+                depth: depth,
             }
         }
     };
@@ -249,7 +228,8 @@ async function _search_atoms(q, atom_name, query_limit, sort_by, skip, depth) {
     }
     return trx_res_find.payload;
 }
-async function _load_data(atom_name, query, depth) {
+async function _load_data(atom_name, query, depth, q) {
+    const is_searching = (typeof q === 'string' && q !== '');
     let index = 0;
     let query_limit = 10;
     let sort_by = { _date: -1 };
@@ -267,10 +247,15 @@ async function _load_data(atom_name, query, depth) {
     }
     if (query.sort) {
         sort_by = query.sort;
+    }
+    if (query.q) {
+        q = query.q;
     }
     const total_atom_count = await _count_atoms(atom_name);
-    let total_page_num = Math.floor(total_atom_count / query_limit);
-    const reminder = total_atom_count % query_limit;
+    const total_result_count = (is_searching) ?
+        await _search_count_atoms(atom_name, q || '') : total_atom_count;
+    let total_page_num = Math.floor(total_result_count / query_limit);
+    const reminder = total_result_count % query_limit;
     if (reminder > 0) {
         total_page_num += 1;
     }
@@ -282,63 +267,53 @@ async function _load_data(atom_name, query, depth) {
         const ret = urn_lib_1.urn_return.create();
         throw ret.return_error(400, `Invalid index. Index greater than maximum.`, `INVALID_INDEX`, `Invalid index. Index greater than maximum.`);
     }
-    const atoms = await _find_atoms(atom_name, query_limit, sort_by, skip, depth);
+    const atoms = (is_searching) ?
+        await _search_atoms(q || '', atom_name, query_limit, sort_by, skip, depth) :
+        await _find_atoms(atom_name, query_limit, sort_by, skip, depth);
     const page = {
         total_page_num,
         total_atom_count,
+        total_result_count,
         index,
         query_limit,
-        sort_by
+        sort_by,
+        empty_relation: (total_atom_count === 0),
+        search_query: q || ''
     };
     return {
         page,
         atoms
     };
 }
-async function _search_data(q, atom_name, query, depth) {
-    let index = 0;
-    let query_limit = 10;
-    let sort_by = { _date: -1 };
-    if (query.page) {
-        index = parseInt(query.page) - 1;
-    }
-    if (query.limit) {
-        query_limit = parseInt(query.limit);
-        if (query_limit < 0) {
-            query_limit = 1;
-        }
-        else if (query_limit > 128) {
-            query_limit = 128;
-        }
-    }
-    if (query.sort) {
-        sort_by = query.sort;
-    }
-    const total_atom_count = await _search_count_atoms(atom_name, q);
-    let total_page_num = Math.floor(total_atom_count / query_limit);
-    const reminder = total_atom_count % query_limit;
-    if (reminder > 0) {
-        total_page_num += 1;
-    }
-    if (total_page_num === 0) {
-        total_page_num = 1;
-    }
-    const skip = index * query_limit;
-    if (index < 0 || index > total_page_num - 1) {
-        const ret = urn_lib_1.urn_return.create();
-        throw ret.return_error(400, `Invalid index. Index greater than maximum.`, `INVALID_INDEX`, `Invalid index. Index greater than maximum.`);
-    }
-    const atoms = await _search_atoms(q, atom_name, query_limit, sort_by, skip, depth);
-    const page = {
-        total_page_num,
-        total_atom_count,
-        index,
-        query_limit,
-        sort_by
-    };
-    return {
-        page,
-        atoms
-    };
+function _reset_checkbox(allTable) {
+    allTable === null || allTable === void 0 ? void 0 : allTable.reset_check();
+    allTable === null || allTable === void 0 ? void 0 : allTable.reload_check();
 }
+function _set_page_data_from_loaded_data(this_page, loaded_page) {
+    this_page.index = loaded_page.index;
+    this_page.query_limit = loaded_page.query_limit;
+    this_page.sort_by = loaded_page.sort_by;
+    this_page.search_query = loaded_page.search_query;
+    this_page.total_atom_count = loaded_page.total_atom_count;
+    this_page.total_result_count = loaded_page.total_result_count;
+    this_page.total_page_num = loaded_page.total_page_num;
+}
+//function unflatten(data:any) {
+//	if (Object(data) !== data || Array.isArray(data))
+//		return data;
+//	// 
+//	const regex = /\.?([^.\[\]]+)|\[(\d+)\]/g;
+//	const resultholder = {};
+//	for (const p in data) {
+//		let cur = resultholder,
+//			prop = "",
+//			m;
+//		while (m == regex.exec(p)) {
+//			cur = (cur as any)[prop] || ((cur as any)[prop] = (m[2] ? [] : {}));
+//			prop = m[2] || m[1];
+//		}
+//		(cur as any)[prop] = data[p];
+//	}
+//	return (resultholder as any)[""] || resultholder;
+//}
 //# sourceMappingURL=_slug.js.map

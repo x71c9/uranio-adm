@@ -29,6 +29,7 @@ declare type Methods = {
 };
 declare type Computed = {
     total_atom_count_format: string;
+    total_result_count_format: string;
 };
 declare type Props = {
     page: Page;

@@ -72,6 +72,19 @@
 		</thead>
 		<tbody>
 			<tr
+				v-if="atoms.length === 0"
+				class="ui-all-table-row"
+				>
+				<td
+					class="check"
+					>
+				</td>
+				<td
+					class="sticky">
+					No atoms match your query
+				</td>
+			</tr>
+			<tr
 				v-for="atom in atoms"
 				:key="atom._id"
 				class="ui-all-table-row"

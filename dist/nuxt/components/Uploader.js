@@ -216,7 +216,7 @@ exports.default = vue_1.default.extend({
                 client_1.default.trx.hooks.media.insert(atom_shape).then((urn_res) => {
                     if (urn_res.success) {
                         const atom = urn_res.payload;
-                        this.$emit('add-atoms', atom);
+                        this.$emit('add-atom', atom);
                     }
                 });
             });

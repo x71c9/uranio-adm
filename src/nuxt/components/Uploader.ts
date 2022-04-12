@@ -260,7 +260,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 					uranio.trx.hooks.media.insert(atom_shape).then((urn_res) => {
 						if(urn_res.success){
 							const atom = urn_res.payload;
-							this.$emit('add-atoms', atom);
+							this.$emit('add-atom', atom);
 						}
 					});
 					

@@ -16,10 +16,11 @@ type SortBy = {
 	[prop_name:string]: 1 | -1
 };
 
-type PageQuery = {
-	page: number
-	limit: number
-	sort: SortBy
+export type PageQuery<T = number, S = SortBy> = {
+	page: T
+	limit: T
+	sort: S
+	q: string
 }
 
 type LoadedData<A extends uranio.schema.AtomName, D extends uranio.schema.Depth> = {
@@ -31,8 +32,11 @@ export type Page = {
 	index: number
 	total_page_num: number
 	total_atom_count: number
+	total_result_count: number
 	query_limit: number
 	sort_by: SortBy
+	search_query: string
+	empty_relation: boolean
 }
 
 type Data<A extends uranio.schema.AtomName> = {
@@ -47,11 +51,10 @@ type Data<A extends uranio.schema.AtomName> = {
 };
 
 type Methods = {
-	add_atoms<A extends uranio.schema.AtomName>(atoms:uranio.schema.Atom<A>):void
+	add_atom<A extends uranio.schema.AtomName>(atoms:uranio.schema.Atom<A>):void
 	delete_atoms(ids: string[]): Promise<void>
 	delete_all_atoms(): Promise<void>
-	reload_atoms(): Promise<void>
-	search_atoms(q:string): Promise<void>
+	load_atoms(q?:string): Promise<void>
 	fail(): void
 }
 
@@ -96,12 +99,12 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 		fail(){
 			//
 		},
-		add_atoms<A extends uranio.schema.AtomName>(atoms:uranio.schema.Atom<A>){
+		add_atom<A extends uranio.schema.AtomName>(atoms:uranio.schema.Atom<A>){
 			this.atoms.unshift(atoms);
 			this.page.total_atom_count += 1;
 		},
 		async delete_all_atoms(){
-			//
+			return await this.delete_atoms(['*']);
 		},
 		async delete_atoms(ids:string[]){
 			const trx_base = uranio.trx.base.create(this.atom_name);
@@ -114,11 +117,9 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 			if(!urn_res.success){
 				return this.fail();
 			}
-			
 			const deleted_ids = urn_res.payload.map((a:uranio.schema.Atom<uranio.schema.AtomName>) => {
 				return a._from;
 			});
-			
 			let count = 0;
 			for(const id of deleted_ids){
 				if(!id){
@@ -129,6 +130,7 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 				this.$delete(this.atoms, index);
 			}
 			this.page.total_atom_count -= count;
+			this.page.total_result_count -= count;
 			
 			(this.$refs.allTable as any)?.check_none();
 			
@@ -138,30 +140,32 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 				message: `${not_label} deleted.`,
 			});
 			if(this.atoms.length === 0){
-				this.reload_atoms();
+				this.load_atoms();
 			}
 		},
-		async reload_atoms(){
+		async load_atoms(q?:string){
 			try{
 				const query:PageQuery = {
 					page: Number(this.page.index) + 1, // index is -1 compared to query param
 					limit: Number(this.page.query_limit),
-					sort: this.page.sort_by
+					sort: this.page.sort_by,
+					q: q || ''
 				};
-				const loaded_data = await _load_data(this.atom_name, query, 0);
 				
+				// This replace the URL without reloading the page.
+				// Vue.router replace will reload and lose focust for the search.
+				history.replaceState({}, '', this.$route.path+`?${urn_util.url.encode_params(query)}`);
+				
+				const loaded_data = await _load_data(this.atom_name, query, 0, q);
+				urn_log.debug(loaded_data);
+				
+				this.atoms.splice(0);
 				for(const atom of loaded_data.atoms){
 					this.atoms.push(atom);
 				}
 				
-				(this.$refs.allTable as any)?.reset_check();
-				(this.$refs.allTable as any)?.reload_check();
-				
-				this.page.index = loaded_data.page.index;
-				this.page.query_limit = loaded_data.page.query_limit;
-				this.page.sort_by = loaded_data.page.sort_by;
-				this.page.total_atom_count = loaded_data.page.total_atom_count;
-				this.page.total_page_num = loaded_data.page.total_page_num;
+				_reset_checkbox(this.$refs.allTable);
+				_set_page_data_from_loaded_data(this.page, loaded_data.page);
 				
 			}catch(e){
 				const err = e as unknown as urn_response.Fail<any>;
@@ -169,34 +173,6 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 				this.message = err.message || '[ERROR]';
 			}
 		},
-		async search_atoms(q:string){
-			try{
-				const query:PageQuery = {
-					page: Number(this.page.index) + 1, // index is -1 compared to query param
-					limit: Number(this.page.query_limit),
-					sort: this.page.sort_by
-				};
-				const loaded_data = await _search_data(q, this.atom_name, query, 0);
-				
-				for(const atom of loaded_data.atoms){
-					this.atoms.push(atom);
-				}
-				
-				(this.$refs.allTable as any)?.reset_check();
-				(this.$refs.allTable as any)?.reload_check();
-				
-				this.page.index = loaded_data.page.index;
-				this.page.query_limit = loaded_data.page.query_limit;
-				this.page.sort_by = loaded_data.page.sort_by;
-				this.page.total_atom_count = loaded_data.page.total_atom_count;
-				this.page.total_page_num = loaded_data.page.total_page_num;
-				
-			}catch(e){
-				const err = e as unknown as urn_response.Fail<any>;
-				this.error_object = err;
-				this.message = err.message || '[ERROR]';
-			}
-		}
 	},
 	
 	async asyncData<A extends uranio.schema.AtomName>(
@@ -231,7 +207,8 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 		const query:PageQuery = {
 			page: Number(context.query.page),
 			limit: Number(context.query.limit),
-			sort: context.query.sort as unknown as SortBy
+			sort: context.query.sort as unknown as SortBy,
+			q: String(context.query.q || '')
 		};
 		
 		let atoms:uranio.schema.Atom<A>[] = [];
@@ -240,8 +217,11 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 			index: 0,
 			total_page_num: 0,
 			total_atom_count: 0,
+			total_result_count: 0,
 			query_limit: 0,
-			sort_by: {_date: -1}
+			sort_by: {_date: -1},
+			search_query: '',
+			empty_relation: false
 		};
 		
 		try{
@@ -308,7 +288,7 @@ async function _find_atoms<A extends uranio.schema.AtomName, D extends uranio.sc
 				limit: query_limit,
 				sort: sort_by,
 				skip: skip,
-				depth: depth
+				depth: depth,
 			}
 		}
 	} as unknown as uranio.types.Hook.Arguments<A, 'find', D>;
@@ -331,7 +311,6 @@ async function _search_atoms<A extends uranio.schema.AtomName, D extends uranio.
 	skip: number,
 	depth?:D
 ):Promise<uranio.schema.Molecule<A,D>[]>{
-	
 	const trx_base = uranio.trx.base.create(atom_name);
 	const trx_hook_search = trx_base.hook<'search', D>('search');
 	
@@ -356,14 +335,16 @@ async function _search_atoms<A extends uranio.schema.AtomName, D extends uranio.
 	}
 	
 	return trx_res_find.payload as unknown as uranio.schema.Molecule<A,D>[];
-	
 }
 	
 async function _load_data<A extends uranio.schema.AtomName, D extends uranio.schema.Depth>(
-	atom_name:A,
-	query:PageQuery,
-	depth?:D
+	atom_name: A,
+	query: PageQuery,
+	depth?: D,
+	q?: string
 ):Promise<LoadedData<A,D>>{
+	
+	const is_searching = (typeof q === 'string' && q !== '');
 	
 	let index = 0;
 	let query_limit = 10;
@@ -383,11 +364,17 @@ async function _load_data<A extends uranio.schema.AtomName, D extends uranio.sch
 	if(query.sort){
 		sort_by = query.sort;
 	}
+	if(query.q){
+		q = query.q;
+	}
 	
 	const total_atom_count = await _count_atoms(atom_name);
 	
-	let total_page_num = Math.floor(total_atom_count / query_limit);
-	const reminder = total_atom_count % query_limit;
+	const total_result_count = (is_searching) ?
+		await _search_count_atoms(atom_name, q || '') : total_atom_count;
+	
+	let total_page_num = Math.floor(total_result_count / query_limit);
+	const reminder = total_result_count % query_limit;
 	if(reminder > 0){
 		total_page_num += 1;
 	}
@@ -407,14 +394,19 @@ async function _load_data<A extends uranio.schema.AtomName, D extends uranio.sch
 		);
 	}
 	
-	const atoms = await _find_atoms(atom_name, query_limit, sort_by, skip, depth);
+	const atoms = (is_searching) ?
+		await _search_atoms(q || '', atom_name, query_limit, sort_by, skip, depth) :
+		await _find_atoms(atom_name, query_limit, sort_by, skip, depth);
 	
 	const page:Page = {
 		total_page_num,
 		total_atom_count,
+		total_result_count,
 		index,
 		query_limit,
-		sort_by
+		sort_by,
+		empty_relation: (total_atom_count === 0),
+		search_query: q || ''
 	};
 		
 	return {
@@ -423,67 +415,36 @@ async function _load_data<A extends uranio.schema.AtomName, D extends uranio.sch
 	};
 }
 
-async function _search_data<A extends uranio.schema.AtomName, D extends uranio.schema.Depth>(
-	q: string,
-	atom_name: A,
-	query: PageQuery,
-	depth?: D,
-):Promise<LoadedData<A,D>>{
-	
-	let index = 0;
-	let query_limit = 10;
-	let sort_by:SortBy = {_date: -1};
-	
-	if(query.page){
-		index = parseInt(query.page as any) - 1;
-	}
-	if(query.limit){
-		query_limit = parseInt(query.limit as any);
-		if(query_limit < 0){
-			query_limit = 1;
-		}else if(query_limit > 128){
-			query_limit = 128;
-		}
-	}
-	if(query.sort){
-		sort_by = query.sort;
-	}
-	
-	const total_atom_count = await _search_count_atoms(atom_name, q);
-	
-	let total_page_num = Math.floor(total_atom_count / query_limit);
-	const reminder = total_atom_count % query_limit;
-	if(reminder > 0){
-		total_page_num += 1;
-	}
-	if(total_page_num === 0){
-		total_page_num = 1;
-	}
-	
-	const skip = index * query_limit;
-	
-	if(index < 0 || index > total_page_num - 1){
-		const ret = urn_return.create();
-		throw ret.return_error(
-			400,
-			`Invalid index. Index greater than maximum.`,
-			`INVALID_INDEX`,
-			`Invalid index. Index greater than maximum.`
-		);
-	}
-	
-	const atoms = await _search_atoms(q, atom_name, query_limit, sort_by, skip, depth);
-	
-	const page:Page = {
-		total_page_num,
-		total_atom_count,
-		index,
-		query_limit,
-		sort_by
-	};
-		
-	return {
-		page,
-		atoms
-	};
+function _reset_checkbox(allTable:any){
+	allTable?.reset_check();
+	allTable?.reload_check();
 }
+
+function _set_page_data_from_loaded_data(this_page:Page, loaded_page:Page){
+	this_page.index = loaded_page.index;
+	this_page.query_limit = loaded_page.query_limit;
+	this_page.sort_by = loaded_page.sort_by;
+	this_page.search_query = loaded_page.search_query;
+	this_page.total_atom_count = loaded_page.total_atom_count;
+	this_page.total_result_count = loaded_page.total_result_count;
+	this_page.total_page_num = loaded_page.total_page_num;
+}
+
+//function unflatten(data:any) {
+//	if (Object(data) !== data || Array.isArray(data))
+//		return data;
+//	// 
+//	const regex = /\.?([^.\[\]]+)|\[(\d+)\]/g;
+//	const resultholder = {};
+//	for (const p in data) {
+//		let cur = resultholder,
+//			prop = "",
+//			m;
+//		while (m == regex.exec(p)) {
+//			cur = (cur as any)[prop] || ((cur as any)[prop] = (m[2] ? [] : {}));
+//			prop = m[2] || m[1];
+//		}
+//		(cur as any)[prop] = data[p];
+//	}
+//	return (resultholder as any)[""] || resultholder;
+//}

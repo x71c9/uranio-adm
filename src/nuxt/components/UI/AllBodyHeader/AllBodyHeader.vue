@@ -47,6 +47,11 @@
 				<span class="monospace">{{ total_atom_count_format }}</span>
 			</div>
 			<div class="info-item">
+				<img src="/img/icons/png/horizontal_split.png"/>
+				Total result:
+				<span class="monospace">{{ total_result_count_format }}</span>
+			</div>
+			<div class="info-item">
 				<img src="/img/icons/png/power.png"/>
 				Connection:
 				<span class="monospace">{{ connection }}</span>

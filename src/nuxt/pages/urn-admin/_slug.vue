@@ -3,7 +3,7 @@
 		<div v-if="success">
 			<Uploader
 				v-if="atom_name === 'media' && this.page.index === 0"
-				v-on:add-atoms="add_atoms"
+				v-on:add-atom="add_atom"
 				/>
 			<div class="flex-row-3">
 				<h1 class="ui-flex-row-3-el today inter-medium-white-36px">
@@ -28,17 +28,24 @@
 			<div class="surname inter-normal-white-20px">
 				<span class="inter-normal-white-20px">lorem ipsum dolor sit amet</span>
 			</div>
-			<div v-if="page.total_atom_count > 0">
+			<div v-if="page.empty_relation === false">
 				<UIGroup>
 					<UIAllBodyHeader
-						v-on:search="search_atoms"
+						v-on:search="load_atoms"
 					/>
 					<div class="ui-all-body">
 						<UIAllTable
+							v-if="atoms.length > 0"
 							ref="allTable"
 							v-on:delete_atoms="delete_atoms"
 							v-on:delete_all_atoms="delete_all_atoms"
 						/>
+						<div
+							v-else
+							class="no_matching"
+						>
+							No atoms match your query.
+						</div>
 					</div>
 				</UIGroup>
 				<UIPagination />

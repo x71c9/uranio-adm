@@ -3,12 +3,21 @@ import { urn_response } from "urn-lib";
 declare type SortBy = {
     [prop_name: string]: 1 | -1;
 };
+export declare type PageQuery<T = number, S = SortBy> = {
+    page: T;
+    limit: T;
+    sort: S;
+    q: string;
+};
 export declare type Page = {
     index: number;
     total_page_num: number;
     total_atom_count: number;
+    total_result_count: number;
     query_limit: number;
     sort_by: SortBy;
+    search_query: string;
+    empty_relation: boolean;
 };
 declare type Data<A extends uranio.schema.AtomName> = {
     page: Page;
@@ -21,11 +30,10 @@ declare type Data<A extends uranio.schema.AtomName> = {
     is_read_only: boolean;
 };
 declare type Methods = {
-    add_atoms<A extends uranio.schema.AtomName>(atoms: uranio.schema.Atom<A>): void;
+    add_atom<A extends uranio.schema.AtomName>(atoms: uranio.schema.Atom<A>): void;
     delete_atoms(ids: string[]): Promise<void>;
     delete_all_atoms(): Promise<void>;
-    reload_atoms(): Promise<void>;
-    search_atoms(q: string): Promise<void>;
+    load_atoms(q?: string): Promise<void>;
     fail(): void;
 };
 declare type Computed = Record<string, never>;

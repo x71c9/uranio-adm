@@ -4,7 +4,7 @@ import uranio from 'uranio/client';
 
 import { urn_util } from "urn-lib";
 
-import {Page} from '../../../pages/urn-admin/_slug';
+import {Page, PageQuery} from '../../../pages/urn-admin/_slug';
 
 enum RealPropertyType {
 	ID = 'string',
@@ -54,6 +54,7 @@ type Methods = {
 };
 type Computed = {
 	total_atom_count_format: string
+	total_result_count_format: string
 };
 type Props = {
 	page: Page
@@ -193,7 +194,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			dock_url,
 			sorted_by,
 			sorted_direction,
-			search_value: ''
+			search_value: (this.page.search_query) || ''
 			// total_atom_count_format
 		};
 	},
@@ -208,6 +209,9 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	computed:{
 		total_atom_count_format(){
 			return urn_util.number.format(this.page.total_atom_count,2);
+		},
+		total_result_count_format(){
+			return urn_util.number.format(this.page.total_result_count,2);
 		}
 	},
 	methods:{
@@ -232,16 +236,25 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 					break;
 				}
 			}
+			const query:Partial<PageQuery<string, any>> = {};
+			if(this.page.index){
+				query.page = (this.page.index + 1).toString();
+			}
+			if(this.page.query_limit){
+				query.limit = this.page.query_limit.toString();
+			}
+			if(this.page.sort_by){
+				query.sort = this.page.sort_by;
+			}
+			if(this.page.search_query){
+				query.q = this.page.search_query;
+			}
 			this.$router.push({
 				name: 'urn-admin-slug',
 				params: {
 					slug: this.atom_name
 				},
-				query: {
-					page: (this.page.index + 1).toString(),
-					limit: this.page.query_limit.toString(),
-					sort: this.page.sort_by as any
-				}
+				query
 			});
 		}
 	},
