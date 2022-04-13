@@ -21,7 +21,10 @@ exports.default = vue_1.default.extend({
         var _a, _b;
         urn_lib_1.urn_log.debug('AsyncData.context.params: ', context.params);
         const atom_name = context.params.atom;
-        // TODO Validate atom_name
+        if (!client_1.default.book.validate_name(atom_name)) {
+            urn_lib_1.urn_log.error(`Invalid context param slug.`);
+            context.error({ statusCode: 404, message: "Page not found" });
+        }
         const atom_id = context.params.slug;
         const plural = atom_name + "s";
         let is_read_only = false;

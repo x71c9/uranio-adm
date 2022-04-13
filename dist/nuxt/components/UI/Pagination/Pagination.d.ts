@@ -3,12 +3,15 @@ import { Page } from '../../../pages/urn-admin/_slug';
 declare type Data = {
     change_page_value: number;
     item_per_page_value: number;
+    previous_link: string;
+    next_link: string;
+    page_links: string[];
 };
 declare type Methods = {
     change_page: () => void;
     change_item_per_page: () => void;
 };
-declare type Computed = {};
+declare type Computed = Record<string, never>;
 declare type Props = {
     page: Page;
     atom_name: string;

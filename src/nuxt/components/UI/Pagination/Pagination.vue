@@ -7,7 +7,7 @@
 					class="secondary"
 					>
 					<nuxt-link
-						:to="`/urn-admin/${atom_name}?page=${this.page.index + 1}&limit=10`"
+						:to="`/urn-admin/${atom_name}?q=${this.page.search_query}&page=${this.page.index + 1}&limit=10`"
 						>
 						10
 					</nuxt-link>
@@ -18,7 +18,7 @@
 					class="secondary"
 					>
 					<nuxt-link
-						:to="`/urn-admin/${atom_name}?page=${this.page.index + 1}&limit=25`"
+						:to="`/urn-admin/${atom_name}?q=${this.page.search_query}&page=${this.page.index + 1}&limit=25`"
 						>
 						25
 					</nuxt-link>
@@ -29,7 +29,7 @@
 					class="secondary"
 					>
 					<nuxt-link
-						:to="`/urn-admin/${atom_name}?page=${this.page.index + 1}&limit=50`"
+						:to="`/urn-admin/${atom_name}?q=${this.page.search_query}&page=${this.page.index + 1}&limit=50`"
 						>
 						50
 					</nuxt-link>
@@ -79,7 +79,7 @@
 				<!-- Prev text button -->
 				<nuxt-link
 						v-if="this.page.total_page_num <= 4"
-						:to="`/urn-admin/${atom_name}?page=${this.page.index}&limit=${this.page.query_limit}`"
+						:to="previous_link"
 						:event="this.page.index === 0 ? '' : 'click'"
 						class="button-text-arrow button-prev border-1px-mercury"
 						:class="{disabled: this.page.index == 0}"
@@ -91,7 +91,7 @@
 					<!-- Prev arrow button -->
 					<nuxt-link
 						v-if="this.page.total_page_num > 4"
-						:to="`/urn-admin/${atom_name}?page=${this.page.index}&limit=${this.page.query_limit}`"
+						:to="previous_link"
 						:event="this.page.index === 0 ? '' : 'click'"
 						class="pag-button button-arrow button-arrow-left border-1px-mercury"
 						:class="{disabled: this.page.index === 0}"
@@ -101,7 +101,7 @@
 					
 					<!-- button 1 -->
 					<nuxt-link
-						:to="`/urn-admin/${atom_name}?page=1&limit=${this.page.query_limit}`"
+						:to="page_links[1]"
 						class="pag-button"
 						:class="{ active: this.page.index === 0 }"
 						>
@@ -119,7 +119,7 @@
 						v-for="(page, index) in this.page.total_page_num"
 						v-if="index > 0 && index > _self.page.index - 2 && index < _self.page.index + 2 && index < _self.page.total_page_num - 1"
 						:key="index"
-						:to="`/urn-admin/${atom_name}?page=${index + 1}&limit=${_self.page.query_limit}`"
+						:to="page_links[index]"
 						class="pag-button"
 						:class="{ active: (index === _self.page.index) }"
 						>
@@ -138,7 +138,7 @@
 					<!-- button last -->
 					<nuxt-link
 						v-if="this.page.total_page_num > 1"
-						:to="`/urn-admin/${atom_name}?page=${this.page.total_page_num}&limit=${this.page.query_limit}`"
+						:to="page_links[this.page.total_page_num - 1]"
 						class="pag-button"
 						:class="{ active: this.page.index == this.page.total_page_num - 1 }"
 						>
@@ -148,7 +148,7 @@
 					<!-- Next arrow button -->
 					<nuxt-link
 						v-if="this.page.total_page_num > 4"
-						:to="`/urn-admin/${atom_name}?page=${this.page.index + 2}&limit=${this.page.query_limit}`"
+						:to="next_link"
 						:event="this.page.index === this.page.total_page_num - 1 ? '' : 'click'"
 						class="pag-button button-arrow button-arrow-right border-1px-mercury"
 						:class="{disabled: this.page.index == this.page.total_page_num - 1}"
@@ -159,7 +159,7 @@
 				<!-- Next text button -->
 				<nuxt-link
 						v-if="this.page.total_page_num <= 4"
-						:to="`/urn-admin/${atom_name}?page=${this.page.index + 2}&limit=${this.page.query_limit}`"
+						:to="next_link"
 						:event="this.page.index === this.page.total_page_num - 1 ? '' : 'click'"
 						class="button-text-arrow button-next border-1px-mercury"
 						:class="{disabled: this.page.index == this.page.total_page_num - 1}"

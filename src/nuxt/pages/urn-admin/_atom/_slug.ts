@@ -60,7 +60,10 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 		
 		const atom_name = context.params.atom as A;
 		
-		// TODO Validate atom_name
+		if(!uranio.book.validate_name(atom_name)){
+			urn_log.error(`Invalid context param slug.`);
+			context.error({ statusCode: 404, message: "Page not found" });
+		}
 		
 		const atom_id = context.params.slug;
 		

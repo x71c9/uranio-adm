@@ -41,7 +41,7 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
         },
         add_atom(atoms) {
             this.atoms.unshift(atoms);
-            this.page.total_atom_count += 1;
+            this.total_atoms += 1;
         },
         async delete_all_atoms() {
             return await this.delete_atoms(['*']);
@@ -70,8 +70,8 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
                 const index = this.atoms.map(a => a._id).indexOf(id);
                 this.$delete(this.atoms, index);
             }
-            this.page.total_atom_count -= count;
-            this.page.total_result_count -= count;
+            this.total_atoms -= count;
+            this.total_result -= count;
             (_a = this.$refs.allTable) === null || _a === void 0 ? void 0 : _a.check_none();
             const not_label = (ids.length > 1) ? this.plural : this.atom_name;
             this.$store.dispatch('notification/show_notification', {
@@ -79,33 +79,30 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
                 message: `${not_label} deleted.`,
             });
             if (this.atoms.length === 0) {
-                this.load_atoms();
+                this.get_atoms();
             }
         },
-        async load_atoms(q) {
+        async get_atoms() {
+            // This replace the URL without reloading the page.
+            // Vue.router replace will reload and lose focust for the search.
+            // history.replaceState({}, '', this.$route.path+`?${urn_util.url.encode_params(query)}`);
+            _reset_checkbox(this.$refs.allTable);
+            // _set_page_data_from_loaded_data(this.page, loaded_data.page);
             try {
-                const query = {
-                    page: Number(this.page.index) + 1,
-                    limit: Number(this.page.query_limit),
-                    sort: this.page.sort_by,
-                    q: q || ''
-                };
-                // This replace the URL without reloading the page.
-                // Vue.router replace will reload and lose focust for the search.
-                history.replaceState({}, '', this.$route.path + `?${urn_lib_1.urn_util.url.encode_params(query)}`);
-                const loaded_data = await _load_data(this.atom_name, query, 0, q);
-                urn_lib_1.urn_log.debug(loaded_data);
                 this.atoms.splice(0);
-                for (const atom of loaded_data.atoms) {
-                    this.atoms.push(atom);
+                this.atoms = await _get_atoms(this.atom_name, this.page_query);
+                this.total_result = this.atoms.length;
+                this.total_pages = _total_pages(this.total_result, this.page_query.limit);
+                if (this.page_query.index > this.total_pages - 1) {
+                    this.page_query.index = this.total_pages - 1;
                 }
-                _reset_checkbox(this.$refs.allTable);
-                _set_page_data_from_loaded_data(this.page, loaded_data.page);
+                this.success = true;
             }
             catch (e) {
                 const err = e;
                 this.error_object = err;
                 this.message = err.message || '[ERROR]';
+                this.success = false;
             }
         },
     },
@@ -117,38 +114,48 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
             urn_lib_1.urn_log.error(`Invalid context param slug.`);
             context.error({ statusCode: 404, message: "Page not found" });
         }
-        let plural = atom_name + "s";
+        const plural = client_1.default.book.get_plural(atom_name);
         let is_read_only = false;
+        let atoms = [];
         const atom_def = client_1.default.book.get_definition(atom_name);
-        if (urn_lib_1.urn_util.object.has_key(atom_def, 'plural') && atom_def.plural) {
-            plural = atom_def.plural;
-        }
         if (urn_lib_1.urn_util.object.has_key(atom_def, 'read_only') && atom_def.read_only === true) {
             is_read_only = atom_def.read_only;
         }
+        const index = Math.abs(Number(context.query.page || 1)) - 1;
+        let limit = 10;
+        if (context.query.limit) {
+            limit = Math.abs(Number(context.query.limit));
+            if (limit > 128) {
+                limit = 128;
+            }
+        }
+        let sort = { _date: -1 };
+        if (context.query.sort && _validate_sort(context.query.sort)) {
+            sort = context.query.sort;
+        }
+        let q = '';
+        if (context.query.q) {
+            q = String(context.query.q);
+        }
+        const page_query = {
+            index: index,
+            limit: limit,
+            sort: sort,
+            q: q
+        };
         let message = '';
         let error_object = {};
-        const query = {
-            page: Number(context.query.page),
-            limit: Number(context.query.limit),
-            sort: context.query.sort,
-            q: String(context.query.q || '')
-        };
-        let atoms = [];
-        let page = {
-            index: 0,
-            total_page_num: 0,
-            total_atom_count: 0,
-            total_result_count: 0,
-            query_limit: 0,
-            sort_by: { _date: -1 },
-            search_query: '',
-            empty_relation: false
-        };
+        let total_atoms = 0;
+        let total_result = 0;
+        let total_pages = 1;
         try {
-            const loaded_data = await _load_data(atom_name, query, 0);
-            atoms = loaded_data.atoms;
-            page = loaded_data.page;
+            total_atoms = await _count_atoms(atom_name);
+            atoms = await _get_atoms(atom_name, page_query);
+            total_result = total_atoms;
+            total_pages = _total_pages(total_result, page_query.limit);
+            if (page_query.index > total_pages - 1) {
+                page_query.index = total_pages - 1;
+            }
             success = true;
         }
         catch (e) {
@@ -158,146 +165,131 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
             success = false;
         }
         return {
-            page,
             atom_name,
-            plural,
             atoms,
+            is_read_only,
+            total_atoms,
+            plural,
+            page_query,
+            total_pages,
+            total_result,
             message,
             success,
             error_object,
-            is_read_only
         };
     },
 });
-async function _search_count_atoms(atom_name, q) {
-    const trx_base = client_1.default.trx.base.create(atom_name);
-    const trx_hook_count = trx_base.hook('search_count');
-    const trx_res_count = await trx_hook_count({ params: { q: q } });
-    if (!trx_res_count.success) {
-        throw trx_res_count;
-    }
-    return trx_res_count.payload;
+function _total_pages(total_result, limit) {
+    return Math.floor(total_result / (limit || 1)) + ((total_result % limit === 0) ? 1 : 0);
 }
-async function _count_atoms(atom_name) {
-    const trx_base = client_1.default.trx.base.create(atom_name);
-    const trx_hook_count = trx_base.hook('count');
-    const trx_res_count = await trx_hook_count({});
-    if (!trx_res_count.success) {
-        throw trx_res_count;
+async function _count_atoms(atom_name, page_query) {
+    let trx_response;
+    if (page_query.q && page_query.q !== '') {
+        trx_response = await _hook_search_count(atom_name, page_query);
     }
-    return trx_res_count.payload;
+    else {
+        trx_response = await _hook_find_count(atom_name, page_query);
+    }
+    if (!trx_response.success) {
+        throw trx_response;
+    }
+    return trx_response.payload;
 }
-async function _find_atoms(atom_name, query_limit, sort_by, skip, depth) {
+async function _get_atoms(atom_name, page_query) {
+    let trx_response;
+    if (page_query.q && page_query.q !== '') {
+        trx_response = await _hook_search(atom_name, page_query);
+    }
+    else {
+        trx_response = await _hook_find(atom_name, page_query);
+    }
+    if (!trx_response.success) {
+        throw trx_response;
+    }
+    return trx_response.payload;
+}
+async function _hook_find(atom_name, page_query) {
     const trx_base = client_1.default.trx.base.create(atom_name);
     const trx_hook_find = trx_base.hook('find');
     const find_params = {
-        query: {
-            options: {
-                limit: query_limit,
-                sort: sort_by,
-                skip: skip,
-                depth: depth,
-            }
-        }
+        query: _hook_query(page_query)
     };
-    const trx_res_find = await trx_hook_find(find_params);
-    if (!trx_res_find.success) {
-        throw trx_res_find;
-    }
-    return trx_res_find.payload;
+    const trx_response = await trx_hook_find(find_params);
+    return trx_response;
 }
-async function _search_atoms(q, atom_name, query_limit, sort_by, skip, depth) {
+async function _hook_search(atom_name, page_query) {
     const trx_base = client_1.default.trx.base.create(atom_name);
     const trx_hook_search = trx_base.hook('search');
     const search_params = {
         params: {
-            q: q
+            q: page_query.q
         },
-        query: {
-            options: {
-                limit: query_limit,
-                sort: sort_by,
-                skip: skip,
-                depth: depth
-            }
-        }
+        query: _hook_query(page_query)
     };
-    const trx_res_find = await trx_hook_search(search_params);
-    if (!trx_res_find.success) {
-        throw trx_res_find;
-    }
-    return trx_res_find.payload;
+    const trx_response = await trx_hook_search(search_params);
+    return trx_response;
 }
-async function _load_data(atom_name, query, depth, q) {
-    const is_searching = (typeof q === 'string' && q !== '');
-    let index = 0;
-    let query_limit = 10;
-    let sort_by = { _date: -1 };
-    if (query.page) {
-        index = parseInt(query.page) - 1;
-    }
-    if (query.limit) {
-        query_limit = parseInt(query.limit);
-        if (query_limit < 0) {
-            query_limit = 1;
-        }
-        else if (query_limit > 128) {
-            query_limit = 128;
-        }
-    }
-    if (query.sort) {
-        sort_by = query.sort;
-    }
-    if (query.q) {
-        q = query.q;
-    }
-    const total_atom_count = await _count_atoms(atom_name);
-    const total_result_count = (is_searching) ?
-        await _search_count_atoms(atom_name, q || '') : total_atom_count;
-    let total_page_num = Math.floor(total_result_count / query_limit);
-    const reminder = total_result_count % query_limit;
-    if (reminder > 0) {
-        total_page_num += 1;
-    }
-    if (total_page_num === 0) {
-        total_page_num = 1;
-    }
-    const skip = index * query_limit;
-    if (index < 0 || index > total_page_num - 1) {
-        const ret = urn_lib_1.urn_return.create();
-        throw ret.return_error(400, `Invalid index. Index greater than maximum.`, `INVALID_INDEX`, `Invalid index. Index greater than maximum.`);
-    }
-    const atoms = (is_searching) ?
-        await _search_atoms(q || '', atom_name, query_limit, sort_by, skip, depth) :
-        await _find_atoms(atom_name, query_limit, sort_by, skip, depth);
-    const page = {
-        total_page_num,
-        total_atom_count,
-        total_result_count,
-        index,
-        query_limit,
-        sort_by,
-        empty_relation: (total_atom_count === 0),
-        search_query: q || ''
+async function _hook_find_count(atom_name, page_query) {
+    const trx_base = client_1.default.trx.base.create(atom_name);
+    const trx_hook_find = trx_base.hook('count');
+    const find_params = {
+        query: _hook_query_count(page_query)
     };
+    const trx_response = await trx_hook_find(find_params);
+    return trx_response;
+}
+async function _hook_search_count(atom_name, page_query) {
+    const trx_base = client_1.default.trx.base.create(atom_name);
+    const trx_hook_search = trx_base.hook('search_count');
+    const search_params = {
+        params: {
+            q: page_query.q
+        },
+        query: _hook_query_count(page_query)
+    };
+    const trx_response = await trx_hook_search(search_params);
+    return trx_response;
+}
+function _hook_query(page_query) {
     return {
-        page,
-        atoms
+        options: {
+            limit: page_query.limit,
+            sort: page_query.sort,
+            skip: page_query.index * page_query.limit
+        }
     };
+}
+function _hook_query_count(_page_query) {
+    return {
+        options: {}
+    };
+}
+function _validate_sort(sort, atom_name) {
+    if (typeof sort !== 'object' || !sort || Array.isArray(sort)) {
+        return false;
+    }
+    const atom_keys = client_1.default.core.atom.keys.get_all(atom_name);
+    for (const [key, value] of Object.entries(sort)) {
+        if (!atom_keys.has(key) && (Number(value) === 1 || Number(value) === -1)) {
+            urn_lib_1.urn_log.warn(`Invalid sort paramter in query string.`);
+            return false;
+        }
+    }
+    return true;
 }
 function _reset_checkbox(allTable) {
     allTable === null || allTable === void 0 ? void 0 : allTable.reset_check();
     allTable === null || allTable === void 0 ? void 0 : allTable.reload_check();
 }
-function _set_page_data_from_loaded_data(this_page, loaded_page) {
-    this_page.index = loaded_page.index;
-    this_page.query_limit = loaded_page.query_limit;
-    this_page.sort_by = loaded_page.sort_by;
-    this_page.search_query = loaded_page.search_query;
-    this_page.total_atom_count = loaded_page.total_atom_count;
-    this_page.total_result_count = loaded_page.total_result_count;
-    this_page.total_page_num = loaded_page.total_page_num;
-}
+// function _set_page_data_from_loaded_data(this_page:Page, loaded_page:Page){
+// 	this_page.index = loaded_page.index;
+// 	this_page.query_limit = loaded_page.query_limit;
+// 	this_page.sort_by = loaded_page.sort_by;
+// 	this_page.search_query = loaded_page.search_query;
+// 	this_page.total_atom_count = loaded_page.total_atom_count;
+// 	this_page.total_result_count = loaded_page.total_result_count;
+// 	this_page.total_page_num = loaded_page.total_page_num;
+// }
 //function unflatten(data:any) {
 //	if (Object(data) !== data || Array.isArray(data))
 //		return data;
