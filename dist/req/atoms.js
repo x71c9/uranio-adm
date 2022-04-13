@@ -41,7 +41,8 @@ exports.required_atoms = {
             name: {
                 type: types.PropertyType.TEXT,
                 search: true,
-                label: 'Name'
+                label: 'Name',
+                primary: true
             }
         },
         dock: {
