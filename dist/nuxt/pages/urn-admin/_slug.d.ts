@@ -3,29 +3,39 @@ import { urn_response } from "urn-lib";
 declare type SortBy = {
     [prop_name: string]: 1 | -1;
 };
-export declare type PageQuery<T = number, S = SortBy> = {
-    index: T;
-    limit: T;
-    sort: S;
+export declare type PageQuery = {
+    index: number;
+    limit: number;
+    sort: SortBy;
     q: string;
+};
+export declare type QueryObject<T = string> = {
+    page?: string | T;
+    limit?: string | T;
+    sort?: any;
+    q?: string;
+};
+export declare type PageData = {
+    total_pages: number;
+    total_result: number;
 };
 declare type Data<A extends uranio.schema.AtomName> = {
     atom_name: A;
     atoms: uranio.schema.Molecule<A, 0>[];
-    total_pages: number;
-    total_result: number;
     plural: string;
     is_read_only: boolean;
+    empty_relation: boolean;
     total_atoms: number;
     page_query: PageQuery;
+    page_data: PageData;
     message: string;
     success: boolean;
     error_object: urn_response.Fail<any>;
 };
 declare type Methods = {
-    get_atoms(): void;
-    count_atoms(): void;
     add_atom<A extends uranio.schema.AtomName>(atom: uranio.schema.Atom<A>): void;
+    get_atoms(): Promise<void>;
+    search_atoms(q: string): Promise<void>;
     delete_atoms(ids: string[]): Promise<void>;
     delete_all_atoms(): Promise<void>;
     update_atoms<A extends uranio.schema.AtomName>(atom_shape: uranio.schema.AtomShape<A>): Promise<void>;
@@ -45,5 +55,11 @@ declare const _default: import("vue/types/vue").ExtendedVue<{
     error_object: urn_response.Fail<any, any>;
 } & {
     fail: (trx_response: urn_response.Fail<any, any>) => void;
-} & import("vue").default, Data<uranio.core.schema.AtomName>, Methods, Computed, Record<Props, any>>;
+} & import("vue").default, Data<uranio.core.schema.AtomName>, Methods, Computed, Props>;
 export default _default;
+/**
+ * `query_obj` optional paramter will override `page_query` values
+ */
+export declare function query_object(page_query: PageQuery, query_obj?: QueryObject<number>): QueryObject;
+export declare function get_url_query(page_query: PageQuery, query_obj?: QueryObject<number>): string;
+export declare function get_url(atom_name: string, page_query: PageQuery, query_obj?: QueryObject<number>): string;

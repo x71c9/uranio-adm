@@ -1742,5 +1742,9 @@ body.layout-urn-admin {
 	.no_matching{
 		padding: var(--padx1) 0;
 	}
+	
+	.title_link:hover{
+		color: var(--white);
+	}
 }
 

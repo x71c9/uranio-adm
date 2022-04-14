@@ -10,6 +10,10 @@ import {Book} from '../typ/book_cln';
 
 import {schema} from '../sch/client';
 
+export function get_dock_url<A extends schema.AtomName>(atom_name: A):string{
+	return trx_client.book.get_dock_url(atom_name);
+}
+
 export function get_route_definition<A extends schema.AtomName, R extends schema.RouteName<A>>(
 	atom_name: A,
 	route_name: R

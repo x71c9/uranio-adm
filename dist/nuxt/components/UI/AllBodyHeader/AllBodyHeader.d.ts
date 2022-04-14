@@ -1,6 +1,6 @@
 import Vue from "vue";
 import uranio from 'uranio/client';
-import { Page } from '../../../pages/urn-admin/_slug';
+import { PageData, PageQuery } from '../../../pages/urn-admin/_slug';
 declare type SortValue = {
     [prop_name: string]: 1 | -1;
 };
@@ -32,7 +32,9 @@ declare type Computed = {
     total_result_count_format: string;
 };
 declare type Props = {
-    page: Page;
+    page_query: PageQuery;
+    page_data: PageData;
+    total_atoms: number;
     plural: string;
     atoms: uranio.schema.Atom<uranio.schema.AtomName>[];
     atom_name: uranio.schema.AtomName;

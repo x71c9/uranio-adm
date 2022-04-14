@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.get_url = exports.get_url_query = exports.query_object = void 0;
 const vue_typed_mixins_1 = __importDefault(require("vue-typed-mixins"));
 const client_1 = __importDefault(require("uranio/client"));
 const urn_lib_1 = require("urn-lib");
@@ -17,11 +18,13 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
     ],
     provide() {
         return {
-            page: this.page,
-            plural: this.plural,
-            is_read_only: this.is_read_only,
             atoms: this.atoms,
-            atom_name: this.atom_name
+            atom_name: this.atom_name,
+            plural: this.plural,
+            page_query: this.page_query,
+            page_data: this.page_data,
+            total_atoms: this.total_atoms,
+            is_read_only: this.is_read_only,
         };
     },
     key(route) {
@@ -71,7 +74,7 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
                 this.$delete(this.atoms, index);
             }
             this.total_atoms -= count;
-            this.total_result -= count;
+            this.page_data.total_result -= count;
             (_a = this.$refs.allTable) === null || _a === void 0 ? void 0 : _a.check_none();
             const not_label = (ids.length > 1) ? this.plural : this.atom_name;
             this.$store.dispatch('notification/show_notification', {
@@ -82,20 +85,49 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
                 this.get_atoms();
             }
         },
+        async update_all_atoms(_atom_shape) {
+            //
+        },
+        async update_atoms(_atom_shape) {
+            //
+        },
+        async search_atoms(q) {
+            this.page_query.q = q;
+            this.page_query.index = 0;
+            this.get_atoms();
+        },
         async get_atoms() {
-            // This replace the URL without reloading the page.
-            // Vue.router replace will reload and lose focust for the search.
-            // history.replaceState({}, '', this.$route.path+`?${urn_util.url.encode_params(query)}`);
             _reset_checkbox(this.$refs.allTable);
             // _set_page_data_from_loaded_data(this.page, loaded_data.page);
             try {
                 this.atoms.splice(0);
-                this.atoms = await _get_atoms(this.atom_name, this.page_query);
-                this.total_result = this.atoms.length;
-                this.total_pages = _total_pages(this.total_result, this.page_query.limit);
-                if (this.page_query.index > this.total_pages - 1) {
-                    this.page_query.index = this.total_pages - 1;
+                const atoms = await _get_atoms(this.atom_name, this.page_query);
+                for (const atom of atoms) {
+                    this.atoms.push(atom);
                 }
+                this.page_data.total_result = await _count_atoms(this.atom_name, this.page_query);
+                this.page_data.total_pages = _total_pages(this.page_data.total_result, this.page_query.limit);
+                // if(this.page_query.index > this.page_data.total_pages - 1){
+                // 	this.page_query.index = this.page_data.total_pages - 1;
+                // 	this.$router.push({
+                // 		name: 'urn-admin-slug',
+                // 		params: {
+                // 			slug: this.atom_name
+                // 		},
+                // 		query: query_object(this.page_query)
+                // 	});
+                // 	return;
+                // }
+                // this.$router.push({
+                // 	name: 'urn-admin-slug',
+                // 	params: {
+                // 		slug: this.atom_name
+                // 	},
+                // 	query: query_object(this.page_query)
+                // });
+                // // This replace the URL without reloading the page.
+                // // Vue.router replace will reload and lose focust for the search.
+                history.replaceState({}, '', this.$route.path + `?${get_url_query(this.page_query)}`);
                 this.success = true;
             }
             catch (e) {
@@ -130,7 +162,7 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
             }
         }
         let sort = { _date: -1 };
-        if (context.query.sort && _validate_sort(context.query.sort)) {
+        if (context.query.sort && _validate_sort(context.query.sort, atom_name)) {
             sort = context.query.sort;
         }
         let q = '';
@@ -146,15 +178,21 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
         let message = '';
         let error_object = {};
         let total_atoms = 0;
-        let total_result = 0;
-        let total_pages = 1;
+        const page_data = {
+            total_result: 0,
+            total_pages: 1,
+        };
+        let empty_relation = false;
         try {
-            total_atoms = await _count_atoms(atom_name);
+            total_atoms = await _count_all_atoms(atom_name);
+            page_data.total_result = await _count_atoms(atom_name, page_query);
             atoms = await _get_atoms(atom_name, page_query);
-            total_result = total_atoms;
-            total_pages = _total_pages(total_result, page_query.limit);
-            if (page_query.index > total_pages - 1) {
-                page_query.index = total_pages - 1;
+            page_data.total_pages = _total_pages(page_data.total_result, page_query.limit);
+            if (page_query.index > page_data.total_pages - 1) {
+                page_query.index = page_data.total_pages - 1;
+            }
+            if (page_data.total_result === 0) {
+                empty_relation = true;
             }
             success = true;
         }
@@ -171,16 +209,23 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
             total_atoms,
             plural,
             page_query,
-            total_pages,
-            total_result,
+            page_data,
             message,
             success,
             error_object,
+            empty_relation
         };
     },
 });
 function _total_pages(total_result, limit) {
-    return Math.floor(total_result / (limit || 1)) + ((total_result % limit === 0) ? 1 : 0);
+    return Math.floor(total_result / (limit || 1)) + ((total_result % limit === 0) ? 0 : 1);
+}
+async function _count_all_atoms(atom_name) {
+    const trx_response = await _hook_find_count(atom_name, { index: 0, limit: 0, sort: {}, q: '' });
+    if (!trx_response.success) {
+        throw trx_response;
+    }
+    return trx_response.payload;
 }
 async function _count_atoms(atom_name, page_query) {
     let trx_response;
@@ -255,7 +300,7 @@ function _hook_query(page_query) {
         options: {
             limit: page_query.limit,
             sort: page_query.sort,
-            skip: page_query.index * page_query.limit
+            skip: Math.abs(page_query.index * page_query.limit)
         }
     };
 }
@@ -281,15 +326,55 @@ function _reset_checkbox(allTable) {
     allTable === null || allTable === void 0 ? void 0 : allTable.reset_check();
     allTable === null || allTable === void 0 ? void 0 : allTable.reload_check();
 }
-// function _set_page_data_from_loaded_data(this_page:Page, loaded_page:Page){
-// 	this_page.index = loaded_page.index;
-// 	this_page.query_limit = loaded_page.query_limit;
-// 	this_page.sort_by = loaded_page.sort_by;
-// 	this_page.search_query = loaded_page.search_query;
-// 	this_page.total_atom_count = loaded_page.total_atom_count;
-// 	this_page.total_result_count = loaded_page.total_result_count;
-// 	this_page.total_page_num = loaded_page.total_page_num;
-// }
+/**
+ * `query_obj` optional paramter will override `page_query` values
+ */
+function query_object(page_query, query_obj) {
+    const result = {};
+    if (page_query.index != 0) {
+        result.page = (page_query.index + 1).toString();
+    }
+    if (page_query.limit) {
+        result.limit = (page_query.limit).toString();
+    }
+    if (page_query.sort) {
+        result.sort = (page_query.sort);
+    }
+    if (page_query.q !== '') {
+        result.q = (page_query.q);
+    }
+    if (query_obj) {
+        if (query_obj.page && query_obj.page != '0') {
+            result.page = query_obj.page.toString();
+        }
+        if (query_obj.limit && query_obj.limit != '0') {
+            result.limit = query_obj.limit.toString();
+        }
+        if (query_obj.sort) {
+            result.sort = query_obj.sort;
+        }
+        if (query_obj.q && query_obj.q != '') {
+            result.q = query_obj.q.toString();
+        }
+    }
+    return result;
+}
+exports.query_object = query_object;
+function _query_string(query_object) {
+    const query_string = urn_lib_1.urn_util.url.encode_params(query_object);
+    return query_string;
+}
+function get_url_query(page_query, query_obj) {
+    const q_object = query_object(page_query, query_obj);
+    const qs = _query_string(q_object);
+    return qs;
+}
+exports.get_url_query = get_url_query;
+function get_url(atom_name, page_query, query_obj) {
+    const qs = get_url_query(page_query, query_obj);
+    return `/urn-admin/${atom_name}?${qs}`;
+}
+exports.get_url = get_url;
 //function unflatten(data:any) {
 //	if (Object(data) !== data || Array.isArray(data))
 //		return data;

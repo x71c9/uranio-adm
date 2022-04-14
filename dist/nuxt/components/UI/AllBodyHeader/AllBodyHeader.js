@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const vue_1 = __importDefault(require("vue"));
 const client_1 = __importDefault(require("uranio/client"));
 const urn_lib_1 = require("urn-lib");
+const _slug_1 = require("../../../pages/urn-admin/_slug");
 var RealPropertyType;
 (function (RealPropertyType) {
     RealPropertyType["ID"] = "string";
@@ -30,43 +31,40 @@ exports.default = vue_1.default.extend({
     inject: [
         "atoms",
         "atom_name",
-        "page",
+        "page_query",
+        "page_data",
+        "total_atoms",
         "plural"
     ],
     props: {
-        page: Object,
-        plural: String,
         atoms: Array,
-        atom_name: Object
+        atom_name: Object,
+        page_query: Object,
+        page_data: Object,
+        total_atoms: Number,
+        plural: String,
     },
     data() {
         let sorted_by = `_date`;
         let sorted_direction = -1;
-        sorted_by = Object.keys(this.page.sort_by)[0];
-        sorted_direction = this.page.sort_by[sorted_by];
+        sorted_by = Object.keys(this.page_query.sort)[0];
+        sorted_direction = this.page_query.sort[sorted_by];
         let total_label = this.plural;
-        if (this.page.total_atom_count === 1) {
+        if (this.total_atoms === 1) {
             total_label = this.atom_name;
         }
         const atom_def = client_1.default.book.get_definition(this.atom_name);
-        const dock_def = client_1.default.book.get_dock_definition(this.atom_name);
+        // const dock_def = uranio.book.get_dock_definition(this.atom_name);
         let connection = 'main';
         if (typeof atom_def.connection === 'string' && atom_def.connection !== 'main') {
             connection = atom_def.connection;
         }
-        let dock_url = '/' + this.atom_name;
-        if (typeof (dock_def === null || dock_def === void 0 ? void 0 : dock_def.url) === 'string') {
-            dock_url = dock_def.url;
-        }
+        const dock_url = client_1.default.book.get_dock_url(this.atom_name);
         const sort_items = [];
-        // const atom_properties = {
-        //   ...uranio.core.stc.atom_hard_properties,
-        //   ...atom_def.properties
-        // };
         const atom_properties = client_1.default.book.get_properties_definition(this.atom_name);
         let current_sort_prop_name = '_date';
         let current_sort_direction = -1;
-        for (const [prop_name, direction] of Object.entries(this.page.sort_by)) {
+        for (const [prop_name, direction] of Object.entries(this.page_query.sort)) {
             current_sort_prop_name = prop_name;
             current_sort_direction = direction;
         }
@@ -136,8 +134,7 @@ exports.default = vue_1.default.extend({
             dock_url,
             sorted_by,
             sorted_direction,
-            search_value: (this.page.search_query) || ''
-            // total_atom_count_format
+            search_value: (this.page_query.q) || ''
         };
     },
     watch: {
@@ -150,10 +147,10 @@ exports.default = vue_1.default.extend({
     },
     computed: {
         total_atom_count_format() {
-            return urn_lib_1.urn_util.number.format(this.page.total_atom_count, 2);
+            return urn_lib_1.urn_util.number.format(this.total_atoms, 2);
         },
         total_result_count_format() {
-            return urn_lib_1.urn_util.number.format(this.page.total_result_count, 2);
+            return urn_lib_1.urn_util.number.format(this.page_data.total_result, 2);
         }
     },
     methods: {
@@ -174,29 +171,16 @@ exports.default = vue_1.default.extend({
             for (let i = 0; i < this.sort_items.length; i++) {
                 if (this.sort_items[i].selected === true) {
                     const value = this.sort_items[i].value;
-                    this.page.sort_by = value;
+                    this.page_query.sort = value;
                     break;
                 }
-            }
-            const query = {};
-            if (this.page.index) {
-                query.page = (this.page.index + 1).toString();
-            }
-            if (this.page.query_limit) {
-                query.limit = this.page.query_limit.toString();
-            }
-            if (this.page.sort_by) {
-                query.sort = this.page.sort_by;
-            }
-            if (this.page.search_query) {
-                query.q = this.page.search_query;
             }
             this.$router.push({
                 name: 'urn-admin-slug',
                 params: {
                     slug: this.atom_name
                 },
-                query
+                query: (0, _slug_1.query_object)(this.page_query, { page: 1 })
             });
         }
     },

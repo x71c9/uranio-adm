@@ -2,12 +2,12 @@
 	<div>
 		<div v-if="success">
 			<Uploader
-				v-if="atom_name === 'media' && this.page.index === 0"
+				v-if="atom_name === 'media' && page_query.index === 0"
 				v-on:add-atom="add_atom"
 				/>
 			<div class="flex-row-3">
 				<h1 class="ui-flex-row-3-el today inter-medium-white-36px">
-					<span class="inter-medium-white-36px">{{ plural }}</span>
+					<nuxt-link :to="`/urn-admin/${atom_name}`" class="title_link inter-medium-white-36px">{{ plural }}</nuxt-link>
 				</h1>
 				<div
 					class="ui-flex-row-3-el header_actions"
@@ -28,14 +28,14 @@
 			<div class="surname inter-normal-white-20px">
 				<span class="inter-normal-white-20px">lorem ipsum dolor sit amet</span>
 			</div>
-			<div v-if="page.empty_relation === false">
+			<div v-if="empty_relation === false">
 				<UIGroup>
 					<UIAllBodyHeader
-						v-on:search="load_atoms"
+						v-on:search="search_atoms"
 					/>
 					<div class="ui-all-body">
 						<UIAllTable
-							v-if="atoms.length > 0"
+							v-if="page_data.total_result > 0"
 							ref="allTable"
 							v-on:delete_atoms="delete_atoms"
 							v-on:delete_all_atoms="delete_all_atoms"

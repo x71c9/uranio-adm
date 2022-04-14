@@ -5,6 +5,7 @@
  */
 import { Book } from '../typ/book_cln';
 import { schema } from '../sch/client';
+export declare function get_dock_url<A extends schema.AtomName>(atom_name: A): string;
 export declare function get_route_definition<A extends schema.AtomName, R extends schema.RouteName<A>>(atom_name: A, route_name: R): Book.Definition.Dock.Routes.Route;
 export declare function get_routes_definition<A extends schema.AtomName>(atom_name: A): Book.Definition.Dock.Routes;
 export declare function get_routes_defintion(atom_name: schema.AtomName): Book.Definition.Dock.Routes;

@@ -2,9 +2,9 @@ import Vue from "vue";
 
 import uranio from 'uranio/client';
 
-import { urn_util } from "urn-lib";
+import {urn_util} from "urn-lib";
 
-import {Page, PageQuery} from '../../../pages/urn-admin/_slug';
+import {PageData, PageQuery, query_object} from '../../../pages/urn-admin/_slug';
 
 enum RealPropertyType {
 	ID = 'string',
@@ -32,7 +32,6 @@ type SortItem = {
 	selected: boolean
 	value: SortValue
 }
-
 type Data = {
 	sort_items: SortItem[]
 	sort_list_visible: boolean
@@ -57,7 +56,9 @@ type Computed = {
 	total_result_count_format: string
 };
 type Props = {
-	page: Page
+	page_query: PageQuery
+	page_data: PageData
+	total_atoms: number
 	plural: string
 	atoms: uranio.schema.Atom<uranio.schema.AtomName>[]
 	atom_name: uranio.schema.AtomName
@@ -69,53 +70,50 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	inject: [
 		"atoms",
 		"atom_name",
-		"page",
+		"page_query",
+		"page_data",
+		"total_atoms",
 		"plural"
 	],
 	props: {
-		page: Object,
-		plural: String,
 		atoms: Array,
-		atom_name: Object
+		atom_name: Object,
+		page_query: Object,
+		page_data: Object,
+		total_atoms: Number,
+		plural: String,
 	},
 	data():Data {
 		
 		let sorted_by = `_date`;
 		let sorted_direction = -1 as -1 | 1;
 		
-		sorted_by = Object.keys(this.page.sort_by)[0];
-		sorted_direction = this.page.sort_by[sorted_by];
+		sorted_by = Object.keys(this.page_query.sort)[0];
+		sorted_direction = this.page_query.sort[sorted_by];
 		
 		let total_label = this.plural;
-		if(this.page.total_atom_count === 1){
+		if(this.total_atoms === 1){
 			total_label = this.atom_name;
 		}
 		
 		const atom_def = uranio.book.get_definition(this.atom_name);
 		
-		const dock_def = uranio.book.get_dock_definition(this.atom_name);
+		// const dock_def = uranio.book.get_dock_definition(this.atom_name);
 		
 		let connection = 'main';
 		if(typeof atom_def.connection === 'string' && atom_def.connection !== 'main'){
 			connection = atom_def.connection;
 		}
 		
-		let dock_url = '/' + this.atom_name;
-		if(typeof dock_def?.url === 'string'){
-			dock_url = dock_def.url;
-		}
+		const dock_url = uranio.book.get_dock_url(this.atom_name);
 		
 		const sort_items:SortItem[] = [];
 		
-		// const atom_properties = {
-		//   ...uranio.core.stc.atom_hard_properties,
-		//   ...atom_def.properties
-		// };
 		const atom_properties = uranio.book.get_properties_definition(this.atom_name);
 		
 		let current_sort_prop_name = '_date';
 		let current_sort_direction = -1;
-		for(const [prop_name, direction] of Object.entries(this.page.sort_by)){
+		for(const [prop_name, direction] of Object.entries(this.page_query.sort)){
 			current_sort_prop_name = prop_name;
 			current_sort_direction = direction;
 		}
@@ -194,8 +192,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			dock_url,
 			sorted_by,
 			sorted_direction,
-			search_value: (this.page.search_query) || ''
-			// total_atom_count_format
+			search_value: (this.page_query.q) || ''
 		};
 	},
 	watch: {
@@ -208,10 +205,10 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	},
 	computed:{
 		total_atom_count_format(){
-			return urn_util.number.format(this.page.total_atom_count,2);
+			return urn_util.number.format(this.total_atoms,2);
 		},
 		total_result_count_format(){
-			return urn_util.number.format(this.page.total_result_count,2);
+			return urn_util.number.format(this.page_data.total_result,2);
 		}
 	},
 	methods:{
@@ -232,29 +229,16 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			for(let i = 0; i < this.sort_items.length; i++){
 				if(this.sort_items[i].selected === true){
 					const value = this.sort_items[i].value;
-					this.page.sort_by = value;
+					this.page_query.sort = value;
 					break;
 				}
-			}
-			const query:Partial<PageQuery<string, any>> = {};
-			if(this.page.index){
-				query.page = (this.page.index + 1).toString();
-			}
-			if(this.page.query_limit){
-				query.limit = this.page.query_limit.toString();
-			}
-			if(this.page.sort_by){
-				query.sort = this.page.sort_by;
-			}
-			if(this.page.search_query){
-				query.q = this.page.search_query;
 			}
 			this.$router.push({
 				name: 'urn-admin-slug',
 				params: {
 					slug: this.atom_name
 				},
-				query
+				query: query_object(this.page_query, {page: 1})
 			});
 		}
 	},

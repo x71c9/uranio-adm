@@ -59,10 +59,10 @@ exports.default = vue_1.default.extend({
     },
     methods: {
         edit_selected() {
-            console.log(this.selected_atoms);
+            // console.log(this.selected_atoms);
         },
         edit_all() {
-            console.log('edit all');
+            // console.log('edit all');
         },
         delete_selected() {
             this.$emit('delete_atoms', this.selected_atoms);
@@ -76,7 +76,7 @@ exports.default = vue_1.default.extend({
                 checked_by_id[this.atoms[i]._id] = false;
             }
             this.checked_by_id = Object.assign({}, checked_by_id);
-            console.log(this.checked_by_id);
+            // console.log(this.checked_by_id);
         },
         reset_check() {
             for (const [id, _value] of Object.entries(this.checked_by_id)) {
@@ -124,7 +124,7 @@ exports.default = vue_1.default.extend({
             else if (this.count_selected === 0) {
                 this.is_all_checked = false;
             }
-            console.log('toggle: ', this.checked_by_id);
+            // console.log('toggle: ', this.checked_by_id);
         },
     }
 });
