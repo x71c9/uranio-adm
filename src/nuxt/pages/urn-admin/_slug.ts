@@ -165,11 +165,10 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 				
 			try{
 				
-				this.atoms.splice(0);
 				const atoms = await _get_atoms(this.atom_name, this.page_query);
-				for(const atom of atoms){
-					this.atoms.push(atom);
-				}
+				this.atoms.splice(0);
+				Object.assign(this.atoms, atoms);
+				
 				this.page_data.total_result = await _count_atoms(this.atom_name, this.page_query);
 				this.page_data.total_pages = _total_pages(this.page_data.total_result, this.page_query.limit);
 				

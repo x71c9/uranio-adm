@@ -100,11 +100,9 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
             _reset_checkbox(this.$refs.allTable);
             // _set_page_data_from_loaded_data(this.page, loaded_data.page);
             try {
-                this.atoms.splice(0);
                 const atoms = await _get_atoms(this.atom_name, this.page_query);
-                for (const atom of atoms) {
-                    this.atoms.push(atom);
-                }
+                this.atoms.splice(0);
+                Object.assign(this.atoms, atoms);
                 this.page_data.total_result = await _count_atoms(this.atom_name, this.page_query);
                 this.page_data.total_pages = _total_pages(this.page_data.total_result, this.page_query.limit);
                 // if(this.page_query.index > this.page_data.total_pages - 1){
