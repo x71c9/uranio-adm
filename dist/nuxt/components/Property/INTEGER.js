@@ -10,7 +10,7 @@ exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default).extend({
     methods: {
         on_input(event) {
             const target = event.target;
-            this.atom[this.prop_name] = parseInt(target.value);
+            this.molecule[this.prop_name] = parseInt(target.value);
         }
     }
 });

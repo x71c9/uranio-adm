@@ -68,15 +68,15 @@ export default mixins(shared, sortable).extend<Data, Methods, Computed, Props>({
 				new_element = Number(new_element);
 			}
 			if(new_element !== ''){
-				(this.atom as SimpleAtom)[this.prop_name].push(new_element);
+				(this.molecule as SimpleAtom)[this.prop_name].push(new_element);
 				this.new_element = '';
 			}
 		},
 		
 		remove_element(element:string|number):void{
-			const index = (this.atom as SimpleAtom)[this.prop_name].indexOf(element);
+			const index = (this.molecule as SimpleAtom)[this.prop_name].indexOf(element);
 			if(index > -1){
-				(this.atom as SimpleAtom)[this.prop_name].splice(index,1);
+				(this.molecule as SimpleAtom)[this.prop_name].splice(index,1);
 			}
 		}
 	},

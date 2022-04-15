@@ -12,7 +12,7 @@ declare type Computed = {
     prop_classes: string;
 };
 declare type Props = {
-    atom: uranio.schema.Atom<uranio.schema.AtomName>;
+    molecule: uranio.schema.Molecule<uranio.schema.AtomName>;
     atom_name: string;
     prop: UIAtomProp;
 };

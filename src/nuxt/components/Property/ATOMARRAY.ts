@@ -36,8 +36,8 @@ export default mixins(shared, sortable).extend<Data, Methods, Computed, Props>({
 		
 		const prop_atom_name = prop_def.atom;
 		
-		if(!(this.atom as SimpleAtom)[this.prop_name]){
-			this.$set(this.atom, this.prop_name, []);
+		if(!(this.molecule as SimpleAtom)[this.prop_name]){
+			this.$set(this.molecule, this.prop_name, []);
 		}
 		
 		const prop_primary_properties:string[] = [];
@@ -61,9 +61,9 @@ export default mixins(shared, sortable).extend<Data, Methods, Computed, Props>({
 	methods:{
 		
 		remove(atom_id:string):void{
-			const index = (this.atom as SimpleAtom)[this.prop_name].indexOf(atom_id);
+			const index = (this.molecule as SimpleAtom)[this.prop_name].indexOf(atom_id);
 			if(index !== -1){
-				(this.atom as SimpleAtom)[this.prop_name].splice(index, 1);
+				(this.molecule as SimpleAtom)[this.prop_name].splice(index, 1);
 			}
 		},
 		

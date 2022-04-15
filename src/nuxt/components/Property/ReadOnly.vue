@@ -1,6 +1,6 @@
 <template>
 	<div class="monospace">
-		{{ atom[prop_name] }}
+		{{ molecule[prop_name] }}
 	</div>
 </template>
 <script lang="ts" src="./ReadOnly.ts"></script>

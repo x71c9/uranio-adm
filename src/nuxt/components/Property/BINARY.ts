@@ -27,13 +27,13 @@ export default mixins(shared).extend<Data, Methods, Computed, Props>({
 	
 	methods:{
 		select(value:boolean):void {
-			(this.atom as SimpleAtom)[this.prop_name] = value;
+			(this.molecule as SimpleAtom)[this.prop_name] = value;
 		},
 		on_input(event:Event):void{
 			
 			const target = event.target as HTMLInputElement;
 			
-			(this.atom as SimpleAtom)[this.prop_name] = (target.value == "true");
+			(this.molecule as SimpleAtom)[this.prop_name] = (target.value == "true");
 			
 		}
 		

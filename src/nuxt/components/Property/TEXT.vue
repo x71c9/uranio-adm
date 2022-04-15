@@ -5,7 +5,7 @@
 			class="urn_input"
 			type="text"
 			:name="prop_name"
-			v-model="atom[prop_name]"
+			v-model="molecule[prop_name]"
 			>
 	</div>
 </template>

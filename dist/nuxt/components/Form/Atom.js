@@ -17,17 +17,17 @@ var PropState;
 })(PropState = exports.PropState || (exports.PropState = {}));
 exports.default = vue_1.default.extend({
     props: {
-        atom: Object,
+        molecule: Object,
         atom_name: Object,
         call: String
     },
     inject: [
-        'atom',
+        'molecule',
         'atom_name'
     ],
     computed: {
         atom_from_molecule() {
-            const cloned = urn_lib_1.urn_util.object.deep_clone(this.atom);
+            const cloned = urn_lib_1.urn_util.object.deep_clone(this.molecule);
             const atom = client_1.default.core.atom.util.molecule_to_atom(this.atom_name, cloned);
             return atom;
         }
@@ -129,7 +129,7 @@ exports.default = vue_1.default.extend({
             const prop_def = client_1.default.book.get_property_definition(this.atom_name, prop_name);
             const prop_value = this.atom_from_molecule[prop_name];
             const prop = this.atom_props[prop_name];
-            if (_is_property_empty(this.atom_name, this.atom, prop_name)) {
+            if (_is_property_empty(this.atom_name, this.molecule, prop_name)) {
                 prop.state = PropState.ERROR;
                 prop.error_message = 'This field is required.';
                 return false;

@@ -6,7 +6,7 @@
 			type="number"
 			step="1"
 			:name="prop_name"
-			:value="atom[prop_name]"
+			:value="molecule[prop_name]"
 			v-on:input="on_input"
 			>
 	</div>

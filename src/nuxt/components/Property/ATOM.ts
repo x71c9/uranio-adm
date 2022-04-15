@@ -53,9 +53,9 @@ export default mixins(shared).extend<Data, Methods, Computed, Props>({
 	methods:{
 		
 		remove():void{
-			urn_log.debug(this.atom);
-			this.$set(this.atom, this.prop_name, '');
-			urn_log.debug(this.atom);
+			urn_log.debug(this.molecule);
+			this.$set(this.molecule, this.prop_name, '');
+			urn_log.debug(this.molecule);
 		},
 		
 		add():void{

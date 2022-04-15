@@ -13,8 +13,8 @@ exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default, Sortable_1.d
     data() {
         const prop_def = client_1.default.book.get_property_definition(this.atom_name, this.prop_name);
         const prop_atom_name = prop_def.atom;
-        if (!this.atom[this.prop_name]) {
-            this.$set(this.atom, this.prop_name, []);
+        if (!this.molecule[this.prop_name]) {
+            this.$set(this.molecule, this.prop_name, []);
         }
         const prop_primary_properties = [];
         const subatom_prop_defs = client_1.default.book.get_properties_definition(prop_atom_name);
@@ -31,9 +31,9 @@ exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default, Sortable_1.d
     },
     methods: {
         remove(atom_id) {
-            const index = this.atom[this.prop_name].indexOf(atom_id);
+            const index = this.molecule[this.prop_name].indexOf(atom_id);
             if (index !== -1) {
-                this.atom[this.prop_name].splice(index, 1);
+                this.molecule[this.prop_name].splice(index, 1);
             }
         },
         add() {

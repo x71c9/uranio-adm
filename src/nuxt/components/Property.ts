@@ -29,7 +29,7 @@ type Computed = {
 }
 
 type Props = {
-	atom: uranio.schema.Atom<uranio.schema.AtomName>
+	molecule: uranio.schema.Molecule<uranio.schema.AtomName>
 	atom_name: string
 	prop: UIAtomProp
 }
@@ -43,12 +43,12 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	
 	props: {
 		prop: Object,
-		atom: Object,
+		molecule: Object,
 		atom_name: String
 	},
 	
 	inject:[
-		'atom',
+		'molecule',
 		'atom_name'
 	],
 	

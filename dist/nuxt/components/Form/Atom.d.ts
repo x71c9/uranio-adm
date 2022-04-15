@@ -36,7 +36,7 @@ declare type Computed<A extends uranio.schema.AtomName> = {
     atom_from_molecule: uranio.schema.Atom<A>;
 };
 declare type Props<A extends uranio.schema.AtomName> = {
-    atom: uranio.schema.Molecule<A>;
+    molecule: uranio.schema.Molecule<A>;
     atom_name: A;
     call: 'insert' | 'update';
 };

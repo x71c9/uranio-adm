@@ -4,7 +4,7 @@
 			class="urn_input"
 			type="hidden"
 			:name="prop_name"
-			:value="atom[prop_name]"
+			:value="molecule[prop_name]"
 			v-on:input="$emit('input', $event.target.value)"
 			>
 	</div>

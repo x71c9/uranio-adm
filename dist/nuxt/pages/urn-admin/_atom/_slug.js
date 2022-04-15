@@ -13,7 +13,7 @@ exports.default = vue_1.default.extend({
     },
     provide() {
         return {
-            atom: this.atom,
+            molecule: this.molecule,
             atom_name: this.atom_name
         };
     },
@@ -31,7 +31,7 @@ exports.default = vue_1.default.extend({
         let back_label = `back to ${plural}`;
         let message = "";
         let success = false;
-        let atom = {};
+        let molecule = {};
         let data_object = {};
         let title = '[NO TITLE]';
         let error_object = {};
@@ -64,10 +64,10 @@ exports.default = vue_1.default.extend({
             urn_lib_1.urn_log.debug('[find_id] TRX Response: ', trx_response);
             success = trx_response.success;
             if (trx_response.success === true) {
-                atom = trx_response.payload;
-                title = atom._id;
+                molecule = trx_response.payload;
+                title = molecule._id;
                 for (const [prop_name, prop_def] of Object.entries(prop_defs)) {
-                    const prop_value = atom[prop_name];
+                    const prop_value = molecule[prop_name];
                     if (prop_def.is_title === true
                         && typeof prop_value === 'string'
                         && prop_value !== '') {
@@ -86,7 +86,7 @@ exports.default = vue_1.default.extend({
         const previous_url = '';
         return {
             atom_name,
-            atom,
+            molecule,
             plural,
             message,
             success,
@@ -130,7 +130,7 @@ exports.default = vue_1.default.extend({
             }
             if (this.$store.state.modal_atom.replace === false) {
                 const current_ids = [];
-                const current_prop_atoms = this.atom[atom_prop_name];
+                const current_prop_atoms = this.molecule[atom_prop_name];
                 for (const prop_atom of current_prop_atoms) {
                     current_ids.push(prop_atom._id);
                 }
@@ -139,12 +139,12 @@ exports.default = vue_1.default.extend({
                         current_prop_atoms.push(sel_atom);
                     }
                 }
-                // const old_ids = (this.atom as any)[atom_prop_name] as Array<string>;
+                // const old_ids = (this.molecule as any)[atom_prop_name] as Array<string>;
                 // const new_atoms = [...new Set([...old_ids ,...ids])]; // Remove duplicates
-                this.$set(this.atom, atom_prop_name, current_prop_atoms);
+                this.$set(this.molecule, atom_prop_name, current_prop_atoms);
             }
             else {
-                this.$set(this.atom, atom_prop_name, selected_atoms);
+                this.$set(this.molecule, atom_prop_name, selected_atoms);
             }
         },
         external_submit(_event) {
@@ -158,7 +158,7 @@ exports.default = vue_1.default.extend({
             }
         },
         async update() {
-            let cloned_atom = urn_lib_1.urn_util.object.deep_clone(this.atom);
+            let cloned_atom = urn_lib_1.urn_util.object.deep_clone(this.molecule);
             cloned_atom = client_1.default.core.atom.util.molecule_to_atom(this.atom_name, cloned_atom);
             cloned_atom = _clean_atom(this.atom_name, cloned_atom);
             urn_lib_1.urn_log.debug('Updating atom');
@@ -187,7 +187,7 @@ exports.default = vue_1.default.extend({
             urn_lib_1.urn_log.debug(`_slug submit`);
             const trx_response = await this.update();
             if (trx_response.success) {
-                this.assign_atom(trx_response.payload);
+                this.assign_molecule(trx_response.payload);
                 this.$store.dispatch('notification/show_notification', {
                     type: notification_1.Notification.SUCCESS,
                     message: `${this.atom_name} updated.`,
@@ -201,7 +201,7 @@ exports.default = vue_1.default.extend({
             urn_lib_1.urn_log.debug(`_slug submit and exit`);
             const trx_response = await this.update();
             if (trx_response.success) {
-                this.assign_atom(trx_response.payload);
+                this.assign_molecule(trx_response.payload);
                 this.$store.dispatch('notification/show_notification', {
                     type: notification_1.Notification.SUCCESS,
                     message: `${this.atom_name} updated.`,
@@ -212,9 +212,9 @@ exports.default = vue_1.default.extend({
                 this.fail(trx_response);
             }
         },
-        assign_atom(atom) {
-            for (const [key, value] of Object.entries(atom)) {
-                this.$set(this.atom, key, value);
+        assign_molecule(molecule) {
+            for (const [key, value] of Object.entries(molecule)) {
+                this.$set(this.molecule, key, value);
             }
         },
         fail(trx_response) {
@@ -244,7 +244,7 @@ exports.default = vue_1.default.extend({
             const trx_hook = trx_base.hook('delete');
             const hook_params = {
                 params: {
-                    id: this.atom._id
+                    id: this.molecule._id
                 }
             };
             const trx_response = await trx_hook(hook_params);
@@ -262,8 +262,8 @@ exports.default = vue_1.default.extend({
         }
     },
 });
-function _clean_atom(atom_name, atom) {
-    const cloned_atom = urn_lib_1.urn_util.object.deep_clone(atom);
+function _clean_atom(atom_name, molecule) {
+    const cloned_atom = urn_lib_1.urn_util.object.deep_clone(molecule);
     if (cloned_atom._date) {
         delete cloned_atom._date;
     }

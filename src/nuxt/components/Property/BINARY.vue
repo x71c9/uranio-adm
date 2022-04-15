@@ -3,7 +3,7 @@
 		<div class="binary-el">
 			<UIRadioButton
 				@click.native="select(false)"
-				:class="{selected: !this.atom[this.prop_name]}"
+				:class="{selected: !molecule[this.prop_name]}"
 				/>
 			<input
 				:id="`${prop_name}.false`"
@@ -13,7 +13,7 @@
 				:name="prop_name"
 				value="false"
 				v-on:input="on_input"
-				:checked="atom[prop_name] == false"
+				:checked="molecule[prop_name] == false"
 				>
 			<label
 				:for="`${prop_name}.false`"
@@ -24,7 +24,7 @@
 		<div class="binary-el">
 			<UIRadioButton
 				@click.native="select(true)"
-				:class="{selected: this.atom[this.prop_name]}"
+				:class="{selected: molecule[this.prop_name]}"
 				/>
 			<input
 				:id="`${prop_name}.true`"
@@ -34,7 +34,7 @@
 				:name="prop_name"
 				value="true"
 				v-on:input="on_input"
-				:checked="atom[prop_name] == true"
+				:checked="molecule[prop_name] == true"
 				>
 			<label
 				:for="`${prop_name}.true`"

@@ -7,13 +7,13 @@ exports.check_if_element_is_visible = void 0;
 const vue_1 = __importDefault(require("vue"));
 exports.default = vue_1.default.extend({
     inject: [
-        'atom',
+        'molecule',
         'atom_name',
         'prop_name',
         'prop_type'
     ],
     props: {
-        atom: Object,
+        molecule: Object,
         atom_name: String,
         prop_name: String,
         prop_type: String,

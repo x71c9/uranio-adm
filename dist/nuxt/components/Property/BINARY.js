@@ -9,11 +9,11 @@ exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default).extend({
     mixins: [Shared_1.default],
     methods: {
         select(value) {
-            this.atom[this.prop_name] = value;
+            this.molecule[this.prop_name] = value;
         },
         on_input(event) {
             const target = event.target;
-            this.atom[this.prop_name] = (target.value == "true");
+            this.molecule[this.prop_name] = (target.value == "true");
         }
     }
 });

@@ -4,7 +4,7 @@ declare type Data = Record<string, never>;
 declare type Methods = Record<string, never>;
 declare type Computed = Record<string, never>;
 declare type Props = {
-    atom: uranio.schema.Atom<uranio.schema.AtomName>;
+    molecule: uranio.schema.Molecule<uranio.schema.AtomName, uranio.schema.Depth>;
     atom_name: uranio.schema.AtomName;
     prop_name: keyof uranio.schema.Molecule<uranio.schema.AtomName>;
     prop_type: string;

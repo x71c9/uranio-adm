@@ -33,7 +33,7 @@ exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default).extend({
                 target_value = Number(target_value);
             }
             // (this.atom as SimpleAtom)[this.prop_name] = target_value;
-            this.atom[this.prop_name] = target_value;
+            this.molecule[this.prop_name] = target_value;
         }
     }
 });

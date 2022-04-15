@@ -3,8 +3,8 @@
 		<draggable
 			class="drag-wrapper"
 			:class="{dragging}"
-			v-if="atom[prop_name].length"
-			v-model="atom[prop_name]"
+			v-if="molecule[prop_name].length"
+			v-model="molecule[prop_name]"
 			:group="{put: prop_name, name: prop_name}"
 			@start="drag_start()"
 			@end="drag_end()"
@@ -13,11 +13,11 @@
 			>
 			<li
 				class="ui-li-element ui-li-set"
-				v-for="(el, i) in atom[prop_name]"
+				v-for="(el, i) in molecule[prop_name]"
 				:key="`${el}${i}`"
 				>
 				<div
-					v-if="atom[prop_name].length > 1"
+					v-if="molecule[prop_name].length > 1"
 					class="drag_handle">
 					<img src="/img/icons/png/menu.png"/>
 				</div>
@@ -32,7 +32,7 @@
 		</draggable>
 		<div style="display: none;">
 			<input
-				v-for="(el, i) in atom[prop_name]"
+				v-for="(el, i) in molecule[prop_name]"
 				class="urn_input"
 				type="hidden"
 				:key="`${el}${i}`"

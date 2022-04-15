@@ -25,7 +25,7 @@
 					<img src="/img/icons/png/arrow_back.png" />
 					<span>{{ back_label }}</span>
 				</UIButton>
-				<h2 class="monospace">_id: {{ _self.atom._id }}</h2>
+				<h2 class="monospace">_id: {{ _self.molecule._id }}</h2>
 			</div>
 			
 			<FormAtom

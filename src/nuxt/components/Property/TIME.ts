@@ -29,7 +29,7 @@ export default mixins(shared).extend<Data, Methods, Computed, Props>({
 	computed:{
 		value():string{
 			let value = '';
-			const date_string = (this.atom as SimpleAtom)[this.prop_name];
+			const date_string = (this.molecule as SimpleAtom)[this.prop_name];
 			if(typeof date_string === 'string' && date_string !== ''){
 				value = dateformat(new Date(date_string),"yyyy-mm-dd'T'HH:MM:ss");
 			}
@@ -40,7 +40,7 @@ export default mixins(shared).extend<Data, Methods, Computed, Props>({
 	methods:{
 		on_input(event:Event):void{
 			const target = event.target as HTMLInputElement;
-			(this.atom as SimpleAtom)[this.prop_name] = target.value;
+			(this.molecule as SimpleAtom)[this.prop_name] = target.value;
 		}
 	}
 	

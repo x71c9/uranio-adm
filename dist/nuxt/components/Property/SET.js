@@ -34,14 +34,14 @@ exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default, Sortable_1.d
                 new_element = Number(new_element);
             }
             if (new_element !== '') {
-                this.atom[this.prop_name].push(new_element);
+                this.molecule[this.prop_name].push(new_element);
                 this.new_element = '';
             }
         },
         remove_element(element) {
-            const index = this.atom[this.prop_name].indexOf(element);
+            const index = this.molecule[this.prop_name].indexOf(element);
             if (index > -1) {
-                this.atom[this.prop_name].splice(index, 1);
+                this.molecule[this.prop_name].splice(index, 1);
             }
         }
     },

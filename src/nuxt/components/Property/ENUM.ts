@@ -71,7 +71,7 @@ export default mixins(shared).extend<Data<EnumNS>, Methods, Computed, Props>({
 			}
 			
 			// (this.atom as SimpleAtom)[this.prop_name] = target_value;
-			this.atom[this.prop_name] = target_value;
+			this.molecule[this.prop_name] = target_value;
 		}
 		
 	}

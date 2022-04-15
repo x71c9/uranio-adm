@@ -10,7 +10,7 @@
 			<option
 				v-for="(option, index) in enum_values"
 				:key="option"
-				:selected="option == atom[prop_name]"
+				:selected="option == molecule[prop_name]"
 				:value="option"
 				>
 				{{ option }}

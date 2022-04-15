@@ -47,26 +47,26 @@ type Computed<A extends uranio.schema.AtomName> = {
 }
 
 type Props<A extends uranio.schema.AtomName> = {
-	atom: uranio.schema.Molecule<A>
+	molecule: uranio.schema.Molecule<A>
 	atom_name: A
 	call: 'insert' | 'update'
 }
 export default Vue.extend<Data, Methods, Computed<uranio.schema.AtomName>, Props<uranio.schema.AtomName>>({
 	
 	props: {
-		atom: Object,
+		molecule: Object,
 		atom_name: Object,
 		call: String as () => 'insert' | 'update'
 	},
 	
 	inject:[
-		'atom',
+		'molecule',
 		'atom_name'
 	],
 	
 	computed: {
 		atom_from_molecule(){
-			const cloned = urn_util.object.deep_clone(this.atom);
+			const cloned = urn_util.object.deep_clone(this.molecule);
 			const atom = uranio.core.atom.util.molecule_to_atom(this.atom_name, cloned);
 			return atom;
 		}
@@ -192,7 +192,7 @@ export default Vue.extend<Data, Methods, Computed<uranio.schema.AtomName>, Props
 			const prop_def = uranio.book.get_property_definition(this.atom_name, prop_name);
 			const prop_value = this.atom_from_molecule[prop_name as keyof uranio.schema.Atom<uranio.schema.AtomName>];
 			const prop = this.atom_props[prop_name];
-			if(_is_property_empty(this.atom_name, this.atom, prop_name)){
+			if(_is_property_empty(this.atom_name, this.molecule, prop_name)){
 				prop.state = PropState.ERROR;
 				prop.error_message = 'This field is required.';
 				return false;

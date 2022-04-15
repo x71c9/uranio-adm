@@ -63,7 +63,7 @@ export default mixins(shared).extend<Data, Methods, Computed, Props>({
 		
 		value():string{
 			
-			let value = (this.atom as SimpleAtom)[this.prop_name];
+			let value = (this.molecule as SimpleAtom)[this.prop_name];
 			
 			// const atom_name = this.atom_name as uranio.types.AtomName;
 			// const atom_def = atom_book[atom_name] as uranio.types.Book.BasicDefinition;
@@ -90,7 +90,7 @@ export default mixins(shared).extend<Data, Methods, Computed, Props>({
 		
 		on_input(event:Event):void{
 			const target = event.target as HTMLInputElement;
-			(this.atom as SimpleAtom)[this.prop_name] = parseFloat(target.value);
+			(this.molecule as SimpleAtom)[this.prop_name] = parseFloat(target.value);
 		}
 		
 	}

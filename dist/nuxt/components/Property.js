@@ -14,11 +14,11 @@ const ENUMProps = ['PropertyENUMNUMBER', 'PropertyENUMSTRING'];
 exports.default = vue_1.default.extend({
     props: {
         prop: Object,
-        atom: Object,
+        molecule: Object,
         atom_name: String
     },
     inject: [
-        'atom',
+        'molecule',
         'atom_name'
     ],
     provide() {

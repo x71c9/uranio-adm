@@ -29,7 +29,7 @@ export default mixins(shared).extend<Data, Methods, Computed, Props>({
 		
 		on_input(event:Event):void{
 			const target = event.target as HTMLInputElement;
-			(this.atom as SimpleAtom)[this.prop_name] = parseInt(target.value);
+			(this.molecule as SimpleAtom)[this.prop_name] = parseInt(target.value);
 		}
 		
 	}

@@ -1,16 +1,16 @@
 <template>
 	<div>
-		<div v-if="atom[prop_name]">
+		<div v-if="molecule[prop_name]">
 			<div
 				class="ui-li-element ui-li-atom"
 				>
 				<div class="name">
-					{{ atom[prop_name] }}
+					{{ molecule[prop_name] }}
 				</div>
 				<UIButton
 					class="visit small secondary">
 					<NuxtLink
-						:to="`/urn-admin/${prop_atom_name}/${atom[prop_name]}`"
+						:to="`/urn-admin/${prop_atom_name}/${molecule[prop_name]}`"
 						>
 						<img src="/img/icons/png/insert_link.png" />
 						Visit
@@ -32,7 +32,7 @@
 				class="urn_input"
 				type="hidden"
 				:name="prop_name"
-				:value="atom[prop_name]"
+				:value="molecule[prop_name]"
 				>
 		</div>
 	</div>

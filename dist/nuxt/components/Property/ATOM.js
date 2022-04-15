@@ -26,9 +26,9 @@ exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default).extend({
     },
     methods: {
         remove() {
-            urn_lib_1.urn_log.debug(this.atom);
-            this.$set(this.atom, this.prop_name, '');
-            urn_lib_1.urn_log.debug(this.atom);
+            urn_lib_1.urn_log.debug(this.molecule);
+            this.$set(this.molecule, this.prop_name, '');
+            urn_lib_1.urn_log.debug(this.molecule);
         },
         add() {
             this.$store.dispatch('modal_atom/open_modal', {

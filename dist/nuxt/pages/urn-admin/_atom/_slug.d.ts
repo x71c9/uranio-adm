@@ -3,7 +3,7 @@ import { urn_response } from "urn-lib";
 import uranio from 'uranio/client';
 declare type Data<A extends uranio.schema.AtomName> = {
     atom_name: A;
-    atom: uranio.schema.Molecule<A, 1>;
+    molecule: uranio.schema.Molecule<A, 1>;
     plural: string;
     back_label: string;
     message: string;
@@ -20,8 +20,8 @@ declare type Methods<A extends uranio.schema.AtomName> = {
     submit_exit: (event: Event) => Promise<void>;
     fail: (trx_response: urn_response.Fail<any>) => void;
     exit: () => void;
-    assign_atom: (atom: uranio.schema.Atom<A>) => void;
-    update: () => Promise<urn_response.General<uranio.schema.Atom<A>, any>>;
+    assign_molecule: <D extends uranio.schema.Depth>(molecule: uranio.schema.Molecule<A, D>) => void;
+    update: <D extends uranio.schema.Depth>() => Promise<urn_response.General<uranio.schema.Molecule<A, D>>>;
     external_submit: (event: Event) => void;
     external_submit_exit: (event: Event) => void;
     delete_atom: () => Promise<void>;
