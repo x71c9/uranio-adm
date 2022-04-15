@@ -479,7 +479,8 @@ body.layout-urn-admin {
 	}
 	.ui-read-only-table th.sticky,
 	.ui-read-only-table td.sticky {
-		left: 6px;
+		// left: 6px;
+		left: 0px;
 	}
 	.ui-all-table td.check {
 		position: -webkit-sticky;

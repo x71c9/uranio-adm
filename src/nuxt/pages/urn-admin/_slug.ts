@@ -402,9 +402,11 @@ async function _hook_find_count<A extends uranio.schema.AtomName>(
 ){
 	const trx_base = uranio.trx.base.create(atom_name);
 	const trx_hook_find = trx_base.hook<'count'>('count');
-	const find_params:uranio.types.Hook.Arguments<A, 'count'> = {
-		query: _hook_query_count(page_query)
-	};
+	const find_params:uranio.types.Hook.Arguments<A, 'count'> = {};
+	const hook_query_count_obj = _hook_query_count(page_query);
+	if(Object.keys(hook_query_count_obj).length > 0){
+		find_params.query = hook_query_count_obj;
+	}
 	const trx_response = await trx_hook_find(find_params);
 	return trx_response;
 }
@@ -437,8 +439,6 @@ function _hook_query(page_query:PageQuery){
 
 function _hook_query_count(_page_query:PageQuery){
 	return {
-		options: {
-		}
 	};
 }
 
