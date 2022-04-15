@@ -25,6 +25,13 @@ exports.default = vue_1.default.extend({
         'atom',
         'atom_name'
     ],
+    computed: {
+        atom_from_molecule() {
+            const cloned = urn_lib_1.urn_util.object.deep_clone(this.atom);
+            const atom = client_1.default.core.atom.util.molecule_to_atom(this.atom_name, cloned);
+            return atom;
+        }
+    },
     data() {
         const atom_props = {};
         if (client_1.default.book.validate_name(this.atom_name)) {
@@ -120,7 +127,7 @@ exports.default = vue_1.default.extend({
         },
         validate_property(prop_name) {
             const prop_def = client_1.default.book.get_property_definition(this.atom_name, prop_name);
-            const prop_value = this.atom[prop_name];
+            const prop_value = this.atom_from_molecule[prop_name];
             const prop = this.atom_props[prop_name];
             if (_is_property_empty(this.atom_name, this.atom, prop_name)) {
                 prop.state = PropState.ERROR;
@@ -128,7 +135,7 @@ exports.default = vue_1.default.extend({
                 return false;
             }
             try {
-                client_1.default.core.atom.validate.property(prop_name, prop_def, prop_value, this.atom);
+                client_1.default.core.atom.validate.property(prop_name, prop_def, prop_value, this.atom_from_molecule);
                 prop.state = PropState.VALID;
                 prop.error_message = '';
             }

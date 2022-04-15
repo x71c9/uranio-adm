@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import { urn_log, urn_exception } from "urn-lib";
+import {urn_util, urn_log, urn_exception} from "urn-lib";
 
 // const urn_exc = urn_exception.init('ADMIN_FORM_ATOM', 'Uranio admin Form Atom');
 
@@ -41,14 +41,17 @@ type Methods = {
 	on_change: (prop_name:keyof uranio.schema.Molecule<uranio.schema.AtomName>) => void
 	on_keyup: (prop_name:keyof uranio.schema.Molecule<uranio.schema.AtomName>) => void
 }
-type Computed = Record<string, never>
+
+type Computed<A extends uranio.schema.AtomName> = {
+	atom_from_molecule: uranio.schema.Atom<A>
+}
 
 type Props<A extends uranio.schema.AtomName> = {
 	atom: uranio.schema.Molecule<A>
 	atom_name: A
 	call: 'insert' | 'update'
 }
-export default Vue.extend<Data, Methods, Computed, Props<uranio.schema.AtomName>>({
+export default Vue.extend<Data, Methods, Computed<uranio.schema.AtomName>, Props<uranio.schema.AtomName>>({
 	
 	props: {
 		atom: Object,
@@ -60,6 +63,14 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.schema.AtomName>
 		'atom',
 		'atom_name'
 	],
+	
+	computed: {
+		atom_from_molecule(){
+			const cloned = urn_util.object.deep_clone(this.atom);
+			const atom = uranio.core.atom.util.molecule_to_atom(this.atom_name, cloned);
+			return atom;
+		}
+	},
 	
 	data():Data{
 		
@@ -179,7 +190,7 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.schema.AtomName>
 		validate_property(prop_name:keyof uranio.types.Book.Definition.Properties)
 				:boolean{
 			const prop_def = uranio.book.get_property_definition(this.atom_name, prop_name);
-			const prop_value = this.atom[prop_name as keyof uranio.schema.Atom<uranio.schema.AtomName>];
+			const prop_value = this.atom_from_molecule[prop_name as keyof uranio.schema.Atom<uranio.schema.AtomName>];
 			const prop = this.atom_props[prop_name];
 			if(_is_property_empty(this.atom_name, this.atom, prop_name)){
 				prop.state = PropState.ERROR;
@@ -191,7 +202,7 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.schema.AtomName>
 					prop_name as keyof uranio.schema.Atom<uranio.schema.AtomName>,
 					prop_def,
 					prop_value,
-					this.atom
+					this.atom_from_molecule
 				);
 				prop.state = PropState.VALID;
 				prop.error_message = '';

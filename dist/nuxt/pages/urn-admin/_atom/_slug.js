@@ -169,6 +169,11 @@ exports.default = vue_1.default.extend({
                 params: {
                     id: cloned_atom._id
                 },
+                query: {
+                    options: {
+                        depth: 1
+                    }
+                },
                 body: cloned_atom
             };
             const trx_response = await trx_hook(hook_params);

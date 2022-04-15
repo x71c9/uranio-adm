@@ -261,6 +261,11 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 				params:{
 					id: cloned_atom._id
 				},
+				query:{
+					options:{
+						depth: 1
+					}
+				},
 				body: cloned_atom
 			} as uranio.types.Hook.Params<A, uranio.schema.RouteName<A>>;
 			
