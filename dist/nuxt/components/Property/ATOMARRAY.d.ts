@@ -10,6 +10,12 @@ declare type Methods = {
 declare type Computed = Record<string, never>;
 declare type Props = Record<string, never>;
 declare const _default: import("vue/types/vue").ExtendedVue<{
+    [x: string]: never;
+} & {
+    [x: string]: never;
+} & {
+    [x: string]: never;
+} & {
     atom: (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
         email: string;
         password: string;

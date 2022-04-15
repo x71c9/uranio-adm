@@ -23,7 +23,7 @@ type Data<A extends uranio.schema.AtomName> = {
 }
 
 type Methods<A extends uranio.schema.AtomName> = {
-	modalAtomSelected: (id: string | string[]) => void
+	modal_atom_selected: (id: string | string[]) => void
 	submit: (event:Event) => Promise<void>
 	submit_exit: (event:Event) => Promise<void>
 	fail: (trx_response:urn_response.Fail<any>) => void
@@ -187,34 +187,46 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 			this.$router.back();
 		},
 		
-		modalAtomSelected()
+		modal_atom_selected<A extends uranio.schema.AtomName>()
 				:void{
 			
 			const atom_prop_name = this.$store.state.modal_atom.atom_prop_name;
 			
 			const sel_atoms = this.$store.state.modal_atom.selected_atoms;
 			
-			if(this.$store.state.modal_atom.multiple){
-				const ids = [];
-				for(const [id, is_selected] of Object.entries(sel_atoms)){
-					if(is_selected){
-						ids.push(id);
+			const selected_ids:string[] = [];
+			for(const [id, is_selected] of Object.entries(sel_atoms)){
+				if(is_selected){
+					selected_ids.push(id);
+				}
+			}
+			const selected_atoms:uranio.schema.Atom<A>[] = [];
+			for(const modal_atom of this.$store.state.modal_atom.atoms){
+				if(selected_ids.includes(modal_atom._id)){
+					selected_atoms.push(modal_atom);
+				}
+			}
+			
+			if(this.$store.state.modal_atom.replace === false){
+				const current_ids:string[] = [];
+				const current_prop_atoms:uranio.schema.Atom<A>[] = (this.atom as any)[atom_prop_name];
+				for(const prop_atom of current_prop_atoms){
+					current_ids.push(prop_atom._id);
+				}
+				for(const sel_atom of selected_atoms){
+					if(!current_ids.includes(sel_atom._id)){
+						current_prop_atoms.push(sel_atom);
 					}
 				}
-				const old_ids = (this.atom as any)[atom_prop_name] as Array<string>;
-				const new_ids = [...new Set([...old_ids ,...ids])]; // Remove duplicates
-				this.$set(this.atom, atom_prop_name,  new_ids);
+				// const old_ids = (this.atom as any)[atom_prop_name] as Array<string>;
+				// const new_atoms = [...new Set([...old_ids ,...ids])]; // Remove duplicates
+				
+				this.$set(this.atom, atom_prop_name,  current_prop_atoms);
+				
 			}else{
-				let sid = undefined;
-				for(const [id, is_selected] of Object.entries(sel_atoms)){
-					if(is_selected){
-						sid = id;
-						break;
-					}
-				}
-				if(sid){
-					this.$set(this.atom, atom_prop_name,  sid);
-				}
+				
+				this.$set(this.atom, atom_prop_name,  selected_atoms);
+				
 			}
 			
 		},
@@ -234,7 +246,13 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 		async update<A extends uranio.schema.AtomName>()
 				:Promise<urn_response.General<uranio.schema.Atom<A>, any>> {
 			
-			const cloned_atom = _clean_atom(this.atom_name, this.atom);
+			let cloned_atom = urn_util.object.deep_clone(this.atom);
+			cloned_atom = uranio.core.atom.util.molecule_to_atom(this.atom_name, cloned_atom);
+			cloned_atom = _clean_atom(this.atom_name, cloned_atom);
+			
+			urn_log.debug('Updating atom');
+			urn_log.debug(cloned_atom);
+			
 			const trx_base = uranio.trx.base.create<A>(
 				this.atom_name as A,
 			);
@@ -259,6 +277,9 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 		
 		async submit(_event: Event)
 				:Promise<void> {
+			
+			urn_log.debug(`_slug submit`);
+			
 			const trx_response = await this.update();
 			if(trx_response.success){
 				this.assign_atom(trx_response.payload);
@@ -274,6 +295,9 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 		},
 		
 		async submit_exit(_event: Event):Promise<void> {
+			
+			urn_log.debug(`_slug submit and exit`);
+			
 			const trx_response = await this.update();
 			if(trx_response.success){
 				this.assign_atom(trx_response.payload);
@@ -355,9 +379,11 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 	},
 });
 
-function _clean_atom<A extends uranio.schema.AtomName>(atom_name:A, atom:uranio.schema.Molecule<A,1>)
-		:uranio.schema.Atom<A>{
-	const cloned_atom = {...atom} as any;
+function _clean_atom<A extends uranio.schema.AtomName>(
+	atom_name:A,
+	atom:uranio.schema.Molecule<A,1>
+):uranio.schema.Atom<A>{
+	const cloned_atom = urn_util.object.deep_clone(atom) as any;
 	if(cloned_atom._date){
 		delete cloned_atom._date;
 	}

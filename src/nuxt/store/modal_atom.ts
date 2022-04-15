@@ -12,7 +12,8 @@ type ReturnState = {
 	replace: boolean
 	atom_prop_name: string
 	atom_prop_atom: string
-	atoms: uranio.schema.Atom<uranio.schema.AtomName>[],
+	atoms: uranio.schema.Atom<uranio.schema.AtomName>[]
+	primary_properties: string[]
 	selected_atoms: {
 		[k:string]: boolean
 	}
@@ -25,6 +26,7 @@ export const state = ():ReturnState => ({
 	atom_prop_name: '',
 	atom_prop_atom: '',
 	atoms: [],
+	primary_properties: ['_id'],
 	selected_atoms: {}
 });
 
@@ -41,6 +43,7 @@ export const mutations: MutationTree<RootState> = {
 	CHANGE_MULTIPLE: (state, multiple: boolean) => (state.multiple = multiple),
 	CHANGE_REPLACE: (state, replace: boolean) => (state.replace = replace),
 	CHANGE_ATOMS: (state, atoms: uranio.schema.Atom<uranio.schema.AtomName>[]) => (state.atoms = atoms),
+	CHANGE_PRIMARY_PROPERTIES: (state, primary_properties: string[]) => (state.primary_properties = primary_properties),
 	RESET_SELECTED_ATOMS: (state, atoms: uranio.schema.Atom<uranio.schema.AtomName>[]) => {
 		state.selected_atoms = {};
 		for(const atom of atoms){
@@ -89,8 +92,19 @@ export const actions: ActionTree<RootState, RootState> = {
 		if(trx_response.success && Array.isArray(trx_response.payload)){
 			context.commit('CHANGE_ATOMS', trx_response.payload);
 			context.commit('RESET_SELECTED_ATOMS', trx_response.payload);
+			const primary_properties:string[] = [];
+			const prop_defs = uranio.book.get_properties_definition(atom_name);
+			for(const [prop_name, prop_def] of Object.entries(prop_defs)){
+				if(prop_def.primary === true){
+					primary_properties.push(prop_name);
+				}
+			}
+			if(primary_properties.length === 0){
+				primary_properties.push('_id');
+			}
+			context.commit('CHANGE_PRIMARY_PROPERTIES', primary_properties);
 		}
-		return [];
+		// return [];
 	},
 	reset_atoms(context:ActionContext<ReturnState, RootState>){
 		context.commit('RESET_SELECTED_ATOMS', context.state.atoms);

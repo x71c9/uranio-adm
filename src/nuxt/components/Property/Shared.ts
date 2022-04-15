@@ -3,14 +3,11 @@ import Vue from 'vue';
 
 import uranio from 'uranio/client';
 
-type Data = {
-}
+type Data = Record<string, never>
 
-type Methods = {
-}
+type Methods = Record<string, never>
 
-type Computed = {
-}
+type Computed = Record<string, never>
 
 type Props = {
 	atom: uranio.schema.Atom<uranio.schema.AtomName>
@@ -37,7 +34,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	watch:{
 		focus(new_value:boolean, _old_value:boolean):void{
 			const $input = this.$refs['input'] as HTMLElement;
-			if(new_value === true && $input.focus){
+			if(new_value === true && $input && $input.focus){
 				$input.focus();
 			}
 			if((this.$el as HTMLElement).offsetTop){

@@ -32,7 +32,7 @@ declare type Methods = {
     on_change: (prop_name: keyof uranio.schema.Molecule<uranio.schema.AtomName>) => void;
     on_keyup: (prop_name: keyof uranio.schema.Molecule<uranio.schema.AtomName>) => void;
 };
-declare type Computed = {};
+declare type Computed = Record<string, never>;
 declare type Props<A extends uranio.schema.AtomName> = {
     atom: uranio.schema.Molecule<A>;
     atom_name: A;

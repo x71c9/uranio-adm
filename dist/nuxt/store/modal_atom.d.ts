@@ -7,6 +7,7 @@ declare type ReturnState = {
     atom_prop_name: string;
     atom_prop_atom: string;
     atoms: uranio.schema.Atom<uranio.schema.AtomName>[];
+    primary_properties: string[];
     selected_atoms: {
         [k: string]: boolean;
     };

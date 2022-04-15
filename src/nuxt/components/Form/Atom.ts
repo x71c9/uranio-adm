@@ -41,8 +41,8 @@ type Methods = {
 	on_change: (prop_name:keyof uranio.schema.Molecule<uranio.schema.AtomName>) => void
 	on_keyup: (prop_name:keyof uranio.schema.Molecule<uranio.schema.AtomName>) => void
 }
-type Computed = {
-}
+type Computed = Record<string, never>
+
 type Props<A extends uranio.schema.AtomName> = {
 	atom: uranio.schema.Molecule<A>
 	atom_name: A
@@ -141,6 +141,9 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.schema.AtomName>
 		},
 		
 		submit(_event: Event):void {
+			
+			urn_log.fn_debug(`submitting form`);
+			
 			if(this.validate_form()){
 				this.$emit('submit_atom_form');
 			}else{
@@ -149,6 +152,9 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.schema.AtomName>
 		},
 		
 		submit_exit(_event:Event):void{
+			
+			urn_log.fn_debug(`submitting form and exit`);
+			
 			if(this.validate_form()){
 				this.$emit('submit_exit_atom_form');
 			}else{
@@ -157,10 +163,16 @@ export default Vue.extend<Data, Methods, Computed, Props<uranio.schema.AtomName>
 		},
 		
 		delete_atom(_event:Event):void{
+			
+			urn_log.fn_debug(`deleting atom`);
+			
 			this.$emit('delete_atom');
 		},
 		
 		go_back(_event:Event):void{
+			
+			urn_log.fn_debug(`going back`);
+			
 			this.$emit('go_back');
 		},
 		

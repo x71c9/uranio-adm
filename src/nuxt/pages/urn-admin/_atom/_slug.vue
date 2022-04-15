@@ -38,7 +38,7 @@
 				call="update"
 				/>
 			
-			<ModalAtom @atom_selected="modalAtomSelected"/>
+			<ModalAtom @atom_selected="modal_atom_selected"/>
 		</div>
 		<div v-else>
 			<Error

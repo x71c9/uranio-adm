@@ -1,8 +1,9 @@
 import Vue from 'vue';
 
-import uranio from 'uranio/client';
+// import uranio from 'uranio/client';
 
 type Data = {
+	message: string
 };
 
 type Methods = {
@@ -12,30 +13,20 @@ type Methods = {
 };
 
 type Computed = {
-	atoms: uranio.schema.Atom<uranio.schema.AtomName>[]
-	message: string
+	// message: string
 };
 
-type Props = {
-};
+type Props = Record<string, never>
 
 export default Vue.extend<Data, Methods, Computed, Props>({
 	
-	data():any {
-		const atoms:uranio.schema.Atom<uranio.schema.AtomName>[] = [];
+	data():Data {
 		const message = '';
 		return {
-			atoms,
-			message
+			message,
 		};
 	},
 	// computed: {
-	//   atoms():Promise<uranio.schema.Atom<uranio.schema.AtomName>[]>{
-	//     return await this.get_atoms();
-	//   },
-	//   message():string{
-	//     return this.message;
-	//   }
 	// },
 	methods: {
 		// async get_atoms<A extends uranio.schema.AtomName>()

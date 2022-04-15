@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import uranio from 'uranio/client';
-declare type Data = {};
-declare type Methods = {};
-declare type Computed = {};
+declare type Data = Record<string, never>;
+declare type Methods = Record<string, never>;
+declare type Computed = Record<string, never>;
 declare type Props = {
     atom: uranio.schema.Atom<uranio.schema.AtomName>;
     atom_name: uranio.schema.AtomName;

@@ -93,6 +93,7 @@ exports.default = vue_1.default.extend({
             this.on_change(prop_name);
         },
         submit(_event) {
+            urn_lib_1.urn_log.fn_debug(`submitting form`);
             if (this.validate_form()) {
                 this.$emit('submit_atom_form');
             }
@@ -101,6 +102,7 @@ exports.default = vue_1.default.extend({
             }
         },
         submit_exit(_event) {
+            urn_lib_1.urn_log.fn_debug(`submitting form and exit`);
             if (this.validate_form()) {
                 this.$emit('submit_exit_atom_form');
             }
@@ -109,9 +111,11 @@ exports.default = vue_1.default.extend({
             }
         },
         delete_atom(_event) {
+            urn_lib_1.urn_log.fn_debug(`deleting atom`);
             this.$emit('delete_atom');
         },
         go_back(_event) {
+            urn_lib_1.urn_log.fn_debug(`going back`);
             this.$emit('go_back');
         },
         validate_property(prop_name) {

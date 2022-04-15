@@ -14,7 +14,12 @@
 							v-show="$store.state.modal_atom.selected_atoms[atom._id]"
 							src="/img/icons/png/check.png"
 							/>
-						{{ atom._id }}
+						<span
+							v-for="prop_name in $store.state.modal_atom.primary_properties"
+							:key="prop_name"
+							>
+						{{ atom[prop_name] }}
+						</span>
 				</li>
 			</ul>
 		</div>

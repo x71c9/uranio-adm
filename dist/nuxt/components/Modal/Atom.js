@@ -6,20 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const vue_1 = __importDefault(require("vue"));
 exports.default = vue_1.default.extend({
     data() {
-        const atoms = [];
         const message = '';
         return {
-            atoms,
-            message
+            message,
         };
     },
     // computed: {
-    //   atoms():Promise<uranio.schema.Atom<uranio.schema.AtomName>[]>{
-    //     return await this.get_atoms();
-    //   },
-    //   message():string{
-    //     return this.message;
-    //   }
     // },
     methods: {
         // async get_atoms<A extends uranio.schema.AtomName>()

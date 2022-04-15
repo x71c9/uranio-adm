@@ -113,31 +113,38 @@ exports.default = vue_1.default.extend({
             }
             this.$router.back();
         },
-        modalAtomSelected() {
+        modal_atom_selected() {
             const atom_prop_name = this.$store.state.modal_atom.atom_prop_name;
             const sel_atoms = this.$store.state.modal_atom.selected_atoms;
-            if (this.$store.state.modal_atom.multiple) {
-                const ids = [];
-                for (const [id, is_selected] of Object.entries(sel_atoms)) {
-                    if (is_selected) {
-                        ids.push(id);
+            const selected_ids = [];
+            for (const [id, is_selected] of Object.entries(sel_atoms)) {
+                if (is_selected) {
+                    selected_ids.push(id);
+                }
+            }
+            const selected_atoms = [];
+            for (const modal_atom of this.$store.state.modal_atom.atoms) {
+                if (selected_ids.includes(modal_atom._id)) {
+                    selected_atoms.push(modal_atom);
+                }
+            }
+            if (this.$store.state.modal_atom.replace === false) {
+                const current_ids = [];
+                const current_prop_atoms = this.atom[atom_prop_name];
+                for (const prop_atom of current_prop_atoms) {
+                    current_ids.push(prop_atom._id);
+                }
+                for (const sel_atom of selected_atoms) {
+                    if (!current_ids.includes(sel_atom._id)) {
+                        current_prop_atoms.push(sel_atom);
                     }
                 }
-                const old_ids = this.atom[atom_prop_name];
-                const new_ids = [...new Set([...old_ids, ...ids])]; // Remove duplicates
-                this.$set(this.atom, atom_prop_name, new_ids);
+                // const old_ids = (this.atom as any)[atom_prop_name] as Array<string>;
+                // const new_atoms = [...new Set([...old_ids ,...ids])]; // Remove duplicates
+                this.$set(this.atom, atom_prop_name, current_prop_atoms);
             }
             else {
-                let sid = undefined;
-                for (const [id, is_selected] of Object.entries(sel_atoms)) {
-                    if (is_selected) {
-                        sid = id;
-                        break;
-                    }
-                }
-                if (sid) {
-                    this.$set(this.atom, atom_prop_name, sid);
-                }
+                this.$set(this.atom, atom_prop_name, selected_atoms);
             }
         },
         external_submit(_event) {
@@ -151,7 +158,11 @@ exports.default = vue_1.default.extend({
             }
         },
         async update() {
-            const cloned_atom = _clean_atom(this.atom_name, this.atom);
+            let cloned_atom = urn_lib_1.urn_util.object.deep_clone(this.atom);
+            cloned_atom = client_1.default.core.atom.util.molecule_to_atom(this.atom_name, cloned_atom);
+            cloned_atom = _clean_atom(this.atom_name, cloned_atom);
+            urn_lib_1.urn_log.debug('Updating atom');
+            urn_lib_1.urn_log.debug(cloned_atom);
             const trx_base = client_1.default.trx.base.create(this.atom_name);
             const trx_hook = trx_base.hook('update');
             const hook_params = {
@@ -168,6 +179,7 @@ exports.default = vue_1.default.extend({
             return trx_response;
         },
         async submit(_event) {
+            urn_lib_1.urn_log.debug(`_slug submit`);
             const trx_response = await this.update();
             if (trx_response.success) {
                 this.assign_atom(trx_response.payload);
@@ -181,6 +193,7 @@ exports.default = vue_1.default.extend({
             }
         },
         async submit_exit(_event) {
+            urn_lib_1.urn_log.debug(`_slug submit and exit`);
             const trx_response = await this.update();
             if (trx_response.success) {
                 this.assign_atom(trx_response.payload);
@@ -245,7 +258,7 @@ exports.default = vue_1.default.extend({
     },
 });
 function _clean_atom(atom_name, atom) {
-    const cloned_atom = { ...atom };
+    const cloned_atom = urn_lib_1.urn_util.object.deep_clone(atom);
     if (cloned_atom._date) {
         delete cloned_atom._date;
     }

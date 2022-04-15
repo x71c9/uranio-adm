@@ -15,7 +15,7 @@ declare type Data<A extends uranio.schema.AtomName> = {
     is_read_only: boolean;
 };
 declare type Methods<A extends uranio.schema.AtomName> = {
-    modalAtomSelected: (id: string | string[]) => void;
+    modal_atom_selected: (id: string | string[]) => void;
     submit: (event: Event) => Promise<void>;
     submit_exit: (event: Event) => Promise<void>;
     fail: (trx_response: urn_response.Fail<any>) => void;

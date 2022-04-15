@@ -14,6 +14,7 @@ const state = () => ({
     atom_prop_name: '',
     atom_prop_atom: '',
     atoms: [],
+    primary_properties: ['_id'],
     selected_atoms: {}
 });
 exports.state = state;
@@ -27,6 +28,7 @@ exports.mutations = {
     CHANGE_MULTIPLE: (state, multiple) => (state.multiple = multiple),
     CHANGE_REPLACE: (state, replace) => (state.replace = replace),
     CHANGE_ATOMS: (state, atoms) => (state.atoms = atoms),
+    CHANGE_PRIMARY_PROPERTIES: (state, primary_properties) => (state.primary_properties = primary_properties),
     RESET_SELECTED_ATOMS: (state, atoms) => {
         state.selected_atoms = {};
         for (const atom of atoms) {
@@ -71,8 +73,19 @@ exports.actions = {
         if (trx_response.success && Array.isArray(trx_response.payload)) {
             context.commit('CHANGE_ATOMS', trx_response.payload);
             context.commit('RESET_SELECTED_ATOMS', trx_response.payload);
+            const primary_properties = [];
+            const prop_defs = client_1.default.book.get_properties_definition(atom_name);
+            for (const [prop_name, prop_def] of Object.entries(prop_defs)) {
+                if (prop_def.primary === true) {
+                    primary_properties.push(prop_name);
+                }
+            }
+            if (primary_properties.length === 0) {
+                primary_properties.push('_id');
+            }
+            context.commit('CHANGE_PRIMARY_PROPERTIES', primary_properties);
         }
-        return [];
+        // return [];
     },
     reset_atoms(context) {
         context.commit('RESET_SELECTED_ATOMS', context.state.atoms);

@@ -22,7 +22,7 @@ exports.default = vue_1.default.extend({
     watch: {
         focus(new_value, _old_value) {
             const $input = this.$refs['input'];
-            if (new_value === true && $input.focus) {
+            if (new_value === true && $input && $input.focus) {
                 $input.focus();
             }
             if (this.$el.offsetTop) {
