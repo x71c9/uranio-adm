@@ -234,7 +234,7 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 			is_read_only = atom_def.read_only;
 		}
 		
-		const index = Math.abs(Number(context.query.page || 1)) - 1;
+		const index = Math.abs(Number(context.query.page || 1) - 1);
 		
 		let limit = 10;
 		if(context.query.limit){
@@ -314,7 +314,8 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 });
 
 function _total_pages(total_result:number, limit:number){
-	return Math.floor(total_result / (limit || 1)) + ((total_result % limit === 0) ? 0 : 1);
+	// total_result / limit -> if there is a reminder add 1 -> minimum = 1
+	return Math.floor(total_result / (limit || 1)) + ((total_result % limit === 0) ? 0 : 1) || 1;
 }
 
 async function _count_all_atoms<A extends uranio.schema.AtomName>(atom_name:A)

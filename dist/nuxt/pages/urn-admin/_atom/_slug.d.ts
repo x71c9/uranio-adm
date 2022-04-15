@@ -3,7 +3,7 @@ import { urn_response } from "urn-lib";
 import uranio from 'uranio/client';
 declare type Data<A extends uranio.schema.AtomName> = {
     atom_name: A;
-    atom: uranio.schema.Molecule<A>;
+    atom: uranio.schema.Molecule<A, 1>;
     plural: string;
     back_label: string;
     message: string;

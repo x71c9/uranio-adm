@@ -10,7 +10,7 @@ import { Notification } from '../../../store/notification';
 
 type Data<A extends uranio.schema.AtomName> = {
 	atom_name: A
-	atom: uranio.schema.Molecule<A>
+	atom: uranio.schema.Molecule<A,1>
 	plural: string
 	back_label: string
 	message: string
@@ -77,7 +77,7 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 		
 		let success = false;
 		
-		let atom = {} as uranio.schema.Atom<A>;
+		let atom = {} as uranio.schema.Molecule<A,1>;
 		
 		let data_object = {} as urn_response.General<any, any>;
 		
@@ -87,8 +87,6 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 		
 		if (uranio.book.validate_name(atom_name)) {
 			
-			// const atom_def = atom_book[atom_name];
-			// const atom_def_props = atom_def.properties as uranio.types.Book.Definition.Properties;
 			const atom_def = uranio.book.get_definition(atom_name);
 			const prop_defs = uranio.book.get_custom_properties_definition(atom_name);
 			
@@ -102,18 +100,22 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 			if(urn_util.object.has_key(atom_def, 'read_only') && atom_def.read_only === true){
 				is_read_only = true;
 			}
-			// const trx_base = uranio.trx.base.create(atom_name, context.store.state.auth.token);
 			const trx_base = uranio.trx.base.create(atom_name);
 			
-			const trx_hook = trx_base.hook('find_id');
+			const trx_hook = trx_base.hook<'find_id', 1>('find_id');
 			const hook_params = {
 				params:{
 					id: atom_id
+				},
+				query: {
+					options: {
+						depth: 1
+					}
 				}
-			} as uranio.types.Hook.Params<A, uranio.schema.RouteName<A>>;
+			} as unknown as uranio.types.Hook.Arguments<A, 'find_id', 1>;
 			
 			const trx_response = await trx_hook(hook_params);
-			data_object = JSON.parse(JSON.stringify({...trx_response}));
+			data_object = urn_util.object.deep_clone(trx_response);
 			
 			urn_log.debug('[find_id] TRX Response: ', trx_response);
 			
@@ -126,7 +128,7 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 				title = atom._id;
 				
 				for(const [prop_name, prop_def] of Object.entries(prop_defs)){
-					const prop_value = atom[prop_name as keyof uranio.schema.Atom<A>];
+					const prop_value = atom[prop_name as keyof uranio.schema.Molecule<A,1>];
 					if(
 						(prop_def as any).is_title === true
 						&& typeof prop_value === 'string'
@@ -235,7 +237,6 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 			const cloned_atom = _clean_atom(this.atom_name, this.atom);
 			const trx_base = uranio.trx.base.create<A>(
 				this.atom_name as A,
-				// this.$store.state.auth.token
 			);
 			const trx_hook = trx_base.hook('update');
 			const hook_params = {
@@ -354,7 +355,7 @@ export default Vue.extend<Data<uranio.schema.AtomName>, Methods<uranio.schema.At
 	},
 });
 
-function _clean_atom<A extends uranio.schema.AtomName>(atom_name:A, atom:uranio.schema.Atom<A>)
+function _clean_atom<A extends uranio.schema.AtomName>(atom_name:A, atom:uranio.schema.Molecule<A,1>)
 		:uranio.schema.Atom<A>{
 	const cloned_atom = {...atom} as any;
 	if(cloned_atom._date){

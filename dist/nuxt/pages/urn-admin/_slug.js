@@ -151,7 +151,7 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
         if (urn_lib_1.urn_util.object.has_key(atom_def, 'read_only') && atom_def.read_only === true) {
             is_read_only = atom_def.read_only;
         }
-        const index = Math.abs(Number(context.query.page || 1)) - 1;
+        const index = Math.abs(Number(context.query.page || 1) - 1);
         let limit = 10;
         if (context.query.limit) {
             limit = Math.abs(Number(context.query.limit));
@@ -216,7 +216,8 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
     },
 });
 function _total_pages(total_result, limit) {
-    return Math.floor(total_result / (limit || 1)) + ((total_result % limit === 0) ? 0 : 1);
+    // total_result / limit -> if there is a reminder add 1 -> minimum = 1
+    return Math.floor(total_result / (limit || 1)) + ((total_result % limit === 0) ? 0 : 1) || 1;
 }
 async function _count_all_atoms(atom_name) {
     const trx_response = await _hook_find_count(atom_name, { index: 0, limit: 0, sort: {}, q: '' });

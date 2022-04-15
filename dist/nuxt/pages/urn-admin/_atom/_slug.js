@@ -36,8 +36,6 @@ exports.default = vue_1.default.extend({
         let title = '[NO TITLE]';
         let error_object = {};
         if (client_1.default.book.validate_name(atom_name)) {
-            // const atom_def = atom_book[atom_name];
-            // const atom_def_props = atom_def.properties as uranio.types.Book.Definition.Properties;
             const atom_def = client_1.default.book.get_definition(atom_name);
             const prop_defs = client_1.default.book.get_custom_properties_definition(atom_name);
             if (urn_lib_1.urn_util.object.has_key(atom_def, "plural")) {
@@ -49,16 +47,20 @@ exports.default = vue_1.default.extend({
             if (urn_lib_1.urn_util.object.has_key(atom_def, 'read_only') && atom_def.read_only === true) {
                 is_read_only = true;
             }
-            // const trx_base = uranio.trx.base.create(atom_name, context.store.state.auth.token);
             const trx_base = client_1.default.trx.base.create(atom_name);
             const trx_hook = trx_base.hook('find_id');
             const hook_params = {
                 params: {
                     id: atom_id
+                },
+                query: {
+                    options: {
+                        depth: 1
+                    }
                 }
             };
             const trx_response = await trx_hook(hook_params);
-            data_object = JSON.parse(JSON.stringify({ ...trx_response }));
+            data_object = urn_lib_1.urn_util.object.deep_clone(trx_response);
             urn_lib_1.urn_log.debug('[find_id] TRX Response: ', trx_response);
             success = trx_response.success;
             if (trx_response.success === true) {

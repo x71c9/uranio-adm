@@ -11,16 +11,17 @@ import sortable from './Sortable';
 
 type Data = {
 	prop_atom_name: uranio.schema.AtomName
+	prop_primary_properties: string[]
 }
 
 type Methods = {
 	remove: (atom_id:string) => void
 	add: () => void
 }
-type Computed = {
-}
-type Props = {
-}
+type Computed = Record<string, never>
+
+type Props = Record<string, never>
+
 type SimpleAtom = {
 	[k:string]: any
 }
@@ -29,14 +30,6 @@ export default mixins(shared, sortable).extend<Data, Methods, Computed, Props>({
 	mixins: [shared, sortable],
 	
 	data():Data {
-		
-		// const atom_def = atom_book[
-		//   this.atom_name as uranio.schema.AtomName
-		// ] as uranio.types.Book.BasicDefinition;
-		
-		// const atom_props = atom_def.properties;
-		// const atom_prop = atom_props[this.prop_name] as
-		//   uranio.types.Book.Definition.Property.AtomArray;
 		
 		const prop_def = uranio.book.get_property_definition(this.atom_name, this.prop_name) as
 			uranio.types.Book.Definition.Property.AtomArray;
@@ -47,10 +40,20 @@ export default mixins(shared, sortable).extend<Data, Methods, Computed, Props>({
 			this.$set(this.atom, this.prop_name, []);
 		}
 		
+		const prop_primary_properties:string[] = [];
+		
+		const subatom_prop_defs = uranio.book.get_properties_definition(prop_atom_name);
+		for(const [subatom_prop_name, subatom_prop_def] of Object.entries(subatom_prop_defs)){
+			if(subatom_prop_def.primary === true){
+				prop_primary_properties.push(subatom_prop_name);
+			}
+		}
+
 		this.drag_group = this.prop_name;
 		
 		return {
 			prop_atom_name,
+			prop_primary_properties
 		};
 		
 	},

@@ -2,7 +2,7 @@
 	<div class="ui-object monospace">
 		<div
 			v-for="(value, key) of data"
-			:key="key"
+			:key="`oi${key}`"
 			>
 			<div
 				class="ui-object-wrapper ui-object-array-wrapper"
@@ -43,6 +43,7 @@
 					v-show="wrappers[key] === true"
 					v-if="!!Object.keys(value).length"
 					:data="value"
+					:name="key"
 					/>
 				<div
 					v-else

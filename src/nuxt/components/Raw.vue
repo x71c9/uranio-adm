@@ -11,6 +11,7 @@
 		<UIObjectInspector
 			:data="data"
 			v-show="open"
+			name="main_raw"
 			/>
 	</div>
 </template>

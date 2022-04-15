@@ -13,19 +13,26 @@
 			>
 			<li
 				class="ui-li-element ui-li-atom"
-				v-for="atom_id in atom[prop_name]"
-				:key="atom_id"
+				v-for="subatom in atom[prop_name]"
+				:key="subatom._id"
 				>
 				<div
 					v-if="atom[prop_name].length > 1"
 					class="drag_handle">
 					<img src="/img/icons/png/menu.png"/>
 				</div>
-				<div class="name">{{ atom_id }}</div>
+				<div class="name">
+					<span
+						v-for="prop_name in prop_primary_properties"
+						:key="prop_name"
+						>
+					{{ subatom[prop_name] }}
+					</span>
+				</div>
 				<UIButton
 					class="visit small secondary">
 					<NuxtLink
-						:to="`/urn-admin/${prop_atom_name}/${atom_id}`"
+						:to="`/urn-admin/${prop_atom_name}/${subatom._id}`"
 						>
 						<img src="/img/icons/png/insert_link.png" />
 						Visit
@@ -33,7 +40,7 @@
 				</UIButton>
 				<UIButton
 					class="small secondary red"
-					@click.native.prevent="remove(atom_id)"
+					@click.native.prevent="remove(subatom._id)"
 					>
 					Remove
 				</UIButton>
@@ -41,12 +48,12 @@
 		</draggable>
 		<div style="display: none;">
 			<input
-				v-for="atom_id in atom[prop_name]"
+				v-for="subatom in atom[prop_name]"
 				class="urn_input"
 				type="hidden"
-				:key="atom_id"
+				:key="subatom._id"
 				:name="prop_name"
-				:value="atom_id"
+				:value="subatom._id"
 				>
 		</div>
 		<UIButton
