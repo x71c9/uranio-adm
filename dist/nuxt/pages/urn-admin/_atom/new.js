@@ -26,7 +26,7 @@ exports.default = vue_1.default.extend({
     layout: "urn-admin",
     provide() {
         return {
-            atom: this.atom,
+            molecule: this.molecule,
             atom_name: this.atom_name
         };
     },
@@ -38,35 +38,35 @@ exports.default = vue_1.default.extend({
         if (urn_lib_1.urn_util.object.has_key(atom_def, "plural")) {
             plural = atom_def.plural;
         }
-        let atom = {};
+        let molecule = {};
         for (const key in atom_def.properties) {
             const prop = atom_def.properties[key];
             switch (prop.type) {
                 case client_1.default.types.PropertyType.ATOM: {
-                    atom = { ...atom, ...{ [key]: null } };
+                    molecule = { ...molecule, ...{ [key]: null } };
                     break;
                 }
                 case client_1.default.types.PropertyType.BINARY: {
-                    atom = { ...atom, ...{ [key]: false } };
+                    molecule = { ...molecule, ...{ [key]: false } };
                     break;
                 }
                 case client_1.default.types.PropertyType.FLOAT: {
-                    atom = { ...atom, ...{ [key]: .0 } };
+                    molecule = { ...molecule, ...{ [key]: .0 } };
                     break;
                 }
                 case client_1.default.types.PropertyType.ENUM_NUMBER:
                 case client_1.default.types.PropertyType.INTEGER: {
-                    atom = { ...atom, ...{ [key]: 0 } };
+                    molecule = { ...molecule, ...{ [key]: 0 } };
                     break;
                 }
                 case client_1.default.types.PropertyType.SET_NUMBER:
                 case client_1.default.types.PropertyType.SET_STRING:
                 case client_1.default.types.PropertyType.ATOM_ARRAY: {
-                    atom = { ...atom, ...{ [key]: [] } };
+                    molecule = { ...molecule, ...{ [key]: [] } };
                     break;
                 }
                 default: {
-                    atom = { ...atom, ...{ [key]: '' } };
+                    molecule = { ...molecule, ...{ [key]: '' } };
                     break;
                 }
             }
@@ -74,7 +74,7 @@ exports.default = vue_1.default.extend({
         const error_object = {};
         const success = true;
         return {
-            atom,
+            molecule,
             atom_name,
             message,
             plural,
@@ -93,7 +93,8 @@ exports.default = vue_1.default.extend({
         },
         async submit(_event) {
             const trx_base = client_1.default.trx.base.create(this.atom_name, this.$store.state.auth.token);
-            const cloned_atom = _process_atom(this.atom_name, this.atom);
+            const atom_from_molecule = client_1.default.core.atom.util.molecule_to_atom(this.atom_name, this.molecule);
+            const cloned_atom = _process_atom(this.atom_name, atom_from_molecule);
             const trx_hook = trx_base.hook('insert');
             const trx_response = await trx_hook({ body: cloned_atom });
             urn_lib_1.urn_log.debug('[insert] TRX Response: ', trx_response);
@@ -146,7 +147,7 @@ exports.default = vue_1.default.extend({
                         ids.push(id);
                     }
                 }
-                this.$set(this.atom, atom_prop_name, ids);
+                this.$set(this.molecule, atom_prop_name, ids);
             }
             else {
                 let sid = undefined;
@@ -157,7 +158,7 @@ exports.default = vue_1.default.extend({
                     }
                 }
                 if (sid) {
-                    this.$set(this.atom, atom_prop_name, sid);
+                    this.$set(this.molecule, atom_prop_name, sid);
                 }
             }
         }

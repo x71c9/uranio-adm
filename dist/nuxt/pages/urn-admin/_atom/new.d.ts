@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { urn_response } from "urn-lib";
 import uranio from 'uranio/client';
 declare type Data = {
-    atom: uranio.schema.Atom<uranio.schema.AtomName>;
+    molecule: uranio.schema.Molecule<uranio.schema.AtomName, uranio.schema.Depth>;
     atom_name: uranio.schema.AtomName;
     plural: string;
     message: string;
@@ -19,7 +19,7 @@ declare type Methods = {
     go_back: () => void;
 };
 declare type Props = {
-    atom: uranio.schema.Atom<uranio.schema.AtomName>;
+    molecule: uranio.schema.Molecule<uranio.schema.AtomName, uranio.schema.Depth>;
     atom_name: uranio.schema.AtomName;
 };
 declare const _default: import("vue/types/vue").ExtendedVue<Vue, Data, Methods, Props, Props>;

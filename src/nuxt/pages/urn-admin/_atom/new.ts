@@ -10,12 +10,12 @@ import { Notification } from '../../../store/notification';
 // import { atom_book } from "uranio-books/atom";
 
 type Provide = {
-	atom: uranio.schema.Atom<uranio.schema.AtomName>,
+	molecule: uranio.schema.Molecule<uranio.schema.AtomName, uranio.schema.Depth>,
 	atom_name: uranio.schema.AtomName
 }
 
 type Data = {
-	atom: uranio.schema.Atom<uranio.schema.AtomName>
+	molecule: uranio.schema.Molecule<uranio.schema.AtomName, uranio.schema.Depth>
 	atom_name: uranio.schema.AtomName
 	plural: string
 	message: string
@@ -34,7 +34,7 @@ type Methods = {
 }
 
 type Props = {
-	atom: uranio.schema.Atom<uranio.schema.AtomName>
+	molecule: uranio.schema.Molecule<uranio.schema.AtomName, uranio.schema.Depth>
 	atom_name: uranio.schema.AtomName
 }
 
@@ -64,7 +64,7 @@ export default Vue.extend<Data, Methods, Props, Props>({
 	
 	provide():Provide{
 		return {
-			atom: this.atom,
+			molecule: this.molecule,
 			atom_name: this.atom_name
 		};
 	},
@@ -83,37 +83,37 @@ export default Vue.extend<Data, Methods, Props, Props>({
 			plural = (atom_def as any).plural;
 		}
 			
-		let atom = {} as uranio.schema.Atom<typeof atom_name>;
+		let molecule = {} as uranio.schema.Molecule<typeof atom_name>;
 		
 		for(const key in atom_def.properties){
 			
 			const prop = atom_def.properties[key];
 			switch(prop.type){
 				case uranio.types.PropertyType.ATOM:{
-					atom = {...atom, ...{[key] : null}};
+					molecule = {...molecule, ...{[key] : null}};
 					break;
 				}
 				case uranio.types.PropertyType.BINARY:{
-					atom = {...atom, ...{[key] : false}};
+					molecule = {...molecule, ...{[key] : false}};
 					break;
 				}
 				case uranio.types.PropertyType.FLOAT:{
-					atom = {...atom, ...{[key] : .0}};
+					molecule = {...molecule, ...{[key] : .0}};
 					break;
 				}
 				case uranio.types.PropertyType.ENUM_NUMBER:
 				case uranio.types.PropertyType.INTEGER:{
-					atom = {...atom, ...{[key] : 0}};
+					molecule = {...molecule, ...{[key] : 0}};
 					break;
 				}
 				case uranio.types.PropertyType.SET_NUMBER:
 				case uranio.types.PropertyType.SET_STRING:
 				case uranio.types.PropertyType.ATOM_ARRAY:{
-					atom = {...atom, ...{[key] : []}};
+					molecule = {...molecule, ...{[key] : []}};
 					break;
 				}
 				default:{
-					atom = {...atom, ...{[key] : ''}};
+					molecule = {...molecule, ...{[key] : ''}};
 					break;
 				}
 			}
@@ -123,7 +123,7 @@ export default Vue.extend<Data, Methods, Props, Props>({
 		const success = true;
 		
 		return {
-			atom,
+			molecule,
 			atom_name,
 			message,
 			plural,
@@ -149,7 +149,8 @@ export default Vue.extend<Data, Methods, Props, Props>({
 			
 			const trx_base = uranio.trx.base.create(this.atom_name, this.$store.state.auth.token);
 			
-			const cloned_atom = _process_atom(this.atom_name, this.atom);
+			const atom_from_molecule = uranio.core.atom.util.molecule_to_atom(this.atom_name, this.molecule);
+			const cloned_atom = _process_atom(this.atom_name, atom_from_molecule);
 			
 			const trx_hook = trx_base.hook('insert');
 			const trx_response = await trx_hook({ body: cloned_atom });
@@ -217,7 +218,7 @@ export default Vue.extend<Data, Methods, Props, Props>({
 						ids.push(id);
 					}
 				}
-				this.$set(this.atom, atom_prop_name,  ids);
+				this.$set(this.molecule, atom_prop_name,  ids);
 			}else{
 				let sid = undefined;
 				for(const [id, is_selected] of Object.entries(sel_atoms)){
@@ -227,7 +228,7 @@ export default Vue.extend<Data, Methods, Props, Props>({
 					}
 				}
 				if(sid){
-					this.$set(this.atom, atom_prop_name,  sid);
+					this.$set(this.molecule, atom_prop_name,  sid);
 				}
 			}
 		}
