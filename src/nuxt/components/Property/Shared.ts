@@ -9,15 +9,15 @@ type Methods = Record<string, never>
 
 type Computed = Record<string, never>
 
-type Props = {
-	molecule: uranio.schema.Molecule<uranio.schema.AtomName, uranio.schema.Depth>
-	atom_name: uranio.schema.AtomName
-	prop_name: keyof uranio.schema.Molecule<uranio.schema.AtomName>
+type Props<A extends uranio.schema.AtomName> = {
+	molecule: uranio.schema.Molecule<A, uranio.schema.Depth>
+	atom_name: A
+	prop_name: keyof uranio.schema.Molecule<A>
 	prop_type: string
 	focus: boolean
 }
 
-export default Vue.extend<Data, Methods, Computed, Props>({
+export default Vue.extend<Data, Methods, Computed, Props<uranio.schema.AtomName>>({
 	inject: [
 		'molecule',
 		'atom_name',

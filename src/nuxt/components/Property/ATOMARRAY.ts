@@ -60,10 +60,16 @@ export default mixins(shared, sortable).extend<Data, Methods, Computed, Props>({
 	
 	methods:{
 		
-		remove(atom_id:string):void{
-			const index = (this.molecule as SimpleAtom)[this.prop_name].indexOf(atom_id);
-			if(index !== -1){
-				(this.molecule as SimpleAtom)[this.prop_name].splice(index, 1);
+		remove<A extends uranio.schema.AtomName>(atom_id:string):void{
+			const atoms_array = this.molecule[this.prop_name] as unknown as uranio.schema.Atom<A>[];
+			if(!Array.isArray(atoms_array)){
+				return;
+			}
+			for(let i = 0; i < atoms_array.length; i++){
+				if(atoms_array[i]._id === atom_id){
+					atoms_array.splice(i, 1);
+					break;
+				}
 			}
 		},
 		

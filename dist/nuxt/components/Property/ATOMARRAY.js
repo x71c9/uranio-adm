@@ -31,9 +31,15 @@ exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default, Sortable_1.d
     },
     methods: {
         remove(atom_id) {
-            const index = this.molecule[this.prop_name].indexOf(atom_id);
-            if (index !== -1) {
-                this.molecule[this.prop_name].splice(index, 1);
+            const atoms_array = this.molecule[this.prop_name];
+            if (!Array.isArray(atoms_array)) {
+                return;
+            }
+            for (let i = 0; i < atoms_array.length; i++) {
+                if (atoms_array[i]._id === atom_id) {
+                    atoms_array.splice(i, 1);
+                    break;
+                }
             }
         },
         add() {
