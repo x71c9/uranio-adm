@@ -2,16 +2,17 @@ import Vue from 'vue';
 
 import {urn_util, urn_log, urn_exception} from "urn-lib";
 
-// const urn_exc = urn_exception.init('ADMIN_FORM_ATOM', 'Uranio admin Form Atom');
-
 import uranio from 'uranio/client';
-
-// import { atom_book } from "uranio-books/atom";
 
 export enum PropState {
 	VALID = 'VALID',
 	WARNING = 'WARNING',
 	ERROR = 'ERROR'
+}
+export enum Call {
+	INSERT = 'INSERT',
+	UPDATE = 'UPDATE',
+	BULK_EDIT = 'BULK_EDIT'
 }
 export type UIAtomProp = {
 	name: string
@@ -35,7 +36,6 @@ type Methods = {
 	go_back: (event:Event) => void
 	validate_property: (prop_name:keyof uranio.schema.Molecule<uranio.schema.AtomName>) => boolean
 	validate_form: () => boolean
-	// custom_validate_form: () => boolean
 	error: () => void
 	focus: (prop_name:string) => void
 	on_change: (prop_name:keyof uranio.schema.Molecule<uranio.schema.AtomName>) => void
@@ -49,14 +49,14 @@ type Computed<A extends uranio.schema.AtomName> = {
 type Props<A extends uranio.schema.AtomName> = {
 	molecule: uranio.schema.Molecule<A>
 	atom_name: A
-	call: 'insert' | 'update'
+	call: Call
 }
 export default Vue.extend<Data, Methods, Computed<uranio.schema.AtomName>, Props<uranio.schema.AtomName>>({
 	
 	props: {
 		molecule: Object,
 		atom_name: Object,
-		call: String as () => 'insert' | 'update'
+		call: String as () => Call
 	},
 	
 	inject:[
@@ -75,15 +75,16 @@ export default Vue.extend<Data, Methods, Computed<uranio.schema.AtomName>, Props
 	data():Data{
 		
 		const atom_props:UIAtomProps = {};
+		
 		if (uranio.book.validate_name(this.atom_name)) {
-			
-			// const atom_def = atom_book[this.atom_name];
-			// const atom_def_props = atom_def.properties as uranio.types.Book.Definition.Properties;
 			
 			const prop_defs = uranio.book.get_custom_properties_definition(this.atom_name);
 			
 			for(const [prop_name, prop_def] of Object.entries(prop_defs)){
-				if(this.call === 'update' && prop_def.hidden){
+				if(this.call === Call.BULK_EDIT && prop_def.unique){
+					continue;
+				}
+				if(this.call === Call.UPDATE && prop_def.hidden){
 					continue;
 				}
 				atom_props[prop_name] = {
@@ -95,7 +96,7 @@ export default Vue.extend<Data, Methods, Computed<uranio.schema.AtomName>, Props
 					focus: false
 				};
 			}
-			if(this.call === 'update'){
+			if(this.call === Call.UPDATE){
 				for(const [prop_name, prop_def] of Object.entries(uranio.core.stc.atom_hard_properties)){
 					if(!(prop_def as any).hidden){
 						atom_props[prop_name] = {
@@ -123,27 +124,6 @@ export default Vue.extend<Data, Methods, Computed<uranio.schema.AtomName>, Props
 		on_change(prop_name:keyof uranio.schema.Molecule<uranio.schema.AtomName>)
 				:void{
 			this.validate_property(prop_name);
-			// const atom_prop_defs = atom_book[this.atom_name].properties as
-			//   uranio.types.Book.Definition.Properties;
-			// const prop_def = atom_prop_defs[prop_name];
-			// const prop_value = this.atom[prop_name];
-			// const prop = this.atom_props[prop_name];
-			// if(_is_property_empty(this.atom_name, this.atom, prop_name)){
-			//   prop.state = 'error';
-			//   prop.error_message = 'This field is required.';
-			// }else{
-			//   try{
-			//     uranio.core.atm.validate.property(prop_name, prop_def, prop_value, this.atom);
-			//     prop.state = 'valid';
-			//     prop.error_message = '';
-			//   }catch(e){
-			//     if(e.type === urn_exception.ExceptionType.INVALID_ATOM){
-			//       prop.state = 'error';
-			//       prop.error_message = _format_message(e.msg);
-			//     }
-			//     urn_log.error(e);
-			//   }
-			// }
 		},
 		
 		on_keyup(prop_name:keyof uranio.schema.Molecule<uranio.schema.AtomName>)
@@ -189,8 +169,19 @@ export default Vue.extend<Data, Methods, Computed<uranio.schema.AtomName>, Props
 		
 		validate_property(prop_name:keyof uranio.types.Book.Definition.Properties)
 				:boolean{
-			const prop_def = uranio.book.get_property_definition(this.atom_name, prop_name);
-			const prop_value = this.atom_from_molecule[prop_name as keyof uranio.schema.Atom<uranio.schema.AtomName>];
+			if(
+				this.call === Call.BULK_EDIT
+				&& _is_property_empty(this.atom_name, this.molecule, prop_name)
+			){
+				return true;
+			}
+			const prop_def = uranio.book.get_property_definition(
+				this.atom_name,
+				prop_name
+			);
+			const prop_value = this.atom_from_molecule[
+				prop_name as keyof uranio.schema.Atom<uranio.schema.AtomName>
+			];
 			const prop = this.atom_props[prop_name];
 			if(_is_property_empty(this.atom_name, this.molecule, prop_name)){
 				prop.state = PropState.ERROR;
@@ -230,26 +221,6 @@ export default Vue.extend<Data, Methods, Computed<uranio.schema.AtomName>, Props
 			}
 			return is_form_valid;
 		},
-		
-		// custom_validate_form():boolean{
-		//   try{
-		//     uranio.core.atm.validate.atom(this.atom_name, this.atom);
-		//     return true;
-		//   }catch(e){
-		//     if(e.type === urn_exception.ExceptionType.INVALID_ATOM){
-		//       for(let i = 0; i < e.keys.length; i++){
-		//         Vue.set(this.atom_props[e.keys[i]], 'state', 'error');
-		//         Vue.set(
-		//           this.atom_props[e.keys[i]],
-		//           'error_message',
-		//           _format_message(e.msg)
-		//         );
-		//       }
-		//     }
-		//     urn_log.error(e);
-		//     return false;
-		//   }
-		// },
 		
 		error():void{
 			this.error_class = true;
@@ -328,18 +299,6 @@ function _is_property_empty<A extends uranio.schema.AtomName>(
 	}
 	return is_empty;
 }
-
-// function _empty_required_properties<A extends uranio.schema.AtomName>(atom_name: A, atom:uranio.schema.Atom<A>)
-//     :(keyof uranio.types.Book.Definition<A>)[]{
-//   const atom_prop_defs = atom_book[atom_name].properties;
-//   const empty_required_keys:(keyof uranio.types.Book.Definition<A>)[] = [];
-//   for(const [prop_key, _prop_def] of Object.entries(atom_prop_defs)){
-//     if(_is_property_empty(atom_name, atom, prop_key)){
-//       empty_required_keys.push(prop_key as keyof uranio.types.Book.Definition<A>);
-//     }
-//   }
-//   return empty_required_keys;
-// }
 
 function _fill_style(prop_def_style?:uranio.types.Book.Definition.Property.AdminStyle)
 		:uranio.types.Book.Definition.Property.AdminStyle{

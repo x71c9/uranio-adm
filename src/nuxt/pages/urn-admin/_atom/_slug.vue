@@ -35,10 +35,11 @@
 				@submit_exit_atom_form="submit_exit"
 				@go_back="go_back"
 				@delete_atom="delete_atom"
-				call="update"
+				call="UPDATE"
 				/>
 			
 			<ModalAtom @atom_selected="modal_atom_selected"/>
+			
 		</div>
 		<div v-else>
 			<Error

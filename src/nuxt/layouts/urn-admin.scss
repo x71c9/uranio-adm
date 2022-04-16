@@ -921,7 +921,7 @@ body.layout-urn-admin {
 	
 	/* MODAL ATOM */
 	
-	.urn-modal-atom {
+	.urn-modal-aside {
 		position: fixed;
 		background-color: var(--licorice);
 		top: 0;
@@ -991,6 +991,33 @@ body.layout-urn-admin {
 		background-color: var(--coral-red-2);
 		border-color: #990000;
 		/* box-shadow: inset 1px 1px 3px 2px #380101; */
+	}
+	
+	.urn-modal-edit{
+		.modal-edit-body{
+			flex: 1;
+			flex-direction: column;
+			display: flex;
+		}
+		.modal-edit-body form{
+			margin: 34px 0 0;
+			flex: 1;
+			flex-direction: column;
+			padding: 0 var(--padx1);
+		}
+		.modal-edit-body .ui-property{
+			flex: none;
+			margin: var(--padx1) 0 0;
+		}
+		.modal-edit-body .ui-single-footer{
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			margin: var(--padx1) 0 0;
+		}
+		.modal-edit-body .ui-single-footer .gradient{
+			flex: 1;
+		}
 	}
 	
 	/* Raw */

@@ -14,7 +14,7 @@
 			<li
 				class="ui-li-element ui-li-atom"
 				v-for="subatom in molecule[prop_name]"
-				:key="subatom._id"
+				:key="`${subatom._id}`"
 				>
 				<div
 					v-if="molecule[prop_name].length > 1"
@@ -51,7 +51,7 @@
 				v-for="subatom in molecule[prop_name]"
 				class="urn_input"
 				type="hidden"
-				:key="subatom._id"
+				:key="`i${subatom._id}`"
 				:name="prop_name"
 				:value="subatom._id"
 				>

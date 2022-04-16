@@ -12,6 +12,7 @@ import sortable from './Sortable';
 type Data = {
 	prop_atom_name: uranio.schema.AtomName
 	prop_primary_properties: string[]
+	rerender_key: number
 }
 
 type Methods = {
@@ -53,7 +54,8 @@ export default mixins(shared, sortable).extend<Data, Methods, Computed, Props>({
 		
 		return {
 			prop_atom_name,
-			prop_primary_properties
+			prop_primary_properties,
+			rerender_key: 0
 		};
 		
 	},

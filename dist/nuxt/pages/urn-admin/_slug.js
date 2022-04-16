@@ -7,7 +7,9 @@ exports.get_url = exports.get_url_query = exports.query_object = void 0;
 const vue_typed_mixins_1 = __importDefault(require("vue-typed-mixins"));
 const client_1 = __importDefault(require("uranio/client"));
 const urn_lib_1 = require("urn-lib");
+const index_1 = require("../../utils/index");
 const shared_1 = __importDefault(require("./shared"));
+// import { merge_atoms_of_molecule_property } from '../../utils/index';
 const notification_1 = require("../../store/notification");
 exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
     layout() {
@@ -18,6 +20,7 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
     ],
     provide() {
         return {
+            molecule: this.molecule,
             atoms: this.atoms,
             atom_name: this.atom_name,
             plural: this.plural,
@@ -85,11 +88,28 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
                 this.get_atoms();
             }
         },
-        async update_all_atoms(_atom_shape) {
-            //
+        async update_all_atoms() {
+            return this.update_atoms(['*']);
         },
-        async update_atoms(_atom_shape) {
-            //
+        async update_atoms(ids) {
+            let cloned_atom = urn_lib_1.urn_util.object.deep_clone(this.molecule);
+            cloned_atom = client_1.default.core.atom.util.molecule_to_atom(this.atom_name, cloned_atom);
+            cloned_atom = (0, index_1.clean_atmo_for_multiple_update)(this.atom_name, cloned_atom);
+            urn_lib_1.urn_log.debug('Updating multiple atoms');
+            urn_lib_1.urn_log.debug(cloned_atom);
+            const trx_base = client_1.default.trx.base.create(this.atom_name);
+            const trx_hook = trx_base.hook('update_multiple');
+            const hook_params = {
+                params: {
+                    ids: ids
+                },
+                body: cloned_atom
+            };
+            const trx_response = await trx_hook(hook_params);
+            urn_lib_1.urn_log.debug('[update_multiple] TRX Response: ', trx_response);
+            if (!trx_response.success) {
+                this.fail(trx_response);
+            }
         },
         async search_atoms(q) {
             this.page_query.q = q;
@@ -105,26 +125,8 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
                 Object.assign(this.atoms, atoms);
                 this.page_data.total_result = await _count_atoms(this.atom_name, this.page_query);
                 this.page_data.total_pages = _total_pages(this.page_data.total_result, this.page_query.limit);
-                // if(this.page_query.index > this.page_data.total_pages - 1){
-                // 	this.page_query.index = this.page_data.total_pages - 1;
-                // 	this.$router.push({
-                // 		name: 'urn-admin-slug',
-                // 		params: {
-                // 			slug: this.atom_name
-                // 		},
-                // 		query: query_object(this.page_query)
-                // 	});
-                // 	return;
-                // }
-                // this.$router.push({
-                // 	name: 'urn-admin-slug',
-                // 	params: {
-                // 		slug: this.atom_name
-                // 	},
-                // 	query: query_object(this.page_query)
-                // });
-                // // This replace the URL without reloading the page.
-                // // Vue.router replace will reload and lose focust for the search.
+                // This replace the URL without reloading the page.
+                // Vue.router replace will reload and lose focust for the search.
                 history.replaceState({}, '', this.$route.path + `?${get_url_query(this.page_query)}`);
                 this.success = true;
             }
@@ -200,6 +202,7 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
             message = err.message || '[ERROR]';
             success = false;
         }
+        const molecule = (0, index_1.empty_molecule)(atom_name);
         return {
             atom_name,
             atoms,
@@ -211,7 +214,8 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
             message,
             success,
             error_object,
-            empty_relation
+            empty_relation,
+            molecule,
         };
     },
 });
@@ -374,22 +378,4 @@ function get_url(atom_name, page_query, query_obj) {
     return `/urn-admin/${atom_name}?${qs}`;
 }
 exports.get_url = get_url;
-//function unflatten(data:any) {
-//	if (Object(data) !== data || Array.isArray(data))
-//		return data;
-//	// 
-//	const regex = /\.?([^.\[\]]+)|\[(\d+)\]/g;
-//	const resultholder = {};
-//	for (const p in data) {
-//		let cur = resultholder,
-//			prop = "",
-//			m;
-//		while (m == regex.exec(p)) {
-//			cur = (cur as any)[prop] || ((cur as any)[prop] = (m[2] ? [] : {}));
-//			prop = m[2] || m[1];
-//		}
-//		(cur as any)[prop] = data[p];
-//	}
-//	return (resultholder as any)[""] || resultholder;
-//}
 //# sourceMappingURL=_slug.js.map

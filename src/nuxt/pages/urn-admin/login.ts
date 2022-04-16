@@ -78,6 +78,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			);
 			urn_log.debug(auth_response);
 			if(auth_response.success){
+				this.error_general = '';
 				this.general_message = auth_response.message;
 			}else{
 				this.error_general = auth_response.message;

@@ -19,7 +19,7 @@ export declare type PageData = {
     total_pages: number;
     total_result: number;
 };
-declare type Data<A extends uranio.schema.AtomName> = {
+declare type Data<A extends uranio.schema.AtomName, D extends uranio.schema.Depth> = {
     atom_name: A;
     atoms: uranio.schema.Molecule<A, 0>[];
     plural: string;
@@ -31,6 +31,7 @@ declare type Data<A extends uranio.schema.AtomName> = {
     message: string;
     success: boolean;
     error_object: urn_response.Fail<any>;
+    molecule: uranio.schema.Molecule<A, D>;
 };
 declare type Methods = {
     add_atom<A extends uranio.schema.AtomName>(atom: uranio.schema.Atom<A>): void;
@@ -38,8 +39,8 @@ declare type Methods = {
     search_atoms(q: string): Promise<void>;
     delete_atoms(ids: string[]): Promise<void>;
     delete_all_atoms(): Promise<void>;
-    update_atoms<A extends uranio.schema.AtomName>(atom_shape: uranio.schema.AtomShape<A>): Promise<void>;
-    update_all_atoms<A extends uranio.schema.AtomName>(atom_shape: uranio.schema.AtomShape<A>): Promise<void>;
+    update_atoms(ids: string[]): Promise<void>;
+    update_all_atoms(): Promise<void>;
     fail(): void;
 };
 declare type Computed = Record<string, never>;
@@ -55,7 +56,7 @@ declare const _default: import("vue/types/vue").ExtendedVue<{
     error_object: urn_response.Fail<any, any>;
 } & {
     fail: (trx_response: urn_response.Fail<any, any>) => void;
-} & import("vue").default, Data<uranio.core.schema.AtomName>, Methods, Computed, Props>;
+} & import("vue").default, Data<uranio.core.schema.AtomName, uranio.core.schema.Depth>, Methods, Computed, Props>;
 export default _default;
 /**
  * `query_obj` optional paramter will override `page_query` values

@@ -60,6 +60,7 @@ exports.default = vue_1.default.extend({
             const auth_response = await this.$store.dispatch('auth/authenticate', { email: this.email, password: this.password });
             urn_lib_1.urn_log.debug(auth_response);
             if (auth_response.success) {
+                this.error_general = '';
                 this.general_message = auth_response.message;
             }
             else {

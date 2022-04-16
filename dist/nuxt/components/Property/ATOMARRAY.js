@@ -26,7 +26,8 @@ exports.default = (0, vue_typed_mixins_1.default)(Shared_1.default, Sortable_1.d
         this.drag_group = this.prop_name;
         return {
             prop_atom_name,
-            prop_primary_properties
+            prop_primary_properties,
+            rerender_key: 0
         };
     },
     methods: {

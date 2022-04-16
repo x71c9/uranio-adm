@@ -1,10 +1,9 @@
 "use strict";
-// import { GetterTree, ActionTree, MutationTree } from 'vuex';
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.actions = exports.mutations = exports.state = void 0;
+exports.actions = exports.mutations = exports.getters = exports.state = void 0;
 const vue_1 = __importDefault(require("vue"));
 const client_1 = __importDefault(require("uranio/client"));
 const state = () => ({
@@ -15,12 +14,32 @@ const state = () => ({
     atom_prop_atom: '',
     atoms: [],
     primary_properties: ['_id'],
-    selected_atoms: {}
+    selected_ids: [],
+    selected_atoms: [],
+    selected: {},
 });
 exports.state = state;
-// export const getters: GetterTree<RootState, RootState> = {
-//   is_open: state => state.is_open,
-// };
+exports.getters = {
+    selected_ids: (state) => {
+        const sel_ids = [];
+        for (const [id, is_selected] of Object.entries(state.selected)) {
+            if (is_selected) {
+                sel_ids.push(id);
+            }
+        }
+        return sel_ids;
+    },
+    selected_atoms: (state, getters) => {
+        const sel_ids = getters.selected_ids;
+        const sel_atoms = [];
+        for (const atom of state.atoms) {
+            if (sel_ids.includes(atom._id)) {
+                sel_atoms.push(atom);
+            }
+        }
+        return sel_atoms;
+    }
+};
 exports.mutations = {
     CHANGE_IS_OPEN: (state, is_open) => (state.is_open = is_open),
     CHANGE_ATOM_PROP_NAME: (state, atom_prop_name) => (state.atom_prop_name = atom_prop_name),
@@ -29,21 +48,21 @@ exports.mutations = {
     CHANGE_REPLACE: (state, replace) => (state.replace = replace),
     CHANGE_ATOMS: (state, atoms) => (state.atoms = atoms),
     CHANGE_PRIMARY_PROPERTIES: (state, primary_properties) => (state.primary_properties = primary_properties),
-    RESET_SELECTED_ATOMS: (state, atoms) => {
-        state.selected_atoms = {};
+    RESET_SELECTED: (state, atoms) => {
+        state.selected = {};
         for (const atom of atoms) {
-            vue_1.default.set(state.selected_atoms, atom._id, false);
+            vue_1.default.set(state.selected, atom._id, false);
         }
     },
     SELECT_ATOM: (state, atom_id) => {
         if (state.multiple === false) {
             for (const atom of state.atoms) {
                 if (atom._id !== atom_id) {
-                    vue_1.default.set(state.selected_atoms, atom._id, false);
+                    vue_1.default.set(state.selected, atom._id, false);
                 }
             }
         }
-        vue_1.default.set(state.selected_atoms, atom_id, !state.selected_atoms[atom_id]);
+        vue_1.default.set(state.selected, atom_id, !state.selected[atom_id]);
     }
 };
 exports.actions = {
@@ -72,7 +91,7 @@ exports.actions = {
         const trx_response = await trx_base.hook("find")({});
         if (trx_response.success && Array.isArray(trx_response.payload)) {
             context.commit('CHANGE_ATOMS', trx_response.payload);
-            context.commit('RESET_SELECTED_ATOMS', trx_response.payload);
+            context.commit('RESET_SELECTED', trx_response.payload);
             const primary_properties = [];
             const prop_defs = client_1.default.book.get_properties_definition(atom_name);
             for (const [prop_name, prop_def] of Object.entries(prop_defs)) {
@@ -88,7 +107,7 @@ exports.actions = {
         // return [];
     },
     reset_atoms(context) {
-        context.commit('RESET_SELECTED_ATOMS', context.state.atoms);
+        context.commit('RESET_SELECTED', context.state.atoms);
         context.commit('CHANGE_ATOMS', []);
     }
 };

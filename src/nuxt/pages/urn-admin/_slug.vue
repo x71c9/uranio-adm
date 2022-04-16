@@ -7,7 +7,11 @@
 				/>
 			<div class="flex-row-3">
 				<h1 class="ui-flex-row-3-el today inter-medium-white-36px">
-					<nuxt-link :to="`/urn-admin/${atom_name}`" class="title_link inter-medium-white-36px">{{ plural }}</nuxt-link>
+					<nuxt-link
+						:to="`/urn-admin/${atom_name}`"
+						class="title_link inter-medium-white-36px">
+						{{ plural }}
+					</nuxt-link>
 				</h1>
 				<div
 					class="ui-flex-row-3-el header_actions"
@@ -48,7 +52,16 @@
 						</div>
 					</div>
 				</UIGroup>
+				
 				<UIPagination />
+				
+				<!-- @modal_atom_bulk_edit_selected="modal_atom_bulk_edit_selected" -->
+				<ModalEdit
+					@submit="update_atoms"
+				/>
+				
+				<!-- <ModalAtom @atom_selected="modalAtomSelected"/> -->
+				
 			</div>
 			<div
 				v-else

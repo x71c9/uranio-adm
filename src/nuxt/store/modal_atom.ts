@@ -1,8 +1,7 @@
-// import { GetterTree, ActionTree, MutationTree } from 'vuex';
 
 import Vue from 'vue';
 
-import { ActionTree, MutationTree, ActionContext } from 'vuex';
+import { GetterTree, ActionTree, MutationTree, ActionContext } from 'vuex';
 
 import uranio from 'uranio/client';
 
@@ -14,9 +13,11 @@ type ReturnState = {
 	atom_prop_atom: string
 	atoms: uranio.schema.Atom<uranio.schema.AtomName>[]
 	primary_properties: string[]
-	selected_atoms: {
+	selected_ids: string[]
+	selected_atoms: uranio.schema.Atom<uranio.schema.AtomName>[]
+	selected: {
 		[k:string]: boolean
-	}
+	},
 }
 
 export const state = ():ReturnState => ({
@@ -27,14 +28,34 @@ export const state = ():ReturnState => ({
 	atom_prop_atom: '',
 	atoms: [],
 	primary_properties: ['_id'],
-	selected_atoms: {}
+	selected_ids: [],
+	selected_atoms: [],
+	selected: {},
 });
 
 export type RootState = ReturnType<typeof state>
 
-// export const getters: GetterTree<RootState, RootState> = {
-//   is_open: state => state.is_open,
-// };
+export const getters: GetterTree<RootState, RootState> = {
+	selected_ids: (state) => {
+		const sel_ids:string[] = [];
+		for(const [id, is_selected] of Object.entries(state.selected)){
+			if(is_selected){
+				sel_ids.push(id);
+			}
+		}
+		return sel_ids;
+	},
+	selected_atoms: (state, getters) => {
+		const sel_ids = getters.selected_ids;
+		const sel_atoms = [];
+		for(const atom of state.atoms){
+			if(sel_ids.includes(atom._id)){
+				sel_atoms.push(atom);
+			}
+		}
+		return sel_atoms;
+	}
+};
 
 export const mutations: MutationTree<RootState> = {
 	CHANGE_IS_OPEN: (state, is_open:boolean) => (state.is_open = is_open),
@@ -44,21 +65,21 @@ export const mutations: MutationTree<RootState> = {
 	CHANGE_REPLACE: (state, replace: boolean) => (state.replace = replace),
 	CHANGE_ATOMS: (state, atoms: uranio.schema.Atom<uranio.schema.AtomName>[]) => (state.atoms = atoms),
 	CHANGE_PRIMARY_PROPERTIES: (state, primary_properties: string[]) => (state.primary_properties = primary_properties),
-	RESET_SELECTED_ATOMS: (state, atoms: uranio.schema.Atom<uranio.schema.AtomName>[]) => {
-		state.selected_atoms = {};
+	RESET_SELECTED: (state, atoms: uranio.schema.Atom<uranio.schema.AtomName>[]) => {
+		state.selected = {};
 		for(const atom of atoms){
-			Vue.set(state.selected_atoms, atom._id, false);
+			Vue.set(state.selected, atom._id, false);
 		}
 	},
 	SELECT_ATOM: (state, atom_id:string) => {
 		if(state.multiple === false){
 			for(const atom of state.atoms){
 				if(atom._id !== atom_id){
-					Vue.set(state.selected_atoms, atom._id, false);
+					Vue.set(state.selected, atom._id, false);
 				}
 			}
 		}
-		Vue.set(state.selected_atoms, atom_id, !state.selected_atoms[atom_id]);
+		Vue.set(state.selected, atom_id, !state.selected[atom_id]);
 	}
 };
 
@@ -91,7 +112,7 @@ export const actions: ActionTree<RootState, RootState> = {
 		const trx_response = await trx_base.hook("find")({});
 		if(trx_response.success && Array.isArray(trx_response.payload)){
 			context.commit('CHANGE_ATOMS', trx_response.payload);
-			context.commit('RESET_SELECTED_ATOMS', trx_response.payload);
+			context.commit('RESET_SELECTED', trx_response.payload);
 			const primary_properties:string[] = [];
 			const prop_defs = uranio.book.get_properties_definition(atom_name);
 			for(const [prop_name, prop_def] of Object.entries(prop_defs)){
@@ -107,7 +128,7 @@ export const actions: ActionTree<RootState, RootState> = {
 		// return [];
 	},
 	reset_atoms(context:ActionContext<ReturnState, RootState>){
-		context.commit('RESET_SELECTED_ATOMS', context.state.atoms);
+		context.commit('RESET_SELECTED', context.state.atoms);
 		context.commit('CHANGE_ATOMS', []);
 	}
 };

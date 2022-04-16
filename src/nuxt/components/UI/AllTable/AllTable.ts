@@ -97,10 +97,10 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 	},
 	methods: {
 		edit_selected(){
-			// console.log(this.selected_atoms);
+			this.$store.dispatch('modal_edit/open_modal', {atom_name: this.atom_name, atom_ids: this.selected_atoms});
 		},
 		edit_all(){
-			// console.log('edit all');
+			this.$store.dispatch('modal_edit/open_modal', {atom_name: this.atom_name, atom_ids: ['*']});
 		},
 		delete_selected(){
 			this.$emit('delete_atoms', this.selected_atoms);

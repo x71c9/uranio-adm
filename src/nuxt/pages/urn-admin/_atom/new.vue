@@ -22,10 +22,11 @@
 			ref="atom_form"
 			@submit_atom_form="submit"
 			@submit_exit_atom_form="submit_exit"
-			call="insert"
+			call="INSERT"
 			/>
 		
-		<ModalAtom @atom_selected="modalAtomSelected"/>
+		<ModalAtom @atom_selected="modal_atom_selected"/>
+		
 	</div>
 </template>
 <script lang="ts" src="./new.ts"></script>

@@ -5,6 +5,11 @@ export declare enum PropState {
     WARNING = "WARNING",
     ERROR = "ERROR"
 }
+export declare enum Call {
+    INSERT = "INSERT",
+    UPDATE = "UPDATE",
+    BULK_EDIT = "BULK_EDIT"
+}
 export declare type UIAtomProp = {
     name: string;
     optional: boolean;
@@ -38,7 +43,7 @@ declare type Computed<A extends uranio.schema.AtomName> = {
 declare type Props<A extends uranio.schema.AtomName> = {
     molecule: uranio.schema.Molecule<A>;
     atom_name: A;
-    call: 'insert' | 'update';
+    call: Call;
 };
 declare const _default: import("vue/types/vue").ExtendedVue<Vue, Data, Methods, Computed<uranio.core.schema.AtomName>, Props<uranio.core.schema.AtomName>>;
 export default _default;

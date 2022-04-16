@@ -13,7 +13,29 @@ declare const _default: import("vue/types/vue").ExtendedVue<{
     [x: string]: never;
 } & {
     molecule: (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
+        email: string;
+        password: string;
+        groups?: string[] | undefined;
+    }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
+        email: string;
+        password: string;
+        groups?: string[] | undefined;
+    }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
         name: string;
+    }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
+        src: string;
+        filename: string;
+        type: string;
+        size: number;
+        width?: number | undefined;
+        height?: number | undefined;
+    }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
+        status: number;
+        msg: string;
+        error_code: string;
+        error_msg: string;
+        request?: string | undefined;
+        stack?: string | undefined;
     }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
         full_path: string;
         route_path?: string | undefined;
@@ -30,28 +52,6 @@ declare const _default: import("vue/types/vue").ExtendedVue<{
         ip?: string | undefined;
         is_auth?: boolean | undefined;
         auth_action?: string | undefined;
-    }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
-        email: string;
-        password: string;
-        groups?: string[] | undefined;
-    }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
-        email: string;
-        password: string;
-        groups?: string[] | undefined;
-    }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
-        src: string;
-        filename: string;
-        type: string;
-        size: number;
-        width?: number | undefined;
-        height?: number | undefined;
-    }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
-        status: number;
-        msg: string;
-        error_code: string;
-        error_msg: string;
-        request?: string | undefined;
-        stack?: string | undefined;
     }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
         name: string;
     }) | (import("uranio-schema/dist/typ/common").AtomHardProperties & import("uranio-schema/dist/typ/common").AtomCommonProperties & {
@@ -192,7 +192,7 @@ declare const _default: import("vue/types/vue").ExtendedVue<{
         } & Record<never, unknown>) | undefined;
     });
     atom_name: import("uranio-schema/dist/typ").AtomName;
-    prop_name: "_r" | "_w" | "_from" | "_id" | "_date";
+    prop_name: "_id" | "_date" | "_r" | "_w" | "_from";
     prop_type: string;
     focus: boolean;
 } & import("vue").default, Data, Methods, Computed, Props>;

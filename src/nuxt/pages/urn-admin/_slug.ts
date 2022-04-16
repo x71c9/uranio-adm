@@ -6,9 +6,13 @@ import uranio from 'uranio/client';
 
 import { urn_util, urn_response, urn_log } from "urn-lib";
 
+import { empty_molecule, clean_atmo_for_multiple_update } from '../../utils/index';
+
 import { Context } from '@nuxt/types';
 
 import shared from './shared';
+
+// import { merge_atoms_of_molecule_property } from '../../utils/index';
 
 import { Notification } from '../../store/notification';
 
@@ -35,7 +39,7 @@ export type PageData = {
 	total_result: number
 }
 
-type Data<A extends uranio.schema.AtomName> = {
+type Data<A extends uranio.schema.AtomName, D extends uranio.schema.Depth> = {
 	atom_name: A
 	atoms: uranio.schema.Molecule<A,0>[]
 	plural: string
@@ -47,6 +51,7 @@ type Data<A extends uranio.schema.AtomName> = {
 	message: string,
 	success: boolean
 	error_object:urn_response.Fail<any>
+	molecule: uranio.schema.Molecule<A,D>
 };
 
 type Methods = {
@@ -55,9 +60,10 @@ type Methods = {
 	search_atoms(q:string):Promise<void>
 	delete_atoms(ids: string[]): Promise<void>
 	delete_all_atoms(): Promise<void>
-	update_atoms<A extends uranio.schema.AtomName>(atom_shape: uranio.schema.AtomShape<A>): Promise<void>
-	update_all_atoms<A extends uranio.schema.AtomName>(atom_shape: uranio.schema.AtomShape<A>): Promise<void>
+	update_atoms(ids: string[]): Promise<void>
+	update_all_atoms(): Promise<void>
 	fail(): void
+	// modal_atom_bulk_edit_selected():void
 }
 
 type Computed = Record<string, never>
@@ -70,7 +76,7 @@ export type UploadedFile = {
 	url: string
 }
 
-export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Computed, Props>({
+export default mixins(shared).extend<Data<uranio.schema.AtomName, uranio.schema.Depth>, Methods, Computed, Props>({
 	layout(): string {
 		return "urn-admin";
 	},
@@ -79,6 +85,7 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 	],
 	provide():any{
 		return {
+			molecule: (this as any).molecule, // Needed for Modal Edit
 			atoms: (this as any).atoms,
 			atom_name: (this as any).atom_name,
 			plural: (this as any).plural,
@@ -147,12 +154,36 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 				this.get_atoms();
 			}
 		},
-		async update_all_atoms<A extends uranio.schema.AtomName>(_atom_shape:uranio.schema.AtomShape<A>){
-			//
+		
+		async update_all_atoms(){
+			return this.update_atoms(['*']);
 		},
-		async update_atoms<A extends uranio.schema.AtomName>(_atom_shape:uranio.schema.AtomShape<A>){
-			//
+		
+		async update_atoms<A extends uranio.schema.AtomName, D extends uranio.schema.Depth>(
+			ids:string[]
+		){
+			let cloned_atom = urn_util.object.deep_clone(this.molecule);
+			cloned_atom = uranio.core.atom.util.molecule_to_atom(this.atom_name, cloned_atom);
+			cloned_atom = clean_atmo_for_multiple_update(this.atom_name, cloned_atom);
+			urn_log.debug('Updating multiple atoms');
+			urn_log.debug(cloned_atom);
+			const trx_base = uranio.trx.base.create<A>(
+				this.atom_name as A,
+			);
+			const trx_hook = trx_base.hook<'update_multiple', D>('update_multiple');
+			const hook_params = {
+				params:{
+					ids: ids
+				},
+				body: cloned_atom
+			} as uranio.types.Hook.Params<A, uranio.schema.RouteName<A>>;
+			const trx_response = await trx_hook(hook_params);
+			urn_log.debug('[update_multiple] TRX Response: ', trx_response);
+			if(!trx_response.success){
+				this.fail(trx_response);
+			}
 		},
+		
 		async search_atoms(q:string){
 			this.page_query.q = q;
 			this.page_query.index = 0;
@@ -170,30 +201,13 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 				Object.assign(this.atoms, atoms);
 				
 				this.page_data.total_result = await _count_atoms(this.atom_name, this.page_query);
-				this.page_data.total_pages = _total_pages(this.page_data.total_result, this.page_query.limit);
+				this.page_data.total_pages = _total_pages(
+					this.page_data.total_result,
+					this.page_query.limit
+				);
 				
-				// if(this.page_query.index > this.page_data.total_pages - 1){
-				// 	this.page_query.index = this.page_data.total_pages - 1;
-				// 	this.$router.push({
-				// 		name: 'urn-admin-slug',
-				// 		params: {
-				// 			slug: this.atom_name
-				// 		},
-				// 		query: query_object(this.page_query)
-				// 	});
-				// 	return;
-				// }
-				
-				// this.$router.push({
-				// 	name: 'urn-admin-slug',
-				// 	params: {
-				// 		slug: this.atom_name
-				// 	},
-				// 	query: query_object(this.page_query)
-				// });
-				
-				// // This replace the URL without reloading the page.
-				// // Vue.router replace will reload and lose focust for the search.
+				// This replace the URL without reloading the page.
+				// Vue.router replace will reload and lose focust for the search.
 				history.replaceState({}, '', this.$route.path+`?${get_url_query(this.page_query)}`);
 				
 				this.success = true;
@@ -209,9 +223,9 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 		},
 	},
 	
-	async asyncData<A extends uranio.schema.AtomName>(
+	async asyncData<A extends uranio.schema.AtomName, D extends uranio.schema.Depth>(
 		context:Context
-	):Promise<Data<A>> {
+	):Promise<Data<A,D>> {
 		
 		urn_log.debug('AsyncData.context.params', context.params);
 		
@@ -297,6 +311,8 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 			
 		}
 		
+		const molecule = empty_molecule<A,D>(atom_name);
+		
 		return {
 			atom_name,
 			atoms,
@@ -308,7 +324,8 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName>, Methods, Comp
 			message,
 			success,
 			error_object,
-			empty_relation
+			empty_relation,
+			molecule,
 		};
 	},
 });
@@ -328,8 +345,10 @@ async function _count_all_atoms<A extends uranio.schema.AtomName>(atom_name:A)
 	return trx_response.payload as number;
 }
 
-async function _count_atoms<A extends uranio.schema.AtomName>(atom_name:A, page_query:PageQuery)
-		:Promise<number>{
+async function _count_atoms<A extends uranio.schema.AtomName>(
+	atom_name:A,
+	page_query:PageQuery
+):Promise<number>{
 	
 	let trx_response:urn_response.General<number, any>;
 	
@@ -348,7 +367,10 @@ async function _count_atoms<A extends uranio.schema.AtomName>(atom_name:A, page_
 	return trx_response.payload as number;
 }
 
-async function _get_atoms<A extends uranio.schema.AtomName>(atom_name:A, page_query:PageQuery){
+async function _get_atoms<A extends uranio.schema.AtomName>(
+	atom_name:A,
+	page_query:PageQuery
+){
 	
 	let trx_response:urn_response.General<uranio.schema.Molecule<A>[], any>;
 	
@@ -510,22 +532,3 @@ export function get_url(atom_name:string, page_query:PageQuery, query_obj?:Query
 	const qs = get_url_query(page_query, query_obj);
 	return `/urn-admin/${atom_name}?${qs}`;
 }
-
-//function unflatten(data:any) {
-//	if (Object(data) !== data || Array.isArray(data))
-//		return data;
-//	// 
-//	const regex = /\.?([^.\[\]]+)|\[(\d+)\]/g;
-//	const resultholder = {};
-//	for (const p in data) {
-//		let cur = resultholder,
-//			prop = "",
-//			m;
-//		while (m == regex.exec(p)) {
-//			cur = (cur as any)[prop] || ((cur as any)[prop] = (m[2] ? [] : {}));
-//			prop = m[2] || m[1];
-//		}
-//		(cur as any)[prop] = data[p];
-//	}
-//	return (resultholder as any)[""] || resultholder;
-//}
