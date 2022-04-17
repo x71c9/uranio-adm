@@ -14,6 +14,7 @@ type Data = {
 	is_all_checked: boolean
 	is_all_indeterminate: boolean
 	primary_properties: string[]
+	
 	plural: string
 };
 
