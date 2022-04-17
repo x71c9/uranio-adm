@@ -129,15 +129,19 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
             }
         },
         async search_atoms(q) {
+            urn_lib_1.urn_log.fn_debug(`Search Atoms: [${q}]`);
             this.page_query.q = q;
             this.page_query.index = 0;
             this.get_atoms();
         },
         async get_atoms() {
+            urn_lib_1.urn_log.fn_debug(`Get Atoms`);
             _reset_checkbox(this.$refs.allTable);
             // _set_page_data_from_loaded_data(this.page, loaded_data.page);
             try {
                 const atoms = await _get_atoms(this.atom_name, this.page_query);
+                urn_lib_1.urn_log.fn_debug(`Get Atoms response:`);
+                urn_lib_1.urn_log.fn_debug(atoms);
                 this.atoms.splice(0);
                 Object.assign(this.atoms, atoms);
                 this.page_data.total_result = await _count_atoms(this.atom_name, this.page_query);
@@ -208,7 +212,7 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
             if (page_query.index > page_data.total_pages - 1) {
                 page_query.index = page_data.total_pages - 1;
             }
-            if (page_data.total_result === 0) {
+            if (total_atoms === 0) {
                 empty_relation = true;
             }
             success = true;
@@ -307,14 +311,14 @@ async function _hook_find_count(atom_name, page_query) {
 }
 async function _hook_search_count(atom_name, page_query) {
     const trx_base = client_1.default.trx.base.create(atom_name);
-    const trx_hook_search = trx_base.hook('search_count');
+    const trx_hook_search_count = trx_base.hook('search_count');
     const search_params = {
         params: {
             q: page_query.q
         },
         query: _hook_query_count(page_query)
     };
-    const trx_response = await trx_hook_search(search_params);
+    const trx_response = await trx_hook_search_count(search_params);
     return trx_response;
 }
 function _hook_query(page_query) {

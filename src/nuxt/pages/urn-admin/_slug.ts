@@ -204,11 +204,14 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName, uranio.schema.
 		},
 		
 		async search_atoms(q:string){
+			urn_log.fn_debug(`Search Atoms: [${q}]`);
 			this.page_query.q = q;
 			this.page_query.index = 0;
 			this.get_atoms();
 		},
 		async get_atoms(){
+			
+			urn_log.fn_debug(`Get Atoms`);
 			
 			_reset_checkbox(this.$refs.allTable);
 			// _set_page_data_from_loaded_data(this.page, loaded_data.page);
@@ -216,6 +219,8 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName, uranio.schema.
 			try{
 				
 				const atoms = await _get_atoms(this.atom_name, this.page_query);
+				urn_log.fn_debug(`Get Atoms response:`);
+				urn_log.fn_debug(atoms);
 				this.atoms.splice(0);
 				Object.assign(this.atoms, atoms);
 				
@@ -315,7 +320,7 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName, uranio.schema.
 			if(page_query.index > page_data.total_pages - 1){
 				page_query.index = page_data.total_pages - 1;
 			}
-			if(page_data.total_result === 0){
+			if(total_atoms === 0){
 				empty_relation = true;
 			}
 			
@@ -457,14 +462,14 @@ async function _hook_search_count<A extends uranio.schema.AtomName>(
 	page_query:PageQuery
 ){
 	const trx_base = uranio.trx.base.create(atom_name);
-	const trx_hook_search = trx_base.hook<'search_count'>('search_count');
+	const trx_hook_search_count = trx_base.hook<'search_count'>('search_count');
 	const search_params:uranio.types.Hook.Arguments<A, 'search_count'> = {
 		params: {
 			q: page_query.q
 		} as uranio.types.Hook.Params<A, 'search_count'>,
 		query: _hook_query_count(page_query)
 	};
-	const trx_response = await trx_hook_search(search_params);
+	const trx_response = await trx_hook_search_count(search_params);
 	return trx_response;
 }
 

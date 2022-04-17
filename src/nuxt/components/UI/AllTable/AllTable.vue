@@ -124,7 +124,7 @@
 						:to="`/urn-admin/${atom_name}/${atom._id}`"
 						class="ui-active-row monospace"
 						>
-						{{ atom[prop_key] }}
+						{{ atom[prop_key].toString().slice(0, 42) }}
 					</NuxtLink>
 				</td>
 				<td class="secondary right">
