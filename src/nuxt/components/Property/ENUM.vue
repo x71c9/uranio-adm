@@ -6,7 +6,7 @@
 			:name="prop_name"
 			v-on:change="on_change"
 			>
-			<!-- <option disabled="disabled" selected>Select {{ prop_label }}</option> -->
+			<option disabled="disabled" selected>Select {{ prop_label }}</option>
 			<option
 				v-for="(option, index) in enum_values"
 				:key="option"

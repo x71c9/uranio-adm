@@ -117,7 +117,8 @@ exports.default = vue_1.default.extend({
             const prop_def = client_1.default.book.get_property_definition(this.atom_name, prop_name);
             const prop_value = this.atom_from_molecule[prop_name];
             const prop = this.atom_props[prop_name];
-            if (_is_property_empty(this.atom_name, this.molecule, prop_name)) {
+            if (_is_property_required(this.atom_name, prop_name)
+                && _is_property_empty(this.atom_name, this.molecule, prop_name)) {
                 prop.state = PropState.ERROR;
                 prop.error_message = 'This field is required.';
                 return false;
@@ -163,61 +164,72 @@ exports.default = vue_1.default.extend({
         }
     },
 });
+function _is_property_required(atom_name, prop_key) {
+    let is_required = true;
+    const prop_def = client_1.default.book.get_property_definition(atom_name, prop_key);
+    if (prop_def.optional === true) {
+        is_required = false;
+    }
+    return is_required;
+}
 function _is_property_empty(atom_name, atom, prop_key) {
     let is_empty = false;
     const prop_def = client_1.default.book.get_property_definition(atom_name, prop_key);
-    if (!prop_def.optional && !prop_def.hidden) {
-        const k = prop_key;
-        if (typeof atom[k] === 'undefined') {
-            is_empty = true;
-        }
-        else {
-            switch (prop_def.type) {
-                case client_1.default.types.PropertyType.ATOM: {
-                    if (atom[k] === {} || atom[k] === '') {
-                        is_empty = true;
-                    }
-                    break;
+    // if(!prop_def.optional && !prop_def.hidden){
+    const k = prop_key;
+    if (typeof atom[k] === 'undefined') {
+        is_empty = true;
+    }
+    else {
+        switch (prop_def.type) {
+            case client_1.default.types.PropertyType.ATOM: {
+                if (atom[k] === {} || atom[k] === '') {
+                    is_empty = true;
                 }
-                case client_1.default.types.PropertyType.SET_NUMBER:
-                case client_1.default.types.PropertyType.SET_STRING:
-                case client_1.default.types.PropertyType.ATOM_ARRAY: {
-                    if (atom[k].length === 0) {
-                        is_empty = true;
-                    }
-                    break;
+                break;
+            }
+            case client_1.default.types.PropertyType.SET_NUMBER:
+            case client_1.default.types.PropertyType.SET_STRING:
+            case client_1.default.types.PropertyType.ATOM_ARRAY: {
+                if (atom[k].length === 0) {
+                    is_empty = true;
                 }
-                case client_1.default.types.PropertyType.BINARY: {
-                    break;
+                break;
+            }
+            case client_1.default.types.PropertyType.BINARY: {
+                if (typeof atom[k] === 'undefined' || atom[k] === '') {
+                    is_empty = true;
                 }
-                case client_1.default.types.PropertyType.TIME:
-                case client_1.default.types.PropertyType.DAY: {
-                    if (!atom[k]) {
-                        is_empty = true;
-                    }
-                    break;
+                break;
+            }
+            case client_1.default.types.PropertyType.TIME:
+            case client_1.default.types.PropertyType.DAY: {
+                if (!atom[k]) {
+                    is_empty = true;
                 }
-                case client_1.default.types.PropertyType.TEXT:
-                case client_1.default.types.PropertyType.LONG_TEXT:
-                case client_1.default.types.PropertyType.ID:
-                case client_1.default.types.PropertyType.ENUM_STRING:
-                case client_1.default.types.PropertyType.ENCRYPTED:
-                case client_1.default.types.PropertyType.EMAIL: {
-                    if (!atom[k]) {
-                        is_empty = true;
-                    }
-                    break;
+                break;
+            }
+            case client_1.default.types.PropertyType.TEXT:
+            case client_1.default.types.PropertyType.LONG_TEXT:
+            case client_1.default.types.PropertyType.ID:
+            case client_1.default.types.PropertyType.ENUM_STRING:
+            case client_1.default.types.PropertyType.ENCRYPTED:
+            case client_1.default.types.PropertyType.EMAIL: {
+                if (!atom[k]) {
+                    is_empty = true;
                 }
-                case client_1.default.types.PropertyType.INTEGER:
-                case client_1.default.types.PropertyType.FLOAT:
-                case client_1.default.types.PropertyType.ENUM_NUMBER: {
-                    if (isNaN(atom[k])) {
-                        is_empty = true;
-                    }
-                    break;
+                break;
+            }
+            case client_1.default.types.PropertyType.INTEGER:
+            case client_1.default.types.PropertyType.FLOAT:
+            case client_1.default.types.PropertyType.ENUM_NUMBER: {
+                if (isNaN(atom[k])) {
+                    is_empty = true;
                 }
+                break;
             }
         }
+        // }
     }
     return is_empty;
 }

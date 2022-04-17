@@ -183,7 +183,10 @@ export default Vue.extend<Data, Methods, Computed<uranio.schema.AtomName>, Props
 				prop_name as keyof uranio.schema.Atom<uranio.schema.AtomName>
 			];
 			const prop = this.atom_props[prop_name];
-			if(_is_property_empty(this.atom_name, this.molecule, prop_name)){
+			if(
+				_is_property_required(this.atom_name, prop_name)
+				&& _is_property_empty(this.atom_name, this.molecule, prop_name)
+			){
 				prop.state = PropState.ERROR;
 				prop.error_message = 'This field is required.';
 				return false;
@@ -238,6 +241,17 @@ export default Vue.extend<Data, Methods, Computed<uranio.schema.AtomName>, Props
 	
 });
 
+function _is_property_required<A extends uranio.schema.AtomName>(
+	atom_name:A,
+	prop_key:keyof uranio.types.Book.Definition.Properties
+):boolean{
+	let is_required = true;
+	const prop_def = uranio.book.get_property_definition(atom_name, prop_key);
+	if(prop_def.optional === true){
+		is_required = false;
+	}
+	return is_required;
+}
 function _is_property_empty<A extends uranio.schema.AtomName>(
 	atom_name:A,
 	atom:uranio.schema.AtomShape<A>,
@@ -245,57 +259,60 @@ function _is_property_empty<A extends uranio.schema.AtomName>(
 ):boolean{
 	let is_empty = false;
 	const prop_def = uranio.book.get_property_definition(atom_name, prop_key);
-	if(!prop_def.optional && !prop_def.hidden){
-		const k = prop_key as keyof typeof atom;
-		if(typeof atom[k] === 'undefined'){
-			is_empty = true;
-		}else{
-			switch(prop_def.type){
-				case uranio.types.PropertyType.ATOM:{
-					if(atom[k] === {} || (atom[k] as unknown) === ''){
-						is_empty = true;
-					}
-					break;
+	// if(!prop_def.optional && !prop_def.hidden){
+	const k = prop_key as keyof typeof atom;
+	if(typeof atom[k] === 'undefined'){
+		is_empty = true;
+	}else{
+		switch(prop_def.type){
+			case uranio.types.PropertyType.ATOM:{
+				if(atom[k] === {} || (atom[k] as unknown) === ''){
+					is_empty = true;
 				}
-				case uranio.types.PropertyType.SET_NUMBER:
-				case uranio.types.PropertyType.SET_STRING:
-				case uranio.types.PropertyType.ATOM_ARRAY:{
-					if((atom[k] as unknown as Array<any>).length === 0){
-						is_empty = true;
-					}
-					break;
+				break;
+			}
+			case uranio.types.PropertyType.SET_NUMBER:
+			case uranio.types.PropertyType.SET_STRING:
+			case uranio.types.PropertyType.ATOM_ARRAY:{
+				if((atom[k] as unknown as Array<any>).length === 0){
+					is_empty = true;
 				}
-				case uranio.types.PropertyType.BINARY:{
-					break;
+				break;
+			}
+			case uranio.types.PropertyType.BINARY:{
+				if(typeof atom[k] === 'undefined' || (atom as any)[k] === ''){
+					is_empty = true;
 				}
-				case uranio.types.PropertyType.TIME:
-				case uranio.types.PropertyType.DAY:{
-					if(!atom[k]){
-						is_empty = true;
-					}
-					break;
+				break;
+			}
+			case uranio.types.PropertyType.TIME:
+			case uranio.types.PropertyType.DAY:{
+				if(!atom[k]){
+					is_empty = true;
 				}
-				case uranio.types.PropertyType.TEXT:
-				case uranio.types.PropertyType.LONG_TEXT:
-				case uranio.types.PropertyType.ID:
-				case uranio.types.PropertyType.ENUM_STRING:
-				case uranio.types.PropertyType.ENCRYPTED:
-				case uranio.types.PropertyType.EMAIL:{
-					if(!atom[k]){
-						is_empty = true;
-					}
-					break;
+				break;
+			}
+			case uranio.types.PropertyType.TEXT:
+			case uranio.types.PropertyType.LONG_TEXT:
+			case uranio.types.PropertyType.ID:
+			case uranio.types.PropertyType.ENUM_STRING:
+			case uranio.types.PropertyType.ENCRYPTED:
+			case uranio.types.PropertyType.EMAIL:{
+				if(!atom[k]){
+					is_empty = true;
 				}
-				case uranio.types.PropertyType.INTEGER:
-				case uranio.types.PropertyType.FLOAT:
-				case uranio.types.PropertyType.ENUM_NUMBER:{
-					if(isNaN(atom[k] as unknown as number)){
-						is_empty = true;
-					}
-					break;
+				break;
+			}
+			case uranio.types.PropertyType.INTEGER:
+			case uranio.types.PropertyType.FLOAT:
+			case uranio.types.PropertyType.ENUM_NUMBER:{
+				if(isNaN(atom[k] as unknown as number)){
+					is_empty = true;
 				}
+				break;
 			}
 		}
+	// }
 	}
 	return is_empty;
 }

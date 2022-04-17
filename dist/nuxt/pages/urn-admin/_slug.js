@@ -45,9 +45,18 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
         fail() {
             //
         },
-        add_atom(atoms) {
-            this.atoms.unshift(atoms);
+        add_atom(atom) {
+            this.atoms.unshift(atom);
             this.total_atoms += 1;
+        },
+        replace_atoms(atoms) {
+            for (const atom of atoms) {
+                for (let i = 0; i < this.atoms.length; i++) {
+                    if (this.atoms[i]._id === atom._id) {
+                        this.$set(this.atoms, i, atom);
+                    }
+                }
+            }
         },
         async delete_all_atoms() {
             return await this.delete_atoms(['*']);
@@ -109,6 +118,14 @@ exports.default = (0, vue_typed_mixins_1.default)(shared_1.default).extend({
             urn_lib_1.urn_log.debug('[update_multiple] TRX Response: ', trx_response);
             if (!trx_response.success) {
                 this.fail(trx_response);
+            }
+            else {
+                if (Array.isArray(trx_response.payload)
+                    && trx_response.payload.length > 0
+                    && trx_response.payload[0]._id) {
+                    this.replace_atoms(trx_response.payload);
+                }
+                Object.assign(this.molecule, (0, index_1.empty_molecule)(this.atom_name));
             }
         },
         async search_atoms(q) {

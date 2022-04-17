@@ -57,6 +57,7 @@ type Data<A extends uranio.schema.AtomName, D extends uranio.schema.Depth> = {
 type Methods = {
 	add_atom<A extends uranio.schema.AtomName>(atom:uranio.schema.Atom<A>):void
 	get_atoms():Promise<void>
+	replace_atoms<A extends uranio.schema.AtomName>(atoms:uranio.schema.Atom<A>[]):void
 	search_atoms(q:string):Promise<void>
 	delete_atoms(ids: string[]): Promise<void>
 	delete_all_atoms(): Promise<void>
@@ -110,9 +111,18 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName, uranio.schema.
 		fail(){
 			//
 		},
-		add_atom<A extends uranio.schema.AtomName>(atoms:uranio.schema.Atom<A>){
-			this.atoms.unshift(atoms);
+		add_atom<A extends uranio.schema.AtomName>(atom:uranio.schema.Atom<A>){
+			this.atoms.unshift(atom);
 			this.total_atoms += 1;
+		},
+		replace_atoms<A extends uranio.schema.AtomName>(atoms:uranio.schema.Atom<A>[]){
+			for(const atom of atoms){
+				for(let i = 0; i < this.atoms.length; i++){
+					if(this.atoms[i]._id === atom._id){
+						this.$set(this.atoms, i, atom);
+					}
+				}
+			}
 		},
 		async delete_all_atoms(){
 			return await this.delete_atoms(['*']);
@@ -159,7 +169,7 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName, uranio.schema.
 			return this.update_atoms(['*']);
 		},
 		
-		async update_atoms<A extends uranio.schema.AtomName, D extends uranio.schema.Depth>(
+		async update_atoms<A extends uranio.schema.AtomName>(
 			ids:string[]
 		){
 			let cloned_atom = urn_util.object.deep_clone(this.molecule);
@@ -170,7 +180,7 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName, uranio.schema.
 			const trx_base = uranio.trx.base.create<A>(
 				this.atom_name as A,
 			);
-			const trx_hook = trx_base.hook<'update_multiple', D>('update_multiple');
+			const trx_hook = trx_base.hook<'update_multiple', 0>('update_multiple');
 			const hook_params = {
 				params:{
 					ids: ids
@@ -181,6 +191,15 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName, uranio.schema.
 			urn_log.debug('[update_multiple] TRX Response: ', trx_response);
 			if(!trx_response.success){
 				this.fail(trx_response);
+			}else{
+				if(
+					Array.isArray(trx_response.payload)
+					&& trx_response.payload.length > 0
+					&& trx_response.payload[0]._id
+				){
+					this.replace_atoms(trx_response.payload as uranio.schema.Atom<A>[]);
+				}
+				Object.assign(this.molecule, empty_molecule(this.atom_name));
 			}
 		},
 		

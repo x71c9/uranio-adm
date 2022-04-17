@@ -43,6 +43,20 @@ exports.required_atoms = {
                 search: true,
                 label: 'Name',
                 primary: true
+            },
+            value: {
+                type: types.PropertyType.TEXT,
+                search: true,
+                label: 'Value',
+                optional: true,
+                primary: true
+            },
+            filter: {
+                type: types.PropertyType.ENUM_STRING,
+                label: 'Filter',
+                primary: true,
+                values: ['A', 'B', 'C'],
+                optional: true,
             }
         },
         dock: {

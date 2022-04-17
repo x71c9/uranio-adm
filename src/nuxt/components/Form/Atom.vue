@@ -23,14 +23,24 @@
 						v-on:click.native.prevent="go_back"
 						>Cancel</UIButton>
 					<UIButton
-						v-if="call === 'update'"
+						v-if="call === 'UPDATE'"
 						class="secondary red"
 						@click.native.prevent="delete_atom"
 						>Delete</UIButton>
 				</div>
-				<div class="right">
+				<div
+					v-if="call === 'BULK_EDIT'"
+					class="right"
+					>
+					<UIButton
+						@click.native.prevent="submit_exit"
+						>Update multiple</UIButton>
+				</div>
+				<div
+					v-else
+					class="right"
+					>
 					<UIButton type="submit">Save</UIButton>
-					<!-- v-if="call === 'update'" -->
 					<UIButton
 						@click.native.prevent="submit_exit"
 						>Save / Exit</UIButton>

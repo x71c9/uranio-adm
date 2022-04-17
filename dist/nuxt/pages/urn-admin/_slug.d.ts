@@ -36,6 +36,7 @@ declare type Data<A extends uranio.schema.AtomName, D extends uranio.schema.Dept
 declare type Methods = {
     add_atom<A extends uranio.schema.AtomName>(atom: uranio.schema.Atom<A>): void;
     get_atoms(): Promise<void>;
+    replace_atoms<A extends uranio.schema.AtomName>(atoms: uranio.schema.Atom<A>[]): void;
     search_atoms(q: string): Promise<void>;
     delete_atoms(ids: string[]): Promise<void>;
     delete_all_atoms(): Promise<void>;
