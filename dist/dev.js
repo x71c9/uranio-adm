@@ -12,4 +12,5 @@ const server_1 = __importDefault(require("./server"));
 server_1.default.init();
 const service = server_1.default.api.service.create();
 service.listen();
+// a comment
 //# sourceMappingURL=dev.js.map
