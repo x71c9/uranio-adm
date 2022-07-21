@@ -45,15 +45,10 @@
 		"src/server.ts",
 		"src/client.ts",
 		"src/server/generate.ts",
+		"src/service/ws.ts",
 		"src/panel/index.ts"
 	],
 	"exclude": [
 		"node_modules"
-	],
-	"watchOptions": {
-		"watchFile": "useFsEvents",
-		"watchDirectory": "useFsEvents",
-		"fallbackPolling": "dynamicPriority",
-		"synchronousWatchDirectory": true
-  }
+	]
 }
