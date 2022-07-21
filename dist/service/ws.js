@@ -1,6 +1,7 @@
+#!/usr/bin/env node
 "use strict";
 /**
- * Exported type module for client
+ * Admin binary for uranio-api web service
  *
  * @packageDocumentation
  */
@@ -14,9 +15,18 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
 var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("../typ/trx_cln"), exports);
-__exportStar(require("../typ/book_cln"), exports);
-__exportStar(require("../typ/conf_cln"), exports);
-__exportStar(require("../typ/env_cln"), exports);
-//# sourceMappingURL=types.js.map
+const dotenv_1 = __importDefault(require("dotenv"));
+const result = dotenv_1.default.config();
+if (result.error) {
+    throw result.error;
+}
+__exportStar(require("../server/register"), exports);
+const server_1 = __importDefault(require("../server"));
+server_1.default.init();
+const service = server_1.default.api.service.create();
+service.listen();
+//# sourceMappingURL=ws.js.map
