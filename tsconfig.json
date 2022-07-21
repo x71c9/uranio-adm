@@ -41,7 +41,11 @@
 		]
 	},
 	"include": [
-		"src/**/*"
+		"src/dev.ts",
+		"src/server.ts",
+		"src/client.ts",
+		"src/server/generate.ts",
+		"src/panel/index.ts"
 	],
 	"exclude": [
 		"node_modules"
