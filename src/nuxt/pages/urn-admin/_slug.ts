@@ -2,6 +2,7 @@ import mixins from 'vue-typed-mixins';
 
 import { Route } from 'vue-router';
 
+// @ts-ignore
 import uranio from 'uranio/client';
 
 import { urn_util, urn_response, urn_log } from "urn-lib";
@@ -147,7 +148,7 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName, uranio.schema.
 					continue;
 				}
 				count++;
-				const index = this.atoms.map(a => a._id).indexOf(id);
+				const index = this.atoms.map((a:uranio.schema.Atom<uranio.schema.AtomName>) => a._id).indexOf(id);
 				this.$delete(this.atoms, index);
 			}
 			this.total_atoms -= count;
@@ -447,13 +448,13 @@ async function _hook_find_count<A extends uranio.schema.AtomName>(
 	page_query:PageQuery
 ){
 	const trx_base = uranio.trx.base.create(atom_name);
-	const trx_hook_find = trx_base.hook<'count'>('count');
+	const trx_hook_count = trx_base.hook<'count'>('count');
 	const find_params:uranio.types.Hook.Arguments<A, 'count'> = {};
 	const hook_query_count_obj = _hook_query_count(page_query);
 	if(Object.keys(hook_query_count_obj).length > 0){
 		find_params.query = hook_query_count_obj;
 	}
-	const trx_response = await trx_hook_find(find_params);
+	const trx_response = await trx_hook_count(find_params);
 	return trx_response;
 }
 
