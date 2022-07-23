@@ -1,6 +1,6 @@
 "use strict";
 /**
- * TRX run module
+ * ADM run module
  *
  * @packageDocumentation
  */

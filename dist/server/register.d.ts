@@ -1,5 +1,5 @@
 /**
- * API register required atoms module
+ * ADM register required atoms module
  *
  * @packageDocumentation
  */

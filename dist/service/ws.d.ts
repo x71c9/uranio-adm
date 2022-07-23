@@ -5,3 +5,4 @@
  * @packageDocumentation
  */
 export * from '../server/register';
+export * from '../server/delta/index';
