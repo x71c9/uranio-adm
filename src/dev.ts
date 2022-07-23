@@ -1,5 +1,5 @@
 /**
- * TRX run module
+ * ADM run module
  *
  * @packageDocumentation
  */
