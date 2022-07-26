@@ -1,5 +1,5 @@
 /**
- * Init module
+ * Admin init module
  *
  * @packageDocumentation
  */

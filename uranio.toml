@@ -12,13 +12,13 @@ lambda = 'netlify'
 fetch = 'axios'
 fetch_url = 'http://localhost:7774/uranio/api'
 [default_atoms]
-	superuser = false
-	group = false
-	user = false
-	media = false
-	request = false
-	error = false
-	setting = false
+	superuser = true
+	group = true
+	user = true
+	media = true
+	request = true
+	error = true
+	setting = true
 [service]
 	platform = 'express'
 	protocol = 'http'

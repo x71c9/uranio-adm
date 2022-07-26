@@ -12,7 +12,9 @@
  * @packageDocumentation
  */
 
-import { resolve } from 'path';
+import {resolve} from 'path';
+
+import {urn_log} from 'urn-lib';
 
 import {client_toml} from '../client/toml';
 
@@ -84,6 +86,10 @@ export default {
 		// URN_CLIENT_DOMAIN: process.env.URN_CLIENT_DOMAIN || 'localhost',
 		// URN_CLIENT_PORT: Number(process.env.URN_CLIENT_PORT) || 4444,
 		// URN_CLIENT_PREFIX_LOG: process.env.URN_PREFIX_LOG || '/log',
+		URN_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
+			urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG,
+		URN_DEV_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
+			urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG
 	},
 	components: [
 		{

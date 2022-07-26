@@ -12,3 +12,8 @@ yarn build
 yarn restart
 yarn dev
 ```
+
+If `uranio.toml` is changed the following command must be run:
+```
+yarn restart
+```
