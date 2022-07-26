@@ -82,10 +82,12 @@ exports.default = {
         // URN_CLIENT_DOMAIN: process.env.URN_CLIENT_DOMAIN || 'localhost',
         // URN_CLIENT_PORT: Number(process.env.URN_CLIENT_PORT) || 4444,
         // URN_CLIENT_PREFIX_LOG: process.env.URN_PREFIX_LOG || '/log',
-        URN_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
-            urn_lib_1.urn_log.LogLevel.ERROR : urn_lib_1.urn_log.LogLevel.FUNCTION_DEBUG,
-        URN_DEV_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
-            urn_lib_1.urn_log.LogLevel.ERROR : urn_lib_1.urn_log.LogLevel.FUNCTION_DEBUG
+        // URN_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
+        // 	urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG,
+        // URN_DEV_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
+        // 	urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG
+        URN_LOG_LEVEL: process.env.URN_LOG_LEVEL || urn_lib_1.urn_log.LogLevel.ERROR,
+        URN_DEV_LOG_LEVEL: process.env.URN_DEV_LOG_LEVEL || urn_lib_1.urn_log.LogLevel.DEBUG
     },
     components: [
         {

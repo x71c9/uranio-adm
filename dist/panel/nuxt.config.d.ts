@@ -42,8 +42,8 @@ declare namespace _default {
         'uranio-core/client/types': string;
     };
     namespace env {
-        const URN_LOG_LEVEL: urn_log.LogLevel;
-        const URN_DEV_LOG_LEVEL: urn_log.LogLevel;
+        const URN_LOG_LEVEL: string | urn_log.LogLevel;
+        const URN_DEV_LOG_LEVEL: string | urn_log.LogLevel;
     }
     const components: {
         path: string;
