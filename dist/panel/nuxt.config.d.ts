@@ -41,7 +41,10 @@ declare namespace _default {
         'uranio-core/client': string;
         'uranio-core/client/types': string;
     };
-    const env: {};
+    namespace env {
+        const URN_LOG_LEVEL: urn_log.LogLevel;
+        const URN_DEV_LOG_LEVEL: urn_log.LogLevel;
+    }
     const components: {
         path: string;
         extensions: string[];
@@ -75,3 +78,4 @@ declare namespace _default {
     }
 }
 export default _default;
+import { urn_log } from "urn-lib";
