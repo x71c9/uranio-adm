@@ -91,7 +91,7 @@ export default {
 		// URN_DEV_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
 		// 	urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG
 		URN_LOG_LEVEL: process.env.URN_LOG_LEVEL || urn_log.LogLevel.ERROR,
-		URN_DEV_LOG_LEVEL: process.env.URN_DEV_LOG_LEVEL || urn_log.LogLevel.DEBUG
+		URN_DEV_LOG_LEVEL: process.env.URN_DEV_LOG_LEVEL || process.env.URN_LOG_LEVEL || urn_log.LogLevel.DEBUG
 	},
 	components: [
 		{
