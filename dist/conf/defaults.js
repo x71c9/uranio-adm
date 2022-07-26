@@ -12,5 +12,6 @@ exports.adm_config = void 0;
 const uranio_trx_1 = __importDefault(require("uranio-trx"));
 exports.adm_config = {
     ...uranio_trx_1.default.conf.get_all(),
+    default_atoms_setting: true
 };
 //# sourceMappingURL=defaults.js.map

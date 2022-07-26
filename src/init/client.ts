@@ -31,6 +31,8 @@ export function init(
 	
 	conf.set(client_toml);
 	trx_client.conf.set(client_toml);
+	trx_client.api.conf.set(client_toml);
+	trx_client.core.conf.set(client_toml);
 	
 	env.set_client_env();
 	

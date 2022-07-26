@@ -10,6 +10,7 @@ type RequiredConfigParams = {
 }
 
 type OptionalConfigParam = {
+	default_atoms_setting: boolean
 }
 
 export type Configuration =

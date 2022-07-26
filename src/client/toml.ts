@@ -1,9 +1,9 @@
 /**
  * Module for default client configuration object
-* Uranio generate script will replace this file with the client part
-* of the uranio.toml configration file.
-*
-* All properties starting with `client_` will populate this object.
+ * Uranio `generate` script will replace this file with the client part
+ * of the uranio.toml configration file.
+ *
+ * All properties starting with `client_` will populate this object.
  *
  * @packageDocumentation
  */
@@ -33,6 +33,13 @@ export const client_toml:Partial<ClientConfiguration> = {
 	log_prefix_type: false,
 	prefix_log: "/logs",
 	fetch: "axios",
+	default_atoms_superuser: false,
+	default_atoms_group: false,
+	default_atoms_user: false,
+	default_atoms_media: false,
+	default_atoms_request: false,
+	default_atoms_error: false,
+	default_atoms_setting: false,
 	service_url: "http://localhost:7774/uranio/api",
 	dev_service_url: "http://localhost:7774/uranio/api",
 };

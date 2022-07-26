@@ -10,6 +10,7 @@ type RequiredClientConfigParams = {
 }
 
 type OptionalClientConfigParam = {
+	default_atoms_setting: boolean
 	panel_protocol: string
 	panel_domain: string
 	panel_port: number

@@ -12,4 +12,6 @@ export const adm_config:Required<Configuration> = {
 	
 	...trx.conf.get_all(),
 	
+	default_atoms_setting: true
+	
 };

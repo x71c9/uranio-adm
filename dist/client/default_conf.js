@@ -11,14 +11,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.adm_client_config = void 0;
 const client_1 = __importDefault(require("uranio-trx/client"));
 /**
- * IMPORTANT: if new variable are added here they must be added on
- * uranio-trx_client/conf/client.ts
+ * IMPORTANT: if new variables are added here they must be added on
+ * uranio-adm_client/conf/client.ts
  *
  * Unfortunately the browser doesn't allow to dynamically access process.env
  * properties, like process.env[var_name] where `var_name` is a variable.
  */
 exports.adm_client_config = {
     ...client_1.default.conf.get_all(),
+    default_atoms_setting: true,
     panel_protocol: 'http',
     panel_domain: 'localhost',
     panel_port: 5454,

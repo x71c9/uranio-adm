@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<div class="side-bar-group">
+		<div
+			v-if="items_atom.length > 0"
+			class="side-bar-group"
+			>
 			<UISideBarLabel label="Atoms"></UISideBarLabel>
 			<ul>
 				<li v-for="item in items_atom" :key="item.to">
@@ -8,7 +11,10 @@
 				</li>
 			</ul>
 		</div>
-		<div class="side-bar-group">
+		<div
+			v-if="items_log.length > 0"
+			class="side-bar-group"
+			>
 			<UISideBarLabel label="Logs"></UISideBarLabel>
 			<ul>
 				<li v-for="item in items_log" :key="item.to">

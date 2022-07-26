@@ -2,7 +2,7 @@ import mixins from 'vue-typed-mixins';
 
 import { Route } from 'vue-router';
 
-// @ts-ignore
+// @ts - ignore
 import uranio from 'uranio/client';
 
 import { urn_util, urn_response, urn_log } from "urn-lib";
