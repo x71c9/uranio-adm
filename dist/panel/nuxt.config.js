@@ -20,6 +20,12 @@ const is_production = process.env.NODE_ENV === 'production';
 const server_host = (is_production) ? toml_1.client_toml.panel_domain : toml_1.client_toml.dev_panel_domain;
 const server_port = (is_production) ? toml_1.client_toml.panel_port : toml_1.client_toml.dev_panel_port;
 const target = (is_production) ? toml_1.client_toml.service_url : toml_1.client_toml.dev_service_url;
+const https = (toml_1.client_toml.service_protocol === 'https') ? {
+    // cert: fs.readFileSync(resolve(__dirname, '../../cert/localhost.crt')),
+    // key: fs.readFileSync(resolve(__dirname, '../../cert/localhost.key'))
+    cert: fs.readFileSync(process.env.URN_SSL_CERTIFICATE),
+    key: fs.readFileSync(process.env.URN_SSL_KEY)
+} : {};
 exports.default = {
     dev: !is_production,
     buildDir: path_1.resolve(__dirname, './.nuxt'),
@@ -34,7 +40,8 @@ exports.default = {
     },
     server: {
         host: server_host || "0.0.0.0",
-        port: server_port || 5454
+        port: server_port || 5454,
+        https: https
     },
     proxy: {
         '/uranio/api': {

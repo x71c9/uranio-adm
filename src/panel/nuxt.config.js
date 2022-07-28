@@ -24,6 +24,13 @@ const server_host = (is_production) ? client_toml.panel_domain : client_toml.dev
 const server_port = (is_production) ? client_toml.panel_port : client_toml.dev_panel_port;
 const target = (is_production) ? client_toml.service_url : client_toml.dev_service_url;
 
+const https = (client_toml.service_protocol === 'https') ? {
+	// cert: fs.readFileSync(resolve(__dirname, '../../cert/localhost.crt')),
+	// key: fs.readFileSync(resolve(__dirname, '../../cert/localhost.key'))
+	cert: fs.readFileSync(process.env.URN_SSL_CERTIFICATE),
+	key: fs.readFileSync(process.env.URN_SSL_KEY)
+} : {};
+
 export default {
 	dev: !is_production,
 	buildDir: resolve(__dirname,'./.nuxt'),
@@ -38,7 +45,8 @@ export default {
 	},
 	server: {
 		host: server_host || "0.0.0.0",
-		port: server_port || 5454
+		port: server_port || 5454,
+		https: https
 	},
 	proxy: {
 		'/uranio/api': {

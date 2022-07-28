@@ -11,8 +11,9 @@ declare namespace _default {
         const exclude: string[];
     }
     namespace server {
-        const host: string;
-        const port: number;
+        export const host: string;
+        export const port: number;
+        export { https };
     }
     const proxy: {
         '/uranio/api': {
@@ -78,4 +79,11 @@ declare namespace _default {
     }
 }
 export default _default;
+declare const https: {
+    cert: any;
+    key: any;
+} | {
+    cert?: undefined;
+    key?: undefined;
+};
 import { urn_log } from "urn-lib";
