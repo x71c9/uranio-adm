@@ -11,20 +11,20 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.client_toml = void 0;
 exports.client_toml = {
-    panel_protocol: "http",
+    panel_protocol: "https",
     panel_domain: "localhost",
     panel_port: 4444,
-    dev_panel_protocol: "http",
+    dev_panel_protocol: "https",
     dev_panel_domain: "localhost",
     dev_panel_port: 4444,
-    dev_fetch_url: "http://localhost:4444/uranio/api",
+    dev_fetch_url: "https://localhost:4444/uranio/api",
     dev_log_debug_info: false,
     dev_log_color: true,
     dev_log_time_format: "yyyy-mm-dd'T'HH:MM:ss:l",
     dev_log_max_str_length: 174,
     dev_log_prefix: "",
     dev_log_prefix_type: false,
-    fetch_url: "http://localhost:4444/uranio/api",
+    fetch_url: "https://localhost:4444/uranio/api",
     log_debug_info: false,
     log_color: true,
     log_time_format: "HH:MM:ss:l",
@@ -40,7 +40,7 @@ exports.client_toml = {
     default_atoms_request: true,
     default_atoms_error: true,
     default_atoms_setting: true,
-    service_url: "http://localhost:7774/uranio/api",
-    dev_service_url: "http://localhost:7774/uranio/api",
+    service_url: "https://localhost:7774/uranio/api",
+    dev_service_url: "https://localhost:7774/uranio/api",
 };
 //# sourceMappingURL=toml.js.map

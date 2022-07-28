@@ -17,6 +17,7 @@ declare namespace _default {
     const proxy: {
         '/uranio/api': {
             target: string | undefined;
+            secure: boolean;
             pathRewrite: {
                 "^/uranio/api": string;
             };
@@ -43,7 +44,6 @@ declare namespace _default {
     };
     namespace env {
         const URN_LOG_LEVEL: string | urn_log.LogLevel;
-        const URN_DEV_LOG_LEVEL: string | urn_log.LogLevel;
     }
     const components: {
         path: string;

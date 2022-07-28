@@ -43,6 +43,7 @@ export default {
 	proxy: {
 		'/uranio/api': {
 			target: target,
+			secure: (is_production),
 			pathRewrite: {
 				"^/uranio/api": ""
 			}
@@ -67,12 +68,6 @@ export default {
 	telemetry: false,
 	alias: {
 		'uranio/client': resolve(__dirname, '../../src/client'),
-		// 'uranio-trx/client': resolve(__dirname, '../../../urn-trx/dist/client'),
-		// 'uranio-trx/client/types': resolve(__dirname, '../../../urn-trx/dist/client/types'),
-		// 'uranio-api/client': resolve(__dirname, '../../../urn-api/dist/client'),
-		// 'uranio-api/client/types': resolve(__dirname, '../../../urn-api/dist/client/types'),
-		// 'uranio-core/client': resolve(__dirname, '../../../urn-core/dist/client'),
-		// 'uranio-core/client/types': resolve(__dirname, '../../../urn-core/dist/client/types'),
 		'uranio-trx/client': resolve(__dirname, '../../../uranio-trx/dist/client'),
 		'uranio-trx/client/types': resolve(__dirname, '../../../uranio-trx/dist/client/types'),
 		'uranio-api/client': resolve(__dirname, '../../../uranio-api/dist/client'),
@@ -90,8 +85,7 @@ export default {
 		// 	urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG,
 		// URN_DEV_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
 		// 	urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG
-		URN_LOG_LEVEL: process.env.URN_LOG_LEVEL || urn_log.LogLevel.ERROR,
-		URN_DEV_LOG_LEVEL: process.env.URN_DEV_LOG_LEVEL || process.env.URN_LOG_LEVEL || urn_log.LogLevel.DEBUG
+		URN_LOG_LEVEL: process.env.URN_LOG_LEVEL || urn_log.LogLevel.ERROR
 	},
 	components: [
 		{

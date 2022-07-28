@@ -9,3 +9,5 @@ yarn-error.log
 .urnlog
 .nuxt
 *.bkp
+cert/*
+!cert/.gitkeep

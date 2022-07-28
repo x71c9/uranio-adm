@@ -4,6 +4,8 @@
  * @packageDocumentation
  */
 
+import fs from 'fs';
+
 import { resolve } from 'path';
 
 import { urn_log } from 'urn-lib';
@@ -26,7 +28,8 @@ export default {
 		URN_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
 			urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG,
 		URN_DEV_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
-			urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG
+			urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG,
+		// NODE_TLS_REJECT_UNAUTHORIZED: 0
 		// URN_CLIENT_FETCH: process.env.URN_CLIENT_FETCH || 'axios',
 		// URN_CLIENT_PROTOCOL: process.env.URN_CLIENT_PROTOCOL || 'http',
 		// URN_CLIENT_DOMAIN: process.env.URN_CLIENT_DOMAIN || 'localhost',
@@ -55,7 +58,11 @@ export default {
 	},
 	server: {
 		host: "0.0.0.0",
-		port: 4444
+		port: 4444,
+		https: {
+			cert: fs.readFileSync(resolve(__dirname, 'cert/localhost.crt')),
+			key: fs.readFileSync(resolve(__dirname, 'cert/localhost.key'))
+		}
 	},
 	modules:[
 		'@nuxtjs/proxy'
@@ -73,7 +80,8 @@ export default {
 	],
 	proxy: {
 		'/uranio/api': {
-			target: "http://localhost:7774/uranio/api",
+			target: "https://localhost:7774/uranio/api",
+			secure: false,
 			pathRewrite: {
 				"^/uranio/api": ""
 			}
