@@ -24,7 +24,7 @@ const is_production = process.env.NODE_ENV === 'production';
 const server_host = (is_production) ? toml_1.client_toml.panel_domain : toml_1.client_toml.dev_panel_domain;
 const server_port = (is_production) ? toml_1.client_toml.panel_port : toml_1.client_toml.dev_panel_port;
 const target = (is_production) ? toml_1.client_toml.service_url : toml_1.client_toml.dev_service_url;
-const https = (toml_1.client_toml.panel_protocol === 'https') ? {
+const https = (process.env.URN_HTTPS === true) ? {
     // cert: fs.readFileSync(resolve(__dirname, '../../cert/localhost.crt')),
     // key: fs.readFileSync(resolve(__dirname, '../../cert/localhost.key'))
     cert: fs_1.default.readFileSync(process.env.URN_SSL_CERTIFICATE),
@@ -50,7 +50,7 @@ exports.default = {
     proxy: {
         '/uranio/api': {
             target: target,
-            secure: (toml_1.client_toml.panel_protocol === 'https'),
+            secure: (is_production && process.env.URN_HTTPS === true),
             pathRewrite: {
                 "^/uranio/api": ""
             }

@@ -83,7 +83,7 @@ export async function start(){
 	const app = express();
 	app.use(nuxt.render);
 	
-	const protocol = (config.proxy['/uranio/api'].secure) ? 'https' : 'http';
+	const protocol = (process.env.URN_HTTPS) ? 'https' : 'http';
 	
 	let server = http.createServer(app);
 	if(protocol === 'https'){
