@@ -10,6 +10,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.start = exports.dev = exports.generate = exports.build = void 0;
 const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
+const http_1 = __importDefault(require("http"));
+const https_1 = __importDefault(require("https"));
 const chokidar_1 = __importDefault(require("chokidar"));
 const express_1 = __importDefault(require("express"));
 const nuxt_1 = require("nuxt");
@@ -59,7 +62,27 @@ async function start() {
     const app = express_1.default();
     app.use(nuxt.render);
     const protocol = (nuxt_config_1.default.proxy['/uranio/api'].secure) ? 'https' : 'http';
-    app.listen(nuxt_config_1.default.server.port, nuxt_config_1.default.server.host, () => {
+    let server = http_1.default.createServer(app);
+    if (protocol === 'https') {
+        const serverOptions = {
+            // Certificate(s) & Key(s)
+            // cert: fs.readFileSync(path.join(__dirname, '../../../cert/cert.pem')),
+            // key: fs.readFileSync(path.join(__dirname, '../../../cert/key.pem')),
+            cert: fs_1.default.readFileSync(process.env.URN_SSL_CERTIFICATE),
+            key: fs_1.default.readFileSync(process.env.URN_SSL_KEY),
+            // TLS Versions
+            // maxVersion: 'TLSv1.3',
+            // minVersion: 'TLSv1.2'
+            // Hardened configuration
+            // ciphers: 'TLS_AES_256_GCM_SHA384:TLS_AES_128_GCM_SHA256',
+            // ecdhCurve: 'P-521:P-384',
+            // sigalgs: 'ecdsa_secp384r1_sha384',
+            // Attempt to use server cipher suite preference instead of clients
+            // honorCipherOrder: true
+        };
+        server = https_1.default.createServer(serverOptions, app);
+    }
+    server.listen(nuxt_config_1.default.server.port, nuxt_config_1.default.server.host, () => {
         urn_lib_1.urn_log.debug(`Server listening on port ${nuxt_config_1.default.server.port}...`);
         urn_lib_1.urn_log.debug(`Connect to ${protocol}://${nuxt_config_1.default.server.host}:${nuxt_config_1.default.server.port}`);
         _listen_log(protocol, nuxt_config_1.default.server.host, nuxt_config_1.default.server.port);

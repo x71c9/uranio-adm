@@ -80,8 +80,8 @@ declare namespace _default {
 }
 export default _default;
 declare const https: {
-    cert: any;
-    key: any;
+    cert: Buffer & string;
+    key: Buffer & string;
 } | {
     cert?: undefined;
     key?: undefined;

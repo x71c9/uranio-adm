@@ -6,6 +6,12 @@
 
 import path from 'path';
 
+import fs from 'fs';
+
+import http from 'http';
+
+import https from 'https';
+
 import chokidar from 'chokidar';
 
 import express from 'express';
@@ -79,7 +85,28 @@ export async function start(){
 	
 	const protocol = (config.proxy['/uranio/api'].secure) ? 'https' : 'http';
 	
-	app.listen(config.server.port, config.server.host, () => {
+	let server = http.createServer(app);
+	if(protocol === 'https'){
+		const serverOptions = {
+			// Certificate(s) & Key(s)
+			// cert: fs.readFileSync(path.join(__dirname, '../../../cert/cert.pem')),
+			// key: fs.readFileSync(path.join(__dirname, '../../../cert/key.pem')),
+			cert: fs.readFileSync(process.env.URN_SSL_CERTIFICATE as string),
+			key: fs.readFileSync(process.env.URN_SSL_KEY as string),
+			// TLS Versions
+			// maxVersion: 'TLSv1.3',
+			// minVersion: 'TLSv1.2'
+			// Hardened configuration
+			// ciphers: 'TLS_AES_256_GCM_SHA384:TLS_AES_128_GCM_SHA256',
+			// ecdhCurve: 'P-521:P-384',
+			// sigalgs: 'ecdsa_secp384r1_sha384',
+			// Attempt to use server cipher suite preference instead of clients
+			// honorCipherOrder: true
+		}
+		server = https.createServer(serverOptions, app);
+	}
+	
+	server.listen(config.server.port, config.server.host, () => {
 		urn_log.debug(`Server listening on port ${config.server.port}...`);
 		urn_log.debug(`Connect to ${protocol}://${config.server.host}:${config.server.port}`);
 		_listen_log(protocol, config.server.host, config.server.port);
