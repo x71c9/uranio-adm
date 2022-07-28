@@ -47,7 +47,8 @@
 		"src/server/generate.ts",
 		"src/service/ws.ts",
 		"src/panel/index.ts",
-		"src/panel/nuxt.config.js"
+		"src/panel/nuxt.config.js",
+		"src/panel/panel.js"
 	],
 	"exclude": [
 		"node_modules"

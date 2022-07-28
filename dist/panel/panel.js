@@ -58,22 +58,25 @@ async function start() {
     await nuxt.ready();
     const app = express_1.default();
     app.use(nuxt.render);
+    const protocol = (nuxt_config_1.default.proxy['/uranio/api'].secure) ? 'https' : 'http';
     app.listen(nuxt_config_1.default.server.port, nuxt_config_1.default.server.host, () => {
         urn_lib_1.urn_log.debug(`Server listening on port ${nuxt_config_1.default.server.port}...`);
-        urn_lib_1.urn_log.debug(`Connect to http://${nuxt_config_1.default.server.host}:${nuxt_config_1.default.server.port}`);
-        _listen_log(nuxt_config_1.default.server.host, nuxt_config_1.default.server.port);
+        urn_lib_1.urn_log.debug(`Connect to ${protocol}://${nuxt_config_1.default.server.host}:${nuxt_config_1.default.server.port}`);
+        _listen_log(protocol, nuxt_config_1.default.server.host, nuxt_config_1.default.server.port);
     });
 }
 exports.start = start;
-function _listen_log(host, port) {
+function _listen_log(prot, host, port) {
+    const prol = Array(prot.length).fill('─').join('');
     const hosl = Array(host.length).fill('─').join('');
     const porl = Array(port.toString().length).fill('─').join('');
+    const pros = Array(prot.length).fill(' ').join('');
     const hoss = Array(host.length).fill(' ').join('');
     const pors = Array(port.toString().length).fill(' ').join('');
-    urn_lib_1.urn_log.debug(`╭───────────────────────────${hosl}─${porl}──╮`);
-    urn_lib_1.urn_log.debug(`│                           ${hoss} ${pors}  │`);
-    urn_lib_1.urn_log.debug(`│ Panel listening on http://${host}:${port}  │`);
-    urn_lib_1.urn_log.debug(`│                           ${hoss} ${pors}  │`);
-    urn_lib_1.urn_log.debug(`╰───────────────────────────${hosl}─${porl}──╯`);
+    urn_lib_1.urn_log.debug(`╭────────────────────${prol}───${hosl}─${porl}──╮`);
+    urn_lib_1.urn_log.debug(`│                    ${pros}   ${hoss} ${pors}  │`);
+    urn_lib_1.urn_log.debug(`│ Panel listening on ${prot}://${host}:${port}  │`);
+    urn_lib_1.urn_log.debug(`│                    ${pros}   ${hoss} ${pors}  │`);
+    urn_lib_1.urn_log.debug(`╰────────────────────${prol}───${hosl}─${porl}──╯`);
 }
 //# sourceMappingURL=panel.js.map

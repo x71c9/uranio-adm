@@ -76,24 +76,31 @@ export async function start(){
 	
 	const app = express();
 	app.use(nuxt.render);
+	
+	const protocol = (config.proxy['/uranio/api'].secure) ? 'https' : 'http';
+	
 	app.listen(config.server.port, config.server.host, () => {
 		urn_log.debug(`Server listening on port ${config.server.port}...`);
-		urn_log.debug(`Connect to http://${config.server.host}:${config.server.port}`);
-		_listen_log(config.server.host, config.server.port);
+		urn_log.debug(`Connect to ${protocol}://${config.server.host}:${config.server.port}`);
+		_listen_log(protocol, config.server.host, config.server.port);
 	});
 	
 }
 
-function _listen_log(host:string, port:number){
+function _listen_log(prot:string, host:string, port:number){
+	const prol = Array(prot.length).fill('─').join('');
 	const hosl = Array(host.length).fill('─').join('');
 	const porl = Array(port.toString().length).fill('─').join('');
+	
+	const pros = Array(prot.length).fill(' ').join('');
 	const hoss = Array(host.length).fill(' ').join('');
 	const pors = Array(port.toString().length).fill(' ').join('');
-	urn_log.debug(`╭───────────────────────────${hosl}─${porl}──╮`);
-	urn_log.debug(`│                           ${hoss} ${pors}  │`);
-	urn_log.debug(`│ Panel listening on http://${host}:${port}  │`);
-	urn_log.debug(`│                           ${hoss} ${pors}  │`);
-	urn_log.debug(`╰───────────────────────────${hosl}─${porl}──╯`);
+	
+	urn_log.debug(`╭────────────────────${prol}───${hosl}─${porl}──╮`);
+	urn_log.debug(`│                    ${pros}   ${hoss} ${pors}  │`);
+	urn_log.debug(`│ Panel listening on ${prot}://${host}:${port}  │`);
+	urn_log.debug(`│                    ${pros}   ${hoss} ${pors}  │`);
+	urn_log.debug(`╰────────────────────${prol}───${hosl}─${porl}──╯`);
 }
 
 
