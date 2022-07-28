@@ -43,7 +43,7 @@ export default {
 	proxy: {
 		'/uranio/api': {
 			target: target,
-			secure: (is_production),
+			secure: (client_toml.panel_protocol === 'https'),
 			pathRewrite: {
 				"^/uranio/api": ""
 			}
