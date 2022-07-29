@@ -59,7 +59,7 @@ exports.dev = dev;
 async function start() {
     urn_lib_1.urn_log.debug(`Uranio panel starting...`);
     await nuxt.ready();
-    const app = express_1.default();
+    const app = (0, express_1.default)();
     app.use(nuxt.render);
     const protocol = (process.env.URN_HTTPS) ? 'https' : 'http';
     let server = http_1.default.createServer(app);

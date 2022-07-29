@@ -6,7 +6,11 @@
  */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -30,6 +34,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.init = void 0;
 const urn_lib_1 = require("urn-lib");
 const uranio_trx_1 = __importDefault(require("uranio-trx"));
+const defaults_1 = require("../conf/defaults");
 const register = __importStar(require("../reg/server"));
 const required = __importStar(require("../req/server"));
 const conf = __importStar(require("../conf/server"));
@@ -37,7 +42,7 @@ const env = __importStar(require("../env/server"));
 const log = __importStar(require("../log/server"));
 function init(config, register_required = true) {
     uranio_trx_1.default.init(config, false);
-    conf.set(uranio_trx_1.default.api.core.util.toml.read());
+    conf.set(uranio_trx_1.default.api.core.util.toml.read(defaults_1.adm_config));
     env.set_env();
     log.init(urn_lib_1.urn_log);
     if (config) {

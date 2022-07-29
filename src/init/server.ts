@@ -8,6 +8,8 @@ import {urn_log} from 'urn-lib';
 
 import trx from 'uranio-trx';
 
+import {adm_config} from '../conf/defaults';
+
 import * as register from '../reg/server';
 
 import * as required from '../req/server';
@@ -27,7 +29,7 @@ export function init(
 	
 	trx.init(config, false);
 	
-	conf.set(trx.api.core.util.toml.read());
+	conf.set(trx.api.core.util.toml.read(adm_config));
 	
 	env.set_env();
 	
