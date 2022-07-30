@@ -1,5 +1,6 @@
 {
 	"name": "uranio-adm",
+	"license": "UNLICENSED",
 	"version": "0.0.1",
 	"description": "Uranio Admin",
 	"main": "dist/index.js",
@@ -33,7 +34,6 @@
 	"repository": "git@github.com:x71c9/uranio-adm.git",
 	"author": "Andrea Reni <108585118+x71c9@users.noreply.github.com>",
 	"scripts": {
-		"dev:sync": "yarn concurrently \"yarn dev:server\" \"yarn dev:nuxt\"",
 		"restart": "yarn generate:replace && yarn patch",
 		"patch": "yarn patch-package",
 		"build": "yarn tsc -b",
