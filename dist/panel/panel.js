@@ -18,7 +18,6 @@ const express_1 = __importDefault(require("express"));
 const nuxt_1 = require("nuxt");
 const urn_lib_1 = require("urn-lib");
 const nuxt_config_1 = __importDefault(require("./nuxt.config"));
-console.log(nuxt_config_1.default);
 const nuxt = new nuxt_1.Nuxt(nuxt_config_1.default);
 async function build() {
     urn_lib_1.urn_log.debug(`Uranio panel building started...`);
@@ -59,7 +58,6 @@ async function dev() {
 exports.dev = dev;
 async function start() {
     urn_lib_1.urn_log.debug(`Uranio panel starting...`);
-    await generate();
     await nuxt.ready();
     const app = (0, express_1.default)();
     app.use(nuxt.render);
