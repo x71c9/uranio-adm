@@ -19,12 +19,15 @@ const nuxt_1 = require("nuxt");
 const urn_lib_1 = require("urn-lib");
 const nuxt_config_1 = __importDefault(require("./nuxt.config"));
 const nuxt = new nuxt_1.Nuxt(nuxt_config_1.default);
-async function build() {
+async function build(dev = false) {
     urn_lib_1.urn_log.debug(`Uranio panel building started...`);
     await nuxt.ready();
     const builder = new nuxt_1.Builder(nuxt);
     await builder.build();
     urn_lib_1.urn_log.debug(`Uranio panel build completed.`);
+    if (dev === false) {
+        process.exit(0);
+    }
     return builder;
 }
 exports.build = build;
@@ -58,6 +61,8 @@ async function dev() {
 exports.dev = dev;
 async function start() {
     urn_lib_1.urn_log.debug(`Uranio panel starting...`);
+    // await build();
+    await generate();
     await nuxt.ready();
     const app = (0, express_1.default)();
     app.use(nuxt.render);

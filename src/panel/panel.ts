@@ -24,7 +24,7 @@ import config from './nuxt.config';
 
 const nuxt = new Nuxt(config);
 
-export async function build():Promise<typeof Builder>{
+export async function build(dev=false):Promise<typeof Builder>{
 	
 	urn_log.debug(`Uranio panel building started...`);
 	
@@ -34,6 +34,10 @@ export async function build():Promise<typeof Builder>{
 	await builder.build();
 	
 	urn_log.debug(`Uranio panel build completed.`);
+	
+	if(dev === false){
+		process.exit(0);
+	}
 	
 	return builder;
 }
@@ -72,12 +76,15 @@ export async function dev(){
 			urn_log.debug(`Uranio panel dev watching [${_event}] [${_path}]`);
 			builder.build();
 		});
+	
 }
 
 export async function start(){
 	
 	urn_log.debug(`Uranio panel starting...`);
 	
+	// await build();
+	await generate();
 	await nuxt.ready();
 	
 	const app = express();
