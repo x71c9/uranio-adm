@@ -60,7 +60,7 @@ export async function dev(){
 	urn_log.debug(`Uranio panel dev started...`);
 	
 	await nuxt.ready();
-	const builder = await build();
+	const builder = await build(true);
 	await start();
 	
 	const watch_paths:string[] = [

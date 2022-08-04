@@ -32,12 +32,12 @@ const https = (process.env.URN_HTTPS === true) ? {
 } : {};
 exports.default = {
     dev: !is_production,
-    buildDir: (0, path_1.resolve)(__dirname, './.nuxt'),
-    srcDir: (0, path_1.resolve)(__dirname, '../../src/nuxt/'),
+    buildDir: path_1.resolve(__dirname, './.nuxt'),
+    srcDir: path_1.resolve(__dirname, '../../src/nuxt/'),
     target: 'static',
     ssr: false,
     generate: {
-        dir: (0, path_1.resolve)(__dirname, '../_admin'),
+        dir: path_1.resolve(__dirname, '../_admin'),
         fallback: '404.html',
         subFolders: false,
         exclude: ['/urn-admin'],
@@ -64,7 +64,7 @@ exports.default = {
         '@nuxt/typescript-build',
     ],
     typescript: {
-        configFile: (0, path_1.resolve)(__dirname, '../../tsconfig.json'),
+        configFile: path_1.resolve(__dirname, '../../tsconfig.json'),
         typeCheck: false
     },
     plugins: [
@@ -74,13 +74,13 @@ exports.default = {
     ],
     telemetry: false,
     alias: {
-        'uranio/client': (0, path_1.resolve)(__dirname, '../../src/client'),
-        'uranio-trx/client': (0, path_1.resolve)(__dirname, '../../../uranio-trx/dist/client'),
-        'uranio-trx/client/types': (0, path_1.resolve)(__dirname, '../../../uranio-trx/dist/client/types'),
-        'uranio-api/client': (0, path_1.resolve)(__dirname, '../../../uranio-api/dist/client'),
-        'uranio-api/client/types': (0, path_1.resolve)(__dirname, '../../../uranio-api/dist/client/types'),
-        'uranio-core/client': (0, path_1.resolve)(__dirname, '../../../uranio-core/dist/client'),
-        'uranio-core/client/types': (0, path_1.resolve)(__dirname, '../../../uranio-core/dist/client/types'),
+        'uranio/client': path_1.resolve(__dirname, '../../src/client'),
+        'uranio-trx/client': path_1.resolve(__dirname, '../../../uranio-trx/dist/client'),
+        'uranio-trx/client/types': path_1.resolve(__dirname, '../../../uranio-trx/dist/client/types'),
+        'uranio-api/client': path_1.resolve(__dirname, '../../../uranio-api/dist/client'),
+        'uranio-api/client/types': path_1.resolve(__dirname, '../../../uranio-api/dist/client/types'),
+        'uranio-core/client': path_1.resolve(__dirname, '../../../uranio-core/dist/client'),
+        'uranio-core/client/types': path_1.resolve(__dirname, '../../../uranio-core/dist/client/types'),
     },
     env: {
         // URN_CLIENT_FETCH: process.env.URN_CLIENT_FETCH || 'axios',
@@ -120,7 +120,7 @@ exports.default = {
         continuous: true
     },
     watch: [
-        (0, path_1.resolve)(__dirname, '../../../uranio-schema/dist')
+        path_1.resolve(__dirname, '../../../uranio-schema/dist')
     ],
     // watchers: {
     //   webpack: {

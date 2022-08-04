@@ -43,7 +43,7 @@ exports.generate = generate;
 async function dev() {
     urn_lib_1.urn_log.debug(`Uranio panel dev started...`);
     await nuxt.ready();
-    const builder = await build();
+    const builder = await build(true);
     await start();
     const watch_paths = [
         path_1.default.resolve(__dirname, '../../src/nuxt'),
@@ -64,7 +64,7 @@ async function start() {
     // await build();
     await generate();
     await nuxt.ready();
-    const app = (0, express_1.default)();
+    const app = express_1.default();
     app.use(nuxt.render);
     const protocol = (process.env.URN_HTTPS) ? 'https' : 'http';
     let server = http_1.default.createServer(app);
