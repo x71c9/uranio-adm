@@ -44,7 +44,7 @@ async function dev() {
     urn_lib_1.urn_log.debug(`Uranio panel dev started...`);
     await nuxt.ready();
     const builder = await build(true);
-    await start();
+    await start(true);
     const watch_paths = [
         path_1.default.resolve(__dirname, '../../src/nuxt'),
         // path.resolve(__dirname, '../../../uranio-schema')
@@ -59,10 +59,12 @@ async function dev() {
     });
 }
 exports.dev = dev;
-async function start() {
+async function start(dev = false) {
     urn_lib_1.urn_log.debug(`Uranio panel starting...`);
     // await build();
-    await generate();
+    if (dev === false) {
+        await generate();
+    }
     await nuxt.ready();
     const app = express_1.default();
     app.use(nuxt.render);
