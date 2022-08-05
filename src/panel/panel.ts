@@ -61,7 +61,7 @@ export async function dev(){
 	
 	await nuxt.ready();
 	const builder = await build(true);
-	await start();
+	await start(true);
 	
 	const watch_paths:string[] = [
 		path.resolve(__dirname, '../../src/nuxt'),
@@ -79,12 +79,14 @@ export async function dev(){
 	
 }
 
-export async function start(){
+export async function start(dev=false){
 	
 	urn_log.debug(`Uranio panel starting...`);
 	
 	// await build();
-	await generate();
+	if(dev === false){
+		await generate();
+	}
 	await nuxt.ready();
 	
 	const app = express();
