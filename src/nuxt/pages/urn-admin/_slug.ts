@@ -205,14 +205,14 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName, uranio.schema.
 		},
 		
 		async search_atoms(q:string){
-			urn_log.fn_debug(`Search Atoms: [${q}]`);
+			urn_log.trace(`Search Atoms: [${q}]`);
 			this.page_query.q = q;
 			this.page_query.index = 0;
 			this.get_atoms();
 		},
 		async get_atoms(){
 			
-			urn_log.fn_debug(`Get Atoms`);
+			urn_log.trace(`Get Atoms`);
 			
 			_reset_checkbox(this.$refs.allTable);
 			// _set_page_data_from_loaded_data(this.page, loaded_data.page);
@@ -220,8 +220,8 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName, uranio.schema.
 			try{
 				
 				const atoms = await _get_atoms(this.atom_name, this.page_query);
-				urn_log.fn_debug(`Get Atoms response:`);
-				urn_log.fn_debug(atoms);
+				urn_log.trace(`Get Atoms response:`);
+				urn_log.trace(atoms);
 				this.atoms.splice(0);
 				Object.assign(this.atoms, atoms);
 				

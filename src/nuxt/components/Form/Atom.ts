@@ -133,7 +133,7 @@ export default Vue.extend<Data, Methods, Computed<uranio.schema.AtomName>, Props
 		
 		submit(_event: Event):void {
 			
-			urn_log.fn_debug(`submitting form`);
+			urn_log.trace(`submitting form`);
 			
 			if(this.validate_form()){
 				this.$emit('submit_atom_form');
@@ -144,7 +144,7 @@ export default Vue.extend<Data, Methods, Computed<uranio.schema.AtomName>, Props
 		
 		submit_exit(_event:Event):void{
 			
-			urn_log.fn_debug(`submitting form and exit`);
+			urn_log.trace(`submitting form and exit`);
 			
 			if(this.validate_form()){
 				this.$emit('submit_exit_atom_form');
@@ -155,14 +155,14 @@ export default Vue.extend<Data, Methods, Computed<uranio.schema.AtomName>, Props
 		
 		delete_atom(_event:Event):void{
 			
-			urn_log.fn_debug(`deleting atom`);
+			urn_log.trace(`deleting atom`);
 			
 			this.$emit('delete_atom');
 		},
 		
 		go_back(_event:Event):void{
 			
-			urn_log.fn_debug(`going back`);
+			urn_log.trace(`going back`);
 			
 			this.$emit('go_back');
 		},
