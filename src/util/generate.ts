@@ -30,18 +30,18 @@ export const process_params = {
 };
 
 export function schema():string{
-	urn_log.debug('Started generating uranio adm schema...');
+	urn_log.trace('Started generating uranio adm schema...');
 	init();
 	const trx_schema = trx.util.generate.schema();
 	const text = _generate_uranio_schema_text(trx_schema);
-	urn_log.debug(`ADM Schema generated.`);
+	urn_log.trace(`ADM Schema generated.`);
 	return text;
 }
 
 export function schema_and_save():void{
 	const text = schema();
 	save_schema(text);
-	urn_log.debug(`Schema generated and saved.`);
+	urn_log.trace(`Schema generated and saved.`);
 }
 
 export function save_schema(text:string):void{
@@ -49,20 +49,20 @@ export function save_schema(text:string):void{
 }
 
 // export function hooks_server():string{
-// 	urn_log.debug('Started generating uranio adm server hooks...');
+// 	urn_log.trace('Started generating uranio adm server hooks...');
 // 	init();
 // 	const trx_hooks = trx.util.generate.hooks_server();
 // 	const text = _generate_hooks_text_server(trx_hooks);
-// 	urn_log.debug(`ADM Server Hooks generated.`);
+// 	urn_log.trace(`ADM Server Hooks generated.`);
 // 	return text;
 // }
 
 // export function hooks_client():string{
-// 	urn_log.debug('Started generating uranio adm client hooks...');
+// 	urn_log.trace('Started generating uranio adm client hooks...');
 // 	init();
 // 	const trx_hooks = trx.util.generate.hooks_client();
 // 	const text = _generate_hooks_text_client(trx_hooks);
-// 	urn_log.debug(`ADM Client Hooks generated.`);
+// 	urn_log.trace(`ADM Client Hooks generated.`);
 // 	return text;
 // }
 
@@ -72,7 +72,7 @@ export function hooks_and_save():void{
 	// save_hooks_server(hooks_text_server);
 	// save_hooks_client(hooks_text_client);
 	trx.util.generate.hooks_and_save();
-	urn_log.debug(`ADM Hooks generated and saved.`);
+	urn_log.trace(`ADM Hooks generated and saved.`);
 }
 
 export function save_hooks_server(text:string):void{
@@ -84,17 +84,17 @@ export function save_hooks_client(text:string):void{
 }
 
 export function hook_types():string{
-	urn_log.debug('Started generating uranio hook types...');
+	urn_log.trace('Started generating uranio hook types...');
 	init();
 	const text = trx.util.generate.hook_types();
-	urn_log.debug(`ADM Hook types generated.`);
+	urn_log.trace(`ADM Hook types generated.`);
 	return text;
 }
 
 export function hook_types_and_save():void{
 	const text = hook_types();
 	save_hook_types(text);
-	urn_log.debug(`Types generated and saved.`);
+	urn_log.trace(`Types generated and saved.`);
 }
 
 export function save_hook_types(text:string):void{
@@ -104,25 +104,25 @@ export function save_hook_types(text:string):void{
 	//   output,
 	//   text
 	// );
-	// urn_log.debug(`Types saved in [${output}].`);
+	// urn_log.trace(`Types saved in [${output}].`);
 }
 
 export function client_config(client_default:Required<ClientConfiguration>):string{
-	urn_log.debug('Started generating uranio adm client config...');
+	urn_log.trace('Started generating uranio adm client config...');
 	init();
 	// const all_server_conf = conf.get_all();
 	// for(const reqkey of required_server_config_client){
 	//   (client_default as any)[`__server_${reqkey}`] = all_server_conf[reqkey];
 	// }
 	const text = trx.util.generate.client_config(client_default);
-	urn_log.debug(`ADM client config generated.`);
+	urn_log.trace(`ADM client config generated.`);
 	return text;
 }
 
 export function client_config_and_save(client_default:Required<ClientConfiguration>):void{
 	const text = client_config(client_default);
 	save_client_config(text);
-	urn_log.debug(`ADM Client config generated and saved.`);
+	urn_log.trace(`ADM Client config generated and saved.`);
 }
 
 export function save_client_config(text:string):void{

@@ -6,7 +6,11 @@
  */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -35,7 +39,7 @@ function init(urn_log_lib) {
         time_format: conf.get(`log_time_format`),
         max_str_length: conf.get(`log_max_str_length`),
         prefix: conf.get(`log_prefix`),
-        prefix_type: conf.get(`log_prefix_type`),
+        prefix_loglevel: conf.get(`log_prefix_type`),
     });
 }
 exports.init = init;

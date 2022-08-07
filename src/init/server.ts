@@ -46,7 +46,7 @@ export function init(
 	_validate_adm_variables();
 	_validate_adm_book();
 	
-	urn_log.debug(`Uranio adm initialization completed.`);
+	urn_log.trace(`Uranio adm initialization completed.`);
 	
 }
 

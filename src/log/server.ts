@@ -18,6 +18,6 @@ export function init(urn_log_lib:typeof urn_log):void{
 		time_format: conf.get(`log_time_format`),
 		max_str_length: conf.get(`log_max_str_length`),
 		prefix: conf.get(`log_prefix`),
-		prefix_type: conf.get(`log_prefix_type`),
+		prefix_loglevel: conf.get(`log_prefix_type`),
 	});
 }

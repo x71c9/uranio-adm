@@ -24,18 +24,18 @@ exports.process_params = {
     // urn_repo: 'adm'
 };
 function schema() {
-    urn_lib_1.urn_log.debug('Started generating uranio adm schema...');
+    urn_lib_1.urn_log.trace('Started generating uranio adm schema...');
     init();
     const trx_schema = uranio_trx_1.default.util.generate.schema();
     const text = _generate_uranio_schema_text(trx_schema);
-    urn_lib_1.urn_log.debug(`ADM Schema generated.`);
+    urn_lib_1.urn_log.trace(`ADM Schema generated.`);
     return text;
 }
 exports.schema = schema;
 function schema_and_save() {
     const text = schema();
     save_schema(text);
-    urn_lib_1.urn_log.debug(`Schema generated and saved.`);
+    urn_lib_1.urn_log.trace(`Schema generated and saved.`);
 }
 exports.schema_and_save = schema_and_save;
 function save_schema(text) {
@@ -43,19 +43,19 @@ function save_schema(text) {
 }
 exports.save_schema = save_schema;
 // export function hooks_server():string{
-// 	urn_log.debug('Started generating uranio adm server hooks...');
+// 	urn_log.trace('Started generating uranio adm server hooks...');
 // 	init();
 // 	const trx_hooks = trx.util.generate.hooks_server();
 // 	const text = _generate_hooks_text_server(trx_hooks);
-// 	urn_log.debug(`ADM Server Hooks generated.`);
+// 	urn_log.trace(`ADM Server Hooks generated.`);
 // 	return text;
 // }
 // export function hooks_client():string{
-// 	urn_log.debug('Started generating uranio adm client hooks...');
+// 	urn_log.trace('Started generating uranio adm client hooks...');
 // 	init();
 // 	const trx_hooks = trx.util.generate.hooks_client();
 // 	const text = _generate_hooks_text_client(trx_hooks);
-// 	urn_log.debug(`ADM Client Hooks generated.`);
+// 	urn_log.trace(`ADM Client Hooks generated.`);
 // 	return text;
 // }
 function hooks_and_save() {
@@ -64,7 +64,7 @@ function hooks_and_save() {
     // save_hooks_server(hooks_text_server);
     // save_hooks_client(hooks_text_client);
     uranio_trx_1.default.util.generate.hooks_and_save();
-    urn_lib_1.urn_log.debug(`ADM Hooks generated and saved.`);
+    urn_lib_1.urn_log.trace(`ADM Hooks generated and saved.`);
 }
 exports.hooks_and_save = hooks_and_save;
 function save_hooks_server(text) {
@@ -76,17 +76,17 @@ function save_hooks_client(text) {
 }
 exports.save_hooks_client = save_hooks_client;
 function hook_types() {
-    urn_lib_1.urn_log.debug('Started generating uranio hook types...');
+    urn_lib_1.urn_log.trace('Started generating uranio hook types...');
     init();
     const text = uranio_trx_1.default.util.generate.hook_types();
-    urn_lib_1.urn_log.debug(`ADM Hook types generated.`);
+    urn_lib_1.urn_log.trace(`ADM Hook types generated.`);
     return text;
 }
 exports.hook_types = hook_types;
 function hook_types_and_save() {
     const text = hook_types();
     save_hook_types(text);
-    urn_lib_1.urn_log.debug(`Types generated and saved.`);
+    urn_lib_1.urn_log.trace(`Types generated and saved.`);
 }
 exports.hook_types_and_save = hook_types_and_save;
 function save_hook_types(text) {
@@ -96,25 +96,25 @@ function save_hook_types(text) {
     //   output,
     //   text
     // );
-    // urn_log.debug(`Types saved in [${output}].`);
+    // urn_log.trace(`Types saved in [${output}].`);
 }
 exports.save_hook_types = save_hook_types;
 function client_config(client_default) {
-    urn_lib_1.urn_log.debug('Started generating uranio adm client config...');
+    urn_lib_1.urn_log.trace('Started generating uranio adm client config...');
     init();
     // const all_server_conf = conf.get_all();
     // for(const reqkey of required_server_config_client){
     //   (client_default as any)[`__server_${reqkey}`] = all_server_conf[reqkey];
     // }
     const text = uranio_trx_1.default.util.generate.client_config(client_default);
-    urn_lib_1.urn_log.debug(`ADM client config generated.`);
+    urn_lib_1.urn_log.trace(`ADM client config generated.`);
     return text;
 }
 exports.client_config = client_config;
 function client_config_and_save(client_default) {
     const text = client_config(client_default);
     save_client_config(text);
-    urn_lib_1.urn_log.debug(`ADM Client config generated and saved.`);
+    urn_lib_1.urn_log.trace(`ADM Client config generated and saved.`);
 }
 exports.client_config_and_save = client_config_and_save;
 function save_client_config(text) {

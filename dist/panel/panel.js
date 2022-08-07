@@ -66,7 +66,7 @@ async function start(dev = false) {
         await generate();
     }
     await nuxt.ready();
-    const app = express_1.default();
+    const app = (0, express_1.default)();
     app.use(nuxt.render);
     const protocol = (process.env.URN_HTTPS) ? 'https' : 'http';
     let server = http_1.default.createServer(app);

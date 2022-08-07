@@ -6,7 +6,11 @@
  */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -52,7 +56,7 @@ function init(config, register_required = true) {
     _validate_adm_client_variables();
     _validate_adm_client_book();
     log.init(urn_lib_1.urn_log);
-    urn_lib_1.urn_log.debug(`Uranio adm client initialization completed.`);
+    urn_lib_1.urn_log.trace(`Uranio adm client initialization completed.`);
 }
 exports.init = init;
 function _register_required_atoms() {

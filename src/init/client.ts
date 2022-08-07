@@ -49,7 +49,7 @@ export function init(
 	
 	log.init(urn_log);
 	
-	urn_log.debug(`Uranio adm client initialization completed.`);
+	urn_log.trace(`Uranio adm client initialization completed.`);
 	
 }
 
