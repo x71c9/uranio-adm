@@ -132,11 +132,11 @@ function _listen_log(prot:string, host:string, port:number){
 	const hoss = Array(host.length).fill(' ').join('');
 	const pors = Array(port.toString().length).fill(' ').join('');
 	
-	urn_log.debug(`╭────────────────────${prol}───${hosl}─${porl}──╮`);
-	urn_log.debug(`│                    ${pros}   ${hoss} ${pors}  │`);
-	urn_log.debug(`│ Panel listening on ${prot}://${host}:${port}  │`);
-	urn_log.debug(`│                    ${pros}   ${hoss} ${pors}  │`);
-	urn_log.debug(`╰────────────────────${prol}───${hosl}─${porl}──╯`);
+	urn_log.info(`╭────────────────────${prol}───${hosl}─${porl}──╮`);
+	urn_log.info(`│                    ${pros}   ${hoss} ${pors}  │`);
+	urn_log.info(`│ Panel listening on ${prot}://${host}:${port}  │`);
+	urn_log.info(`│                    ${pros}   ${hoss} ${pors}  │`);
+	urn_log.info(`╰────────────────────${prol}───${hosl}─${porl}──╯`);
 }
 
 

@@ -103,10 +103,10 @@ function _listen_log(prot, host, port) {
     const pros = Array(prot.length).fill(' ').join('');
     const hoss = Array(host.length).fill(' ').join('');
     const pors = Array(port.toString().length).fill(' ').join('');
-    urn_lib_1.urn_log.debug(`╭────────────────────${prol}───${hosl}─${porl}──╮`);
-    urn_lib_1.urn_log.debug(`│                    ${pros}   ${hoss} ${pors}  │`);
-    urn_lib_1.urn_log.debug(`│ Panel listening on ${prot}://${host}:${port}  │`);
-    urn_lib_1.urn_log.debug(`│                    ${pros}   ${hoss} ${pors}  │`);
-    urn_lib_1.urn_log.debug(`╰────────────────────${prol}───${hosl}─${porl}──╯`);
+    urn_lib_1.urn_log.info(`╭────────────────────${prol}───${hosl}─${porl}──╮`);
+    urn_lib_1.urn_log.info(`│                    ${pros}   ${hoss} ${pors}  │`);
+    urn_lib_1.urn_log.info(`│ Panel listening on ${prot}://${host}:${port}  │`);
+    urn_lib_1.urn_log.info(`│                    ${pros}   ${hoss} ${pors}  │`);
+    urn_lib_1.urn_log.info(`╰────────────────────${prol}───${hosl}─${porl}──╯`);
 }
 //# sourceMappingURL=panel.js.map
