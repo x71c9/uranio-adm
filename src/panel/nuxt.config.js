@@ -22,9 +22,12 @@ import {client_toml} from '../client/toml';
 
 const is_production = process.env.NODE_ENV === 'production';
 
-const server_host = (is_production) ? client_toml.panel_domain : client_toml.dev_panel_domain;
-const server_port = (is_production) ? client_toml.panel_port : client_toml.dev_panel_port;
-const target = (is_production) ? client_toml.service_url : client_toml.dev_service_url;
+const server_domain = (!is_production && client_toml.dev_panel_domain) ?
+	client_toml.dev_panel_domain : client_toml.panel_domain;
+const server_port = (!is_production && client_toml.dev_panel_port) ?
+	client_toml.dev_panel_port : client_toml.panel_port;
+const target = (!is_production && client_toml.dev_service_url) ?
+	client_toml.dev_service_url : client_toml.service_url;
 
 const https = (process.env.URN_HTTPS === true) ? {
 	// cert: fs.readFileSync(resolve(__dirname, '../../cert/localhost.crt')),
@@ -46,7 +49,7 @@ export default {
 		exclude: ['/urn-admin'],
 	},
 	server: {
-		host: server_host || "0.0.0.0",
+		host: server_domain || "0.0.0.0",
 		port: server_port || 5454,
 		https: https
 	},

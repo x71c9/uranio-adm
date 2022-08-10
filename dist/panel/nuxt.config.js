@@ -21,9 +21,12 @@ const path_1 = require("path");
 const urn_lib_1 = require("urn-lib");
 const toml_1 = require("../client/toml");
 const is_production = process.env.NODE_ENV === 'production';
-const server_host = (is_production) ? toml_1.client_toml.panel_domain : toml_1.client_toml.dev_panel_domain;
-const server_port = (is_production) ? toml_1.client_toml.panel_port : toml_1.client_toml.dev_panel_port;
-const target = (is_production) ? toml_1.client_toml.service_url : toml_1.client_toml.dev_service_url;
+const server_domain = (!is_production && toml_1.client_toml.dev_panel_domain) ?
+    toml_1.client_toml.dev_panel_domain : toml_1.client_toml.panel_domain;
+const server_port = (!is_production && toml_1.client_toml.dev_panel_port) ?
+    toml_1.client_toml.dev_panel_port : toml_1.client_toml.panel_port;
+const target = (!is_production && toml_1.client_toml.dev_service_url) ?
+    toml_1.client_toml.dev_service_url : toml_1.client_toml.service_url;
 const https = (process.env.URN_HTTPS === true) ? {
     // cert: fs.readFileSync(resolve(__dirname, '../../cert/localhost.crt')),
     // key: fs.readFileSync(resolve(__dirname, '../../cert/localhost.key'))
@@ -43,7 +46,7 @@ exports.default = {
         exclude: ['/urn-admin'],
     },
     server: {
-        host: server_host || "0.0.0.0",
+        host: server_domain || "0.0.0.0",
         port: server_port || 5454,
         https: https
     },
