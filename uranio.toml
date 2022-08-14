@@ -10,7 +10,6 @@ prefix_api = '/uranio/api'
 prefix_log = '/logs'
 lambda = 'netlify'
 fetch = 'axios'
-fetch_url = 'https://localhost:7774/uranio/api'
 [default_atoms]
 	superuser = true
 	group = true
@@ -24,12 +23,12 @@ fetch_url = 'https://localhost:7774/uranio/api'
 	protocol = 'https'
 	domain = 'localhost'
 	port = 7774
-	url = 'https://localhost:7774/uranio/api'
+	url = 'https://localhost:4444/uranio/api'
 [dev.service]
 	protocol = 'https'
 	domain = 'localhost'
 	port = 7774
-	url = 'https://localhost:7774/uranio/api'
+	url = 'https://localhost:4444/uranio/api'
 [client.panel]
 	protocol = 'https'
 	domain = 'localhost'
@@ -38,9 +37,9 @@ fetch_url = 'https://localhost:7774/uranio/api'
 	protocol = 'https'
 	domain = 'localhost'
 	port = 4444
-[client.fetch]
+[client.service]
 	url = 'https://localhost:4444/uranio/api'
-[client.dev.fetch]
+[client.dev.service]
 	url = 'https://localhost:4444/uranio/api'
 [log]
 	debug_info = true

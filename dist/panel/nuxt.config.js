@@ -21,12 +21,20 @@ const path_1 = require("path");
 const urn_lib_1 = require("urn-lib");
 const toml_1 = require("../client/toml");
 const is_production = process.env.NODE_ENV === 'production';
-const server_domain = (!is_production && toml_1.client_toml.dev_panel_domain) ?
+console.log(toml_1.client_toml);
+const panel_domain = (!is_production && toml_1.client_toml.dev_panel_domain) ?
     toml_1.client_toml.dev_panel_domain : toml_1.client_toml.panel_domain;
-const server_port = (!is_production && toml_1.client_toml.dev_panel_port) ?
+const panel_port = (!is_production && toml_1.client_toml.dev_panel_port) ?
     toml_1.client_toml.dev_panel_port : toml_1.client_toml.panel_port;
-const target = (!is_production && toml_1.client_toml.dev_service_url) ?
-    toml_1.client_toml.dev_service_url : toml_1.client_toml.service_url;
+const server_protocol = (!is_production && toml_1.client_toml.dev_service_protocol) ?
+    toml_1.client_toml.dev_service_protocol : toml_1.client_toml.service_protocol;
+const server_domain = (!is_production && toml_1.client_toml.dev_service_domain) ?
+    toml_1.client_toml.dev_service_domain : toml_1.client_toml.service_domain;
+const server_port = (!is_production && toml_1.client_toml.dev_service_port) ?
+    toml_1.client_toml.dev_service_port : toml_1.client_toml.service_port;
+const prefix_api = (!is_production && toml_1.client_toml.dev_prefix_api) ?
+    toml_1.client_toml.dev_prefix_api : toml_1.client_toml.prefix_api;
+const target = `${server_protocol}://${server_domain}:${server_port}${prefix_api}`;
 const https = (process.env.URN_HTTPS === true) ? {
     // cert: fs.readFileSync(resolve(__dirname, '../../cert/localhost.crt')),
     // key: fs.readFileSync(resolve(__dirname, '../../cert/localhost.key'))
@@ -46,8 +54,8 @@ exports.default = {
         exclude: ['/urn-admin'],
     },
     server: {
-        host: server_domain || "0.0.0.0",
-        port: server_port || 5454,
+        host: panel_domain || "0.0.0.0",
+        port: panel_port || 5454,
         https: https
     },
     proxy: {

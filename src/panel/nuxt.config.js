@@ -22,12 +22,23 @@ import {client_toml} from '../client/toml';
 
 const is_production = process.env.NODE_ENV === 'production';
 
-const server_domain = (!is_production && client_toml.dev_panel_domain) ?
+console.log(client_toml);
+
+const panel_domain = (!is_production && client_toml.dev_panel_domain) ?
 	client_toml.dev_panel_domain : client_toml.panel_domain;
-const server_port = (!is_production && client_toml.dev_panel_port) ?
+const panel_port = (!is_production && client_toml.dev_panel_port) ?
 	client_toml.dev_panel_port : client_toml.panel_port;
-const target = (!is_production && client_toml.dev_service_url) ?
-	client_toml.dev_service_url : client_toml.service_url;
+
+const server_protocol = (!is_production && client_toml.dev_service_protocol) ?
+	client_toml.dev_service_protocol : client_toml.service_protocol;
+const server_domain = (!is_production && client_toml.dev_service_domain) ?
+	client_toml.dev_service_domain : client_toml.service_domain;
+const server_port = (!is_production && client_toml.dev_service_port) ?
+	client_toml.dev_service_port : client_toml.service_port;
+const prefix_api = (!is_production && client_toml.dev_prefix_api) ?
+	client_toml.dev_prefix_api : client_toml.prefix_api;
+
+const target = `${server_protocol}://${server_domain}:${server_port}${prefix_api}`;
 
 const https = (process.env.URN_HTTPS === true) ? {
 	// cert: fs.readFileSync(resolve(__dirname, '../../cert/localhost.crt')),
@@ -49,8 +60,8 @@ export default {
 		exclude: ['/urn-admin'],
 	},
 	server: {
-		host: server_domain || "0.0.0.0",
-		port: server_port || 5454,
+		host: panel_domain || "0.0.0.0",
+		port: panel_port || 5454,
 		https: https
 	},
 	proxy: {
