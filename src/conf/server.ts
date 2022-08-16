@@ -1,5 +1,5 @@
 /**
- * Conf module
+ * Server Conf module
  *
  * @packageDocumentation
  */
@@ -28,6 +28,7 @@ export function get<k extends keyof Configuration>(
 
 export function set(config:Partial<Configuration>):void{
 	urn_ctx.set(config);
+	set_service_url(_build_service_url());
 }
 
 export function get_all():Required<Configuration>{
@@ -37,6 +38,23 @@ export function get_all():Required<Configuration>{
 export function get_service_url():string{
 	return urn_trx.conf.get_service_url();
 }
+
+export function set_service_url(url:string){
+	return urn_trx.conf.set_service_url(url);
+}
+
+/**
+ * This method differs from the client counterpart since there is no need
+ * to proxy the hooks to the Panel URL.
+ */
+function _build_service_url():string{
+	const prefix = get(`prefix_api`);
+	const service_protocol = get(`service_protocol`);
+	const service_domain = get(`service_domain`);
+	const service_port = get(`service_port`);
+	return `${service_protocol}://${service_domain}:${service_port}${prefix}`;
+}
+
 // export function get_service_url():string{
 // 	const prefix = get(`prefix_api`);
 // 	// If the configuraion cotains `panel_protocol`

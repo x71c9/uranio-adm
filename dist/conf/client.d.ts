@@ -1,5 +1,5 @@
 /**
- * Conf module
+ * Client Conf module
  *
  * @packageDocumentation
  */
@@ -8,3 +8,4 @@ export declare function get<k extends keyof ClientConfiguration>(param_name: k):
 export declare function set(config: Partial<ClientConfiguration>): void;
 export declare function get_all(): Required<ClientConfiguration>;
 export declare function get_service_url(): string;
+export declare function set_service_url(url: string): void;

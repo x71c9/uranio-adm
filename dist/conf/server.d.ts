@@ -1,5 +1,5 @@
 /**
- * Conf module
+ * Server Conf module
  *
  * @packageDocumentation
  */
@@ -8,3 +8,4 @@ export declare function get<k extends keyof Configuration>(param_name: k): Requi
 export declare function set(config: Partial<Configuration>): void;
 export declare function get_all(): Required<Configuration>;
 export declare function get_service_url(): string;
+export declare function set_service_url(url: string): void;

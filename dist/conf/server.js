@@ -1,6 +1,6 @@
 "use strict";
 /**
- * Conf module
+ * Server Conf module
  *
  * @packageDocumentation
  */
@@ -31,7 +31,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.get_service_url = exports.get_all = exports.set = exports.get = void 0;
+exports.set_service_url = exports.get_service_url = exports.get_all = exports.set = exports.get = void 0;
 const urn_lib_1 = require("urn-lib");
 const uranio_trx_1 = __importDefault(require("uranio-trx"));
 const defaults_1 = require("./defaults");
@@ -43,6 +43,7 @@ function get(param_name) {
 exports.get = get;
 function set(config) {
     urn_ctx.set(config);
+    set_service_url(_build_service_url());
 }
 exports.set = set;
 function get_all() {
@@ -53,6 +54,21 @@ function get_service_url() {
     return uranio_trx_1.default.conf.get_service_url();
 }
 exports.get_service_url = get_service_url;
+function set_service_url(url) {
+    return uranio_trx_1.default.conf.set_service_url(url);
+}
+exports.set_service_url = set_service_url;
+/**
+ * This method differs from the client counterpart since there is no need
+ * to proxy the hooks to the Panel URL.
+ */
+function _build_service_url() {
+    const prefix = get(`prefix_api`);
+    const service_protocol = get(`service_protocol`);
+    const service_domain = get(`service_domain`);
+    const service_port = get(`service_port`);
+    return `${service_protocol}://${service_domain}:${service_port}${prefix}`;
+}
 // export function get_service_url():string{
 // 	const prefix = get(`prefix_api`);
 // 	// If the configuraion cotains `panel_protocol`

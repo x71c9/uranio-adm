@@ -1,5 +1,5 @@
 /**
- * Conf module
+ * Client Conf module
  *
  * @packageDocumentation
  */
@@ -20,6 +20,8 @@ const urn_ctx = urn_context.create<Required<ClientConfiguration>>(
 	'ADM:CONF:CLIENT'
 );
 
+set_service_url(_build_panel_proxied_service_url());
+
 export function get<k extends keyof ClientConfiguration>(
 	param_name:k
 ):Required<ClientConfiguration>[k]{
@@ -28,6 +30,7 @@ export function get<k extends keyof ClientConfiguration>(
 
 export function set(config:Partial<ClientConfiguration>):void{
 	urn_ctx.set(config);
+	set_service_url(_build_panel_proxied_service_url());
 }
 
 export function get_all():Required<ClientConfiguration>{
@@ -37,6 +40,24 @@ export function get_all():Required<ClientConfiguration>{
 export function get_service_url():string{
 	return urn_trx_client.conf.get_service_url();
 }
+
+export function set_service_url(url:string){
+	return urn_trx_client.conf.set_service_url(url);
+}
+
+/**
+ * This method differs from the server counterpart since all the calls in
+ * the client must have the same Origin of the Panel in order for the
+ * Authentication SameSite cookies to work.
+ */
+function _build_panel_proxied_service_url():string{
+	const prefix = get(`prefix_api`);
+	const panel_protocol = get(`panel_protocol`);
+	const panel_domain = get(`panel_domain`);
+	const panel_port = get(`panel_port`);
+	return `${panel_protocol}://${panel_domain}:${panel_port}${prefix}`;
+}
+
 // export function get_service_url():string{
 // 	const prefix = get(`prefix_api`);
 // 	// If the configuraion cotains `panel_protocol`

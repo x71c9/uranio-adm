@@ -1,6 +1,6 @@
 "use strict";
 /**
- * Conf module
+ * Client Conf module
  *
  * @packageDocumentation
  */
@@ -31,18 +31,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.get_service_url = exports.get_all = exports.set = exports.get = void 0;
+exports.set_service_url = exports.get_service_url = exports.get_all = exports.set = exports.get = void 0;
 const urn_lib_1 = require("urn-lib");
 const client_1 = __importDefault(require("uranio-trx/client"));
 const default_conf_1 = require("../client/default_conf");
 const env = __importStar(require("../env/client"));
 const urn_ctx = urn_lib_1.urn_context.create(default_conf_1.adm_client_config, env.is_production(), 'ADM:CONF:CLIENT');
+set_service_url(_build_panel_proxied_service_url());
 function get(param_name) {
     return urn_ctx.get(param_name);
 }
 exports.get = get;
 function set(config) {
     urn_ctx.set(config);
+    set_service_url(_build_panel_proxied_service_url());
 }
 exports.set = set;
 function get_all() {
@@ -53,6 +55,22 @@ function get_service_url() {
     return client_1.default.conf.get_service_url();
 }
 exports.get_service_url = get_service_url;
+function set_service_url(url) {
+    return client_1.default.conf.set_service_url(url);
+}
+exports.set_service_url = set_service_url;
+/**
+ * This method differs from the server counterpart since all the calls in
+ * the client must have the same Origin of the Panel in order for the
+ * Authentication SameSite cookies to work.
+ */
+function _build_panel_proxied_service_url() {
+    const prefix = get(`prefix_api`);
+    const panel_protocol = get(`panel_protocol`);
+    const panel_domain = get(`panel_domain`);
+    const panel_port = get(`panel_port`);
+    return `${panel_protocol}://${panel_domain}:${panel_port}${prefix}`;
+}
 // export function get_service_url():string{
 // 	const prefix = get(`prefix_api`);
 // 	// If the configuraion cotains `panel_protocol`

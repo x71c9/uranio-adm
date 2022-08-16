@@ -42,10 +42,14 @@ const log = __importStar(require("../log/client"));
 const toml_1 = require("../client/toml");
 function init(config, register_required = true) {
     client_1.default.init(config, false);
-    conf.set(toml_1.client_toml);
     client_1.default.conf.set(toml_1.client_toml);
     client_1.default.api.conf.set(toml_1.client_toml);
     client_1.default.core.conf.set(toml_1.client_toml);
+    /*
+     * The following method must be the last so that service URL can be overwritten
+     * with the proxied panel URL.
+     */
+    conf.set(toml_1.client_toml);
     env.set_client_env();
     if (config) {
         conf.set(config);
