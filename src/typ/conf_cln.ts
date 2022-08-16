@@ -17,14 +17,14 @@ type OptionalClientConfigParam = {
 	dev_panel_protocol: string
 	dev_panel_domain: string
 	dev_panel_port: number
-	service_protocol: string
-	dev_service_protocol: string
-	service_domain: string
-	dev_service_domain: string
-	service_port: number
-	dev_service_port: number
-	prefix_api:string
-	dev_prefix_api:string
+	// service_protocol: string
+	// dev_service_protocol: string
+	// service_domain: string
+	// dev_service_domain: string
+	// service_port: number
+	// dev_service_port: number
+	// prefix_api:string
+	// dev_prefix_api:string
 }
 
 export type ClientConfiguration =

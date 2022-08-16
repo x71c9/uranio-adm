@@ -6,6 +6,8 @@
 
 import {urn_context} from 'urn-lib';
 
+import urn_trx from 'uranio-trx';
+
 import {adm_config} from './defaults';
 
 import {Configuration} from '../typ/conf';
@@ -31,3 +33,23 @@ export function set(config:Partial<Configuration>):void{
 export function get_all():Required<Configuration>{
 	return urn_ctx.get_all();
 }
+
+export function get_service_url():string{
+	return urn_trx.conf.get_service_url();
+}
+// export function get_service_url():string{
+// 	const prefix = get(`prefix_api`);
+// 	// If the configuraion cotains `panel_protocol`
+// 	// it means the repo is uranio-adm, therefore the service url
+// 	// is proxied by the panel
+// 	if(typeof get(`panel_protocol` as any) === 'string'){
+// 		const panel_protocol = get(`panel_protocol` as any);
+// 		const panel_domain = get(`panel_domain` as any);
+// 		const panel_port = get(`panel_port` as any);
+// 		return `${panel_protocol}://${panel_domain}:${panel_port}${prefix}`;
+// 	}
+// 	const protocol = get(`service_protocol`);
+// 	const domain = get(`service_domain`);
+// 	const port = get(`service_port`);
+// 	return `${protocol}://${domain}:${port}${prefix}`;
+// }

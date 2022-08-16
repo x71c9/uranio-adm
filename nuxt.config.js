@@ -80,7 +80,7 @@ export default {
 	],
 	proxy: {
 		'/uranio/api': {
-			target: "https://localhost:7774/uranio/api",
+			target: "https://0.0.0.0:7774/uranio/api",
 			secure: false,
 			pathRewrite: {
 				"^/uranio/api": ""
