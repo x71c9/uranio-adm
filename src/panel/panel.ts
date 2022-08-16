@@ -92,7 +92,8 @@ export async function start(dev=false){
 	const app = express();
 	app.use(nuxt.render);
 	
-	const protocol = (process.env.URN_HTTPS) ? 'https' : 'http';
+	// const protocol = (process.env.URN_HTTPS) ? 'https' : 'http';
+	const protocol = (config.server.https !== {}) ? 'https' : 'http';
 	
 	let server = http.createServer(app);
 	if(protocol === 'https'){

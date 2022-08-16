@@ -21,7 +21,8 @@ const path_1 = require("path");
 const urn_lib_1 = require("urn-lib");
 const toml_1 = require("../client/toml");
 const is_production = process.env.NODE_ENV === 'production';
-console.log(toml_1.client_toml);
+const panel_protocol = (!is_production && toml_1.client_toml.dev_panel_protocol) ?
+    toml_1.client_toml.dev_panel_protocol : toml_1.client_toml.panel_protocol;
 const panel_domain = (!is_production && toml_1.client_toml.dev_panel_domain) ?
     toml_1.client_toml.dev_panel_domain : toml_1.client_toml.panel_domain;
 const panel_port = (!is_production && toml_1.client_toml.dev_panel_port) ?
@@ -34,8 +35,10 @@ const server_port = (!is_production && toml_1.client_toml.dev_service_port) ?
     toml_1.client_toml.dev_service_port : toml_1.client_toml.service_port;
 const prefix_api = (!is_production && toml_1.client_toml.dev_prefix_api) ?
     toml_1.client_toml.dev_prefix_api : toml_1.client_toml.prefix_api;
+const ssl_secure = (!is_production && typeof toml_1.client_toml.dev_ssl_secure !== 'undefined') ?
+    toml_1.client_toml.dev_ssl_secure : toml_1.client_toml.ssl_secure;
 const target = `${server_protocol}://${server_domain}:${server_port}${prefix_api}`;
-const https = (process.env.URN_HTTPS === true) ? {
+const https = (panel_protocol === 'https') ? {
     // cert: fs.readFileSync(resolve(__dirname, '../../cert/localhost.crt')),
     // key: fs.readFileSync(resolve(__dirname, '../../cert/localhost.key'))
     cert: fs_1.default.readFileSync(process.env.URN_SSL_CERTIFICATE),
@@ -61,7 +64,7 @@ exports.default = {
     proxy: {
         '/uranio/api': {
             target: target,
-            secure: (is_production && process.env.URN_HTTPS === true),
+            secure: (ssl_secure === true),
             pathRewrite: {
                 "^/uranio/api": ""
             }
