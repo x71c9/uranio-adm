@@ -5,8 +5,8 @@
  */
 import * as types from '../client/types';
 export declare const required_atoms: {
-    readonly setting: {
-        readonly plural: "settings";
+    readonly _setting: {
+        readonly plural: "_settings";
         readonly security: {
             readonly type: types.SecurityType.UNIFORM;
             readonly _r: types.PermissionType.NOBODY;
@@ -34,7 +34,7 @@ export declare const required_atoms: {
             };
         };
         readonly dock: {
-            readonly url: "/settings";
+            readonly url: "/_settings";
         };
     };
 };

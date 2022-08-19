@@ -37,7 +37,7 @@ const atoms_1 = require("./atoms");
 const conf = __importStar(require("../conf/server"));
 function get() {
     if (conf.get('default_atoms_setting') === false) {
-        delete atoms_1.required_atoms.setting;
+        delete atoms_1.required_atoms._setting;
     }
     return {
         ...uranio_trx_1.default.required.get(),

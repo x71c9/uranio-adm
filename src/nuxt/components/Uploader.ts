@@ -51,7 +51,7 @@ type UppyFiles = {
 export default Vue.extend<Data, Methods, Computed, Props>({
 	data():Data{
 		
-		const target =  uranio.conf.get_service_url() + `/media/upload`;
+		const target =  uranio.conf.get_service_url() + `/_media/upload`;
 		
 		const uppy_xhr_options = {
 			endpoint: target,
@@ -68,7 +68,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			// companionUrl: 'https://uppy-companion.myapp.com/',
 			getUploadParameters (file:any) {
 				
-				return uranio.trx.hooks.media.presigned(file.name, file.size, file.type)
+				return uranio.trx.hooks._media.presigned(file.name, file.size, file.type)
 					.then((urn_res) => {
 						if(urn_res.success === false){
 							throw urn_exc.create(
@@ -251,13 +251,13 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 					
 					console.log('Complete: ', result);
 					
-					const atom_shape:uranio.schema.AtomShape<'media'> = {
+					const atom_shape:uranio.schema.AtomShape<'_media'> = {
 						src: result.successful[0].name,
 						filename: result.successful[0].name,
 						type: result.successful[0].type || '',
 						size: result.successful[0].size
 					};
-					uranio.trx.hooks.media.insert(atom_shape).then((urn_res) => {
+					uranio.trx.hooks._media.insert(atom_shape).then((urn_res) => {
 						if(urn_res.success){
 							const atom = urn_res.payload;
 							this.$emit('add-atom', atom);

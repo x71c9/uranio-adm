@@ -7,8 +7,8 @@
 import * as types from '../client/types';
 
 export const required_atoms = {
-	setting:{
-		plural: 'settings',
+	_setting:{
+		plural: '_settings',
 		security: {
 			type: types.SecurityType.UNIFORM,
 			_r: types.PermissionType.NOBODY
@@ -36,7 +36,7 @@ export const required_atoms = {
 			}
 		},
 		dock:{
-			url: '/settings'
+			url: '/_settings'
 		}
 	}
 } as const;

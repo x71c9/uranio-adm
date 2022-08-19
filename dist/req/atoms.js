@@ -31,8 +31,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.required_atoms = void 0;
 const types = __importStar(require("../client/types"));
 exports.required_atoms = {
-    setting: {
-        plural: 'settings',
+    _setting: {
+        plural: '_settings',
         security: {
             type: types.SecurityType.UNIFORM,
             _r: types.PermissionType.NOBODY
@@ -60,7 +60,7 @@ exports.required_atoms = {
             }
         },
         dock: {
-            url: '/settings'
+            url: '/_settings'
         }
     }
 };

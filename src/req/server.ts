@@ -14,7 +14,7 @@ import * as types from '../server/types';
 
 export function get():types.Book{
 	if(conf.get('default_atoms_setting') === false){
-		delete (required_atoms as any).setting;
+		delete (required_atoms as any)._setting;
 	}
 	return {
 		...trx.required.get(),

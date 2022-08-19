@@ -30,7 +30,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 		for (const atom_name of uranio.book.get_names()) {
 			const atom_def = uranio.book.get_definition(atom_name as uranio.schema.AtomName);
 			let plural = `${atom_name}s`;
-			if(atom_name === 'setting'){
+			if(atom_name === '_setting'){
 				continue;
 			}
 			if(urn_util.object.has_key(atom_def, 'plural') && atom_def.plural){

@@ -45,7 +45,7 @@ export const actions: ActionTree<RootState, RootState> = {
 		try{
 			// 'uranio@uranio.xyz',
 			// 'kcXkaF3Ad7KC3G3t'
-			const response = await uranio.trx.hooks.superusers.authenticate(
+			const response = await uranio.trx.hooks._superusers.authenticate(
 				email,
 				password
 			);
@@ -87,7 +87,7 @@ export const actions: ActionTree<RootState, RootState> = {
 			is_authenticated = true;
 			return is_authenticated;
 		}
-		const response = await uranio.trx.hooks.superusers.count();
+		const response = await uranio.trx.hooks._superusers.count();
 		if(response.success){
 			context.dispatch('update_logged', true);
 			is_authenticated = true;

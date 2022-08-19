@@ -2,7 +2,7 @@
 	<div>
 		<div v-if="success">
 			<Uploader
-				v-if="atom_name === 'media' && page_query.index === 0"
+				v-if="atom_name === '_media' && page_query.index === 0"
 				v-on:add-atom="add_atom"
 				/>
 			<div class="flex-row-3">
@@ -15,7 +15,7 @@
 				</h1>
 				<div
 					class="ui-flex-row-3-el header_actions"
-					v-show="atom_name !== 'media'"
+					v-show="atom_name !== '_media'"
 					>
 					<nuxt-link
 						:to="`/urn-admin/${atom_name}/new`"
