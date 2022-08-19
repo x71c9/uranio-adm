@@ -60,6 +60,7 @@ async function dev() {
 }
 exports.dev = dev;
 async function start(dev = false) {
+    var _a, _b;
     urn_lib_1.urn_log.debug(`Uranio panel starting...`);
     // await build();
     if (dev === false) {
@@ -69,7 +70,8 @@ async function start(dev = false) {
     const app = (0, express_1.default)();
     app.use(nuxt.render);
     // const protocol = (process.env.URN_HTTPS) ? 'https' : 'http';
-    const protocol = (nuxt_config_1.default.server.https !== {}) ? 'https' : 'http';
+    const protocol = (typeof ((_b = (_a = nuxt_config_1.default.server) === null || _a === void 0 ? void 0 : _a.https) === null || _b === void 0 ? void 0 : _b.cert) !== 'undefined') ?
+        'https' : 'http';
     let server = http_1.default.createServer(app);
     if (protocol === 'https') {
         const serverOptions = {
