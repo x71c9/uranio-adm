@@ -90,7 +90,8 @@ async function start(dev = false) {
         };
         server = https_1.default.createServer(serverOptions, app);
     }
-    server.listen(nuxt_config_1.default.server.port, nuxt_config_1.default.server.host, () => {
+    // server.listen(config.server.port, config.server.host, () => {
+    server.listen(nuxt_config_1.default.server.port, () => {
         urn_lib_1.urn_log.debug(`Server listening on port ${nuxt_config_1.default.server.port}...`);
         urn_lib_1.urn_log.debug(`Connect to ${protocol}://${nuxt_config_1.default.server.host}:${nuxt_config_1.default.server.port}`);
         _listen_log(protocol, nuxt_config_1.default.server.host, nuxt_config_1.default.server.port);

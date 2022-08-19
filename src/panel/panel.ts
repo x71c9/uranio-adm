@@ -116,7 +116,8 @@ export async function start(dev=false){
 		server = https.createServer(serverOptions, app);
 	}
 	
-	server.listen(config.server.port, config.server.host, () => {
+	// server.listen(config.server.port, config.server.host, () => {
+	server.listen(config.server.port, () => {
 		urn_log.debug(`Server listening on port ${config.server.port}...`);
 		urn_log.debug(`Connect to ${protocol}://${config.server.host}:${config.server.port}`);
 		_listen_log(protocol, config.server.host, config.server.port);
