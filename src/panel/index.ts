@@ -31,7 +31,7 @@ urn_log.init({
 	log_level: 4,
 	debug_info: false
 });
-// urn_log.defaults.prefix_loglevel = false;
+// urn_log.defaults.prefix_log_type = false;
 
 import * as panel from './panel';
 

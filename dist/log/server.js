@@ -39,7 +39,7 @@ function init(urn_log_lib) {
         time_format: conf.get(`log_time_format`),
         max_str_length: conf.get(`log_max_str_length`),
         prefix: conf.get(`log_prefix`),
-        prefix_loglevel: conf.get(`log_prefix_type`),
+        prefix_log_type: conf.get(`log_prefix_type`),
     });
 }
 exports.init = init;
