@@ -48,6 +48,10 @@ export function set_service_url(url:string){
  * to proxy the hooks to the Panel URL.
  */
 function _build_service_url():string{
+	const service_proxy = get(`service_proxy`);
+	if(typeof service_proxy === 'string' && service_proxy){
+		return service_proxy;
+	}
 	const prefix = get(`prefix_api`);
 	const service_protocol = get(`service_protocol`);
 	const service_domain = get(`service_domain`);

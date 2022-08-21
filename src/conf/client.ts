@@ -51,6 +51,10 @@ export function set_service_url(url:string){
  * Authentication SameSite cookies to work.
  */
 function _build_panel_proxied_service_url():string{
+	const panel_proxy = get(`panel_proxy`);
+	if(typeof panel_proxy === 'string' && panel_proxy){
+		return panel_proxy;
+	}
 	const prefix = get(`prefix_api`);
 	const panel_protocol = get(`panel_protocol`);
 	const panel_domain = get(`panel_domain`);

@@ -19,6 +19,8 @@ exports.adm_client_config = {
     dev_panel_protocol: 'http',
     dev_panel_domain: '0.0.0.0',
     dev_panel_port: 5454,
+    panel_proxy: '',
+    dev_panel_proxy: ''
     // service_protocol: 'http',
     // service_domain: '0.0.0.0',
     // service_port: 7777,

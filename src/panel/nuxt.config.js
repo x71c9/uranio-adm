@@ -43,11 +43,11 @@ const ssl_secure = (!is_production && typeof client_toml.dev_ssl_secure !== 'und
 
 let target = `${server_protocol}://${server_domain}:${server_port}${prefix_api}`;
 
-if(typeof client_toml.api_proxy === 'string' && client_toml.api_proxy){
-	target = client_toml.api_proxy;
+if(typeof client_toml.service_proxy === 'string' && client_toml.service_proxy){
+	target = client_toml.service_proxy;
 }
-if(!is_production && typeof client_toml.dev_api_porxy === 'string' && client_toml.dev_api_porxy){
-	target = client_toml.dev_api_porxy;
+if(!is_production && typeof client_toml.dev_service_proxy === 'string' && client_toml.dev_service_proxy){
+	target = client_toml.dev_service_proxy;
 }
 
 const https = (panel_protocol === 'https') ? {

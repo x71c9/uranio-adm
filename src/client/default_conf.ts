@@ -26,6 +26,10 @@ export const adm_client_config:Required<ClientConfiguration> = {
 	
 	dev_panel_port: 5454,
 	
+	panel_proxy: '',
+	
+	dev_panel_proxy: ''
+	
 	// service_protocol: 'http',
 	
 	// service_domain: '0.0.0.0',

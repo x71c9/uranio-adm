@@ -48,5 +48,9 @@ exports.client_toml = {
     dev_service_port: 7774,
     ssl_secure: true,
     dev_ssl_secure: false,
+    service_proxy: "",
+    dev_service_proxy: "",
+    panel_proxy: "",
+    dev_panel_proxy: "",
 };
 //# sourceMappingURL=toml.js.map
