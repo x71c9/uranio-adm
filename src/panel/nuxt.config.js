@@ -41,7 +41,14 @@ const prefix_api = (!is_production && client_toml.dev_prefix_api) ?
 const ssl_secure = (!is_production && typeof client_toml.dev_ssl_secure !== 'undefined') ?
 	client_toml.dev_ssl_secure : client_toml.ssl_secure;
 
-const target = `${server_protocol}://${server_domain}:${server_port}${prefix_api}`;
+let target = `${server_protocol}://${server_domain}:${server_port}${prefix_api}`;
+
+if(typeof client_toml.api_proxy === 'string' && client_toml.api_proxy){
+	target = client_toml.api_proxy;
+}
+if(!is_production && typeof client_toml.dev_api_porxy === 'string' && client_toml.dev_api_porxy){
+	target = client_toml.dev_api_porxy;
+}
 
 const https = (panel_protocol === 'https') ? {
 	// cert: fs.readFileSync(resolve(__dirname, '../../cert/localhost.crt')),

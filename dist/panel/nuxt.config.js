@@ -37,7 +37,13 @@ const prefix_api = (!is_production && toml_1.client_toml.dev_prefix_api) ?
     toml_1.client_toml.dev_prefix_api : toml_1.client_toml.prefix_api;
 const ssl_secure = (!is_production && typeof toml_1.client_toml.dev_ssl_secure !== 'undefined') ?
     toml_1.client_toml.dev_ssl_secure : toml_1.client_toml.ssl_secure;
-const target = `${server_protocol}://${server_domain}:${server_port}${prefix_api}`;
+let target = `${server_protocol}://${server_domain}:${server_port}${prefix_api}`;
+if (typeof toml_1.client_toml.api_proxy === 'string' && toml_1.client_toml.api_proxy) {
+    target = toml_1.client_toml.api_proxy;
+}
+if (!is_production && typeof toml_1.client_toml.dev_api_porxy === 'string' && toml_1.client_toml.dev_api_porxy) {
+    target = toml_1.client_toml.dev_api_porxy;
+}
 const https = (panel_protocol === 'https') ? {
     // cert: fs.readFileSync(resolve(__dirname, '../../cert/localhost.crt')),
     // key: fs.readFileSync(resolve(__dirname, '../../cert/localhost.key'))
