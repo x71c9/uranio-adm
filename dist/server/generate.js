@@ -40,6 +40,7 @@ const result = dotenv_1.default.config();
 if (result.error) {
     throw result.error;
 }
+process.env.URN_SUPERUSER_CREATE_ON_INIT = 'false';
 __exportStar(require("./register"), exports);
 const uranio = __importStar(require("./main"));
 uranio.init({

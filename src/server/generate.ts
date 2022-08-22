@@ -13,6 +13,8 @@ if(result.error){
 	throw result.error;
 }
 
+process.env.URN_SUPERUSER_CREATE_ON_INIT = 'false';
+
 export * from './register';
 
 import * as uranio from './main';
