@@ -13,8 +13,8 @@ declare type OptionalClientConfigParam = {
     dev_panel_protocol: string;
     dev_panel_domain: string;
     dev_panel_port: number;
-    panel_proxy: string;
-    dev_panel_proxy: string;
+    panel_api_proxy: string;
+    dev_panel_api_proxy: string;
 };
 export declare type ClientConfiguration = trx_client.types.ClientConfiguration & RequiredClientConfigParams & Partial<OptionalClientConfigParam>;
 export {};

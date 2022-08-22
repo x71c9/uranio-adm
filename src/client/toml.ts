@@ -50,6 +50,6 @@ export const client_toml:Partial<ClientConfiguration> = {
 	dev_ssl_secure: false,
 	service_proxy: "",
 	dev_service_proxy: "",
-	panel_proxy: "",
-	dev_panel_proxy: "",
+	panel_api_proxy: "",
+	dev_panel_api_proxy: "",
 };
