@@ -10,7 +10,7 @@
 					<nuxt-link
 						:to="`/urn-admin/${atom_name}`"
 						class="title_link inter-medium-white-36px">
-						{{ plural }}
+						{{ title }}
 					</nuxt-link>
 				</h1>
 				<div

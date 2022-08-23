@@ -32,7 +32,7 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 				plural = atom_def.plural;
 			}
 			items.push({
-				label: plural,
+				label: plural.replace(/^_/,'.'),
 				to: `/urn-admin/${atom_name}`,
 				icon: `/img/icons/png/settings.png`
 			});

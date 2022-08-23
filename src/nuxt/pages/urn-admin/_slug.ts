@@ -44,6 +44,7 @@ type Data<A extends uranio.schema.AtomName, D extends uranio.schema.Depth> = {
 	atom_name: A
 	atoms: uranio.schema.Molecule<A,0>[]
 	plural: string
+	title: string
 	is_read_only: boolean
 	empty_relation: boolean
 	total_atoms: number
@@ -91,6 +92,7 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName, uranio.schema.
 			atoms: (this as any).atoms,
 			atom_name: (this as any).atom_name,
 			plural: (this as any).plural,
+			// title: (this as any).title,
 			page_query: (this as any).page_query,
 			page_data: (this as any).page_data,
 			total_atoms: (this as any).total_atoms,
@@ -264,6 +266,7 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName, uranio.schema.
 		}
 		
 		const plural = uranio.book.get_plural(atom_name);
+		const title = plural.replace(/^_/,'.');
 		let is_read_only = false;
 		
 		let atoms:uranio.schema.Atom<A>[] = [];
@@ -344,6 +347,7 @@ export default mixins(shared).extend<Data<uranio.schema.AtomName, uranio.schema.
 			is_read_only,
 			total_atoms,
 			plural,
+			title,
 			page_query,
 			page_data,
 			message,

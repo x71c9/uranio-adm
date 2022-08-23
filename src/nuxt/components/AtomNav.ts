@@ -38,13 +38,13 @@ export default Vue.extend<Data, Methods, Computed, Props>({
 			}
 			if(atom_def.connection === 'log'){
 				items_log.push({
-					label: plural,
+					label: plural.replace(/^_/g, '.'),
 					to: `/urn-admin/${atom_name}`,
 					icon: `/img/icons/@2x/workspaces-filled-1@2x.png`
 				});
 			}else{
 				items_atom.push({
-					label: plural,
+					label: plural.replace(/^_/,'.'),
 					to: `/urn-admin/${atom_name}`,
 					icon: `/img/icons/svg/filter_none.svg`
 				});
