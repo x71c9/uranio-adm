@@ -44,11 +44,13 @@ const ssl_secure = (!is_production && typeof client_toml.dev_ssl_secure !== 'und
 let target = `${server_protocol}://${server_domain}:${server_port}${prefix_api}`;
 
 if(typeof client_toml.service_proxy === 'string' && client_toml.service_proxy){
-	target = client_toml.service_proxy;
+	target = client_toml.service_proxy + prefix_api;
 }
 if(!is_production && typeof client_toml.dev_service_proxy === 'string' && client_toml.dev_service_proxy){
-	target = client_toml.dev_service_proxy;
+	target = client_toml.dev_service_proxy + prefix_api;
 }
+
+target = target.replace(/([^:]\/)\/+/g, "$1"); // remove double slash
 
 const https = (panel_protocol === 'https') ? {
 	// cert: fs.readFileSync(resolve(__dirname, '../../cert/localhost.crt')),

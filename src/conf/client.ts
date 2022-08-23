@@ -54,17 +54,14 @@ function _build_panel_proxied_service_url():string{
 	const prefix = get(`prefix_api`);
 	const panel_proxy = get(`panel_api_proxy`);
 	if(typeof panel_proxy === 'string' && panel_proxy){
-		let plus_prefix = panel_proxy + prefix;
-		// if there is a repetition of // after the first one for https://
-		if(plus_prefix.indexOf(`//`, 8) !== -1){
-			plus_prefix = plus_prefix.replaceAll('/'+prefix, prefix);
-		}
-		return plus_prefix;
+		return (panel_proxy + prefix)
+			.replace(/([^:]\/)\/+/g, "$1"); // remove double slash
 	}
 	const panel_protocol = get(`panel_protocol`);
 	const panel_domain = get(`panel_domain`);
 	const panel_port = get(`panel_port`);
-	return `${panel_protocol}://${panel_domain}:${panel_port}${prefix}`;
+	return `${panel_protocol}://${panel_domain}:${panel_port}${prefix}`
+		.replace(/([^:]\/)\/+/g, "$1"); // remove double slash
 }
 
 // export function get_service_url():string{

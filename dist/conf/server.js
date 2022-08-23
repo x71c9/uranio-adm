@@ -66,17 +66,14 @@ function _build_service_url() {
     const service_proxy = get(`service_proxy`);
     const prefix = get(`prefix_api`);
     if (typeof service_proxy === 'string' && service_proxy) {
-        let plus_prefix = service_proxy + prefix;
-        // if there is a repetition of // after the first one for https://
-        if (plus_prefix.indexOf(`//`, 8) !== -1) {
-            plus_prefix = plus_prefix.replaceAll('/' + prefix, prefix);
-        }
-        return plus_prefix;
+        return (service_proxy + prefix)
+            .replace(/([^:]\/)\/+/g, "$1"); // remove double slash
     }
     const service_protocol = get(`service_protocol`);
     const service_domain = get(`service_domain`);
     const service_port = get(`service_port`);
-    return `${service_protocol}://${service_domain}:${service_port}${prefix}`;
+    return `${service_protocol}://${service_domain}:${service_port}${prefix}`
+        .replace(/([^:]\/)\/+/g, "$1"); // remove double slash
 }
 // export function get_service_url():string{
 // 	const prefix = get(`prefix_api`);
