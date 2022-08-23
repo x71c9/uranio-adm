@@ -51,11 +51,14 @@ export function set_service_url(url:string){
  * Authentication SameSite cookies to work.
  */
 function _build_panel_proxied_service_url():string{
+	const prefix = get(`prefix_api`);
 	const panel_proxy = get(`panel_api_proxy`);
 	if(typeof panel_proxy === 'string' && panel_proxy){
-		return panel_proxy;
+		const final_slash =
+			(panel_proxy.charAt(panel_proxy.length-1) === '/') ?
+			'' : '/';
+		return panel_proxy + final_slash + prefix;
 	}
-	const prefix = get(`prefix_api`);
 	const panel_protocol = get(`panel_protocol`);
 	const panel_domain = get(`panel_domain`);
 	const panel_port = get(`panel_port`);

@@ -49,10 +49,13 @@ export function set_service_url(url:string){
  */
 function _build_service_url():string{
 	const service_proxy = get(`service_proxy`);
-	if(typeof service_proxy === 'string' && service_proxy){
-		return service_proxy;
-	}
 	const prefix = get(`prefix_api`);
+	if(typeof service_proxy === 'string' && service_proxy){
+		const final_slash =
+			(service_proxy.charAt(service_proxy.length-1) === '/') ?
+			'' : '/';
+		return service_proxy + final_slash + prefix;
+	}
 	const service_protocol = get(`service_protocol`);
 	const service_domain = get(`service_domain`);
 	const service_port = get(`service_port`);
