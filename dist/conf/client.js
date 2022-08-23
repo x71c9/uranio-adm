@@ -68,9 +68,12 @@ function _build_panel_proxied_service_url() {
     const prefix = get(`prefix_api`);
     const panel_proxy = get(`panel_api_proxy`);
     if (typeof panel_proxy === 'string' && panel_proxy) {
-        const final_slash = (panel_proxy.charAt(panel_proxy.length - 1) === '/') ?
-            '' : '/';
-        return panel_proxy + final_slash + prefix;
+        let plus_prefix = panel_proxy + prefix;
+        // if there is a repetition of // after the first one for https://
+        if (plus_prefix.indexOf(`//`, 8) !== -1) {
+            plus_prefix = plus_prefix.replaceAll('/' + prefix, prefix);
+        }
+        return plus_prefix;
     }
     const panel_protocol = get(`panel_protocol`);
     const panel_domain = get(`panel_domain`);
