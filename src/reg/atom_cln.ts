@@ -6,7 +6,7 @@
 
 import trx_client from 'uranio-trx/client';
 
-import * as types from '../client/types';
+import * as types from '../cln/types';
 
 export function atom(
 	atom_definition: types.Book.Definition,

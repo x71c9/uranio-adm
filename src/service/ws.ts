@@ -13,7 +13,7 @@ if(result.error){
 	throw result.error;
 }
 
-export * from '../server/register';
+export * from '../srv/register';
 
 import uranio from '../server';
 uranio.init();
@@ -21,4 +21,4 @@ uranio.init();
 const service = uranio.api.service.create();
 service.listen();
 
-export * from '../server/delta/index';
+export * from '../srv/delta/index';

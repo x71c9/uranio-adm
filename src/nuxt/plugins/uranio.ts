@@ -1,5 +1,5 @@
 
-export * from '../../client/register';
+export * from '../../cln/register';
 
 import {urn_log} from 'urn-lib';
 urn_log.init({

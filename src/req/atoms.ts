@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import * as types from '../client/types';
+import * as types from '../cln/types';
 
 export const required_atoms = {
 	_setting:{

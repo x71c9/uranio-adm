@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.set_client_env = exports.set = exports.get_all = exports.get = exports.is_production = void 0;
 const urn_lib_1 = require("urn-lib");
 const client_1 = __importDefault(require("uranio-trx/client"));
-const default_env_1 = require("../client/default_env");
+const default_env_1 = require("../cln/default_env");
 const urn_ctx = urn_lib_1.urn_context.create(default_env_1.adm_client_env, is_production(), 'ADM:ENV:CLIENT');
 function is_production() {
     return client_1.default.env.is_production();

@@ -8,9 +8,9 @@ import {urn_context} from 'urn-lib';
 
 import urn_trx_client from 'uranio-trx/client';
 
-import {adm_client_config} from '../client/default_conf';
+import {adm_client_config} from '../cln/default_conf';
 
-import {ClientConfiguration} from '../client/types';
+import {ClientConfiguration} from '../cln/types';
 
 import * as env from '../env/client';
 

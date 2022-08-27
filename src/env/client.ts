@@ -8,7 +8,7 @@ import {urn_context} from 'urn-lib';
 
 import trx_client from 'uranio-trx/client';
 
-import {adm_client_env} from '../client/default_env';
+import {adm_client_env} from '../cln/default_env';
 
 import {ClientEnvironment} from '../typ/env_cln';
 

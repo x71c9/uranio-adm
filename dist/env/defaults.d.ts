@@ -3,5 +3,5 @@
  *
  * @packageDocumentation
  */
-import { Environment } from '../server/types';
+import { Environment } from '../srv/types';
 export declare const adm_env: Required<Environment>;

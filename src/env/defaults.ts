@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import {Environment} from '../server/types';
+import {Environment} from '../srv/types';
 
 import trx from 'uranio-trx';
 

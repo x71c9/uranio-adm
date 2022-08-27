@@ -3,5 +3,5 @@
  *
  * @packageDocumentation
  */
-import * as types from '../server/types';
+import * as types from '../srv/types';
 export declare function get(): types.Book;

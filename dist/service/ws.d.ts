@@ -4,5 +4,5 @@
  *
  * @packageDocumentation
  */
-export * from '../server/register';
-export * from '../server/delta/index';
+export * from '../srv/register';
+export * from '../srv/delta/index';
