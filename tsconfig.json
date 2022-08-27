@@ -44,7 +44,7 @@
 		"src/dev.ts",
 		"src/server.ts",
 		"src/client.ts",
-		"src/server/generate.ts",
+		"src/srv/generate.ts",
 		"src/service/ws.ts",
 		"src/panel/index.ts",
 		"src/panel/nuxt.config.js",

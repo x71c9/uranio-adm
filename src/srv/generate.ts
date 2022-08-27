@@ -27,7 +27,7 @@ uranio.init({
 
 import * as util from '../util/server';
 
-import {adm_client_config} from '../client/default_conf';
+import {adm_client_config} from '../cln/default_conf';
 
 let urn_command = 'all';
 
