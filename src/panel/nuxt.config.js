@@ -105,11 +105,11 @@ export default {
 	alias: {
 		'uranio/client': resolve(__dirname, '../../src/client'),
 		'uranio-trx/client': resolve(__dirname, '../../../uranio-trx/dist/client'),
-		'uranio-trx/client/types': resolve(__dirname, '../../../uranio-trx/dist/cln/types'),
+		'uranio-trx/cln/types': resolve(__dirname, '../../../uranio-trx/dist/cln/types'),
 		'uranio-api/client': resolve(__dirname, '../../../uranio-api/dist/client'),
-		'uranio-api/client/types': resolve(__dirname, '../../../uranio-api/dist/cln/types'),
+		'uranio-api/cln/types': resolve(__dirname, '../../../uranio-api/dist/cln/types'),
 		'uranio-core/client': resolve(__dirname, '../../../uranio-core/dist/client'),
-		'uranio-core/client/types': resolve(__dirname, '../../../uranio-core/dist/cln/types'),
+		'uranio-core/cln/types': resolve(__dirname, '../../../uranio-core/dist/cln/types'),
 	},
 	env: {
 		// URN_CLIENT_FETCH: process.env.URN_CLIENT_FETCH || 'axios',

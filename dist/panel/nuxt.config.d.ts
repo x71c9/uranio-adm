@@ -37,11 +37,11 @@ declare namespace _default {
     const alias: {
         'uranio/client': string;
         'uranio-trx/client': string;
-        'uranio-trx/client/types': string;
+        'uranio-trx/cln/types': string;
         'uranio-api/client': string;
-        'uranio-api/client/types': string;
+        'uranio-api/cln/types': string;
         'uranio-core/client': string;
-        'uranio-core/client/types': string;
+        'uranio-core/cln/types': string;
     };
     namespace env {
         const URN_LOG_LEVEL: string | urn_log.LogLevel;
