@@ -12,10 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.client_toml = void 0;
 exports.client_toml = {
     panel_protocol: "https",
-    dev_panel_protocol: "https",
     panel_domain: "localhost",
-    dev_panel_domain: "localhost",
     panel_port: 4444,
+    dev_panel_protocol: "https",
+    dev_panel_domain: "localhost",
     dev_panel_port: 4444,
     dev_log_debug_info: false,
     dev_log_color: true,

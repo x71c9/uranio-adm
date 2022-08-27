@@ -12,10 +12,10 @@ import {ClientConfiguration} from './types';
 
 export const client_toml:Partial<ClientConfiguration> = {
 	panel_protocol: "https",
-	dev_panel_protocol: "https",
 	panel_domain: "localhost",
-	dev_panel_domain: "localhost",
 	panel_port: 4444,
+	dev_panel_protocol: "https",
+	dev_panel_domain: "localhost",
 	dev_panel_port: 4444,
 	dev_log_debug_info: false,
 	dev_log_color: true,

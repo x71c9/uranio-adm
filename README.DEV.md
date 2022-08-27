@@ -7,7 +7,7 @@ yarn install
 Copy `sample.env` to `.env` and edit its variable with you local environment.
 
 Then in the root foler:
-```
+```bash
 yarn build
 yarn restart
 yarn dev

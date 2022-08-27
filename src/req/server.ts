@@ -19,5 +19,5 @@ export function get():types.Book{
 	return {
 		...trx.required.get(),
 		...required_atoms
-	};
+	} as types.Book;
 }

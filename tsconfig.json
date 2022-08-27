@@ -25,11 +25,11 @@
 		"paths": {
 			"nuxt": ["./src/panel/types/nuxt-shim.d.ts"],
 			"uranio": ["./src/server.ts"],
-			"uranio/types": ["./src/server/types.ts"],
+			"uranio/types": ["./src/srv/types.ts"],
 			"uranio/client": ["./src/client.ts"],
-			"uranio/client/types": ["./src/client/types.ts"]
+			"uranio/client/types": ["./src/cln/types.ts"]
 		},
-		"skipLibCheck": false,
+		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
 		"strictNullChecks": true,

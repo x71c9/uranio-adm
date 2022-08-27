@@ -45,7 +45,7 @@ __exportStar(require("./register"), exports);
 const uranio = __importStar(require("./main"));
 uranio.init({
     connect_on_init: false,
-    superuser_create_on_init: false,
+    // superuser_create_on_init: false,
     log_debug_info: false,
     dev_log_debug_info: false
 });

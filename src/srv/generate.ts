@@ -20,7 +20,7 @@ export * from './register';
 import * as uranio from './main';
 uranio.init({
 	connect_on_init: false,
-	superuser_create_on_init: false,
+	// superuser_create_on_init: false,
 	log_debug_info: false,
 	dev_log_debug_info: false
 });

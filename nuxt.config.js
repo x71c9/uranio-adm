@@ -14,11 +14,27 @@ export default {
 	alias: {
 		'uranio/client': resolve(__dirname, './src/client'),
 		'uranio-trx/client': resolve(__dirname, './node_modules/uranio-trx/dist/client'),
-		'uranio-trx/client/types': resolve(__dirname, './node_modules/uranio-trx/dist/cln/types'),
+		'uranio-trx/cln/types': resolve(__dirname, './node_modules/uranio-trx/dist/cln/types'),
 		'uranio-api/client': resolve(__dirname, './node_modules/uranio-api/dist/client'),
-		'uranio-api/client/types': resolve(__dirname, './node_modules/uranio-api/dist/cln/types'),
+		'uranio-api/cln/types': resolve(__dirname, './node_modules/uranio-api/dist/cln/types'),
 		'uranio-core/client': resolve(__dirname, './node_modules/uranio-core/dist/client'),
-		'uranio-core/client/types': resolve(__dirname, './node_modules/uranio-core/dist/cln/types'),
+		'uranio-core/cln/types': resolve(__dirname, './node_modules/uranio-core/dist/cln/types'),
+	},
+	build: {
+		extend(config) {
+			// config.resolve.alias['uranio/client'] = resolve(__dirname, './src/client')
+			// config.resolve.alias['uranio-trx/client'] = resolve(__dirname, './node_modules/uranio-trx/src/client')
+			// config.resolve.alias['uranio-trx/client/types'] = resolve(__dirname, './node_modules/uranio-trx/src/cln/types')
+			// config.resolve.alias['uranio-api/client'] = resolve(__dirname, './node_modules/uranio-api/src/client')
+			// config.resolve.alias['uranio-api/client/types'] = resolve(__dirname, './node_modules/uranio-api/src/cln/types')
+			// config.resolve.alias['uranio-core/client'] = resolve(__dirname, './node_modules/uranio-core/src/client')
+			// config.resolve.alias['uranio-core/client/types'] = resolve(__dirname, './node_modules/uranio-core/src/cln/types')
+			// console.log(config.resolve.alias);
+		},
+		splitChunks: {
+			layouts: true,
+			pages: true,
+		}
 	},
 	env: {
 		// URN_CLIENT_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
@@ -67,12 +83,6 @@ export default {
 	modules:[
 		'@nuxtjs/proxy'
 	],
-	build: {
-		splitChunks: {
-			layouts: true,
-			pages: true,
-		}
-	},
 	buildDir: './.nuxt',
 	buildModules: [
 		'@nuxt/typescript-build',
