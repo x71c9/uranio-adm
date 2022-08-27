@@ -5,15 +5,15 @@
 	"description": "Uranio Admin",
 	"main": "dist/index.js",
 	"bin": {
-		"uranio-generate-adm": "dist/server/generate.js",
+		"uranio-generate-adm": "dist/srv/generate.js",
 		"uranio-webservice-adm": "dist/service/ws.js",
 		"uranio-panel-adm": "dist/panel/index.js"
 	},
 	"exports": {
 		".": "./dist/server.js",
-		"./types": "./dist/server/types.js",
+		"./types": "./dist/srv/types.js",
 		"./client": "./dist/client.js",
-		"./client/types": "./dist/client/types.js"
+		"./client/types": "./dist/cln/types.js"
 	},
 	"typesVersions": {
 		"*": {
@@ -21,13 +21,13 @@
 				"dist/server.d.ts"
 			],
 			"types": [
-				"dist/server/types.d.ts"
+				"dist/srv/types.d.ts"
 			],
 			"client": [
 				"dist/client.d.ts"
 			],
 			"client/types": [
-				"dist/client/types.d.ts"
+				"dist/cln/types.d.ts"
 			]
 		}
 	},
