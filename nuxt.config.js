@@ -14,11 +14,11 @@ export default {
 	alias: {
 		'uranio/client': resolve(__dirname, './src/client'),
 		'uranio-trx/client': resolve(__dirname, './node_modules/uranio-trx/dist/client'),
-		'uranio-trx/client/types': resolve(__dirname, './node_modules/uranio-trx/dist/client/types'),
+		'uranio-trx/client/types': resolve(__dirname, './node_modules/uranio-trx/dist/cln/types'),
 		'uranio-api/client': resolve(__dirname, './node_modules/uranio-api/dist/client'),
-		'uranio-api/client/types': resolve(__dirname, './node_modules/uranio-api/dist/client/types'),
+		'uranio-api/client/types': resolve(__dirname, './node_modules/uranio-api/dist/cln/types'),
 		'uranio-core/client': resolve(__dirname, './node_modules/uranio-core/dist/client'),
-		'uranio-core/client/types': resolve(__dirname, './node_modules/uranio-core/dist/client/types'),
+		'uranio-core/client/types': resolve(__dirname, './node_modules/uranio-core/dist/cln/types'),
 	},
 	env: {
 		// URN_CLIENT_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?

@@ -19,7 +19,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = require("path");
 const urn_lib_1 = require("urn-lib");
-const toml_1 = require("../client/toml");
+const toml_1 = require("../cln/toml");
 const is_production = process.env.NODE_ENV === 'production';
 const panel_protocol = (!is_production && toml_1.client_toml.dev_panel_protocol) ?
     toml_1.client_toml.dev_panel_protocol : toml_1.client_toml.panel_protocol;
@@ -97,11 +97,11 @@ exports.default = {
     alias: {
         'uranio/client': (0, path_1.resolve)(__dirname, '../../src/client'),
         'uranio-trx/client': (0, path_1.resolve)(__dirname, '../../../uranio-trx/dist/client'),
-        'uranio-trx/client/types': (0, path_1.resolve)(__dirname, '../../../uranio-trx/dist/client/types'),
+        'uranio-trx/client/types': (0, path_1.resolve)(__dirname, '../../../uranio-trx/dist/cln/types'),
         'uranio-api/client': (0, path_1.resolve)(__dirname, '../../../uranio-api/dist/client'),
-        'uranio-api/client/types': (0, path_1.resolve)(__dirname, '../../../uranio-api/dist/client/types'),
+        'uranio-api/client/types': (0, path_1.resolve)(__dirname, '../../../uranio-api/dist/cln/types'),
         'uranio-core/client': (0, path_1.resolve)(__dirname, '../../../uranio-core/dist/client'),
-        'uranio-core/client/types': (0, path_1.resolve)(__dirname, '../../../uranio-core/dist/client/types'),
+        'uranio-core/client/types': (0, path_1.resolve)(__dirname, '../../../uranio-core/dist/cln/types'),
     },
     env: {
         // URN_CLIENT_FETCH: process.env.URN_CLIENT_FETCH || 'axios',

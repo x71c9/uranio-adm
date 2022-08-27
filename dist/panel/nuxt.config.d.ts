@@ -11,8 +11,8 @@ declare namespace _default {
         const exclude: string[];
     }
     namespace server {
-        export const host: any;
-        export const port: any;
+        export const host: string;
+        export const port: number;
         export { https };
     }
     const proxy: {
