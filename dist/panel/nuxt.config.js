@@ -18,7 +18,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = require("path");
-const urn_lib_1 = require("urn-lib");
+const uranio_utils_1 = require("uranio-utils");
 const toml_1 = require("../cln/toml");
 const is_production = process.env.NODE_ENV === 'production';
 const panel_protocol = (!is_production && toml_1.client_toml.dev_panel_protocol) ?
@@ -113,7 +113,7 @@ exports.default = {
         // 	urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG,
         // URN_DEV_LOG_LEVEL: (process.env.NODE_ENV === 'production') ?
         // 	urn_log.LogLevel.ERROR : urn_log.LogLevel.FUNCTION_DEBUG
-        URN_LOG_LEVEL: process.env.URN_LOG_LEVEL || urn_lib_1.urn_log.LogLevel.ERROR
+        URN_LOG_LEVEL: process.env.URN_LOG_LEVEL || uranio_utils_1.urn_log.LogLevel.ERROR
     },
     components: [
         {

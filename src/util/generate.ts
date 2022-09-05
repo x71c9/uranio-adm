@@ -8,7 +8,7 @@
 
 import trx from 'uranio-trx';
 
-import {urn_log} from 'urn-lib';
+import {urn_log} from 'uranio-utils';
 
 // import * as types from '../server/types';
 

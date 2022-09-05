@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import {urn_context} from 'urn-lib';
+import {urn_context} from 'uranio-utils';
 
 import core from 'uranio-core';
 

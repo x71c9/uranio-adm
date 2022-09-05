@@ -16,7 +16,7 @@ import fs from 'fs';
 
 import {resolve} from 'path';
 
-import {urn_log} from 'urn-lib';
+import {urn_log} from 'uranio-utils';
 
 import {client_toml} from '../cln/toml';
 

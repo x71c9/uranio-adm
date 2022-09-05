@@ -1,7 +1,7 @@
 
 import Vue from 'vue';
 
-import {urn_log, urn_response} from "urn-lib";
+import {urn_log, urn_response} from "uranio-utils";
 
 import uranio from 'uranio/client';
 

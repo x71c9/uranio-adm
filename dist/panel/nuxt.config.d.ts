@@ -86,4 +86,4 @@ declare const https: {
     cert?: undefined;
     key?: undefined;
 };
-import { urn_log } from "urn-lib";
+import { urn_log } from "uranio-utils";

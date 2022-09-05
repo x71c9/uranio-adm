@@ -1,7 +1,7 @@
 
 import mixins from 'vue-typed-mixins';
 
-import { urn_log } from 'urn-lib';
+import { urn_log } from 'uranio-utils';
 
 // import { atom_book } from "uranio-books/atom";
 

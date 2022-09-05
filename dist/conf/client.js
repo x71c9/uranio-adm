@@ -32,11 +32,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.set_service_url = exports.get_service_url = exports.get_all = exports.set = exports.get = void 0;
-const urn_lib_1 = require("urn-lib");
+const uranio_utils_1 = require("uranio-utils");
 const client_1 = __importDefault(require("uranio-trx/client"));
 const default_conf_1 = require("../cln/default_conf");
 const env = __importStar(require("../env/client"));
-const urn_ctx = urn_lib_1.urn_context.create(default_conf_1.adm_client_config, env.is_production(), 'ADM:CONF:CLIENT');
+const urn_ctx = uranio_utils_1.urn_context.create(default_conf_1.adm_client_config, env.is_production(), 'ADM:CONF:CLIENT');
 set_service_url(_build_panel_proxied_service_url());
 function get(param_name) {
     return urn_ctx.get(param_name);

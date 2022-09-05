@@ -2,7 +2,7 @@
 
 import { ActionTree, MutationTree, ActionContext } from 'vuex';
 
-import {urn_log} from 'urn-lib';
+import {urn_log} from 'uranio-utils';
 
 // import uranio from 'uranio/client';
 

@@ -16,15 +16,15 @@ const https_1 = __importDefault(require("https"));
 const chokidar_1 = __importDefault(require("chokidar"));
 const express_1 = __importDefault(require("express"));
 const nuxt_1 = require("nuxt");
-const urn_lib_1 = require("urn-lib");
+const uranio_utils_1 = require("uranio-utils");
 const nuxt_config_1 = __importDefault(require("./nuxt.config"));
 const nuxt = new nuxt_1.Nuxt(nuxt_config_1.default);
 async function build(dev = false) {
-    urn_lib_1.urn_log.debug(`Uranio panel building started...`);
+    uranio_utils_1.urn_log.debug(`Uranio panel building started...`);
     await nuxt.ready();
     const builder = new nuxt_1.Builder(nuxt);
     await builder.build();
-    urn_lib_1.urn_log.debug(`Uranio panel build completed.`);
+    uranio_utils_1.urn_log.debug(`Uranio panel build completed.`);
     if (dev === false) {
         process.exit(0);
     }
@@ -32,16 +32,16 @@ async function build(dev = false) {
 }
 exports.build = build;
 async function generate() {
-    urn_lib_1.urn_log.debug(`Uranio panel generating started...`);
+    uranio_utils_1.urn_log.debug(`Uranio panel generating started...`);
     await nuxt.ready();
     const builder = new nuxt_1.Builder(nuxt);
     const generator = new nuxt_1.Generator(nuxt, builder);
     await generator.generate({ build: true, init: false });
-    urn_lib_1.urn_log.debug(`Uranio panel generating completed.`);
+    uranio_utils_1.urn_log.debug(`Uranio panel generating completed.`);
 }
 exports.generate = generate;
 async function dev() {
-    urn_lib_1.urn_log.debug(`Uranio panel dev started...`);
+    uranio_utils_1.urn_log.debug(`Uranio panel dev started...`);
     await nuxt.ready();
     const builder = await build(true);
     await start(true);
@@ -51,17 +51,17 @@ async function dev() {
     ];
     chokidar_1.default.watch(watch_paths, { ignoreInitial: true })
         .on('ready', () => {
-        urn_lib_1.urn_log.debug(`Uranio panel dev watching ready...`);
+        uranio_utils_1.urn_log.debug(`Uranio panel dev watching ready...`);
     })
         .on('all', async (_event, _path) => {
-        urn_lib_1.urn_log.debug(`Uranio panel dev watching [${_event}] [${_path}]`);
+        uranio_utils_1.urn_log.debug(`Uranio panel dev watching [${_event}] [${_path}]`);
         builder.build();
     });
 }
 exports.dev = dev;
 async function start(dev = false) {
     var _a, _b;
-    urn_lib_1.urn_log.debug(`Uranio panel starting...`);
+    uranio_utils_1.urn_log.debug(`Uranio panel starting...`);
     // await build();
     if (dev === false) {
         await generate();
@@ -94,8 +94,8 @@ async function start(dev = false) {
     }
     // server.listen(config.server.port, config.server.host, () => {
     server.listen(nuxt_config_1.default.server.port, () => {
-        urn_lib_1.urn_log.debug(`Server listening on port ${nuxt_config_1.default.server.port}...`);
-        urn_lib_1.urn_log.debug(`Connect to ${protocol}://${nuxt_config_1.default.server.host}:${nuxt_config_1.default.server.port}`);
+        uranio_utils_1.urn_log.debug(`Server listening on port ${nuxt_config_1.default.server.port}...`);
+        uranio_utils_1.urn_log.debug(`Connect to ${protocol}://${nuxt_config_1.default.server.host}:${nuxt_config_1.default.server.port}`);
         _listen_log(protocol, nuxt_config_1.default.server.host, nuxt_config_1.default.server.port);
     });
 }
@@ -107,10 +107,10 @@ function _listen_log(prot, host, port) {
     const pros = Array(prot.length).fill(' ').join('');
     const hoss = Array(host.length).fill(' ').join('');
     const pors = Array(port.toString().length).fill(' ').join('');
-    urn_lib_1.urn_log.info(`╭────────────────────${prol}───${hosl}─${porl}──╮`);
-    urn_lib_1.urn_log.info(`│                    ${pros}   ${hoss} ${pors}  │`);
-    urn_lib_1.urn_log.info(`│ Panel listening on ${prot}://${host}:${port}  │`);
-    urn_lib_1.urn_log.info(`│                    ${pros}   ${hoss} ${pors}  │`);
-    urn_lib_1.urn_log.info(`╰────────────────────${prol}───${hosl}─${porl}──╯`);
+    uranio_utils_1.urn_log.info(`╭────────────────────${prol}───${hosl}─${porl}──╮`);
+    uranio_utils_1.urn_log.info(`│                    ${pros}   ${hoss} ${pors}  │`);
+    uranio_utils_1.urn_log.info(`│ Panel listening on ${prot}://${host}:${port}  │`);
+    uranio_utils_1.urn_log.info(`│                    ${pros}   ${hoss} ${pors}  │`);
+    uranio_utils_1.urn_log.info(`╰────────────────────${prol}───${hosl}─${porl}──╯`);
 }
 //# sourceMappingURL=panel.js.map

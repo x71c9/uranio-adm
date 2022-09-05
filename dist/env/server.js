@@ -9,10 +9,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.set_env = exports.set = exports.get_all = exports.get = exports.is_production = void 0;
-const urn_lib_1 = require("urn-lib");
+const uranio_utils_1 = require("uranio-utils");
 const uranio_core_1 = __importDefault(require("uranio-core"));
 const defaults_1 = require("./defaults");
-const urn_ctx = urn_lib_1.urn_context.create(defaults_1.adm_env, is_production(), 'ADM:ENV');
+const urn_ctx = uranio_utils_1.urn_context.create(defaults_1.adm_env, is_production(), 'ADM:ENV');
 function is_production() {
     return uranio_core_1.default.env.is_production();
 }

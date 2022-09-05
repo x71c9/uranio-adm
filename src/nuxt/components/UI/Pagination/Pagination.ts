@@ -1,7 +1,7 @@
 
 import Vue from 'vue';
 
-// import {urn_util} from 'urn-lib';
+// import {urn_util} from 'uranio-utils';
 
 import {PageData, PageQuery, get_url, query_object} from '../../../pages/urn-admin/_slug';
 

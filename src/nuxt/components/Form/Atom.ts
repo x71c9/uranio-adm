@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import {urn_util, urn_log, urn_exception} from "urn-lib";
+import {urn_util, urn_log, urn_exception} from "uranio-utils";
 
 import uranio from 'uranio/client';
 

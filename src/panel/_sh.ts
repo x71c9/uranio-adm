@@ -17,7 +17,7 @@ import * as cp from 'child_process';
 
 import minimist from 'minimist';
 
-import {urn_log} from 'urn-lib';
+import {urn_log} from 'uranio-utils';
 urn_log.init({
 	log_level: urn_log.LogLevel.DEBUG,
 	debug_info: false

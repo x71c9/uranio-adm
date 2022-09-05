@@ -5,7 +5,7 @@ import { Route } from 'vue-router';
 // @ts - ignore
 import uranio from 'uranio/client';
 
-import { urn_util, urn_response, urn_log } from "urn-lib";
+import { urn_util, urn_response, urn_log } from "uranio-utils";
 
 import { empty_molecule, clean_atmo_for_multiple_update } from '../../utils/index';
 

@@ -1,7 +1,7 @@
 
 import Vue from 'vue';
 
-import {urn_log, urn_exception} from 'urn-lib';
+import {urn_log, urn_exception} from 'uranio-utils';
 const urn_exc = urn_exception.init(`NUXT_UPLOADER`, `Nuxt Uploader`);
 
 import uranio from 'uranio/client';

@@ -18,7 +18,7 @@ import express from 'express';
 
 import {Nuxt, Builder, Generator} from 'nuxt';
 
-import {urn_log} from 'urn-lib';
+import {urn_log} from 'uranio-utils';
 
 import config from './nuxt.config';
 

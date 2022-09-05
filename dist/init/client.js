@@ -32,7 +32,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.init = void 0;
-const urn_lib_1 = require("urn-lib");
+const uranio_utils_1 = require("uranio-utils");
 const client_1 = __importDefault(require("uranio-trx/client"));
 const register = __importStar(require("../reg/client"));
 const required = __importStar(require("../req/client"));
@@ -59,8 +59,8 @@ function init(config, register_required = true) {
     }
     _validate_adm_client_variables();
     _validate_adm_client_book();
-    log.init(urn_lib_1.urn_log);
-    urn_lib_1.urn_log.trace(`Uranio adm client initialization completed.`);
+    log.init(uranio_utils_1.urn_log);
+    uranio_utils_1.urn_log.trace(`Uranio adm client initialization completed.`);
 }
 exports.init = init;
 function _register_required_atoms() {

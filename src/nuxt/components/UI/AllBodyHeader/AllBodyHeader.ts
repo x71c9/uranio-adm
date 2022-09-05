@@ -2,7 +2,7 @@ import Vue from "vue";
 
 import uranio from 'uranio/client';
 
-import {urn_util} from "urn-lib";
+import {urn_util} from "uranio-utils";
 
 import {PageData, PageQuery, query_object} from '../../../pages/urn-admin/_slug';
 

@@ -26,7 +26,7 @@ if(result.error){
 
 import minimist from 'minimist';
 
-import {urn_log} from 'urn-lib';
+import {urn_log} from 'uranio-utils';
 urn_log.init({
 	log_level: 4,
 	debug_info: false

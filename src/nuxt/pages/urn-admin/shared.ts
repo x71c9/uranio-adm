@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import { urn_response, urn_log } from "urn-lib";
+import { urn_response, urn_log } from "uranio-utils";
 
 type Data = {
 	message: string

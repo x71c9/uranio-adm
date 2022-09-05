@@ -49,8 +49,8 @@ if (result.error) {
     throw result.error;
 }
 const minimist_1 = __importDefault(require("minimist"));
-const urn_lib_1 = require("urn-lib");
-urn_lib_1.urn_log.init({
+const uranio_utils_1 = require("uranio-utils");
+uranio_utils_1.urn_log.init({
     log_level: 4,
     debug_info: false
 });
@@ -75,7 +75,7 @@ switch (args._[0]) {
         break;
     }
     default: {
-        urn_lib_1.urn_log.error(`Missing command. Run with one of the following: [start, build, generate, dev].`);
+        uranio_utils_1.urn_log.error(`Missing command. Run with one of the following: [start, build, generate, dev].`);
     }
 }
 //# sourceMappingURL=index.js.map

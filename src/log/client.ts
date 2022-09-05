@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import {urn_log} from 'urn-lib';
+import {urn_log} from 'uranio-utils';
 
 import * as conf from '../conf/client';
 
