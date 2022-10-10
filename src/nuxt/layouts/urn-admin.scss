@@ -476,6 +476,7 @@ body.layout-urn-admin {
 		left: 44px;
 		/* background-color: var(--licorice); */
 		background-color: var(--eerie-black);
+		border-bottom: 1px solid var(--white-5);
 	}
 	.ui-read-only-table th.sticky,
 	.ui-read-only-table td.sticky {
@@ -491,6 +492,7 @@ body.layout-urn-admin {
 		vertical-align: middle;
 		/* background-color: var(--licorice); */
 		background-color: var(--eerie-black);
+		// border-bottom: 1px solid var(--white-5);
 	}
 	.ui-all-table th,
 	.ui-all-table td {
@@ -499,7 +501,7 @@ body.layout-urn-admin {
 		/* padding: var(--padx05); */
 		white-space: nowrap;
 		border-bottom: 1px solid var(--white-5);
-		height: 32px;
+		// height: 32px;
 		line-height: 32px;
 		vertical-align: middle;
 		color: var(--white-4);
