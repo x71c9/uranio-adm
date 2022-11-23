@@ -57,7 +57,7 @@
 	},
 	"devDependencies": {
 		"concurrently": "^7.0.0",
-		"uranio-adm-dep-dev": "git+ssh://git@github.com/x71c9/uranio-adm-dep-dev.git#master"
+		"uranio-adm-dep-dev": "https://github.com/x71c9/uranio-adm-dep-dev.git#master"
 	},
 	"dependencies": {
 		"@nuxt/cli": "^2.15.8",
@@ -75,11 +75,11 @@
 		"minimist": "^1.2.5",
 		"nuxt": "^2.15.8",
 		"saslprep": "^1.0.3",
-		"uranio-api": "git+ssh://git@github.com/x71c9/uranio-api.git#master",
-		"uranio-core": "git+ssh://git@github.com/x71c9/uranio-core.git#master",
-		"uranio-schema": "ssh://git@github.com/x71c9/uranio-schema.git#master",
-		"uranio-trx": "git+ssh://git@github.com/x71c9/uranio-trx.git#master",
-		"uranio-utils": "git+ssh://git@github.com/x71c9/uranio-utils.git#master",
+		"uranio-api": "https://github.com/x71c9/uranio-api.git#master",
+		"uranio-core": "https://github.com/x71c9/uranio-core.git#master",
+		"uranio-schema": "https://github.com/x71c9/uranio-schema.git#master",
+		"uranio-trx": "https://github.com/x71c9/uranio-trx.git#master",
+		"uranio-utils": "https://github.com/x71c9/uranio-utils.git#master",
 		"vuedraggable": "^2.24.3"
 	}
 }
